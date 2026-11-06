@@ -1,4 +1,6 @@
 /* KARIM SAAB AI LAB — Gemini API Integration */
+const GEMINI_API_KEY = "AQ.Ab8RN6IqPgjaCTNTMdZdelmC8yLkeo6sfhufe091a_o-ga5HEQ";
+
 'use strict';
 (function() {
   const isAr = () => document.documentElement.lang !== 'en';
@@ -10,10 +12,7 @@
       ? 'مرحباً بك! أنا رفيقك الذكي في أرشيف عبدالكريم الصعب. اسألني عن رحلات الدراجة في أوروبا، قمم الجبال، أو مؤلفات الصعب.'
       : 'Welcome! I am your AI guide to Karim Saab’s archive. Ask me about European cycling trips, mountain summits, or books.',
     placeholder: () => isAr() ? 'اكتب سؤالك هنا…' : 'Ask a question…',
-    send: () => isAr() ? 'إرسال' : 'Send',
-    keyPrompt: () => isAr() 
-      ? 'أدخل مفتاح Gemini API المجاني من Google AI Studio للمتابعة:' 
-      : 'Enter your free Gemini API key from Google AI Studio:'
+    send: () => isAr() ? 'إرسال' : 'Send'
   };
 
   function buildContext() {
@@ -59,13 +58,6 @@
     const q = input.value.trim();
     if (!q) return;
 
-    let apiKey = localStorage.getItem('KS_GEMINI_KEY');
-    if (!apiKey) {
-      apiKey = prompt(t.keyPrompt());
-      if (apiKey) localStorage.setItem('KS_GEMINI_KEY', apiKey.trim());
-      else return;
-    }
-
     const uDiv = document.createElement('div');
     uDiv.className = 'ks-msg user';
     uDiv.textContent = q;
@@ -82,7 +74,7 @@
     try {
       const systemInstruction = `أنت المساعد الذكي لموقع المسافر والكاتب عبدالكريم الصعب. أجب دائماً بلطف واختصار ودقة، مستنداً فقط إلى البيانات التالية دون اختلاق أو مبالغة:\n${buildContext()}`;
       
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
