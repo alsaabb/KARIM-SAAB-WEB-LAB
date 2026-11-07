@@ -1,4 +1,4 @@
-/* KARIM SAAB AI LAB — Secure Browser-based Gemini Integration */
+/* KARIM SAAB AI LAB — Smart Auto-Switching Gemini Integration */
 'use strict';
 (function() {
   const isAr = () => document.documentElement.lang !== 'en';
@@ -12,8 +12,8 @@
     placeholder: () => isAr() ? 'اكتب سؤالك هنا…' : 'Ask a question…',
     send: () => isAr() ? 'إرسال' : 'Send',
     needKey: () => isAr() 
-      ? 'يرجى لصق مفتاح Gemini API الجديد للبدء:' 
-      : 'Please paste your new Gemini API key to begin:',
+      ? 'يرجى لصق مفتاح Gemini API للمتابعة:' 
+      : 'Please paste your Gemini API key to proceed:',
     saveKey: () => isAr() ? 'حفظ وتفعيل' : 'Save & Activate'
   };
 
@@ -24,7 +24,7 @@
       let summary = isAr() ? item.summary_ar : item.summary_en;
       return `- ${title}: ${summary}`;
     });
-    return 'قاعدة المعرفة المعتمدة:\n' + entries.slice(0, 40).join('\n');
+    return 'قاعدة المعرفة المعتمدة للرحلات والكتب:\n' + entries.slice(0, 45).join('\n');
   }
 
   const widget = document.createElement('div');
@@ -86,33 +86,57 @@
 
     const bDiv = document.createElement('div');
     bDiv.className = 'ks-msg bot';
-    bDiv.textContent = '… جاري التفكير';
+    bDiv.textContent = '… جاري البحث في الأرشيف';
     msgs.appendChild(bDiv);
     msgs.scrollTop = msgs.scrollHeight;
 
-    try {
-      const systemInstruction = `أنت المساعد الذكي لموقع المسافر والكاتب عبدالكريم الصعب. أجب دائماً بلطف واختصار ودقة، مستنداً فقط إلى البيانات التالية دون اختلاق أو مبالغة:\n${buildContext()}`;
-      
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: `${systemInstruction}\n\nالسؤال: ${q}` }] }]
-        })
-      });
+    // Supported modern Gemini models
+    const candidateModels = [
+      'gemini-2.0-flash',
+      'gemini-2.0-flash-exp',
+      'gemini-2.5-flash',
+      'gemini-1.5-flash-latest'
+    ];
 
-      const data = await response.json();
-      if (data.candidates && data.candidates[0].content) {
-        bDiv.textContent = data.candidates[0].content.parts[0].text;
-      } else if (data.error) {
-        bDiv.innerHTML = `تنبيه من Google: ${data.error.message} <br><button id="ks-reset-key" style="margin-top:6px;padding:4px 8px;background:#d9534f;color:#fff;border:none;border-radius:4px;cursor:pointer;">تغيير المفتاح</button>`;
-        document.getElementById('ks-reset-key').onclick = () => {
-          localStorage.removeItem('KS_GEMINI_KEY');
-          promptKeyInput(q);
-        };
+    let success = false;
+    let lastError = '';
+
+    const systemInstruction = `أنت المساعد الذكي لموقع المسافر والكاتب عبدالكريم الصعب (KARIM SAAB). أجب دائماً بلطف واختصار وبطريقة مشوقة ودقيقة، مستنداً فقط إلى البيانات التالية دون اختلاق:\n${buildContext()}`;
+
+    for (const model of candidateModels) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: `${systemInstruction}\n\nالسؤال: ${q}` }] }]
+          })
+        });
+
+        const data = await response.json();
+        if (data.candidates && data.candidates[0].content) {
+          bDiv.textContent = data.candidates[0].content.parts[0].text;
+          success = true;
+          break;
+        } else if (data.error) {
+          lastError = data.error.message;
+          if (data.error.message.includes('not found') || data.error.code === 404) {
+            continue; // جرب النموذج التالي تلقائياً
+          } else {
+            break;
+          }
+        }
+      } catch (err) {
+        lastError = err.message;
       }
-    } catch (err) {
-      bDiv.textContent = 'حدث خطأ في الاتصال: ' + err.message;
+    }
+
+    if (!success) {
+      bDiv.innerHTML = `تنبيه: ${lastError} <br><button id="ks-reset-key" style="margin-top:6px;padding:4px 8px;background:#d9534f;color:#fff;border:none;border-radius:4px;cursor:pointer;">تغيير المفتاح</button>`;
+      document.getElementById('ks-reset-key').onclick = () => {
+        localStorage.removeItem('KS_GEMINI_KEY');
+        promptKeyInput(q);
+      };
     }
     msgs.scrollTop = msgs.scrollHeight;
   }
