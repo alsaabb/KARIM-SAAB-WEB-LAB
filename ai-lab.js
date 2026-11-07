@@ -1,5 +1,5 @@
 /* KARIM SAAB AI LAB — Gemini API Integration */
-const GEMINI_API_KEY = "AQ.Ab8RN6IqPgjaCTNTMdZdelmC8yLkeo6sfhufe091a_o-ga5HEQ";
+const GEMINI_API_KEY = "AQ.Ab8RN6LA7baJd3DoL4KA2jyqP_vhGRLJ9DFgmE2I4OonGQZ6jw";
 
 'use strict';
 (function() {
@@ -85,11 +85,13 @@ const GEMINI_API_KEY = "AQ.Ab8RN6IqPgjaCTNTMdZdelmC8yLkeo6sfhufe091a_o-ga5HEQ";
       const data = await response.json();
       if (data.candidates && data.candidates[0].content) {
         bDiv.textContent = data.candidates[0].content.parts[0].text;
+      } else if (data.error) {
+        bDiv.textContent = 'تنبيه من Google: ' + data.error.message;
       } else {
-        bDiv.textContent = isAr() ? 'تعذر جلب الإجابة، يرجى التأكد من صلاحية المفتاح.' : 'Could not fetch response, check your API key.';
+        bDiv.textContent = 'تعذر جلب الإجابة، يرجى مراجعة صلاحية المفتاح.';
       }
     } catch (err) {
-      bDiv.textContent = isAr() ? 'حدث خطأ في الاتصال.' : 'Connection error occurred.';
+      bDiv.textContent = 'حدث خطأ في الاتصال: ' + err.message;
     }
     msgs.scrollTop = msgs.scrollHeight;
   }
