@@ -1,0 +1,8 @@
+/* KARIM SAAB V10 Preview — an additive, removable link to the independent KARIM AI assistant */
+.ks-ai-site-link{position:fixed;inset-inline-end:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:140;display:inline-flex;align-items:center;gap:10px;max-width:calc(100vw - 36px);min-height:52px;padding:11px 16px;border-radius:999px;border:1px solid #d4b17b;background:#12283d;color:#fff8ee;text-decoration:none;box-shadow:0 8px 30px rgba(1,10,20,.32);font-size:14px;line-height:1.4;font-weight:700;letter-spacing:0;white-space:nowrap;transition:box-shadow .18s ease,transform .18s ease,background .18s ease}
+.ks-ai-site-link:hover{background:#1a354f;box-shadow:0 10px 34px rgba(1,10,20,.42);transform:translateY(-2px);color:#fff}
+.ks-ai-site-link:focus-visible{outline:3px solid #ebc68c;outline-offset:4px}
+.ks-ai-site-link-symbol{display:inline-grid;place-items:center;border-radius:50%;background:#d9ba86;color:#11283c;min-width:29px;height:29px;font-size:19px;line-height:1}
+.ks-ai-site-link-open{font-family:Arial,sans-serif;color:#d8bb8c;font-size:18px}
+@media(max-width:600px){.ks-ai-site-link{bottom:max(14px,env(safe-area-inset-bottom));padding:9px 13px;min-height:49px;font-size:13px;gap:8px}.ks-ai-site-link-symbol{min-width:27px;height:27px;font-size:17px}}
+@media(prefers-reduced-motion:reduce){.ks-ai-site-link{transition:none}.ks-ai-site-link:hover{transform:none}}
