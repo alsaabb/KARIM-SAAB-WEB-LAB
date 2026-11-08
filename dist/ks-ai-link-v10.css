@@ -6,3 +6,33 @@
 .ks-ai-site-link-open{font-family:Arial,sans-serif;color:#d8bb8c;font-size:18px}
 @media(max-width:600px){.ks-ai-site-link{bottom:max(14px,env(safe-area-inset-bottom));padding:9px 13px;min-height:49px;font-size:13px;gap:8px}.ks-ai-site-link-symbol{min-width:27px;height:27px;font-size:17px}}
 @media(prefers-reduced-motion:reduce){.ks-ai-site-link{transition:none}.ks-ai-site-link:hover{transform:none}}
+
+/* Mobile V10: compact assistant launcher to reduce obstruction of page controls. The full accessible name stays in HTML/JS. */
+@media (max-width:600px) {
+  .ks-ai-site-link {
+    inset-inline-end:max(12px,env(safe-area-inset-right));
+    bottom:max(18px,env(safe-area-inset-bottom));
+    width:50px;
+    min-width:50px;
+    max-width:50px;
+    height:50px;
+    min-height:50px;
+    padding:0;
+    justify-content:center;
+    gap:0;
+    overflow:hidden;
+    border-radius:50%;
+  }
+  #ks-ai-site-link-text,.ks-ai-site-link-open { display:none; }
+  .ks-ai-site-link-symbol {
+    width:32px;
+    min-width:32px;
+    height:32px;
+    font-size:0;
+  }
+  .ks-ai-site-link-symbol::after {
+    content:'AI';
+    font:700 12px/1 Arial,sans-serif;
+    letter-spacing:.1px;
+  }
+}
