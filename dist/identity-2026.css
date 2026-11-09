@@ -1,0 +1,46 @@
+/* KARIM SAAB official identity — 2026-11-09. Preserves V10 routes and assets. */
+:root{
+ --navy:#141414;--deep:#101010;--navy2:#232323;
+ --bronze:#D4AF37;--gold:#D4AF37;--cream:#f7f5ef;
+ --paper:#f7f5ef;--ink:#141414;--muted:#555;--line:#e2dccb
+}
+body{background-color:#f7f5ef;color:#141414}
+.notice-bar{background:#141414;color:#f7f5ef;letter-spacing:.6px;font-size:clamp(9px,.85vw,12px);line-height:1.75;padding:9px 14px}
+.site-header{background:rgba(20,20,20,.98);border-bottom:1px solid rgba(212,175,55,.45)}
+.site-header .brand-word{font:700 clamp(12px,1.13vw,18px)/1.45 'Segoe UI',Tahoma,Arial,sans-serif;letter-spacing:0;color:#f7f5ef;white-space:normal;max-width:255px;text-align:start}
+.site-header .brand-word small,.footer .brand-word small{color:#D4AF37;letter-spacing:.2px;font-size:9px;text-align:start}
+.site-header .brand{flex-shrink:0;min-width:0;max-width:310px;white-space:normal}
+.site-header .brand-symbol{flex:0 0 32px}
+.desktop-nav{gap:10px}
+.desktop-nav .owner-main-nav{font-size:clamp(10px,.83vw,12px);color:#f7f5ef}
+.owner-main-nav.active,.owner-main-nav:hover{color:#D4AF37!important}
+.owner-dropdown-panel,.owner-subgroup-pending,.owner-menu-region,.mobile-nav .owner-dropdown-panel{background:#202020;color:#f7f5ef;border-color:rgba(212,175,55,.32)}
+.owner-subgroup summary:hover,.owner-menu-active:hover,.owner-menu-active:focus-visible{background:#303030!important;color:#D4AF37!important}
+.owner-region-name{background:#252525;color:#D4AF37}
+.owner-deep-link,.owner-menu-leaf,.owner-subgroup summary{color:#f7f5ef}
+.owner-deep-link:hover{color:#D4AF37}
+.search-panel,.mobile-nav,.mobile-nav.open,.footer,.about-section,.page-header{background-color:#141414}
+.btn-gold,.ks-ai-site-link-symbol{background:#D4AF37;color:#141414}
+.about-section p{color:#f7f5ef}
+.footer{color:#f7f5ef}
+.footer .brand-word{font:700 18px/1.5 'Segoe UI',Tahoma,Arial,sans-serif;letter-spacing:0;white-space:normal;text-align:start}
+.official-contact-link{display:inline-flex;padding:8px 0;color:#8a691e;font-weight:700;text-decoration:underline;text-underline-offset:4px;overflow-wrap:anywhere}
+.official-contact-link:hover{color:#141414}
+.ks-ai-site-link{background:#141414;border-color:#D4AF37;color:#f7f5ef}
+@media(max-width:1160px){
+ .site-header .desktop-nav{display:none!important}
+ .site-header .menu-btn{display:flex!important}
+ .site-header .header-wrap{height:70px;gap:9px}
+ .site-header .mobile-nav{display:none;position:absolute;top:70px;inset-inline:0;background:#141414;border-top:1px solid #D4AF37;padding:12px 19px 20px;max-height:calc(100dvh - 92px);overflow-y:auto;box-shadow:0 12px 30px #0005}
+ .site-header .mobile-nav.open{display:block}
+ .site-header .mobile-nav .progressive-menu-rows{max-height:none}
+}
+@media(max-width:560px){
+ .site-header .brand-word{font-size:11px;max-width:180px}
+ .site-header .brand-word small{font-size:7px}
+ .site-header .brand-symbol{flex-basis:24px;width:24px;height:24px}
+ .site-header .header-actions{gap:4px}
+ .site-header #lang-toggle{font-size:10px;padding:0 5px;min-width:50px}
+ .notice-bar{font-size:9px;line-height:1.65;letter-spacing:0;padding-inline:12px}
+}
+@media(prefers-reduced-motion:reduce){.site-header a,.site-header button{transition:none!important}}
