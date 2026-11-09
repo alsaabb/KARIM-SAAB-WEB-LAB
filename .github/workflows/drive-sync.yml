@@ -1,0 +1,92 @@
+name: Sync approved content from Google Drive
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: karim-saab-drive-sync-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check required GitHub secrets
+        env:
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        shell: bash
+        run: |
+          if [[ -z "$GDRIVE_SERVICE_ACCOUNT_KEY" || -z "$GDRIVE_FOLDER_ID" ]]; then
+            echo "::error::Drive sync is not activated. Configure GDRIVE_SERVICE_ACCOUNT_KEY and GDRIVE_FOLDER_ID under Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+
+      - name: Install Google Drive Python packages
+        run: |
+          python -m pip install --disable-pip-version-check google-api-python-client google-auth
+
+      - name: Scan Drive and sync approved files
+        env:
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: python scripts/sync_drive_to_github.py
+
+      - name: Validate site before publishing
+        run: |
+          python -m py_compile scripts/sync_drive_to_github.py
+          python scripts/verify_site.py
+          python scripts/verify_identity.py
+          git diff --check
+
+      - name: Commit and push approved changes
+        id: commit
+        shell: bash
+        run: |
+          git add -- dist/
+          if git diff --cached --quiet; then
+            echo "No approved changes; keeping the live site untouched."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: publish approved Google Drive site updates"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      # A push made using GITHUB_TOKEN does not normally start 'on: push'
+      # workflows, so dispatch the existing Pages workflow explicitly.
+      - name: Trigger existing GitHub Pages deployment
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --request POST \
+            --header "Accept: application/vnd.github+json" \
+            --header "Authorization: Bearer $GH_TOKEN" \
+            --header "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/dispatches" \
+            --data '{"ref":"main"}'
+          echo "Pages deployment requested for commit ${{ steps.commit.outputs.commit_sha }}"
