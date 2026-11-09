@@ -42,6 +42,7 @@ const NAV_TREE=[
   {ar:'دليلك من تجربتي',en:'Guides from My Experience',route:'travel-guides'},
   {ar:'رحلات الدراجة',en:'Cycling Adventures',children:journeys.filter(x=>x.type==='cycling'&&x.slug!=='legacy-14').map(x=>({ar:x.title[0],en:x.title[1],route:'journey/'+x.slug}))},
   {ar:'الجبال والثلوج وعالم البحار',en:'Mountains, snow & seas',children:journeys.filter(x=>x.type!=='cycling').map(x=>({ar:x.title[0],en:x.title[1],route:'journey/'+x.slug}))},
+  {ar:'الهايكنج والتخييم',en:'Hiking & Camping Gallery',route:'adventures/hiking'},
   {ar:'الأرشيف الكامل',en:'Complete archive',route:'archive'}
  ]},
  {id:'books',ar:'كتبي',en:'My Books',children:[{ar:'جميع المؤلفات',en:'All books',route:'books'},...allBooks().map(b=>({ar:b.ar,en:b.en,route:'content/'+b.id}))]},

@@ -1,0 +1,26 @@
+/* KARIM SAAB Hiking & Camping Gallery — independent scoped styles. */
+.hiking-gallery{background:linear-gradient(150deg,#141414 0%,#20211e 64%,#141414 100%);color:#f7f5ef;padding:clamp(3rem,6vw,5rem) 0;border-block:1px solid rgba(212,175,55,.28);scroll-margin-top:110px}
+.hiking-gallery *{box-sizing:border-box}
+.hiking-gallery__container{width:min(1160px,calc(100% - 36px));margin-inline:auto}
+.hiking-gallery__heading{max-width:800px;margin-block-end:2rem}
+.hiking-gallery__eyebrow{display:block;color:#D4AF37;font-size:.78rem;letter-spacing:.17em;font-weight:700;line-height:1.8}
+.hiking-gallery__heading h2{color:#f7f5ef;font-size:clamp(2rem,4vw,3rem);line-height:1.25;margin:.5rem 0 1rem}
+.hiking-gallery__heading p,.hiking-gallery__story p{color:#dfded6;line-height:1.9;font-size:1.03rem;margin:0 0 1.25rem}
+.hiking-gallery__feature{display:grid;grid-template-columns:minmax(260px,.86fr) minmax(280px,1fr);align-items:center;gap:clamp(1.5rem,5vw,4rem);margin-block-end:2.5rem}
+.hiking-gallery__poster{display:block;overflow:hidden;border:1px solid rgba(212,175,55,.45);border-radius:14px;background:#242424;box-shadow:0 18px 48px rgba(0,0,0,.35)}
+.hiking-gallery__poster img{display:block;width:100%;height:auto;object-fit:contain}
+.hiking-gallery__story h3{color:#f7f5ef;font-size:clamp(1.5rem,2.8vw,2.4rem);line-height:1.35;margin:.65rem 0 1.25rem}
+.hiking-gallery__story .hiking-gallery__byline{font-weight:700;color:#D4AF37}
+.hiking-gallery__button{display:inline-block;margin-top:.7rem;padding:.85rem 1.25rem;border-radius:7px;border:1px solid #D4AF37;color:#D4AF37!important;text-decoration:none!important;font-weight:700;transition:background .2s ease,color .2s ease}
+.hiking-gallery__button:hover,.hiking-gallery__button:focus-visible{background:#D4AF37;color:#141414!important}
+.hiking-gallery__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+.hiking-gallery__card{display:flex;flex-direction:column;min-width:0;overflow:hidden;background:#252525;border:1px solid rgba(212,175,55,.26);border-radius:14px;color:#f7f5ef!important;text-decoration:none!important;transition:transform .2s ease,border-color .2s ease}
+.hiking-gallery__card:hover,.hiking-gallery__card:focus-visible{transform:translateY(-4px);border-color:#D4AF37}
+.hiking-gallery__card img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#1c1c1c}
+.hiking-gallery__card-body{display:flex;flex:1;flex-direction:column;padding:1.15rem 1.2rem;gap:.55rem}
+.hiking-gallery__card-body strong{color:#f7f5ef;font-size:1.1rem;line-height:1.4}
+.hiking-gallery__card-body>span{color:#dad8cf;font-size:.93rem;line-height:1.8}
+.hiking-gallery__card-body small{margin-top:auto;color:#D4AF37;font-size:.83rem}
+@media(max-width:850px){.hiking-gallery__feature{grid-template-columns:1fr}.hiking-gallery__poster{max-width:520px;width:100%;margin-inline:auto}.hiking-gallery__story{text-align:start}.hiking-gallery__grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.hiking-gallery{padding-block:2.5rem}.hiking-gallery__container{width:min(100% - 24px,480px)}.hiking-gallery__grid{grid-template-columns:1fr}.hiking-gallery__card img{aspect-ratio:4/3}.hiking-gallery__feature{gap:1.4rem}}
+@media(prefers-reduced-motion:reduce){.hiking-gallery__button,.hiking-gallery__card{transition:none}}
