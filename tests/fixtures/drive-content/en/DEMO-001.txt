@@ -1,0 +1,13 @@
+# This is a technical sample, NOT an actual press interview
+id: DEMO-001
+status: approved
+title: Drive Sync Preview Test
+publisher: KARIM SAAB — staging fixture
+published_date: 2026-11-09
+summary: Technical preview of an approved document-to-HTML workflow
+hashtags: #KarimSaab #KARIM_SAAB
+rights_cleared: no
+---BODY---
+This is a technical staging sample, not a real press interview or published report.
+
+It demonstrates producing an English preview from an approved document without modifying the live website.
