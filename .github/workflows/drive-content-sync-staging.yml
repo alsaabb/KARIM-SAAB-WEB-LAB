@@ -1,0 +1,28 @@
+name: Preview Google Drive content sync (staging)
+on:
+  push:
+    branches:
+      - feature/drive-content-sync-preview-20261109
+
+permissions:
+  contents: read
+
+jobs:
+  safety-and-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging branch
+        uses: actions/checkout@v4
+      - name: Verify current website is still valid
+        run: python3 scripts/verify_site.py
+      - name: Test Drive parser and safe renderer
+        run: python3 -m unittest discover -s tests -p 'test_drive_sync_preview.py' -v
+      - name: Generate bilingual staging pages from sample only
+        run: python3 scripts/drive_sync_preview.py --mode fixture --out staging/drive-preview
+      - name: Upload UNPUBLISHED staging preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: drive-sync-unpublished-preview
+          path: staging/drive-preview/
+          if-no-files-found: error
+          retention-days: 7
