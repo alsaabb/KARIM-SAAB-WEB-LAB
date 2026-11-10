@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-labelledby="title desc">
+<title id="title">الصحة النفسية والجسدية</title><desc id="desc">رسم رمزي يجمع الرأس والشبكة العصبية والرمز الطبي ومؤشرات التحاليل</desc>
+<defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#0d253b"/><stop offset=".65" stop-color="#1c4261"/><stop offset="1" stop-color="#315b73"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#e0b879" stop-opacity=".35"/><stop offset="1" stop-color="#e0b879" stop-opacity="0"/></radialGradient>
+<linearGradient id="gold" x1="0" x2="1"><stop stop-color="#d9a867"/><stop offset="1" stop-color="#f6db9c"/></linearGradient>
+<filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#051827" flood-opacity=".4"/></filter></defs>
+<rect width="960" height="600" fill="url(#bg)"/>
+<circle cx="320" cy="260" r="270" fill="url(#glow)"/>
+<g opacity=".16" stroke="#9ccbd5" fill="none"><path d="M0 120h960M0 220h960M0 320h960M0 420h960M0 520h960"/><path d="M100 0v600M250 0v600M400 0v600M550 0v600M700 0v600M850 0v600"/></g>
+<g filter="url(#shadow)" transform="translate(110,100)">
+<path d="M230 18c123-4 211 94 206 208-3 76-29 112-75 158-13 12-15 36-13 67H164c2-30 1-67-16-78C84 328 44 257 45 180 46 90 122 20 230 18Z" fill="#102d43" stroke="url(#gold)" stroke-width="7"/>
+<g fill="none" stroke="#d9b77c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M248 80c-18-20-53-15-64 8-31-6-60 17-53 47-28 14-24 44-6 61-6 27 17 48 39 50 7 28 36 36 56 25 17 24 52 18 62-5 29 4 51-19 47-43 28-11 40-44 18-66 13-28-5-57-32-61-14-29-48-33-67-16Z"/>
+<path d="M234 91v173M180 103q28 22 54 11M154 162q41-24 79 3M155 224q40-11 79 15M280 110q-30 29-46 45M292 180q-39-19-60 5M274 241q-29-13-40-44"/>
+</g>
+<g fill="#f4d89c"><circle cx="183" cy="103" r="8"/><circle cx="155" cy="162" r="8"/><circle cx="155" cy="223" r="8"/><circle cx="279" cy="110" r="8"/><circle cx="293" cy="181" r="8"/><circle cx="276" cy="243" r="8"/></g>
+</g>
+<g transform="translate(650,112)" filter="url(#shadow)">
+<circle cx="105" cy="110" r="108" fill="#f7ebd3" opacity=".98"/>
+<path d="M48 111h35l15-30 19 61 16-31h37" stroke="#bb884a" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M86 170c-11-11-44-30-44-53 0-17 15-28 29-28 13 0 23 9 31 17 8-8 17-17 31-17 14 0 29 11 29 28 0 23-33 42-44 53l-16 14Z" fill="none" stroke="#cda269" stroke-width="6" opacity=".42"/>
+</g>
+<g transform="translate(575,370)" font-family="Arial,sans-serif" font-size="38" font-weight="700">
+<rect x="0" y="0" width="115" height="78" rx="23" fill="#d4a66b"/><text x="57" y="52" fill="#183650" text-anchor="middle">D</text>
+<rect x="132" y="-24" width="154" height="90" rx="25" fill="#dceadf"/><text x="209" y="35" fill="#24596a" text-anchor="middle">B12</text>
+<rect x="50" y="103" width="126" height="75" rx="23" fill="#dbdce6"/><text x="113" y="152" fill="#354f70" text-anchor="middle">Fe</text>
+<rect x="193" y="100" width="116" height="79" rx="23" fill="#c4decf"/><text x="250" y="151" fill="#2a685d" text-anchor="middle">Mg</text></g>
+<g opacity=".7" fill="#f2d89e"><circle cx="64" cy="70" r="5"/><circle cx="903" cy="82" r="5"/><circle cx="89" cy="515" r="5"/><circle cx="913" cy="515" r="5"/></g>
+</svg>
