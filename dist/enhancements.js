@@ -98,7 +98,7 @@ function enhancedPage(){const r=state.route;let html=null;
  if(r==='about')html=aboutNewHome();else if(r.startsWith('about/'))html=aboutNewPage(r.slice(6));
  else if(r==='stories-road')html=roadStories();else if(r==='travel-guides')html=guidesPage();else if(r.startsWith('guide/'))html=guideCountry(r.slice(6));
  else if(r.startsWith('day/')){let [,slug,day]=r.split('/');html=dayPage(slug,day)}
- else if(r==='products')html=shopHome();else if(r.startsWith('shop/item/'))html=shopItem(r.slice('shop/item/'.length));else if(r.startsWith('shop/'))html=shopGroup(r.slice(5));
+ else if(r==='products')html=karimProductsPage();else if(r.startsWith('shop/item/'))html=shopItem(r.slice('shop/item/'.length));else if(r.startsWith('shop/'))html=shopGroup(r.slice(5));
  if(html){const old=document.querySelector('#app > main');if(old)old.outerHTML=html;document.title=(document.querySelector('main h1')?.textContent||'KARIM SAAB')+' | KARIM SAAB'}
  if(r===''){const main=document.querySelector('#app > main');if(main){main.insertAdjacentHTML('beforeend',homepageExtra())}}
  if(r.startsWith('journey/')){const slug=r.slice(8).split('?')[0],body=document.querySelector('main .detail-layout');if(body){body.insertAdjacentHTML('afterend',dayCards(slug));let h=body.querySelector('.side-box');if(h)h.insertAdjacentHTML('beforeend',`<a class="plain-link" href="${path('guide/'+slug)}">${H('دليل هذه الدولة','Destination guide')} ↗</a>`)}}
