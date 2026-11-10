@@ -19,7 +19,7 @@ function karimProductsPage(){
       <p class="ks-store-en">${ar?'MY PRODUCTS':'منتجاتي'}</p>
       <p class="ks-store-tagline">${ar?'منتجات مستوحاة من السفر والمغامرة':'Products inspired by travel and adventure'}</p>
       <div class="ks-store-actions">
-        <a class="ks-store-action ks-store-action-primary" href="#ks-store-categories">${ar?'استكشف المنتجات':'Explore products'} ↓</a>
+        <button type="button" class="ks-store-action ks-store-action-primary" onclick="document.getElementById('ks-store-categories').scrollIntoView({behavior:'smooth',block:'start'})">${ar?'استكشف المنتجات':'Explore products'} ↓</button>
         <a class="ks-store-action ks-store-action-secondary" href="${path('journeys')}">${ar?'شاهد المغامرات':'Explore adventures'} ↗</a>
       </div>
     </div></section>
