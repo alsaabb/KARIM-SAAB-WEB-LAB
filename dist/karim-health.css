@@ -1,0 +1,45 @@
+/* KARIM SAAB / Health knowledge — additive styles; isolated from other pages. */
+.ks-health-main{background:linear-gradient(145deg,#10283f 0%,#142e45 52%,#0b1e31 100%);color:#f9f5ee;min-height:65vh;padding:50px 0 72px}
+.ks-health-main .ks-health-wrap{width:min(1120px,calc(100% - 36px));margin:auto}
+.ks-health-main .ks-health-crumbs{font-size:13px;color:#e2c28f;display:flex;flex-wrap:wrap;gap:9px;margin:0 0 25px}
+.ks-health-main .ks-health-crumbs a{color:#e2c28f;text-decoration:underline;text-underline-offset:4px}
+.ks-health-main h1{font-size:clamp(29px,4.8vw,48px);line-height:1.4;margin:0 0 10px;color:#fff}
+.ks-health-main .ks-health-lead{font-size:clamp(15px,2vw,19px);line-height:1.95;color:#e6eaf0;max-width:850px;margin:0 0 30px}
+.ks-health-main .ks-health-kicker{color:#debc83;letter-spacing:.1em;font-size:12px;font-weight:750;margin:0 0 12px}
+.ks-health-main .ks-health-panel{background:#fff;color:#203247;border:1px solid #d5c1a2;border-radius:22px;box-shadow:0 15px 36px #08172535;padding:clamp(18px,3vw,30px)}
+.ks-health-main .ks-health-article-card{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;text-decoration:none}
+.ks-health-main .ks-health-article-card strong{font-size:clamp(20px,3vw,27px);display:block}
+.ks-health-main .ks-health-article-card small{color:#6d7884;display:block;font-size:14px;line-height:1.8;margin-top:9px}
+.ks-health-main .ks-health-icon{font-size:32px;background:#f8edda;border-radius:50%;height:70px;width:70px;display:grid;place-items:center}
+.ks-health-main .ks-health-linkmark{color:#986728;font-size:30px}
+.ks-health-main .ks-health-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+.ks-health-main .ks-health-visual{overflow:hidden;padding:0}
+.ks-health-main .ks-health-visual img{width:100%;aspect-ratio:1.26;object-fit:cover;background:#122d45}
+.ks-health-main .ks-health-imagecopy{padding:24px}
+.ks-health-main .ks-health-imagecopy h2{font-size:24px;line-height:1.6;margin:0 0 10px}
+.ks-health-main .ks-health-imagecopy p{font-size:16px;line-height:2;color:#536476}
+.ks-health-main .ks-health-facts{background:linear-gradient(140deg,#fffaf0,#f5ead8);border-color:#d4c09e}
+.ks-health-main .ks-health-facts h2{font-size:24px;margin:0 0 12px}
+.ks-health-main .ks-health-facts ul{padding-inline-start:23px;line-height:2.15;color:#1f3040}
+.ks-health-main .ks-health-author{display:inline-flex;align-items:center;gap:8px;color:#c8d6e2;font-size:14px;margin:12px 0 28px}
+.ks-health-main .ks-health-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin:27px auto 0}
+.ks-health-main .ks-health-btn{border:1px solid #e8be79;border-radius:50px;display:inline-flex;gap:12px;align-items:center;justify-content:center;padding:13px 28px;font-size:16px;line-height:1.6;font-weight:750;background:linear-gradient(130deg,#e2b76d,#fff1d4);color:#162e43;text-decoration:none}
+.ks-health-main .ks-health-btn:hover{background:#f6dcaa}
+.ks-health-main .ks-health-btn.secondary{background:transparent;color:#efd5ab}
+.ks-health-main .ks-health-status{background:#16384f;border:1px solid #b79b6c;border-radius:10px;color:#f3e2ca;padding:14px 18px;margin:22px 0;font-size:13px;line-height:1.85}
+.ks-health-main .ks-health-full{margin:0 auto;max-width:920px;background:#fff;border-radius:22px;color:#243344;padding:clamp(19px,4vw,50px);box-shadow:0 20px 40px #06162933}
+.ks-health-main .ks-health-full h2{font-size:24px;color:#16344c;margin:30px 0 13px;border-bottom:1px solid #e2d3b8;padding-bottom:10px}
+.ks-health-main .ks-health-full p,.ks-health-main .ks-health-full li{font-size:16px;line-height:2.05;color:#35475a}
+.ks-health-main .ks-health-full strong{font-weight:760}
+.ks-health-main .ks-health-full a{color:#74531f;text-decoration:underline;overflow-wrap:anywhere}
+.ks-health-main .ks-health-full .ks-health-tablewrap{overflow-x:auto;border:1px solid #e3ddcf;border-radius:12px;margin:22px 0}
+.ks-health-main .ks-health-full table{width:100%;border-collapse:collapse;min-width:570px}
+.ks-health-main .ks-health-full th,.ks-health-main .ks-health-full td{padding:9px 13px;border-bottom:1px solid #e8e5db;text-align:start;font-size:14px;vertical-align:top}
+.ks-health-main .ks-health-full th{background:#ede4d5;color:#183149}
+.ks-health-main .ks-health-full tbody tr:nth-child(even){background:#fbfaf8}
+.ks-health-main .ks-health-source-list{padding-inline-start:24px}
+.ks-health-main .ks-health-source-list li{margin:12px 0;font-size:14px}
+.ks-health-main .ks-health-note{font-size:13px!important;color:#68747c!important;border-top:1px solid #e1d8c7;margin-top:25px;padding-top:14px}
+.ks-health-main .ks-health-full .ks-health-back{display:inline-block;margin:0 0 22px;color:#966931}
+.ks-health-main[dir=ltr] .ks-health-full h2{text-align:left}
+@media(max-width:720px){.ks-health-main{padding:25px 0 55px}.ks-health-main .ks-health-grid{grid-template-columns:1fr}.ks-health-main .ks-health-panel{border-radius:18px}.ks-health-main .ks-health-article-card{flex-wrap:nowrap}.ks-health-main .ks-health-icon{width:54px;height:54px;font-size:26px;flex-shrink:0}.ks-health-main .ks-health-imagecopy{padding:18px}.ks-health-main .ks-health-full h2{font-size:20px}}
