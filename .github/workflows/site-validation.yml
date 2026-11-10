@@ -16,3 +16,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Check sitemap and bilingual links
         run: python3 scripts/verify_site.py
+
+      - name: V1.1 products and video article source checks
+        run: python3 -m unittest discover -s tests -p 'test_approved_sections_v11.py' -v
+
+      - name: Validate changed JavaScript syntax
+        run: |
+          node --check dist/karim-products.js
+          node --check dist/karim-video-articles-source-v1.js
+          node --check dist/karim-video-articles-v1.js

@@ -1,33 +1,54 @@
-
-/* Standalone KARIM SAAB Products hub — registered by the existing router. */
+/* KARIM SAAB Products V1.1: approved screenshot-derived visual.
+ * Ten actual reference crops are archived in Google Drive under
+ * 🔴 05 - تسوّق / KARIM SAAB — Products Reference Assets V1.1 — 2026-11-10.
+ * These are visual composites, NOT verified inventory/checkout promises.
+ */
 function karimProductsPage(){
-  const ar=state.lang==='ar';
-  const products=OWNER_DROPDOWNS.products;
-  const symbols={'product-perfumes':'✦','product-caps':'◠','product-tshirts':'♧','product-hoodies':'♢','product-artworks':'▧','product-vests':'♙','product-bags':'▣','product-mugs':'♨'};
-  const photos={'product-perfumes':'assets/perfume-japan-concept.webp','product-artworks':'assets/journal-mountains.webp'};
-  const cards=products.map(item=>{
-    const label=ar?item.ar:item.en;
-    const sub=ar?item.en:item.ar;
-    const photo=photos[item.contentId];
-    return `<a class="ks-store-card" href="${path(item.route)}" aria-label="${esc(label)}">${photo?`<img src="${photo}" loading="lazy" alt="${esc(ar?'صورة تصورية للفئة':'Illustrative category image')}">`:`<span class="ks-store-icon" aria-hidden="true">${symbols[item.contentId]||'✦'}</span>`}<div class="ks-store-card-content"><strong>${esc(label)}</strong><span>${esc(sub)}</span><small>${ar?'استكشف الفئة':'Explore category'} ↗</small></div></a>`;
+  const ar=state.lang!=='en';
+  const t=(arabic,english)=>ar?arabic:english;
+  const asset='assets/products-reference-v1.1/';
+  const categories=[
+    {id:'product-perfumes',ar:'عطور',en:'Perfumes',image:'perfumes.webp'},
+    {id:'product-caps',ar:'كاب',en:'Caps',image:'caps.webp'},
+    {id:'product-tshirts',ar:'تيشيرت',en:'T-Shirts',image:'tshirts.webp'},
+    {id:'product-hoodies',ar:'هودي',en:'Hoodies',image:'hoodies.webp'},
+    {id:'product-artworks',ar:'لوحات فنية',en:'Artworks',image:'artworks.webp'},
+    {id:'product-vests',ar:'فيست',en:'Vests',image:'vests.webp'},
+    {id:'product-bags',ar:'شنط',en:'Bags',image:'bags.webp'},
+    {id:'product-mugs',ar:'مجات',en:'Mugs',image:'mugs.webp'}
+  ];
+  const indexed=Object.fromEntries((OWNER_DROPDOWNS.products||[]).map(x=>[x.contentId,x]));
+  const cards=categories.map(x=>{
+    const original=indexed[x.id];
+    const route=original?.route||'content/'+x.id;
+    const label=t(x.ar,x.en);
+    return '<a class="ks-v11-card" href="'+path(route)+'" aria-label="'+esc(label)+'">'+
+      '<img loading="lazy" decoding="async" src="'+asset+x.image+'" alt="'+esc(t('صورة من المرجع البصري لفئة '+x.ar,'Approved visual reference for '+x.en))+'">'+
+      '<span class="ks-v11-card-fade"></span><span class="ks-v11-card-label"><strong>'+esc(label)+'</strong><small>'+esc(t(x.en,x.ar))+'</small></span>'+
+      '<span class="ks-v11-arrow" aria-hidden="true">➜</span></a>';
   }).join('');
-  return `<main class="ks-store">
-    <section class="ks-store-hero"><div class="ks-store-hero-inner">
-      <nav class="ks-store-breadcrumb" aria-label="${ar?'مسار التنقل':'Breadcrumb'}"><a href="${path()}">${ar?'الرئيسية':'Home'}</a> / ${ar?'منتجاتي':'My Products'}</nav>
-      <span class="ks-store-kicker">KARIM SAAB · PRODUCTS</span>
-      <h1>${ar?'منتجاتي':'My Products'}</h1>
-      <p class="ks-store-en">${ar?'MY PRODUCTS':'منتجاتي'}</p>
-      <p class="ks-store-tagline">${ar?'منتجات مستوحاة من السفر والمغامرة':'Products inspired by travel and adventure'}</p>
-      <div class="ks-store-actions">
-        <button type="button" class="ks-store-action ks-store-action-primary" onclick="document.getElementById('ks-store-categories').scrollIntoView({behavior:'smooth',block:'start'})">${ar?'استكشف المنتجات':'Explore products'} ↓</button>
-        <a class="ks-store-action ks-store-action-secondary" href="${path('journeys')}">${ar?'شاهد المغامرات':'Explore adventures'} ↗</a>
-      </div>
-    </div></section>
-    <section id="ks-store-categories" class="ks-store-cats ks-store-container" aria-labelledby="ks-store-heading">
-      <div class="ks-store-heading"><span class="ks-store-kicker">PRODUCT COLLECTIONS</span><h2 id="ks-store-heading">${ar?'تسوّق حسب الفئة':'Browse by category'}</h2><p>${ar?'ثماني فئات من قائمة منتجاتي':'Eight categories from My Products'}</p></div>
-      <div class="ks-store-grid">${cards}</div>
-      <p class="ks-store-disclaimer">${ar?'التصنيفات لا تعني توفر منتجات للشراء حاليًا. تفاصيل المنتجات والأسعار والتوافر تُعرض بعد اعتمادها.':'Categories do not confirm items currently available for sale. Prices and availability will appear when verified.'}</p>
-    </section>
-    <section class="ks-store-bottom"><div class="ks-store-container ks-store-bottom-inner"><div><span class="ks-store-kicker">KARIM SAAB · JOURNEYS</span><h2>${ar?'من رحلاتي إلى منتجاتي':'From my journeys to my products'}</h2><p>${ar?'استكشف رحلات الدراجة والمغامرات التي تشكّل روح هذا القسم.':'Explore the cycling journeys and adventures behind this section.'}</p></div><a class="ks-store-action ks-store-action-secondary" href="${path('journeys')}">${ar?'استكشف المغامرات':'Explore adventures'} ↗</a></div></section>
-  </main>`;
+  const featureItems=[
+    ['gift',t('منتجات مستوحاة من الرحلات','Travel-inspired products'),'♧'],
+    ['shield',t('هوية KARIM SAAB','KARIM SAAB identity'),'◇'],
+    ['details',t('المواصفات بعد اعتمادها','Details pending approval'),'▤'],
+    ['status',t('الطلب الإلكتروني غير مفعل','Online orders unavailable'),'○']
+  ];
+  return '<main class="ks-v11-store" dir="'+(ar?'rtl':'ltr')+'">'+
+    '<section class="ks-v11-hero" aria-label="'+t('مقدمة المنتجات','Product introduction')+'">'+
+      '<div class="ks-v11-hero-inner"><div class="ks-v11-hero-copy">'+
+      '<span class="ks-v11-hero-mark" aria-hidden="true">⌃⌃⌃</span><h1>KARIM SAAB</h1>'+
+      '<p>'+t('مغامرات .. رحلات .. ومنتجات مستوحاة منها','Adventures .. Journeys .. Inspired Products')+'</p>'+
+      '<p class="ks-v11-caption-en">'+t('Adventures .. Journeys .. Inspired Products','مغامرات .. رحلات .. ومنتجات مستوحاة منها')+'</p>'+
+      '<div class="ks-v11-actions"><a class="ks-v11-btn primary" href="#ks-v11-categories">'+t('استكشف المنتجات','Explore products')+' <span aria-hidden="true">◁</span></a>'+
+      '<a class="ks-v11-btn secondary" href="'+path('journeys')+'">'+t('شاهد المغامرات','Explore Adventures')+' <span aria-hidden="true">◉</span></a></div></div></div></section>'+
+    '<div class="ks-v11-container"><section class="ks-v11-features" aria-label="'+t('مميزات ومعلومات القسم','Collection information')+'">'+
+      featureItems.map(x=>'<div class="ks-v11-feature"><span aria-hidden="true">'+x[2]+'</span><p>'+esc(x[1])+'</p></div>').join('')+'</section>'+
+    '<section id="ks-v11-categories" class="ks-v11-section"><div class="ks-v11-heading"><span></span><div><h2>'+t('منتجاتي','My Products')+'</h2><p>'+t('My Products','منتجاتي')+'</p></div><span></span></div>'+
+    '<div class="ks-v11-grid">'+cards+'</div></section>'+
+    '<section class="ks-v11-journey"><div class="ks-v11-journey-copy"><h2>'+t('منتجات من رحلاتي','Products From My Journeys')+'</h2>'+
+       '<p>'+t('تصاميم مستوحاة من مغامرات حقيقية','Designs inspired by real adventures')+'</p>'+
+       '<a class="ks-v11-btn primary" href="'+path('journeys')+'">'+t('استكشف الرحلات','Explore Journeys')+' <span aria-hidden="true">➜</span></a></div></section>'+
+    '<p class="ks-v11-disclaimer">'+t('هذه صور تصميمية مقتطعة من المرجع البصري المعتمد، وليست دليلًا على توفر المنتجات أو تفعيل الدفع أو الشحن. تُعرض الأسعار والطلبات بعد اعتمادها.','These visuals are crops from the approved design reference, not evidence of available stock, checkout or shipping. Product offers and prices require separate approval.')+'</p>'+
+    '<p class="ks-v11-original">'+t('المصدر البصري الرئيسي محفوظ في Google Drive.','Primary visual reference is archived on Google Drive.')+' <a target="_blank" rel="noopener noreferrer" href="https://drive.google.com/drive/folders/1n_X7OTkmqgfy_PwbIZl-lx1yJ0Gr39q6">'+t('فتح الأصول','Open source assets')+' ↗</a></p>'+
+    '</div></main>';
 }

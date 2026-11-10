@@ -1,42 +1,49 @@
-
-/* KARIM SAAB | Cinematic Products page — scoped, bilingual, responsive */
-.ks-store {color:#f0e8dc;background:#07131b;min-height:85vh;overflow:hidden}
-.ks-store a:focus-visible{outline:3px solid #e5b66b;outline-offset:4px}
-.ks-store .ks-store-hero{position:relative;min-height:430px;display:flex;align-items:center;background:#112330 url('assets/cycling.webp') center 48%/cover no-repeat;isolation:isolate}
-.ks-store .ks-store-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,13,20,.48),rgba(4,13,20,.9) 83%);z-index:-1}
-[dir=ltr] .ks-store .ks-store-hero:before{background:linear-gradient(270deg,rgba(4,13,20,.48),rgba(4,13,20,.9) 83%)}
-.ks-store .ks-store-hero-inner{width:min(1150px,92%);margin:0 auto;padding:72px 0}
-.ks-store .ks-store-breadcrumb{font-size:13px;color:#e5be83;margin-bottom:28px}
-.ks-store .ks-store-breadcrumb a{color:inherit;text-decoration:none}
-.ks-store .ks-store-kicker{display:inline-block;color:#e8b972;letter-spacing:.18em;font-size:12px;font-weight:700;margin-bottom:16px}
-.ks-store h1{font-size:clamp(44px,7vw,80px);line-height:1.1;color:#f7f0e6;margin:0 0 14px}
-.ks-store .ks-store-en{font-size:clamp(17px,2.5vw,24px);letter-spacing:.16em;color:#e4b675;margin:0 0 20px}
-.ks-store .ks-store-tagline{font-size:clamp(17px,2vw,22px);max-width:610px;line-height:1.8;margin:0 0 30px;color:#f1e5d7}
-.ks-store .ks-store-action{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;padding:14px 25px;font-weight:700;min-height:48px;transition:transform .2s,background .2s}
-.ks-store .ks-store-action:hover{transform:translateY(-2px)}
-.ks-store .ks-store-action-primary{background:#e5b66b;color:#08151d}
-.ks-store .ks-store-action-secondary{border:1px solid #e5b66b;color:#f4dfbb}
-.ks-store .ks-store-actions{display:flex;flex-wrap:wrap;gap:14px}
-.ks-store .ks-store-container{width:min(1150px,92%);margin:0 auto}
-.ks-store .ks-store-cats{padding:58px 0 74px}
-.ks-store .ks-store-heading{text-align:center;margin-bottom:33px}
-.ks-store .ks-store-heading h2{color:#f1e7d9;font-size:clamp(30px,4vw,43px);margin:0 0 7px}
-.ks-store .ks-store-heading p{color:#c8b9a7;margin:0}
-.ks-store .ks-store-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.ks-store .ks-store-card{position:relative;min-height:235px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;border:1px solid #30404b;border-radius:14px;background:linear-gradient(135deg,#263946,#101d29);text-decoration:none;isolation:isolate;transition:transform .2s,border-color .2s}
-.ks-store .ks-store-card:hover{transform:translateY(-4px);border-color:#dbaf6c}
-.ks-store .ks-store-card:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(2,11,17,.96),rgba(2,11,17,.05) 78%);z-index:-1}
-.ks-store .ks-store-card img{position:absolute;width:100%;height:100%;inset:0;object-fit:cover;z-index:-2}
-.ks-store .ks-store-card .ks-store-card-content{padding:20px}
-.ks-store .ks-store-card strong{display:block;color:#fff;font-size:23px;line-height:1.3}
-.ks-store .ks-store-card span{display:block;color:#eac78d;font-size:14px;margin-top:3px}
-.ks-store .ks-store-card small{display:block;color:#c6d0d2;font-size:12px;margin-top:9px}
-.ks-store .ks-store-icon{position:absolute;top:22px;inset-inline-start:21px;width:57px;height:57px;border:1px solid #cda064;border-radius:50%;display:grid;place-items:center;color:#e7b771;font-size:29px;background:#0d1b27a8}
-.ks-store .ks-store-bottom{padding:50px 0 64px;background:linear-gradient(135deg,#142935,#08141d);border-top:1px solid #31414e}
-.ks-store .ks-store-bottom-inner{display:flex;align-items:center;justify-content:space-between;gap:26px}
-.ks-store .ks-store-bottom h2{font-size:clamp(27px,4vw,40px);margin:0 0 10px;color:#f7e7d4}
-.ks-store .ks-store-bottom p{color:#d7c7b5;line-height:1.8;margin:0;max-width:620px}
-.ks-store .ks-store-disclaimer{color:#a8bbc4;font-size:13px;margin-top:20px;line-height:1.75}
-@media(max-width:880px){.ks-store .ks-store-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ks-store .ks-store-hero{min-height:390px}}
-@media(max-width:520px){.ks-store .ks-store-grid{gap:10px}.ks-store .ks-store-card{min-height:205px}.ks-store .ks-store-card .ks-store-card-content{padding:13px}.ks-store .ks-store-card strong{font-size:19px}.ks-store .ks-store-icon{width:42px;height:42px;font-size:22px;top:12px;inset-inline-start:12px}.ks-store .ks-store-bottom-inner{align-items:flex-start;flex-direction:column}.ks-store .ks-store-hero-inner{padding:48px 0}}
-@media(prefers-reduced-motion:reduce){.ks-store .ks-store-card,.ks-store .ks-store-action{transition:none}}
+/* Approved products reference — mobile-first cards, site header/footer unchanged. */
+.ks-v11-store{--gold:#e5af53;--bg:#041018;background:var(--bg);color:#f7efe5;min-height:80vh;overflow:hidden;font-family:inherit}
+.ks-v11-store *{box-sizing:border-box}
+.ks-v11-store a:focus-visible{outline:3px solid #fff0c6;outline-offset:3px}
+.ks-v11-store .ks-v11-container{width:min(1175px,calc(100% - 42px));margin:0 auto}
+.ks-v11-store .ks-v11-hero{min-height:430px;position:relative;isolation:isolate;background:#101d25 url('assets/products-reference-v1.1/hero-bike-camp.webp') center/cover no-repeat;display:flex;align-items:center}
+.ks-v11-store .ks-v11-hero:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,16,24,.91),rgba(4,16,24,.75) 32%,rgba(4,16,24,.03) 74%);z-index:-1}
+.ks-v11-store[dir=ltr] .ks-v11-hero:before{background:linear-gradient(270deg,rgba(4,16,24,.91),rgba(4,16,24,.75) 32%,rgba(4,16,24,.03) 74%)}
+.ks-v11-store .ks-v11-hero-inner{width:min(1175px,calc(100% - 42px));margin:auto;display:flex;align-items:center}
+.ks-v11-store .ks-v11-hero-copy{width:min(540px,95%);text-align:start;padding:45px 6px}
+.ks-v11-store .ks-v11-hero-mark{color:#e5cda8;font-size:44px;line-height:1}
+.ks-v11-store .ks-v11-hero h1{font-size:clamp(40px,5.8vw,69px);line-height:1.12;letter-spacing:.07em;color:#f4e5d9;margin:10px 0 17px;font-family:Arial,sans-serif}
+.ks-v11-store .ks-v11-hero p{font-size:clamp(18px,2.2vw,24px);line-height:1.6;margin:0 0 8px}
+.ks-v11-store .ks-v11-hero .ks-v11-caption-en{font-family:Arial,sans-serif;font-size:clamp(13px,1.8vw,18px);opacity:.87}
+.ks-v11-store .ks-v11-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}
+.ks-v11-store .ks-v11-btn{display:inline-flex;align-items:center;justify-content:center;gap:13px;padding:12px 22px;min-height:44px;line-height:1.5;border-radius:50px;text-decoration:none;font-size:15px;font-weight:760}
+.ks-v11-store .ks-v11-btn.primary{color:#151d22;background:linear-gradient(120deg,#e6b258,#f4cc80);border:1px solid #ffdc95}
+.ks-v11-store .ks-v11-btn.secondary{color:#f7dcaa;background:#071824c9;border:1px solid #e5ac53}
+.ks-v11-store .ks-v11-features{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:-1px;gap:0;border:1px solid #594d39;border-radius:12px;background:linear-gradient(100deg,#0c1b24,#122731,#0c1c25);overflow:hidden;position:relative}
+.ks-v11-store .ks-v11-feature{padding:17px 14px;text-align:center;min-width:0}
+.ks-v11-store .ks-v11-feature:not(:last-child){border-inline-end:1px solid #46505a}
+.ks-v11-store .ks-v11-feature span{font-size:32px;color:var(--gold)}
+.ks-v11-store .ks-v11-feature p{font-size:clamp(12px,1.5vw,15px);line-height:1.7;margin:5px 0 0}
+.ks-v11-store .ks-v11-section{padding:34px 0 25px}
+.ks-v11-store .ks-v11-heading{display:flex;align-items:center;justify-content:center;gap:18px;text-align:center;margin:4px 0 23px}
+.ks-v11-store .ks-v11-heading>span{width:68px;height:2px;background:var(--gold)}
+.ks-v11-store .ks-v11-heading h2{font-size:clamp(30px,4vw,42px);color:#f2e3d1;margin:0;line-height:1.25}
+.ks-v11-store .ks-v11-heading p{font-family:Arial,sans-serif;font-size:15px;margin:3px 0 0}
+.ks-v11-store .ks-v11-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.ks-v11-store .ks-v11-card{position:relative;display:block;aspect-ratio:1.68;min-width:0;overflow:hidden;border-radius:14px;border:1px solid #605447;background:#11222a;box-shadow:0 2px 17px #0007;text-decoration:none;transition:transform .2s ease,border-color .2s}
+.ks-v11-store .ks-v11-card:hover{transform:translateY(-3px);border-color:#d6ad68}
+.ks-v11-store .ks-v11-card img{width:100%;height:100%;object-fit:cover;display:block}
+.ks-v11-store .ks-v11-card-fade{position:absolute;inset:38% 0 0;background:linear-gradient(transparent,#000b 60%,#04131ce8)}
+.ks-v11-store .ks-v11-card-label{position:absolute;bottom:12px;inset-inline-start:14px;display:flex;flex-direction:column;color:#fff;gap:2px;text-shadow:0 2px 8px #000;line-height:1.15}
+.ks-v11-store .ks-v11-card-label strong{font-size:clamp(16px,2vw,22px)}
+.ks-v11-store .ks-v11-card-label small{font-size:14px;font-weight:550}
+.ks-v11-store .ks-v11-arrow{position:absolute;bottom:14px;inset-inline-end:13px;background:#ebba64;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;color:#17232d;transform:scaleX(-1);font-size:17px;font-weight:bold}
+.ks-v11-store .ks-v11-journey{min-height:220px;position:relative;display:flex;align-items:center;background:#101e27 url('assets/products-reference-v1.1/journey-banner.webp') center/cover no-repeat;border-radius:20px;overflow:hidden;margin:0 0 20px;border:1px solid #344853}
+.ks-v11-store .ks-v11-journey:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,23,33,.92),rgba(5,23,33,.74) 41%,rgba(5,23,33,0) 75%)}
+.ks-v11-store[dir=ltr] .ks-v11-journey:before{background:linear-gradient(270deg,rgba(5,23,33,.92),rgba(5,23,33,.74) 41%,rgba(5,23,33,0) 75%)}
+.ks-v11-store .ks-v11-journey-copy{position:relative;padding:25px clamp(18px,4vw,60px);max-width:580px}
+.ks-v11-store .ks-v11-journey h2{font-size:clamp(25px,3.7vw,38px);margin:0 0 9px;color:#f3e1ce}
+.ks-v11-store .ks-v11-journey p{font-size:16px;line-height:1.8;margin:0 0 17px}
+.ks-v11-store .ks-v11-disclaimer,.ks-v11-store .ks-v11-original{max-width:1050px;margin:12px auto 14px;color:#bdccd1;font-size:12px;line-height:1.85}
+.ks-v11-store .ks-v11-original{margin-bottom:38px}
+.ks-v11-store .ks-v11-original a{color:#f2c77e}
+@media(max-width:900px){.ks-v11-store .ks-v11-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ks-v11-store .ks-v11-features{grid-template-columns:repeat(2,1fr)}.ks-v11-store .ks-v11-feature:nth-child(2){border-inline-end:0}.ks-v11-store .ks-v11-feature:nth-child(-n+2){border-bottom:1px solid #46505a}}
+@media(max-width:560px){.ks-v11-store .ks-v11-hero{min-height:390px;background-position:58% center}.ks-v11-store .ks-v11-hero:before{background:linear-gradient(90deg,rgba(4,16,24,.88),rgba(4,16,24,.5) 66%,rgba(4,16,24,.12))}.ks-v11-store .ks-v11-hero-copy{width:100%;padding:35px 3px}.ks-v11-store .ks-v11-hero h1{font-size:36px}.ks-v11-store .ks-v11-hero p{font-size:17px}.ks-v11-store .ks-v11-container{width:calc(100% - 26px)}.ks-v11-store .ks-v11-features{border-radius:0 0 13px 13px}.ks-v11-store .ks-v11-feature{padding:14px 5px}.ks-v11-store .ks-v11-feature span{font-size:23px}.ks-v11-store .ks-v11-card{aspect-ratio:1.1}.ks-v11-store .ks-v11-grid{gap:9px}.ks-v11-store .ks-v11-card-label{bottom:9px;inset-inline-start:9px}.ks-v11-store .ks-v11-card-label strong{font-size:16px}.ks-v11-store .ks-v11-card-label small{font-size:11px}.ks-v11-store .ks-v11-arrow{bottom:8px;inset-inline-end:8px;width:24px;height:24px;font-size:13px}.ks-v11-store .ks-v11-journey{min-height:230px;background-position:64% center}.ks-v11-store .ks-v11-journey-copy{max-width:85%}.ks-v11-store .ks-v11-journey h2{font-size:25px}.ks-v11-store .ks-v11-heading>span{width:31px}}
+@media(prefers-reduced-motion:reduce){.ks-v11-store .ks-v11-card{transition:none}}
