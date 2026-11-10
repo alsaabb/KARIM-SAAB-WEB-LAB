@@ -1,0 +1,58 @@
+/* KARIM SAAB — Health Knowledge, isolated responsive design */
+.ks-health-main{min-height:65vh;background:#f7f6f2}
+.ks-health-main .page-body{padding:36px 0 58px}
+.ks-health-main .container{max-width:1180px}
+.ks-health-intro,.ks-health-article-head{padding:60px 0 48px;background:linear-gradient(125deg,#0f263a,#183a56 70%,#243c50);color:#fff}
+.ks-health-intro h1,.ks-health-article-head h1{font-size:clamp(29px,4.5vw,48px);line-height:1.38;color:#fff;margin:12px 0}
+.ks-health-intro p,.ks-health-article-head p{max-width:780px;color:#dfe7ed;font-size:clamp(16px,1.9vw,20px);line-height:1.9}
+.ks-health-intro .eyebrow,.ks-health-article-head .eyebrow{color:#dfbf85}
+.ks-health-crumb{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;margin:0 0 26px;color:#6e6a62}
+.ks-health-crumb a{color:#926d3c;text-decoration:none}
+.ks-health-crumb a:hover{text-decoration:underline}
+.ks-health-overview-card{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:30px;background:white;border:1px solid #e5dccf;border-radius:23px;padding:36px;box-shadow:0 8px 32px #0c24320c}
+.ks-health-overview-card h2{font-size:clamp(24px,3vw,36px);color:#163249;margin:8px 0}
+.ks-health-overview-card p{font-size:17px;line-height:1.95;color:#425464;max-width:780px}
+.ks-health-overview-icon{display:grid;place-items:center;aspect-ratio:1;background:linear-gradient(135deg,#132e46,#28506c);border-radius:24px;color:#e6c17f;font-size:70px}
+.ks-health-feature-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:26px;align-items:start}
+.ks-health-feature-image,.ks-health-feature-info,.ks-health-source,.ks-health-reading{background:white;border:1px solid #e4dacb;border-radius:22px;overflow:hidden;box-shadow:0 7px 24px #10283c0a}
+.ks-health-feature-image img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#142e44}
+.ks-health-feature-caption{padding:28px}
+.ks-health-feature-caption h2{font-size:clamp(22px,3vw,29px);margin:8px 0 10px;color:#173148}
+.ks-health-feature-caption p{line-height:2;color:#405464;font-size:16px}
+.ks-health-feature-info{padding:29px}
+.ks-health-feature-info h2{font-size:clamp(21px,2.7vw,28px);margin:8px 0 20px;color:#153348}
+.ks-health-feature-info ul{margin:0 0 24px;padding-inline-start:22px;line-height:2.15;color:#334b5b}
+.ks-health-feature-info li{padding-inline-start:5px}
+.ks-health-source{box-shadow:none;padding:22px;background:#f9f5ec;border-color:#eadac1}
+.ks-health-source-heading{display:flex;align-items:center;gap:12px}
+.ks-health-source-heading span{font-size:24px;color:#9b773e}
+.ks-health-source h3{font-size:18px;color:#243d51;margin:0}
+.ks-health-source p{font-size:14px;line-height:1.9;color:#56616b;margin:11px 0}
+.ks-health-source .ks-health-source-filename{direction:ltr;text-align:left;overflow-wrap:anywhere;border:1px solid #e4d6be;background:white;border-radius:9px;padding:9px;color:#334a58;font-size:12px}
+.ks-health-source .ks-health-awaiting{border-inline-start:3px solid #c29752;background:#fffdf8;padding:12px;border-radius:8px;color:#6b573c}
+.ks-health-source-link{display:inline-block;padding:11px 15px;background:#12334e;color:#fff;text-decoration:none;border-radius:10px}
+.ks-health-button{display:inline-flex;align-items:center;justify-content:center;border-radius:13px;background:#1b425d;color:#fff!important;padding:14px 23px;font-weight:700;text-decoration:none;min-height:49px;text-align:center}
+.ks-health-button:hover,.ks-health-button:focus-visible{background:#0f2d45;text-decoration:none}
+.ks-health-button-strong{background:#b18c52}
+.ks-health-button-strong:hover{background:#876635}
+.ks-health-button-outline{background:transparent;color:#1a3850!important;border:1px solid #a88c64}
+.ks-health-button-outline:hover{background:#fff4df;color:#132e44!important}
+.ks-health-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:32px}
+.ks-health-disclaimer{color:#6f7980;text-align:center;font-size:14px;margin-top:24px}
+.ks-health-reader-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(270px,0.75fr);align-items:start;gap:25px}
+.ks-health-reading{padding:clamp(22px,4vw,48px);line-height:2.05;color:#253e50;font-size:16px}
+.ks-health-reading p{margin:0 0 17px;line-height:2.08}
+.ks-health-reading h2{color:#153a54;font-size:clamp(22px,2.7vw,29px);border-bottom:1px solid #e4d5c0;padding:15px 0 10px;margin:31px 0 17px;line-height:1.45}
+.ks-health-reading strong{color:#163a56}
+.ks-health-reading a{color:#956a31;overflow-wrap:anywhere}
+.ks-health-reading ol{padding-inline-start:24px}
+.ks-health-reading li{margin:0 0 11px}
+.ks-health-reading .ks-health-byline{color:#93713e;border-bottom:1px solid #eee0cd;padding-bottom:18px;font-weight:600}
+.ks-health-table-scroll{overflow-x:auto;margin:20px 0 25px;border:1px solid #e3d9ca;border-radius:12px}
+.ks-health-reading table{width:100%;border-collapse:collapse;min-width:650px;font-size:14px}
+.ks-health-reading th{background:#173950;color:#fff;padding:11px;text-align:start}
+.ks-health-reading td{padding:10px;border-top:1px solid #eee7df;vertical-align:top}
+.ks-health-reading tr:nth-child(even){background:#faf8f4}
+.ks-health-reader-grid>.ks-health-source{position:sticky;top:92px}
+@media(max-width:800px){.ks-health-feature-grid,.ks-health-reader-grid{grid-template-columns:1fr}.ks-health-reader-grid>.ks-health-source{position:static}.ks-health-intro,.ks-health-article-head{padding:39px 0 34px}.ks-health-feature-info{padding:22px}}
+@media(max-width:500px){.ks-health-overview-card{grid-template-columns:1fr;gap:17px;padding:22px}.ks-health-overview-icon{height:72px;aspect-ratio:auto;font-size:46px}.ks-health-crumb{font-size:12px}.ks-health-main .page-body{padding:21px 0 37px}.ks-health-feature-caption{padding:20px}.ks-health-feature-info{padding:19px}.ks-health-actions .ks-health-button{width:100%}.ks-health-reading{font-size:15px;padding:19px}}
