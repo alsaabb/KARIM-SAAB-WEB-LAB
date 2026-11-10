@@ -4,7 +4,7 @@
  */
 (function(){
 'use strict';
-var driveFileUrl = ''; // Set only after verifying the original in the user's chosen Google Drive folder.
+var driveFileUrl = 'https://docs.google.com/document/d/1Y-pXXYnV8qt0odbFfWUahOm3HgKHxrRZ/edit?usp=drivesdk&ouid=105264344871183356483&rtpof=true&sd=true'; // Verified original Word document in the owner's Google Drive archive.
 var articleRoute = 'about/health/depression-anxiety';
 var fullRoute = articleRoute + '/full';
 var ar = function(){return state.lang==='ar';};
@@ -169,7 +169,7 @@ function breadcrumbs(full){
  return '<nav class="ks-health-crumbs" aria-label="'+L('مسار الصفحة','Breadcrumb')+'">'+parts.map(function(p){return '<a href="'+p[1]+'">'+safe(p[0])+'</a>';}).join(' <span aria-hidden="true">›</span> ')+'</nav>';
 }
 function sourceState(){
- return driveFileUrl?'<a class="ks-health-btn secondary" target="_blank" rel="noopener noreferrer" href="'+safe(driveFileUrl)+'">'+L('فتح النسخة الأصلية في Google Drive','Open original on Google Drive')+' ↗</a>':'<p class="ks-health-status" role="status">'+L('الأصل: ملف Word بعنوان KARIM_SAAB_Article_Depression_Physical_Causes_V1.0_2026-11-10.docx. سيضاف رابط Google Drive بعد اختيار مجلد الحفظ والتحقق من رفع الملف.','Original: the Word file KARIM_SAAB_Article_Depression_Physical_Causes_V1.0_2026-11-10.docx. Its Google Drive link will appear after the owner selects a folder and the upload is verified.')+'</p>';
+ return driveFileUrl?'<div class="ks-health-source-meta"><a class="ks-health-btn secondary" target="_blank" rel="noopener noreferrer" href="'+safe(driveFileUrl)+'">'+L('فتح النسخة الأصلية في Google Drive','Open original on Google Drive')+' ↗</a><p class="ks-health-source-access">'+L('النسخة الأصلية محفوظة في أرشيف عبدالكريم. فتح رابط Google Drive للزوار يخضع لصلاحيات مشاركة الملف، بينما يتاح المقال كاملًا للقراءة في الموقع.','The original is stored in Abdulkarim’s archive. Google Drive access follows the document sharing permissions; the full article is readable on this website.')+'</p></div>':'<p class="ks-health-status" role="status">'+L('رابط النسخة الأصلية غير متاح حاليًا.','The original file link is currently unavailable.')+'</p>';
 }
 function startPage(){
  return '<main class="ks-health-main" dir="'+L('rtl','ltr')+'"><div class="ks-health-wrap">'+breadcrumbs(false)+
