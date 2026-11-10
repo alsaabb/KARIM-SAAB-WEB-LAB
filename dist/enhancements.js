@@ -24,20 +24,26 @@ const SHOP_CATEGORIES=[
 const NAV_TREE=[
  {id:'',ar:'الرئيسية',en:'Home',route:''},
  {id:'about',ar:'من أنا',en:'About Me',children:[
-  {ar:'خلّ السعادة عادة',en:'Make Happiness a Habit',route:'about/happiness'},
+  {ar:'خلّ السعادة عادة',en:'Make Happiness a Habit',route:'about/happiness',children:[
+   {ar:'نبذة عن القسم',en:'Section overview',route:'about/happiness'},
+   {ar:'سعادة لاتشترى',en:'Happiness Cannot Be Bought',route:'about/happiness/video/happiness-not-for-sale'},
+   {ar:'الدنيا ليست جنة ؟',en:'The World Is Not Paradise?',route:'about/happiness/video/world-is-not-paradise'}
+  ]},
   {ar:'الحياة بعد الستين',en:'Life After Sixty',route:'about/after-sixty'},
   {ar:'ماذا تعرف عن صحتك؟',en:'What Do You Know About Your Health?',route:'about/health',children:[
+   {ar:'نبذة عن القسم',en:'Section overview',route:'about/health'},
    {ar:'علاج الاكتئاب والقلق',en:'Depression and Anxiety: Understanding Care',route:'about/health/depression-anxiety'}
   ]},
   {ar:'لماذا أعشق المغامرات؟',en:'Why I Love Adventure',route:'about/why-adventures'},
   {ar:'رحلتي في المال والأعمال',en:'My Journey in Business',route:'about/business'},
   {ar:'العمل التطوعي والمبادرات الإنسانية',en:'Volunteer & Community Work',children:[
+   {ar:'نظرة عامة',en:'Overview',route:'about/volunteer-programs'},
    {ar:'الأعمال التطوعية',en:'Community work',route:'about/volunteering'},
    ...['community-wells','community-iftar-eg','community-iftar-srilanka','community-orphans'].map(id=>{const x=window.KARIM_LIBRARY[id];return {ar:x.ar,en:x.en,route:'content/'+id}}),
    {ar:'بناء المساجد',en:'Mosque Construction',route:'about/mosques'},
    {ar:'حلقات القرآن الكريم',en:'Quran Learning Circles',route:'about/quran-circles'}
   ]},
-  {ar:'المصادر والأرشيف التعريفي',en:'Original background archive',children:OWNER_DROPDOWNS.about.map(x=>({ar:x.ar,en:x.en,route:x.route||'content/'+x.contentId}))}
+  {ar:'المصادر والأرشيف التعريفي',en:'Original background archive',children:[{ar:'نظرة عامة',en:'Overview',route:'about/source-archive'},...OWNER_DROPDOWNS.about.map(x=>({ar:x.ar,en:x.en,route:x.route||'content/'+x.contentId}))]}
  ]},
  {id:'journeys',ar:'مغامراتي',en:'My Adventures',children:[
   {ar:'رحلاتي ومغامراتي',en:'Journeys & Adventures',route:'journeys'},
