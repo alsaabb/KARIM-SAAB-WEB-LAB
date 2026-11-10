@@ -9,7 +9,7 @@ const groups=[
  {test:r=>r==='about'||r.startsWith('about/'),ar:'عن KARIM SAAB',en:'About KARIM SAAB',cta:'about'},
  {test:r=>r==='contact'||r==='links',ar:'تواصل',en:'Connect',cta:'links'}
 ];
-function safeSocial(){return typeof SOCIAL_PROFILES!=='undefined'?SOCIAL_PROFILES.filter(s=>s&&s.url&&/^https:\/\//.test(s.url)&&s.id!=='pinterest'):[]}
+function safeSocial(){return typeof SOCIAL_PROFILES!=='undefined'?SOCIAL_PROFILES.filter(s=>s&&s.url&&/^https:\/\//.test(s.url)&&s.id!=='pinterest'&&s.id!=='x'):[]}
 function customize(){
  const r=state.route||'', ar=state.lang==='ar';
  const group=groups.find(g=>g.test(r))||{ar:'الرئيسية',en:'Home',cta:''};
@@ -21,7 +21,7 @@ function customize(){
  if(!h){h=document.createElement('div');h.className='ks-section-strip';head.appendChild(h)}
  h.textContent=(ar?group.ar:group.en)+' · KARIM SAAB';
  const nav=foot.querySelector('.footer-social-list');
- if(nav){nav.innerHTML=safeSocial().map(s=>'<a class="ks-social-chip" href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(s.name)+'"><span aria-hidden="true">'+esc(s.monogram||'•')+'</span><span>'+esc(s.name)+'</span></a>').join('');}
+ if(nav){const xAccounts=[{url:'https://x.com/alsaabb1',name:ar?'X — المغامرات والرحلات':'X — Adventures & Travel'},{url:'https://x.com/karim_saab',name:ar?'X — الأعمال والمشاريع':'X — Business & Projects'}];const social=safeSocial().map(s=>'<a class="ks-social-chip" href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(s.name)+'"><span aria-hidden="true">'+esc(s.monogram||'•')+'</span><span>'+esc(s.name)+'</span></a>');const xLinks=xAccounts.map(s=>'<a class="ks-social-chip" href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer" aria-label="'+esc(s.name)+'"><span aria-hidden="true">X</span><span>'+esc(s.name)+'</span></a>');nav.innerHTML=social.concat(xLinks).join('');}
  let section=foot.querySelector('.ks-footer-section');
  if(!section){section=document.createElement('div');section.className='ks-footer-section';foot.querySelector('.container')?.prepend(section)}
  const label=ar?group.ar:group.en, go=ar?'استكشف القسم':'Explore section';
