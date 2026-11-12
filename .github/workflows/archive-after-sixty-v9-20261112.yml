@@ -1,0 +1,127 @@
+name: Package approved After Sixty V9 backup (no production changes)
+
+on:
+  push:
+    branches:
+      - archive/after-sixty-v9-20261112
+
+permissions:
+  contents: read
+
+jobs:
+  archive-approved-v9:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout EXACT approved published V9 commit
+        uses: actions/checkout@v4
+        with:
+          ref: 07a704d26972365ae4ea0986528c524133ba616e
+          persist-credentials: false
+
+      - name: Package verified feature sources, published share pages and cover image
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import datetime, hashlib, json, shutil, urllib.request, subprocess
+
+          commit = "07a704d26972365ae4ea0986528c524133ba616e"
+          assert subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()==commit
+          source = Path(".")
+          dest = Path("archive/KARIM_SAAB_AFTER_SIXTY_V9_APPROVED_2026-11-12")
+          paths = [
+            "dist/index.html",
+            "dist/app.js",
+            "dist/styles.css",
+            "dist/enhancements.css",
+            "dist/after-sixty-v1.js",
+            "dist/after-sixty-v1.css",
+            "dist/data/after-sixty.json",
+            "dist/bilingual-share-v1.js",
+            "dist/bilingual-share-v1.css",
+            "dist/share/ar/after-sixty-sixty-is-not-a-waiting-room.html",
+            "dist/share/en/after-sixty-sixty-is-not-a-waiting-room.html",
+            "dist/share/ar/after-sixty-sixty-is-not-a-waiting-room-video.html",
+            "dist/share/ar/after-sixty-sixty-is-not-a-waiting-room-article.html",
+            "dist/share/en/after-sixty-sixty-is-not-a-waiting-room-video.html",
+            "dist/share/en/after-sixty-sixty-is-not-a-waiting-room-article.html",
+            "dist/sitemap.xml",
+            "docs/AFTER-SIXTY-PUBLISHING.md",
+            "tests/after_sixty_poster_browser.cjs",
+            "tests/share_dom.test.cjs",
+            "tests/test_after_sixty.py",
+            "scripts/build_after_sixty_share.py",
+          ]
+          html = Path("dist/index.html").read_text(encoding="utf-8")
+          js = Path("dist/after-sixty-v1.js").read_text(encoding="utf-8")
+          assert "after-sixty-v1.js?v=20261112-v9" in html
+          assert "after-sixty-v1.css?v=20261112-v9" in html
+          assert "ks60-poster-cta" in js and "ks60-poster-play" not in js
+          assert 'label("شاهد الفيديو","Watch video")' in js
+          data = json.loads(Path("dist/data/after-sixty.json").read_text(encoding="utf-8"))
+          ep = next(x for x in data["episodes"] if x["slug"]=="sixty-is-not-a-waiting-room")
+          video_id=ep["youtube_id"]
+          assert video_id=="0YT1QXZT6mI"
+          for rel in paths:
+            src=source/rel
+            assert src.is_file(),f"Required archive source missing: {src}"
+            target=dest/rel
+            target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(src,target)
+          # Preserve the displayed YouTube thumbnail pixels as a JPEG reference.
+          url = f"https://i.ytimg.com/vi/{video_id}/maxresdefault.jpg"
+          request = urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0 (KARIM SAAB approved archive)"})
+          with urllib.request.urlopen(request,timeout=35) as response:
+            thumb=response.read()
+          assert len(thumb)>15000 and thumb[:3]==b"\xff\xd8\xff", "Invalid thumbnail received"
+          cover=dest/"reference/episode01_youtube_maxresdefault.jpg"
+          cover.parent.mkdir(parents=True,exist_ok=True)
+          cover.write_bytes(thumb)
+
+          readme = f"""# KARIM SAAB | الحياة بعد الستين | V9 المعتمد
+          **الحالة:** النسخة النهائية المعتمدة والمنشورة بتاريخ 2026-11-12.
+          **المصدر الأصلي:** https://github.com/alsaabb/KARIM-SAAB-WEB-LAB
+          **Git commit (V9):** {commit}
+          **معاينة الحلقة:** https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/about/after-sixty/sixty-is-not-a-waiting-room
+          **نوع الحفظ:** نسخة من ملفات ميزة الحلقة والتصميم والروابط الثنائية واختباراتها، وليست نسخة مكتملة مستقلة من الموقع كله.
+
+          ## ما يتضمنه الأرشيف
+          - ملفات JS/CSS لواجهة الحلقة، وتصميم الغلاف V9: ظهور «شاهد الفيديو» فقط في منتصف أسفل الصورة، مع قابلية ضغط الغلاف بالكامل.
+          - مصدر المقال بالعربية والإنجليزية، وصفحات مشاركة الفيديو والمقال المنفصلة، والملفات المساندة الضرورية لتوثيق الدمج.
+          - ملف صورة المعاينة المرجعية كما يقدمه YouTube (JPG أصلي، دون إعادة ضغط)، في reference/.
+          - اختبارات التوافق مع الجوال وقواعد المشاركة، وملف التحقق SHA256SUMS.txt.
+
+          ## حدود النسخة
+          - هذا الأرشيف لا يشمل ملف الفيديو MP4 الأصلي، ولا يستبدل نسخ الفيديو الموجودة في Google Drive أو على YouTube.
+          - إعادة نشر الموقع كاملاً تتطلب بقية ملفات موقع KARIM SAAB؛ النسخة هنا تحفظ تعديلات القسم ومكوناته فقط.
+          - الصورة المرجعية مصدرها {url}، ولم تُعدّل أو يُعاد ضغطها.
+          - لم يتم تعديل أي ملف أصلي موجود في Google Drive.
+
+          ## English
+          Approved published V9 feature backup for the "Life After Sixty" episode.
+          Exact source commit: {commit}.
+          Contains the module JS/CSS, related app integration files, episode JSON,
+          bilingual article/video sharing pages, tests, SHA256 checksums, and
+          an unmodified reference JPEG downloaded from the publicly hosted YouTube thumbnail.
+          NOT a full standalone site archive, and it does not include the original MP4.
+          """
+          (dest/"README_AR_EN.md").write_text("\n".join(line.strip() for line in readme.splitlines())+"\n",encoding="utf-8")
+          file_list=sorted(p for p in dest.rglob("*") if p.is_file())
+          checksums="\n".join(hashlib.sha256(p.read_bytes()).hexdigest()+"  "+p.relative_to(dest).as_posix() for p in file_list)+"\n"
+          (dest/"SHA256SUMS.txt").write_text(checksums,encoding="utf-8")
+          assert len(file_list)>=23
+          print("Verified V9 source commit:",commit)
+          print("Archived file count:",len(file_list)+1)
+          print("Archived thumbnail bytes:",len(thumb))
+          print("Manifest and checksum file complete.")
+          PY
+
+      - name: Upload immutable V9 archive as GitHub artifact for approved Drive destination
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_SAAB_AFTER_SIXTY_V9_APPROVED_2026-11-12
+          path: archive/KARIM_SAAB_AFTER_SIXTY_V9_APPROVED_2026-11-12/
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
