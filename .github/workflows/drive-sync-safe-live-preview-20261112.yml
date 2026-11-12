@@ -1,0 +1,51 @@
+name: KARIM SAAB — Safe Drive sync connectivity and preview
+on:
+  push:
+    branches:
+      - feature/drive-content-sync-preview-20261109
+permissions:
+  contents: read
+jobs:
+  drive-readonly-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout currently deployed main, for local-only comparison
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Confirm Drive settings exist, without revealing credentials
+        shell: bash
+        env:
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: |
+          if [[ -z "$GDRIVE_SERVICE_ACCOUNT_KEY" ]]; then
+            echo "::error::GDRIVE_SERVICE_ACCOUNT_KEY is missing"; exit 1
+          fi
+          if [[ -z "$GDRIVE_FOLDER_ID" ]]; then
+            echo "::error::GDRIVE_FOLDER_ID is missing"; exit 1
+          fi
+          echo "Drive credentials and folder selector are configured (values hidden)"
+      - name: Install Drive dependencies
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth
+      - name: Read approved Google Drive sources into isolated runner only
+        env:
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
+          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+        run: python scripts/sync_drive_to_github.py
+      - name: Validate generated local preview, without publishing
+        run: |
+          python scripts/verify_site.py
+          python scripts/verify_identity.py
+          git diff --check
+          echo "Tracked changed files in ephemeral runner:"
+          git diff --name-only -- dist/
+          echo "New local files in ephemeral runner:"
+          git ls-files --others --exclude-standard dist/
+          echo "DRY RUN FINISHED — no commit, no push, no deploy"
