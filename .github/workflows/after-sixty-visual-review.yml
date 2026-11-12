@@ -24,11 +24,69 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Verify responsive layout and interactions
         run: python scripts/after_sixty_visual_check.py
-      - name: Save screenshots and report for owner review
-        if: always()
+      - name: Assemble complete approved V1.2 archive manifest
+        run: |
+          set -euo pipefail
+          mkdir -p "archive-metadata"
+          cat > "archive-metadata/README_AR_EN.txt" <<'EOF'
+KARIM SAAB — Life After Sixty | الحياة بعد الستين
+APPROVED UI ARCHIVE — V1.2 (2026-11-12)
+Official name: عبد الكريم بن ابراهيم الصعب | KARIM SAAB
+Repository: alsaabb/KARIM-SAAB-WEB-LAB
+Source branch: feature/after-sixty-library-v1-20261112
+Production state: NOT DEPLOYED — this is an approved design/content snapshot.
+Contents: section UI JS/CSS, data/after-sixty.json with complete Arabic article,
+static share HTML pages, index/sitemap integration, sync scripts, tests,
+publishing guide and real Chromium desktop/mobile screenshots.
+Google Drive video backup is NOT activated; matching recording and public
+permissions have not been verified. The existing user's Drive files are not
+modified. YouTube embeds require client-side playback confirmation.
+The English article has not been translated or approved.
+To restore this feature, integrate the archived files into the repository
+version recorded in the SOURCE_COMMIT file; this is not a standalone website.
+EOF
+          git rev-parse HEAD > archive-metadata/SOURCE_COMMIT.txt
+          printf '%s\n' "Repository: https://github.com/alsaabb/KARIM-SAAB-WEB-LAB" \
+            "Review: https://github.com/alsaabb/KARIM-SAAB-WEB-LAB/pull/14" \
+            "Drive target: 1k0I1UUm9v5ugrBwEkBdJmEudx8zkgq6R" \
+            > archive-metadata/SOURCE_LINKS.txt
+          sha256sum \
+            dist/index.html dist/sitemap.xml \
+            dist/after-sixty-v1.js dist/after-sixty-v1.css \
+            dist/data/after-sixty.json \
+            dist/share/ar/after-sixty-sixty-is-not-a-waiting-room.html \
+            dist/share/en/after-sixty-sixty-is-not-a-waiting-room.html \
+            scripts/after_sixty_drive_sync.py scripts/build_after_sixty_share.py \
+            scripts/sync_drive_to_github.py scripts/after_sixty_visual_check.py \
+            tests/test_after_sixty.py docs/AFTER-SIXTY-PUBLISHING.md \
+            > archive-metadata/SHA256SUMS.txt
+          test -s visual-review/after-sixty/desktop-episode-poster.png
+          test -s visual-review/after-sixty/mobile-episode-poster.png
+          node --check dist/after-sixty-v1.js
+          python -m unittest discover -s tests -p 'test_after_sixty.py' -q
+
+      - name: Save approved source, screenshots and checksums for Drive
         uses: actions/upload-artifact@v4
         with:
-          name: after-sixty-desktop-mobile-visual-review
-          path: visual-review/after-sixty/
-          if-no-files-found: warn
-          retention-days: 14
+          name: KARIM_AFTER_SIXTY_V1.2_APPROVED_2026-11-12
+          path: |
+            archive-metadata/
+            dist/index.html
+            dist/sitemap.xml
+            dist/after-sixty-v1.js
+            dist/after-sixty-v1.css
+            dist/data/after-sixty.json
+            dist/share/ar/after-sixty-sixty-is-not-a-waiting-room.html
+            dist/share/en/after-sixty-sixty-is-not-a-waiting-room.html
+            scripts/after_sixty_drive_sync.py
+            scripts/build_after_sixty_share.py
+            scripts/sync_drive_to_github.py
+            scripts/after_sixty_visual_check.py
+            tests/test_after_sixty.py
+            docs/AFTER-SIXTY-PUBLISHING.md
+            .github/workflows/after-sixty-visual-review.yml
+            .github/workflows/after-sixty-sync-preview.yml
+            .github/workflows/after-sixty-validation.yml
+            visual-review/after-sixty/
+          if-no-files-found: error
+          retention-days: 30
