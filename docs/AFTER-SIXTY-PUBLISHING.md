@@ -13,10 +13,14 @@ The UI is isolated under `.ks60`, with a 40/60 video/article desktop layout, mob
 
 Static Open Graph/Twitter/Article + VideoObject pages are created in `dist/share/ar` and `dist/share/en`, and included in `dist/sitemap.xml`. Share the **static share URL**, not a hash URL, for reliable social previews.
 
-## Episode 01 — important editorial hold
-The user-provided full article was **truncated** at "السعادة قرار". The site data sets `article_complete: false` and retains this exact fragment; the site visibly labels it as incomplete. The first episode metadata, video ID, excerpt and three timestamps are present, but **do not approve merging to main as a final publication until the full ending is supplied and reviewed**.
+## Episode 01 — text complete; publication pending review
+On 2026-11-12 the author supplied the **entire Arabic article**, including the passage beginning "السعادة قرار ينبع من داخلك أنت", the conclusion "الخلاصة: اترك أثراً قبل أن تغادر", and the closing platform/hashtag message. The central JSON now sets `article_complete: true`, has no missing-text warning, and stores the author's wording without editorial paraphrasing.
 
-The Arabic full article is author-supplied; no invented remainder or English full translation has been inserted. The English list excerpt is provisional summary copy requiring editorial approval. Verify the YouTube video and actual timestamps before release.
+The manuscript is still a **review draft** (`editorial_review_status: "pending_final_approval"`). Content completeness does not grant approval for deployment, video/Drive access, or editorial changes. Before production:
+- Review the attribution, YouTube video and each timestamp against the recording.
+- Discuss the absolute medical framing around cortisol and the phrase "السعادة قرار": personal encouragement should not imply that depression is simply a personal choice; do not silently rewrite the author's prose.
+- Approve any English full-article translation separately; the English listing excerpt is provisional.
+- Confirm the actual Google Drive content folder and matching backup video.
 
 ## Google Drive — editorial directory policy
 
