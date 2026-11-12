@@ -1,0 +1,164 @@
+name: Archive the TWO approved Happiness articles and videos (no production changes)
+
+on:
+  push:
+    branches:
+      - archive/happiness-approved-pair-20261112
+
+permissions:
+  contents: read
+
+jobs:
+  immutable-approved-snapshots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out EXACT approved and published commit
+        uses: actions/checkout@v4
+        with:
+          ref: 58b73d1fe742747034a260c1f64a35456b1f3405
+          persist-credentials: false
+
+      - name: Create two self-documented bilingual archives with exact assets and SHA256 checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import subprocess, json, hashlib, shutil
+
+          commit = '58b73d1fe742747034a260c1f64a35456b1f3405'
+          assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==commit
+          master_path=Path('dist/data/happiness-stories-v1.json')
+          master=json.loads(master_path.read_text(encoding='utf-8'))
+          assert len(master['entries'])==2
+          plan=[
+            ('happiness-not-for-sale','KARIM_SAAB_HAPPINESS_NOT_FOR_SALE_AR_EN_APPROVED_2026-11-12'),
+            ('world-is-not-paradise','KARIM_SAAB_WORLD_IS_NOT_PARADISE_AR_EN_APPROVED_2026-11-12')
+          ]
+          source_files=[
+            'dist/index.html',
+            'dist/happiness-stories-v1.js',
+            'dist/happiness-stories-v1.css',
+            'dist/bilingual-share-v1.js',
+            'dist/data/happiness-stories-v1.json',
+            'dist/sitemap.xml',
+            'tests/happiness_stories_browser.cjs',
+            '.github/workflows/happiness-stories-bilingual-review.yml',
+          ]
+          index=Path('dist/index.html').read_text(encoding='utf-8')
+          js=Path('dist/happiness-stories-v1.js').read_text(encoding='utf-8')
+          assert 'happiness-stories-v1.js?v=20261112-v1' in index
+          assert 'happiness-stories-v1.css?v=20261112-v1' in index
+          assert 'شاهد الفيديو' in js and 'ks-happ-cta' in js
+          for slug,label in plan:
+            story=next(s for s in master['entries'] if s['slug']==slug)
+            assert story['route']=='about/happiness/video/'+slug
+            assert len(story['youtube_id'])==11
+            assert len(story['sections'])>=5
+            assert all(s['heading_ar'] and s['heading_en'] and s['paragraphs_ar'] and
+                       len(s['paragraphs_ar'])==len(s['paragraphs_en']) and all(s['paragraphs_en'])
+                       for s in story['sections'])
+            path=Path('out')/label
+            needed=source_files.copy()
+            cover=f'dist/assets/happiness/{slug}-youtube-poster.jpg'
+            needed.append(cover)
+            needed.extend(f'dist/share/{lang}/happiness-{slug}-{kind}.html'
+                          for lang in ('ar','en') for kind in ('video','article'))
+            for relative in needed:
+              src=Path(relative)
+              assert src.is_file(), 'Missing approved source '+relative
+              dest=path/relative
+              dest.parent.mkdir(parents=True,exist_ok=True)
+              shutil.copy2(src,dest)
+            # Ensure this is the locally archived, approved thumbnail (not a new retrieval/recompression).
+            jpeg=(path/cover).read_bytes()
+            assert jpeg[:3]==b'\xff\xd8\xff' and len(jpeg)>15000
+            # Standalone edition of each source article, clearly linked to the approved source manifest.
+            for lang in ('ar','en'):
+              title=story['subtitle_'+lang]
+              subtitle=story['title_'+lang]
+              content=['# '+title,'',subtitle,'',story['excerpt_'+lang],'']
+              for sec in story['sections']:
+                content.extend(['## '+sec['heading_'+lang],''])
+                for p in sec['paragraphs_'+lang]: content.extend([p,''])
+              content.append('---')
+              content.append('KARIM SAAB | approved source commit: '+commit)
+              (path/('ARTICLE_'+lang.upper()+'.md')).write_text('\n'.join(content)+'\n',encoding='utf-8')
+            (path/'STORY_APPROVED.json').write_text(json.dumps(story,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+            metadata={
+              'project':'KARIM SAAB / خلّ السعادة عادة',
+              'story_slug':slug,
+              'title_ar':story['title_ar'],
+              'title_en':story['title_en'],
+              'status':'Owner approved; released to GitHub Pages',
+              'published_source_repository':'alsaabb/KARIM-SAAB-WEB-LAB',
+              'immutable_published_source_commit':commit,
+              'published_source_commit_url':'https://github.com/alsaabb/KARIM-SAAB-WEB-LAB/commit/'+commit,
+              'edition':'HAPPINESS_BILINGUAL_V1_2026-11-12',
+              'youtube_url':'https://www.youtube.com/shorts/'+story['youtube_id'],
+              'previous_archived_drive_mp4_id':story['drive_file_id'],
+              'live_url_ar':'https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/'+story['route'],
+              'live_url_en':'https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/en/'+story['route'],
+              'archive_scope':'Bilingual articles and selected exact released feature and share files; NOT a complete site backup; video MP4 not duplicated',
+              'picture':'Original approved YouTube preview JPEG as stored in source commit, unaltered',
+              'share_pages':[f'dist/share/{lang}/happiness-{slug}-{kind}.html' for lang in ('ar','en') for kind in ('video','article')]
+            }
+            (path/'APPROVED_RELEASE_MANIFEST.json').write_text(json.dumps(metadata,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+            readme=f"""# {story['title_ar']} — النسخة النهائية المعتمدة | KARIM SAAB
+
+          **الحالة:** تم الاعتماد والنشر بتاريخ 2026-11-12.
+          **إصدار القسم:** HAPPINESS_BILINGUAL_V1_2026-11-12
+          **المصدر المرجعي الثابت (GitHub commit):** {commit}
+          **الرابط الأصلي:** https://github.com/alsaabb/KARIM-SAAB-WEB-LAB/commit/{commit}
+          **صفحة الموقع العربية:** {metadata['live_url_ar']}
+          **صفحة الموقع الإنجليزية:** {metadata['live_url_en']}
+
+          ## ما يتضمنه الأرشيف
+          - ARTICLE_AR.md وARTICLE_EN.md: المقال الكامل بلغتيه كما نُشر.
+          - STORY_APPROVED.json: نسخة بيانات القصة وحدها من المصدر المعتمد.
+          - APPROVED_RELEASE_MANIFEST.json: دليل واضح بالمصادر والإصدار والروابط.
+          - dist/assets/happiness/...: صورة الغلاف الأصلية المأخوذة من الإصدار المنشور دون إعادة ضغط.
+          - dist/happiness-stories-v1.js/.css وdist/bilingual-share-v1.js: ملفات عرض الفيديو والمقال والمشاركة.
+          - أربع صفحات مشاركة مستقلة (المقال والفيديو بالعربية والإنجليزية).
+          - اختبارات متصفح Chromium وملفات HTML والبيانات ذات الصلة بدمج الصفحة في الموقع.
+          - SHA256SUMS.txt للتحقق من سلامة الملفات.
+
+          ## تنبيهات
+          - هذا أرشيف خاص بالقصة وليس نسخة مكتملة من الموقع؛ بقية ملفات الموقع محفوظة في المستودع المرجعي.
+          - لا يحتوي على ملف الفيديو الأصلي MP4؛ يظل الملف السابق الموجود في Google Drive دون تعديل.
+          - أرشيف الصور يحافظ على جودة JPEG الأصلية كما هي في GitHub.
+          - لا تُحذف أو تُستبدل أي ملفات سابقة في Google Drive.
+
+          ## English
+          Approved bilingual content+feature archive for **{story['title_en']}**.
+          Both complete articles are stored in ARTICLE_AR.md and ARTICLE_EN.md;
+          original source content in STORY_APPROVED.json; four independent static
+          share landing pages, original unmodified thumbnail, integration JS/CSS,
+          tests, release manifest and SHA256 checksums are included.
+          Not a complete standalone site or an MP4 video archive.
+          Exact immutable approved source commit: {commit}
+          """
+            (path/'README_AR_EN.md').write_text('\n'.join(line.strip() for line in readme.splitlines())+'\n',encoding='utf-8')
+            files=sorted(p for p in path.rglob('*') if p.is_file())
+            checksums='\n'.join(hashlib.sha256(p.read_bytes()).hexdigest()+'  '+p.relative_to(path).as_posix() for p in files)+'\n'
+            (path/'SHA256SUMS.txt').write_text(checksums,encoding='utf-8')
+            assert len(files)+1>=18
+            print('VERIFIED FINAL ARCHIVE',label,'files',len(files)+1,'poster_bytes',len(jpeg),'sha',commit)
+          PY
+      - name: Save the APPROVED rescue story as an independent zipped GitHub artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_SAAB_HAPPINESS_NOT_FOR_SALE_AR_EN_APPROVED_2026-11-12
+          path: out/KARIM_SAAB_HAPPINESS_NOT_FOR_SALE_AR_EN_APPROVED_2026-11-12/
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
+
+      - name: Save the APPROVED world-is-not-paradise story as an independent zipped GitHub artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_SAAB_WORLD_IS_NOT_PARADISE_AR_EN_APPROVED_2026-11-12
+          path: out/KARIM_SAAB_WORLD_IS_NOT_PARADISE_AR_EN_APPROVED_2026-11-12/
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 6
