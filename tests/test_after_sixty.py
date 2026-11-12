@@ -28,6 +28,8 @@ class AfterSixtyTests(unittest.TestCase):
         self.assertEqual(ep["slug"], "sixty-is-not-a-waiting-room")
         self.assertEqual(ep["youtube_id"], "0YT1QXZT6mI")
         self.assertEqual(ep["duration_seconds"], 144)
+        self.assertEqual(ep["video_orientation"], "vertical")
+        self.assertTrue(ep["thumbnail_url"].endswith("/maxresdefault.jpg"))
         self.assertEqual(ep["reading_minutes"], 4)
         self.assertEqual([c["time_seconds"] for c in ep["chapters"]], [58, 90, 108])
 
@@ -98,6 +100,15 @@ class AfterSixtyTests(unittest.TestCase):
         self.assertIn("ks60-video-pane", frontend)
         self.assertIn("data-chapter-target", frontend)
         self.assertIn("data-seek", frontend)
+        self.assertIn("ks60-poster-play", frontend)
+        self.assertIn("ks60-chapters", frontend)
+        self.assertIn('data-source="youtube"', frontend)
+        self.assertNotIn('data-view="article"', frontend)
+        styles = (ROOT / "dist/after-sixty-v1.css").read_text(encoding="utf-8")
+        self.assertIn("background:#F9F8F6", styles)
+        self.assertIn("color:#1A1A1A", styles)
+        self.assertIn('ks60-player[data-orientation=vertical]', styles)
+
 
 
 if __name__ == "__main__":
