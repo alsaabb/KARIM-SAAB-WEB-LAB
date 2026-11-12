@@ -32,3 +32,9 @@ jobs:
         run: |
           npm install --no-save --no-package-lock jsdom@26
           node --test tests/share_dom.test.cjs
+
+      - name: Verify portrait poster and mobile episode layout in Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ks60-preview-http.log 2>&1 &
+          node tests/after_sixty_poster_browser.cjs

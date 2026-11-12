@@ -192,3 +192,42 @@ body:has(main.ks60) .ks-ai-site-link-symbol::after{
  content:"AI";font:700 12px/1 Arial,sans-serif
 }
 @media(max-width:760px){.ks60-episode-head h1{font-size:clamp(1.72rem,7.1vw,2.1rem);line-height:1.38}}
+
+/* Poster clarity and mobile layout correction (11 Nov review).
+   Existing YouTube thumbnail includes a portrait cover inside a wide frame:
+   crop its centre into the vertical player instead of letterboxing it. */
+.ks60-player[data-orientation=vertical]{width:min(100%,420px);aspect-ratio:9/16}
+.ks60-player[data-orientation=vertical] .ks60-poster-blur{display:none}
+.ks60-player[data-orientation=vertical] .ks60-poster-image{object-fit:cover;object-position:50% 50%;filter:brightness(.92) contrast(1.03)}
+.ks60-poster-badge,.ks60-card-video-badge{
+ position:absolute;z-index:3;top:12px;inset-inline-start:12px;
+ border:1px solid rgba(255,231,162,.8);border-radius:999px;
+ padding:5px 12px;color:#fff7df;background:rgba(12,12,12,.82);
+ font-size:.84rem;font-weight:800;line-height:1.35;
+ pointer-events:none;text-shadow:0 1px 2px #111
+}
+.ks60-poster:focus-visible{outline:3px solid #ffe7a2;outline-offset:-3px}
+.ks60-player[data-orientation=vertical] .ks60-poster-play{width:78px;height:78px;font-size:36px}
+.ks60-card-video-badge{top:14px;inset-inline-start:14px}
+.ks60-grid.ks60-grid-single{grid-template-columns:minmax(0,min(100%,420px));justify-content:center}
+.ks60-grid-single .ks60-thumb{aspect-ratio:9/16}
+.ks60-grid-single .ks60-thumb img{object-fit:cover;object-position:center}
+.ks60-grid-single .ks60-card{width:100%}
+/* Tablets and mobile browsers requesting a desktop-sized viewport should still
+   see the full poster ABOVE the article rather than two unreadably narrow columns. */
+@media(max-width:1100px){
+ .ks60-split{display:block}
+ .ks60-video-pane{position:static;width:min(100%,540px);margin:0 auto 26px}
+ .ks60-article-pane{width:min(100%,900px);margin-inline:auto;display:block}
+ .ks60-player-stage{padding:8px}
+ .ks60-episode-head h1{font-size:clamp(2rem,5vw,2.6rem)}
+ .ks60-lead{font-size:1.08rem}
+}
+@media(max-width:760px){
+ .ks60-player[data-orientation=vertical]{width:min(100%,420px)}
+ .ks60-player-stage{padding:6px}
+ .ks60-video-pane{width:100%;margin-bottom:22px}
+ .ks60-grid.ks60-grid-single{grid-template-columns:minmax(0,100%)}
+ .ks60-grid-single .ks60-thumb{aspect-ratio:9/16}
+ .ks60-poster-badge,.ks60-card-video-badge{font-size:.87rem}
+}
