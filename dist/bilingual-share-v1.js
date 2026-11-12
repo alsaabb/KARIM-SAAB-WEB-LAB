@@ -94,8 +94,11 @@
     }
     return null; // Ignore section listings, homepage, and utility pages.
   }
-  function sharePage(r) {
+  function sharePage(r,kind) {
     var slug=r.route.replace(/\//g,'-');
+    if (r.route.startsWith('about/after-sixty/')) {
+      slug='after-sixty-'+r.route.slice('about/after-sixty/'.length)+'-'+kind;
+    }
     return new URL('share/'+r.lang+'/'+slug+'.html',new URL('./',location.href.split('#')[0])).href;
   }
   function linkFor(network,url,m,tags,img) {
@@ -118,45 +121,49 @@
     var ok=document.execCommand('copy');x.remove();
     return ok ? Promise.resolve() : Promise.reject(new Error('Copy failed'));
   }
-  function mount() {
-    var r=current(), main=document.querySelector('#app > main');
-    if(!main||!r.route) return;
-    var target=locate(r.route,main);
-    if(!target) return;
+
+  // Render a kind-specific share panel: video and article are distinct publications.
+  function addShare(target, r, main, kind) {
+    if (!target) return;
     var old=target.querySelector(':scope > .ks-share-v1');
-    if(old&&old.dataset.route===r.route&&old.dataset.lang===r.lang)return;
-    if(old)old.remove();
-    var m=meta(r.route,r.lang,main), hashtags=makeTags(r.route,r.lang,m.ar,m.en), lang=r.lang==='ar';
-    var itemIsVideo=!!(main.querySelector('video,.ks-va-section,.ks60-player,.ks-ab-video,iframe[src*="youtube"]') || /\/video\//.test(r.route) || /^about\/after-sixty\//.test(r.route));
-    var h=lang?(itemIsVideo?'شارك هذا الفيديو':'شارك هذا المقال'):(itemIsVideo?'Share this video':'Share this article');
+    if (old && old.dataset.route===r.route && old.dataset.lang===r.lang && old.dataset.kind===kind) return;
+    if (old) old.remove();
+    var lang=r.lang==='ar', m=meta(r.route,r.lang,main), hashtags=makeTags(r.route,r.lang,m.ar,m.en);
+    var typeTags=kind==='video' ? {ar:'#فيديو',en:'#Video'} : {ar:'#مقال',en:'#Article'};
+    hashtags.ar.push(typeTags.ar);hashtags.en.push(typeTags.en);
+    var namePrefix=lang?(kind==='video'?'فيديو: ':'مقال: '):(kind==='video'?'Video: ':'Article: ');
+    m.title=namePrefix+m.title;
+    var h=lang?(kind==='video'?'شارك هذا الفيديو':'شارك هذا المقال'):(kind==='video'?'Share this video':'Share this article');
     var nativeAvailable=typeof navigator.share==='function';
     var box=document.createElement('section');
-    box.className='ks-share-v1';box.dataset.route=r.route;box.dataset.lang=r.lang;box.setAttribute('aria-label',h);
-    box.innerHTML='<div class="ks-share-v1-head"><div><span class="ks-share-v1-eyebrow">KARIM SAAB · SHARE</span><h3>'+h+'</h3></div><p>'+ (lang?'شارك المادة مباشرة أو انسخ رابطها مع الوسوم المناسبة.':'Share this item or copy its link with relevant hashtags.')+'</p></div>'+
+    box.className='ks-share-v1';box.dataset.route=r.route;box.dataset.lang=r.lang;box.dataset.kind=kind;
+    box.setAttribute('aria-label',h);
+    box.innerHTML='<div class="ks-share-v1-head"><div><span class="ks-share-v1-eyebrow">KARIM SAAB · '+(kind==='video'?'VIDEO':'ARTICLE')+'</span><h3>'+h+'</h3></div><p>'+
+      (lang?(kind==='video'?'شارك رابط الفيديو نفسه.':'شارك رابط المقال نفسه.'):(kind==='video'?'Share the video link.':'Share the article link.'))+'</p></div>'+
       '<div class="ks-share-v1-buttons" role="group" aria-label="'+h+'">'+
       supported.map(function(network){
         return '<a class="ks-share-v1-link ks-share-v1-'+network+'" data-network="'+network+'" target="_blank" rel="noopener noreferrer" aria-label="'+(lang?'المشاركة عبر ':'Share on ')+names[network]+'" title="'+names[network]+'"><span aria-hidden="true">'+glyphs[network]+'</span><small>'+names[network]+'</small></a>';
       }).join('')+
-      '<button class="ks-share-v1-copy" type="button" data-action="copy" aria-label="'+(lang?'نسخ رابط المادة':'Copy item link')+'"><span aria-hidden="true">🔗</span><small>'+(lang?'نسخ الرابط':'Copy link')+'</small></button>'+
+      '<button class="ks-share-v1-copy" type="button" data-action="copy" aria-label="'+(lang?'نسخ رابط '+(kind==='video'?'الفيديو':'المقال'):'Copy '+kind+' link')+'"><span aria-hidden="true">🔗</span><small>'+(lang?'نسخ الرابط':'Copy link')+'</small></button>'+
       (nativeAvailable?'<button class="ks-share-v1-copy" type="button" data-action="native"><span aria-hidden="true">↗</span><small>'+(lang?'مشاركة الجهاز':'Device share')+'</small></button>':'')+'</div>'+
       '<div class="ks-share-v1-tags"><div class="ks-share-v1-tags-head"><strong>'+(lang?'وسوم مرتبطة بالموضوع':'Relevant topic hashtags')+'</strong><button type="button" data-action="tags">'+(lang?'نسخ الوسوم':'Copy hashtags')+'</button></div>'+
       '<div class="ks-share-v1-tag-list" dir="auto">'+hashtags.ar.map(function(t){return '<span lang="ar" dir="rtl">'+esc(t)+'</span>';}).join('')+
       hashtags.en.map(function(t){return '<span lang="en" dir="ltr">'+esc(t)+'</span>';}).join('')+'</div></div>'+
       '<p class="ks-share-v1-status" role="status" aria-live="polite"></p>';
     target.appendChild(box);
-
-    var itemHashUrl=location.href.split('#')[0]+'#/'+r.lang+'/'+r.route, canonical=itemHashUrl;
-    var imgNode=main.querySelector('.source-hero-photo img,.detail-media,.ks60-player img,.ks-va-section img');
-    var imageUrl=imgNode&&imgNode.src||'';
+    var dual=r.route.startsWith('about/after-sixty/');
+    var base=location.href.split('#')[0];
+    // A deep link also works if the static social-preview page is unavailable.
+    var canonical=base+'#/'+r.lang+'/'+r.route+(dual?'?focus='+kind:'');
+    var imageNode=main.querySelector('.source-hero-photo img,.detail-media,.ks60-player img,.ks-va-section img');
+    var imageUrl=imageNode&&imageNode.src||'';
     var hashText=hashtags[r.lang].join(' ');
-    function updateLinks() {
-      box.querySelectorAll('[data-network]').forEach(function(a){
-        a.href=linkFor(a.dataset.network,canonical,m,hashText,imageUrl);
-      });
+    function updateLinks(){
+      box.querySelectorAll('[data-network]').forEach(function(a){a.href=linkFor(a.dataset.network,canonical,m,hashText,imageUrl);});
     }
-    function status(s) { var el=box.querySelector('.ks-share-v1-status');if(el)el.textContent=s; }
+    function status(msg){var p=box.querySelector('.ks-share-v1-status');if(p)p.textContent=msg;}
     updateLinks();
-    var candidate=sharePage(r), cacheKey=r.lang+'/'+r.route;
+    var candidate=sharePage(r,kind),cacheKey=r.lang+'/'+r.route+'/'+kind;
     if(resolved[cacheKey]===true){canonical=candidate;updateLinks();}
     else if(resolved[cacheKey]!==false){
       fetch(candidate,{method:'HEAD'}).then(function(resp){
@@ -175,6 +182,32 @@
         navigator.share({title:m.title,text:hashText,url:canonical}).catch(function(){});
       }
     });
+  }
+  var lastFocus='';
+  function mount() {
+    var r=current(),main=document.querySelector('#app > main');
+    if(!main||!r.route)return;
+    if(r.route.startsWith('about/after-sixty/')) {
+      var videoPane=main.querySelector('#ks60-video-pane');
+      var articlePane=main.querySelector('#ks60-article-pane');
+      if(!videoPane || !articlePane)return; // Wait for asynchronous episode rendering.
+      addShare(videoPane,r,main,'video');
+      // Do not claim there is a full published article when it is still under review.
+      if(!articlePane.querySelector('.ks60-language-note,.ks60-notice')) addShare(articlePane,r,main,'article');
+      var focus=/(?:^|[?&])focus=(article|video)(?:&|$)/.exec(location.hash.split('?')[1]||'');
+      if(focus && lastFocus!==location.hash){
+        var focusTarget=focus[1]==='article'?articlePane:videoPane;
+        if(focusTarget && typeof focusTarget.scrollIntoView==='function'){
+          lastFocus=location.hash;
+          focusTarget.scrollIntoView({behavior:'auto',block:'start'});
+        }
+      }
+      return;
+    }
+    var target=locate(r.route,main);
+    if(!target)return;
+    var isVideo=/\/video\//.test(r.route) || (main.querySelector('.ks-va-section,.ks-ab-video') && !/^about\/health\//.test(r.route));
+    addShare(target,r,main,isVideo?'video':'article');
   }
   function schedule() {
     if(scheduled)return;
