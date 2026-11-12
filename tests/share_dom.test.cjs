@@ -38,7 +38,7 @@ async function check(route,markup,selector,lang='ar') {
 test('Arabic and English Life After Sixty VIDEO+ARTICLE pages',async()=>{
   for(const lang of ['ar','en']) {
     await check('about/after-sixty/sixty-is-not-a-waiting-room',
-      '<div class="ks60-wrap"><header><h1>الحياة بعد الستين</h1></header><div class="ks60-split"><aside class="ks60-video-pane"><div class="ks60-player">Video</div></aside><article class="ks60-article-pane"><p>Article</p></article></div></div>',
+      '<div class="ks60-wrap"><header><h1>الحياة بعد الستين</h1></header><div class="ks60-split"><aside class="ks60-video-pane" id="ks60-video-pane"><div class="ks60-player">Video</div></aside><article class="ks60-article-pane" id="ks60-article-pane"><p>Article</p></article></div></div>',
       '.ks60-wrap',lang);
   }
 });
