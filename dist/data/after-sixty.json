@@ -97,7 +97,8 @@
       ],
       "trailing_fragment": "السعادة قرار",
       "editorial_note_ar": "النص المرسل ينتهي بعبارة «السعادة قرار». هذا مقتطف غير مكتمل من المقال المعتمد، ويجب إكماله من المصدر الأصلي قبل اعتماد النشر النهائي.",
-      "editorial_note_en": "The supplied article ends at “Happiness is a decision.” Its ending is incomplete and needs the approved source before final publication."
+      "editorial_note_en": "The supplied article ends at “Happiness is a decision.” Its ending is incomplete and needs the approved source before final publication.",
+      "fallback_same_video_approved": false
     }
   ]
 }
