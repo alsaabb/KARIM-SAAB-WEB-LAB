@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from after_sixty_drive_sync import validate_episode, validate_document
+from after_sixty_drive_sync import validate_episode, validate_document, validate_english_companion, arabic_source_checksum
 
 BASE = "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/"
 
@@ -47,6 +47,25 @@ class AfterSixtyTests(unittest.TestCase):
         self.assertIn("#مغامرات_عبدالكريم_الصعب", ep["closing_message"])
         self.assertTrue(ep["closing_message"].endswith("نسافر لنكتشف، ونعيش لنترك أثرًا جميلًا."))
 
+
+    def test_complete_english_translation_and_freshness(self):
+        for ep in self.episodes:
+            self.assertTrue(validate_english_companion(ep))
+            self.assertEqual(ep["english_translation_source_checksum"], arabic_source_checksum(ep))
+            self.assertEqual(len(ep["intro"]), len(ep["intro_en"]))
+            for ch in ep["chapters"]:
+                self.assertEqual(len(ch["paragraphs"]), len(ch["paragraphs_en"]))
+                if ch.get("bullets"):
+                    self.assertEqual(len(ch["bullets"]), len(ch["bullets_en"]))
+            incomplete = copy.deepcopy(ep)
+            incomplete["intro_en"] = []
+            with self.assertRaises(ValueError):
+                validate_english_companion(incomplete)
+            stale = copy.deepcopy(ep)
+            stale["intro"][0] += " تعديل عربي جديد"
+            with self.assertRaises(ValueError):
+                validate_english_companion(stale)
+
     def test_no_unverified_drive_fallback(self):
         for ep in self.episodes:
             if not ep.get("drive_fallback_verified"):
@@ -67,6 +86,9 @@ class AfterSixtyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_episode(ep, self.categories)
         ep["article_complete"] = True
+        with self.assertRaises(ValueError):
+            validate_episode(ep, self.categories)  # Translation still awaiting owner approval
+        ep["english_translation_status"] = "approved"
         self.assertTrue(validate_episode(ep, self.categories))
 
     def test_google_doc_identity_gate(self):
@@ -102,7 +124,10 @@ class AfterSixtyTests(unittest.TestCase):
         self.assertIn("data-seek", frontend)
         self.assertIn("ks60-poster-play", frontend)
         self.assertIn("ks60-external-watch", frontend)
-        self.assertIn("The full article is currently available in Arabic.", frontend)
+        self.assertIn("function hasEnglishArticle(ep)", frontend)
+        self.assertIn("This page will not display untranslated Arabic as English content.", frontend)
+        self.assertIn("ep.intro_en", frontend)
+        self.assertIn("ch.paragraphs_en", frontend)
         self.assertIn("https://www.youtube.com/watch?v=", frontend)
         self.assertIn("ks60-chapters", frontend)
         self.assertIn('data-source="youtube"', frontend)
