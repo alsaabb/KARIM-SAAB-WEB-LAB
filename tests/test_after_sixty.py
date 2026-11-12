@@ -101,6 +101,8 @@ class AfterSixtyTests(unittest.TestCase):
         self.assertIn("data-chapter-target", frontend)
         self.assertIn("data-seek", frontend)
         self.assertIn("ks60-poster-play", frontend)
+        self.assertIn("ks60-external-watch", frontend)
+        self.assertIn("https://www.youtube.com/watch?v=", frontend)
         self.assertIn("ks60-chapters", frontend)
         self.assertIn('data-source="youtube"', frontend)
         self.assertNotIn('data-view="article"', frontend)
