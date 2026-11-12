@@ -171,3 +171,7 @@
 .ks60-episode-head h1{max-width:1050px}
 .ks60-article-pane{scroll-margin-top:16px}
 @media(prefers-reduced-motion:reduce){.ks60-poster-play{transition:none}}
+
+.ks60-external-watch{font-size:.88rem;line-height:1.6;text-align:center;padding:0 14px 15px;margin:0}
+.ks60-external-watch a{color:#f2d88b;text-decoration:underline;text-underline-offset:4px}
+.ks60-external-watch a:hover{color:#fff0b6}
