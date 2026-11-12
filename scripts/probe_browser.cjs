@@ -14,7 +14,8 @@ const executablePath=candidates.find(x=>fs.existsSync(x));
       {route:'#/ar/',selector:'#app > main'},
       {route:'#/ar/about/health/depression-anxiety/full',selector:'.ks-health-full .ks-share-v1'},
       {route:'#/ar/about/happiness/video/happiness-not-for-sale',selector:'.ks-share-v1'},
-      {route:'#/ar/about/after-sixty/sixty-is-not-a-waiting-room',selector:'.ks60-split + .ks-share-v1, .ks60-wrap > .ks-share-v1'}
+      {route:'#/ar/about/after-sixty/sixty-is-not-a-waiting-room',selector:'#ks60-video-pane > .ks-share-v1[data-kind="video"]'},
+      {route:'#/en/about/after-sixty/sixty-is-not-a-waiting-room',selector:'#ks60-article-pane > .ks-share-v1[data-kind="article"]'}
     ];
     for(const c of cases){
       const page=await browser.newPage();
@@ -26,6 +27,22 @@ const executablePath=candidates.find(x=>fs.existsSync(x));
       const h1=await page.locator('main h1').first().textContent().catch(()=>'');
       console.log('BROWSER OK',c.route,'heading:',JSON.stringify(h1),'pageErrors:',errors.length,errors.join(' || '));
       assert.equal(errors.length,0,c.route+': unexpected JavaScript page errors');
+      if(c.route.includes('/about/after-sixty/')){
+        const video=page.locator('#ks60-video-pane > .ks-share-v1[data-kind="video"]');
+        const article=page.locator('#ks60-article-pane > .ks-share-v1[data-kind="article"]');
+        await video.waitFor({state:'attached',timeout:20000});
+        await article.waitFor({state:'attached',timeout:20000});
+        const extract=async panel=>new URL(await panel.locator('[data-network=x]').getAttribute('href')).searchParams.get('url');
+        await page.waitForFunction(()=>{
+          const a=document.querySelector('#ks60-article-pane [data-network=x]');
+          return a && new URL(a.href).searchParams.get('url').endsWith('-article.html');
+        },{timeout:15000});
+        const videoUrl=await extract(video),articleUrl=await extract(article);
+        assert.ok(videoUrl.endsWith('-video.html'),videoUrl);
+        assert.ok(articleUrl.endsWith('-article.html'),articleUrl);
+        assert.notEqual(videoUrl,articleUrl);
+        console.log('BROWSER SHARING VERIFIED',c.route,'videoURL:',videoUrl,'articleURL:',articleUrl);
+      }
       await page.close();
     }
   }finally{await browser.close();}
