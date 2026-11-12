@@ -151,6 +151,7 @@ jobs:
           name: KARIM_SAAB_HAPPINESS_NOT_FOR_SALE_AR_EN_APPROVED_2026-11-12
           path: out/KARIM_SAAB_HAPPINESS_NOT_FOR_SALE_AR_EN_APPROVED_2026-11-12/
           if-no-files-found: error
+          include-hidden-files: true
           retention-days: 90
           compression-level: 6
 
@@ -160,5 +161,6 @@ jobs:
           name: KARIM_SAAB_WORLD_IS_NOT_PARADISE_AR_EN_APPROVED_2026-11-12
           path: out/KARIM_SAAB_WORLD_IS_NOT_PARADISE_AR_EN_APPROVED_2026-11-12/
           if-no-files-found: error
+          include-hidden-files: true
           retention-days: 90
           compression-level: 6
