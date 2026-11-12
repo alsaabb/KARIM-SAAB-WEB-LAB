@@ -175,3 +175,5 @@
 .ks60-external-watch{font-size:.88rem;line-height:1.6;text-align:center;padding:0 14px 15px;margin:0}
 .ks60-external-watch a{color:#f2d88b;text-decoration:underline;text-underline-offset:4px}
 .ks60-external-watch a:hover{color:#fff0b6}
+
+.ks60-article-pane .ks60-language-note{background:#e9e0cb;border:1px solid #c4a662;border-radius:8px;color:#52401a;font-size:.91rem;line-height:1.7;padding:11px 14px;margin:0 0 22px;text-align:start}
