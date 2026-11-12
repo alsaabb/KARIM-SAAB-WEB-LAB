@@ -129,12 +129,12 @@ function episodePage(ep){
  var title=ar()?ep.title_ar:ep.title_en;
  var hasDrive=!!driveURL(ep);
  var format=ep.video_orientation==="vertical"?"vertical":"landscape";
- var shareLink="share/"+(ar()?"ar":"en")+"/after-sixty-"+encodeURIComponent(ep.slug)+".html";
+ var shareBase="share/"+(ar()?"ar":"en")+"/after-sixty-"+encodeURIComponent(ep.slug);
  return wrapper(breadcrumb()+identity()+
  '<a class="ks60-back" href="'+route("about/after-sixty")+'">← '+label("عودة إلى مكتبة الحلقات","Back to episode library")+'</a>'+
  '<header class="ks60-episode-head"><div class="ks60-stat">'+label("الحلقة","Episode")+' #'+String(ep.number).padStart(2,"0")+'</div>'+
  '<h1>'+escapeHTML(title)+'</h1><p>'+label("مدة الفيديو: ","Video: ")+timestamp(ep.duration_seconds)+' · '+label("مدة القراءة: ","Reading: ")+ep.reading_minutes+' '+label("دقائق","min")+
- ' · <a href="'+shareLink+'" target="_blank" rel="noopener">'+label("رابط المشاركة","Share link")+'</a></p></header>'+
+ ' · <a href="'+shareBase+'-video.html" target="_blank" rel="noopener">'+label("مشاركة الفيديو","Share video")+'</a>'+' · <a href="'+shareBase+'-article.html" target="_blank" rel="noopener">'+label("مشاركة المقال","Share article")+'</a></p></header>'+
  '<div class="ks60-split">'+
  '<aside class="ks60-video-pane" id="ks60-video-pane" aria-label="'+label("مشغل فيديو الحلقة","Episode video player")+'">'+
  '<div class="ks60-player-wrap"><div class="ks60-player-stage">'+
