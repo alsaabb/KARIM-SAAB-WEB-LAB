@@ -23,3 +23,9 @@
 @media(prefers-reduced-motion:reduce){.ks-share-v1-link,.ks-share-v1-copy{transition:none}.ks-share-v1-link:hover,.ks-share-v1-copy:hover{transform:none}}
 
 .ks-share-v1-link svg{display:block;width:22px;height:22px;fill:currentColor;max-width:100%}
+
+/* Independent sharing panels belong to their respective video and article panes. */
+.ks60-video-pane .ks-share-v1,.ks60-article-pane .ks-share-v1{margin:22px 0 8px;padding:clamp(12px,2vw,20px)}
+.ks60-video-pane .ks-share-v1-buttons,.ks60-article-pane .ks-share-v1-buttons{gap:6px}
+.ks60-video-pane .ks-share-v1-link,.ks60-video-pane .ks-share-v1-copy,.ks60-article-pane .ks-share-v1-link,.ks60-article-pane .ks-share-v1-copy{flex:1 1 62px;min-width:59px;min-height:55px}
+.ks60-video-pane .ks-share-v1-head h3,.ks60-article-pane .ks-share-v1-head h3{font-size:1.1rem}
