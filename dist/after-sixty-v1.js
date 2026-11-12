@@ -50,7 +50,7 @@ function playerPoster(ep){
  return '<button type="button" class="ks60-poster" data-start-play aria-label="'+escapeHTML(label("تشغيل فيديو: ","Play video: ")+title)+'">'+
   thumbnailMarkup(ep.youtube_id,"ks60-poster-blur","",'aria-hidden="true" decoding="async"')+
   thumbnailMarkup(ep.youtube_id,"ks60-poster-image",title,'decoding="async"')+
-  '<span class="ks60-poster-overlay"><span class="ks60-poster-play" aria-hidden="true">▶</span><span class="ks60-poster-cta">'+label("شاهد الفيديو","Play video")+'</span></span>'+
+  '<span class="ks60-poster-badge" aria-hidden="true">▶ '+label("فيديو","VIDEO")+'</span>'+'<span class="ks60-poster-overlay"><span class="ks60-poster-play" aria-hidden="true">▶</span><span class="ks60-poster-cta">'+label("شاهد الفيديو","Play video")+'</span></span>'+
  '</button>';
 }
 function driveURL(ep){
@@ -64,7 +64,7 @@ function episodeCard(ep,categories){
  var title=ar()?ep.title_ar:ep.title_en;
  var excerpt=ar()?ep.excerpt_ar:ep.excerpt_en;
  return '<a class="ks60-card" href="'+episodeURL(ep)+'" data-episode-card data-category="'+escapeHTML(ep.category_id)+'" data-text="'+escapeHTML([ep.title_ar,ep.title_en,ep.excerpt_ar,ep.excerpt_en].join(" ").toLocaleLowerCase())+'">'+
-  '<div class="ks60-thumb"><img loading="lazy" data-ks60-thumbnail data-video-id="'+escapeHTML(ep.youtube_id)+'" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'"><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
+  '<div class="ks60-thumb"><img loading="lazy" data-ks60-thumbnail data-video-id="'+escapeHTML(ep.youtube_id)+'" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'"><span class="ks60-card-video-badge" aria-hidden="true">▶ '+label("شاهد الفيديو","Watch video")+'</span><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
   '<div class="ks60-cardbody"><div class="ks60-kicker"><span>'+label("الحلقة","Episode")+' #'+String(ep.number).padStart(2,"0")+'</span><span>'+escapeHTML(categoryItem?ar()?categoryItem.ar:categoryItem.en:"")+'</span></div>'+
   '<h2>'+escapeHTML(title)+'</h2><p class="ks60-excerpt">'+escapeHTML(excerpt)+'</p>'+
   '<div class="ks60-kicker" style="margin-top:13px">'+label("مدة القراءة","Reading time")+': '+escapeHTML(ep.reading_minutes)+' '+label("دقائق","min")+'</div></div></a>';
@@ -79,7 +79,7 @@ function listPage(data){
   '<div class="ks60-chips" role="group" aria-label="'+label("تصنيفات الحلقات","Episode categories")+'"><button type="button" class="ks60-chip" data-category-filter="all" aria-pressed="true">'+label("الكل","All")+'</button>'+
   data.categories.map(function(c){return '<button type="button" class="ks60-chip" data-category-filter="'+escapeHTML(c.id)+'" aria-pressed="false">'+escapeHTML(ar()?c.ar:c.en)+'</button>'}).join("")+'</div></div>'+
   '<div class="ks60-resultcount" id="ks60-results" aria-live="polite">'+label("عدد النتائج: ","Results: ")+data.episodes.length+'</div>'+
-  '<div class="ks60-grid" id="ks60-grid">'+data.episodes.map(function(ep){return episodeCard(ep,data.categories)}).join("")+
+  '<div class="ks60-grid'+(data.episodes.length===1?' ks60-grid-single':'')+'" id="ks60-grid">'+data.episodes.map(function(ep){return episodeCard(ep,data.categories)}).join("")+
   '<div class="ks60-empty" id="ks60-empty" hidden>'+label("لا توجد حلقات مطابقة للبحث.","No episodes match these filters.")+'</div></div>');
 }
 function chapterButtons(ep){
