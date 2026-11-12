@@ -38,7 +38,7 @@ async function check(route,markup,selector,lang='ar') {
 test('Arabic and English Life After Sixty VIDEO+ARTICLE pages',async()=>{
   for(const lang of ['ar','en']) {
     await check('about/after-sixty/sixty-is-not-a-waiting-room',
-      '<div class="ks60-wrap"><header><h1>الحياة بعد الستين</h1></header><div class="ks60-split"><aside class="ks60-video-pane"><div class="ks60-player">Video</div></aside><article class="ks60-article-pane"><p>Article</p></article></div></div>',
+      '<div class="ks60-wrap"><header><h1>الحياة بعد الستين</h1></header><div class="ks60-split"><aside class="ks60-video-pane" id="ks60-video-pane"><div class="ks60-player">Video</div></aside><article class="ks60-article-pane" id="ks60-article-pane"><p>Article</p></article></div></div>',
       '.ks60-wrap',lang);
   }
 });
@@ -80,4 +80,57 @@ test('X share intent and Copy Link target the item, not homepage',async()=>{
   await new Promise(resolve=>setTimeout(resolve,15));
   assert.equal(copied,expected);
   dom.window.close();
+});
+
+test('Video and complete article have separate share controls and public preview links',async()=>{
+  for(const lang of ['ar','en']){
+    const route='about/after-sixty/sixty-is-not-a-waiting-room';
+    const markup='<main><div class="ks60-wrap">'+
+       '<div class="ks60-split"><aside id="ks60-video-pane" class="ks60-video-pane"><div class="ks60-player">Video player</div></aside>'+
+       '<article id="ks60-article-pane" class="ks60-article-pane"><h1>Life After Sixty</h1><p>Complete published article</p></article></div></div></main>';
+    const dom=await fixture(route,markup,lang);
+    const win=dom.window, doc=win.document;
+    const video=doc.querySelector('#ks60-video-pane > .ks-share-v1');
+    const article=doc.querySelector('#ks60-article-pane > .ks-share-v1');
+    assert.ok(video,'Video panel must live under the video');
+    assert.ok(article,'Article panel must live under the article');
+    assert.equal(video.dataset.kind,'video');
+    assert.equal(article.dataset.kind,'article');
+    assert.equal(doc.querySelectorAll('.ks-share-v1').length,2);
+    const link=p=>new URL(p.querySelector('[data-network=x]').href).searchParams.get('url');
+    assert.ok(link(video).endsWith('-video.html'),link(video));
+    assert.ok(link(article).endsWith('-article.html'),link(article));
+    assert.notEqual(link(video),link(article));
+    assert.match(article.querySelector('h3').textContent,lang==='ar'?/المقال/:/article/i);
+    assert.match(video.querySelector('h3').textContent,lang==='ar'?/الفيديو/:/video/i);
+    assert.ok(article.querySelector('.ks-share-v1-tag-list').textContent.includes(lang==='ar'?'#مقال':'#Article'));
+    let copied=[];
+    Object.defineProperty(win.navigator,'clipboard',{value:{writeText:async v=>copied.push(v)}});
+    Object.defineProperty(win,'isSecureContext',{value:true,configurable:true});
+    article.querySelector('[data-action=copy]').click();
+    await new Promise(resolve=>setTimeout(resolve,20));
+    assert.deepEqual(copied,[link(article)]);
+    win.dispatchEvent(new win.HashChangeEvent('hashchange'));
+    await new Promise(resolve=>setTimeout(resolve,25));
+    assert.equal(doc.querySelectorAll('.ks-share-v1').length,2,'No duplicate share panels after route changes');
+    dom.window.close();
+  }
+});
+test('Do not advertise article sharing where there is no approved article',async()=>{
+  const route='about/after-sixty/sixty-is-not-a-waiting-room';
+  const dom=await fixture(route,
+    '<main><div class="ks60-wrap"><aside id="ks60-video-pane"><div class="ks60-player"></div></aside>'+
+    '<article id="ks60-article-pane"><p class="ks60-language-note">Translation pending</p></article></div></main>','en');
+  assert.ok(dom.window.document.querySelector('#ks60-video-pane .ks-share-v1'));
+  assert.equal(dom.window.document.querySelectorAll('#ks60-article-pane .ks-share-v1').length,0);
+  dom.window.close();
+});
+test('Static social preview pages provide distinct bilingual OG metadata and redirect to content focus',()=>{
+  for(const lang of ['ar','en'])for(const kind of ['video','article']){
+    const filename=path.resolve(__dirname,'../dist/share/'+lang+'/after-sixty-sixty-is-not-a-waiting-room-'+kind+'.html');
+    const content=fs.readFileSync(filename,'utf8');
+    assert.match(content,new RegExp('focus='+kind));
+    assert.match(content,new RegExp('og:type" content="'+(kind==='video'?'video.other':'article')+'"'));
+    assert.match(content,new RegExp('lang="'+lang+'"'));
+  }
 });
