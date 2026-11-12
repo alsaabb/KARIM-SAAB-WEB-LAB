@@ -48,7 +48,7 @@ test('About Me video page / attached article',async()=>{
 });
 test('Verified health article preview and full text',async()=>{
   await check('about/health/depression-anxiety',
-    '<section class="ks-health-cta"><h1>علاج الاكتئاب والقلق</h1></section>','.ks-health-cta');
+    '<div class="ks-health-wrap"><section class="ks-health-cta"><h1>علاج الاكتئاب والقلق</h1></section></div>','.ks-health-wrap');
   await check('about/health/depression-anxiety/full',
     '<article class="ks-health-full"><h1>علاج الاكتئاب والقلق</h1><p>Medical article</p></article>','.ks-health-full','en');
 });
