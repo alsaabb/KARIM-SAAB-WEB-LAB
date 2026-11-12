@@ -27,7 +27,7 @@
      '<aside class="ks-h11-video-pane" id="ks-h11-video-pane" aria-label="'+t('الفيديو','Video')+'">'+
       '<div class="ks-h11-player" id="ks-h11-player">'+
        '<button type="button" class="ks-h11-poster" data-ks-h11-play aria-label="'+t('شاهد الفيديو: ','Watch video: ')+safe(heading)+'">'+
-        '<img class="ks-h11-cover" src="https://i.ytimg.com/vi/'+VIDEO_ID+'/maxresdefault.jpg" data-ks-h11-thumb alt="'+safe(heading)+'" decoding="async">'+
+        '<img class="ks-h11-cover" src="assets/happiness/world-is-not-paradise-youtube-poster.jpg" data-ks-h11-thumb alt="'+safe(heading)+'" decoding="async">'+
         '<span class="ks-h11-overlay"><span class="ks-h11-cta">'+t('شاهد الفيديو','Watch video')+'</span></span>'+
        '</button>'+
       '</div>'+
