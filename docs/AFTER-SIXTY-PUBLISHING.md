@@ -42,7 +42,7 @@ Every `episode.json` must include:
 
 The Drive sync reads only, never edits the original Drive folder, never downloads original videos into the public repository, and does not publish unapproved content.
 
-The backup player requires both a matching video in the approved folder and `anyone` reading permission. If private, it is retained in Drive but the backup button stays disabled; do **not** make private footage public automatically.
+The backup player requires `fallback_same_video_approved: true` after the owner confirms the Drive file is the same recording, plus `anyone` reading permission. Automatic video matching is not claimed. If private, it is retained in Drive but the backup button stays disabled; do **not** make private footage public automatically.
 
 ## Review-first sync procedure
 1. Owner confirms the intended Drive folder and populates the approved episode folders.
@@ -54,7 +54,7 @@ The backup player requires both a matching video in the approved folder and `any
 4. The action calls `scripts/after_sixty_drive_sync.py --write` and `scripts/build_after_sixty_share.py`, then site + identity + unit tests. It pushes a **unique `sync/after-sixty-drive-<run_id>` branch**, and opens a Pull Request to `main` only if there are changes.
 5. Review the PR and approve merging/publishing separately. Main deployments already run on pushes to `main`.
 
-**Important:** The repository also has an unrelated six-hour `drive-sync.yml` job that can publish other approved Drive content directly to `main`. Do not put a generic `github_path: dist/data/after-sixty.json` approval on Drive files managed by this review-only system, or that general job could bypass review. A separate safety guard is recommended before production activation.
+**Important:** The repository also has an unrelated six-hour `drive-sync.yml` job that can publish other approved Drive content directly to `main`. Do not put a generic `github_path: dist/data/after-sixty.json` approval on Drive files managed by this review-only system, or that general job could bypass review. A safety guard is implemented in `scripts/sync_drive_to_github.py` on this review branch so this collection cannot bypass manual review via the general scheduled publisher.
 
 ## Validation and maintenance
 - `node --check dist/after-sixty-v1.js`
