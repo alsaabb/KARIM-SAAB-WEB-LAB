@@ -30,6 +30,7 @@
     else if (/happiness|سعاد|السعادة/.test(text)) add('#خل_السعادة_عادة','#MakeHappinessAHabit');
     else if (/hiking|جبال|تسلق|mountain|camping|تخييم/.test(text)) add('#الهايكنج_والتخييم','#HikingAndCamping');
     else if (/cycling|دراج|bicycle|bike/.test(text)) add('#رحلات_بالدراجة','#BicycleTravel');
+    else if (/health|depression|anxiety|الاكتئاب|القلق|صحة/.test(text)) add('#التثقيف_الصحي','#HealthEducation');
     else if (/video|فيديو|فيلم|film/.test(text)) add('#الأفلام_والقصص','#VideoStories');
     else if (/book|كتاب|كتب/.test(text)) add('#كتب_عبدالكريم_الصعب','#KarimSaabBooks');
     else if (/journey|travel|trip|رحل|فرنسا|اليونان|دولة/.test(text)) add('#مغامرات_السفر','#TravelAdventures');
@@ -71,7 +72,7 @@
       return main.querySelector('.ks60-split') ? main.querySelector('.ks60-wrap') : null;
     }
     if (route.startsWith('about/happiness/video/')) {
-      return main.querySelector('.ks-va-section,.ks-ab-container,.ks-reading');
+      return main.querySelector('.ks-va-section') || main.querySelector('.ks-ab-container,.ks-reading');
     }
     if (route==='about/health/depression-anxiety/full')
       return main.querySelector('.ks-health-full');
