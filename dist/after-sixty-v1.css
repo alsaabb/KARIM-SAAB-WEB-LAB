@@ -177,3 +177,18 @@
 .ks60-external-watch a:hover{color:#fff0b6}
 
 .ks60-article-pane .ks60-language-note{background:#e9e0cb;border:1px solid #c4a662;border-radius:8px;color:#52401a;font-size:.91rem;line-height:1.7;padding:11px 14px;margin:0 0 22px;text-align:start}
+
+/* Documentary readability: compact heading and non-obstructive assistant launcher.
+   Only applies while the After Sixty library is displayed. */
+.ks60-episode-head h1{font-size:clamp(1.85rem,3.4vw,3.15rem);line-height:1.35;max-width:1120px}
+body:has(main.ks60) #ks-ai-site-link{
+ width:53px;min-width:53px;max-width:53px;height:53px;min-height:53px;
+ padding:0;gap:0;justify-content:center;border-radius:50%;overflow:hidden
+}
+body:has(main.ks60) #ks-ai-site-link-text,
+body:has(main.ks60) .ks-ai-site-link-open{display:none}
+body:has(main.ks60) .ks-ai-site-link-symbol{width:32px;min-width:32px;height:32px;font-size:0}
+body:has(main.ks60) .ks-ai-site-link-symbol::after{
+ content:"AI";font:700 12px/1 Arial,sans-serif
+}
+@media(max-width:760px){.ks60-episode-head h1{font-size:clamp(1.72rem,7.1vw,2.1rem);line-height:1.38}}
