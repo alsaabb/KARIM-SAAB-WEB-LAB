@@ -1,6 +1,9 @@
 name: Sync approved content from Google Drive (review only)
 
 on:
+  push:
+    branches:
+      - feature/safe-drive-sync-approval-gate-20261112
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
@@ -8,6 +11,10 @@ on:
 # No direct write access to main, no automatic commit, push, or deployment.
 permissions:
   contents: read
+
+env:
+  # Dedicated user-authorized approval-only folder; not a credential.
+  GDRIVE_FOLDER_ID: "1Y97cN3z1sUzWmmK0nt0P3ZiEkYxd3aQP"
 
 concurrency:
   group: karim-saab-drive-sync-review
@@ -32,15 +39,10 @@ jobs:
       - name: Check required credentials without printing them
         env:
           GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
-          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
         shell: bash
         run: |
           if [[ -z "$GDRIVE_SERVICE_ACCOUNT_KEY" ]]; then
             echo "::error::Missing GDRIVE_SERVICE_ACCOUNT_KEY repository secret"
-            exit 1
-          fi
-          if [[ -z "$GDRIVE_FOLDER_ID" ]]; then
-            echo "::error::Missing GDRIVE_FOLDER_ID repository secret"
             exit 1
           fi
           echo "Credentials supplied; values intentionally hidden"
