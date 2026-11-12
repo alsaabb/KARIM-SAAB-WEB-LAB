@@ -1,0 +1,79 @@
+name: Review bilingual Happiness stories before publishing
+on:
+  push:
+    branches:
+      - feature/happiness-bilingual-stories-20261112
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  browser-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy authentic YouTube thumbnail JPEGs to REVIEW branch only
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import urllib.request
+          videos={'world-is-not-paradise':'e8YffqIamRI','happiness-not-for-sale':'fk3fYq2lljM'}
+          for slug,video_id in videos.items():
+              out=Path('dist/assets/happiness')/(slug+'-youtube-poster.jpg')
+              out.parent.mkdir(parents=True,exist_ok=True)
+              if out.exists() and out.stat().st_size>15000: continue
+              for quality in ('maxresdefault','sddefault','hqdefault'):
+                  url='https://i.ytimg.com/vi/'+video_id+'/'+quality+'.jpg'
+                  try:
+                      request=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'})
+                      with urllib.request.urlopen(request,timeout=30) as response: payload=response.read()
+                      if payload[:3]==b'\xff\xd8\xff' and len(payload)>15000:
+                          out.write_bytes(payload)
+                          print('Verified image for',slug,'quality',quality,'bytes',len(payload))
+                          break
+                  except Exception as error: print('Could not fetch',url,str(error)[:140])
+              if not out.exists(): raise SystemExit('STOP: cannot verify source thumbnail for '+slug)
+          PY
+          if test -n "$(git status --porcelain -- dist/assets/happiness/)"; then
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git add dist/assets/happiness/
+            git commit -m "assets: verified original YouTube thumbnails for two bilingual Happiness stories"
+            git push origin HEAD:feature/happiness-bilingual-stories-20261112
+          fi
+      - name: Check JavaScript and source manifest syntax and complete paired translations
+        run: |
+          node --check dist/happiness-stories-v1.js
+          node --check dist/bilingual-share-v1.js
+          python3 - <<'PY'
+          import json
+          data=json.load(open('dist/data/happiness-stories-v1.json'))
+          assert len(data['entries'])==2
+          for e in data['entries']:
+              assert len(e['youtube_id'])==11
+              assert all(len(s['paragraphs_en'])==len(s['paragraphs_ar']) for s in e['sections'])
+              assert all(all(s['paragraphs_en']) for s in e['sections'])
+          print('Bilingual paragraphs verified')
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test both stories on phone/tablet/desktop in Arabic and English
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/happiness-bilingual-preview.log 2>&1 &
+          node tests/happiness_stories_browser.cjs
+      - name: Save screenshots for user reference
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: HAPPINESS_TWO_STORIES_AR_EN_V9_REVIEW
+          path: review-screenshots/happiness-bilingual/
+          retention-days: 30
+          if-no-files-found: warn
