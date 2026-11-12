@@ -14,7 +14,7 @@ class BilingualSharingTests(unittest.TestCase):
     def test_share_panel_routes_and_language(self):
         js = (DIST / "bilingual-share-v1.js").read_text(encoding="utf-8")
         for expected in ('ks-share-v1','sharePage','makeTags','navigator.share',
-                         'navigator.clipboard','MutationObserver','lang:r.lang',
+                         'navigator.clipboard','MutationObserver','lang:lang',
                          "startsWith('content/')","startsWith('journey/')",
                          "startsWith('after-sixty/')","startsWith('about/happiness/video/')"):
             self.assertIn(expected, js)
