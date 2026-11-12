@@ -37,6 +37,73 @@ def canonical_text(text):
     return re.sub(r"\s+", " ", str(text or "").strip()).strip(" «»")
 
 
+def arabic_source_parts(ep):
+    """Text covered by each article's English translation. Keep the Arabic original untouched."""
+    parts = [ep["title_ar"], ep["excerpt_ar"], ep["pull_quote"]] + list(ep["intro"])
+    for chapter in ep["chapters"]:
+        parts.extend([chapter["title_ar"], *chapter["paragraphs"]])
+        for bullet in chapter.get("bullets", []):
+            parts.extend([bullet["label"], bullet["text"]])
+    if ep.get("conclusion"):
+        parts.extend([ep["conclusion"]["title_ar"], *ep["conclusion"].get("paragraphs", [])])
+    if ep.get("closing_message"):
+        parts.append(ep["closing_message"])
+    return parts
+
+
+def arabic_source_checksum(ep):
+    """Deterministic Adler-style checksum over Unicode code points (editorial freshness only)."""
+    a, b = 1, 0
+    for character in "\n".join(arabic_source_parts(ep)):
+        a = (a + ord(character)) % 65521
+        b = (b + a) % 65521
+    return f"{b:04x}{a:04x}"
+
+
+def validate_english_companion(ep, require_approved=False):
+    """Reject missing, stale, or untranslated English bodies before a bilingual article is approved."""
+    def good_list(items, original, context):
+        if not isinstance(items, list) or len(items) != len(original) or not all(isinstance(x, str) and x.strip() for x in items):
+            raise ValueError(f"English translation incomplete: {context}")
+        return items
+
+    values = []
+    values.extend(good_list(ep.get("intro_en"), ep["intro"], "intro"))
+    if not isinstance(ep.get("pull_quote_en"), str) or not ep["pull_quote_en"].strip():
+        raise ValueError("English pull quote missing")
+    values.append(ep["pull_quote_en"])
+    for ch in ep["chapters"]:
+        if not isinstance(ch.get("title_en"), str) or not ch["title_en"].strip():
+            raise ValueError("English chapter title missing")
+        values.append(ch["title_en"])
+        values.extend(good_list(ch.get("paragraphs_en"), ch["paragraphs"], "chapter paragraphs"))
+        if ch.get("bullets"):
+            translated = ch.get("bullets_en")
+            if not isinstance(translated, list) or len(translated) != len(ch["bullets"]):
+                raise ValueError("English bullet list missing")
+            for bullet in translated:
+                if not isinstance(bullet, dict) or not all(isinstance(bullet.get(k), str) and bullet[k].strip() for k in ("label", "text")):
+                    raise ValueError("English bullet translation incomplete")
+                values.extend([bullet["label"], bullet["text"]])
+    conclusion = ep.get("conclusion")
+    if conclusion:
+        if not isinstance(conclusion.get("title_en"), str) or not conclusion["title_en"].strip():
+            raise ValueError("English conclusion title missing")
+        values.append(conclusion["title_en"])
+        values.extend(good_list(conclusion.get("paragraphs_en"), conclusion["paragraphs"], "conclusion"))
+    if ep.get("closing_message"):
+        if not isinstance(ep.get("closing_message_en"), str) or not ep["closing_message_en"].strip():
+            raise ValueError("English closing message missing")
+        values.append(ep["closing_message_en"])
+    if any(re.search(r"[\u0600-\u06FF]", value) for value in values):
+        raise ValueError("English article contains untranslated Arabic")
+    if ep.get("english_translation_source_checksum") != arabic_source_checksum(ep):
+        raise ValueError("Arabic article changed after English translation; refresh its English edition")
+    if require_approved and ep.get("english_translation_status") != "approved":
+        raise ValueError("The English edition needs explicit editorial approval")
+    return True
+
+
 def validate_episode(episode, categories):
     if not isinstance(episode, dict):
         raise ValueError("Episode must be an object")
@@ -66,6 +133,7 @@ def validate_episode(episode, categories):
             raise ValueError("Invalid chapter timestamp")
         if not chapter["paragraphs"] or not isinstance(chapter["paragraphs"], list):
             raise ValueError("Empty chapter")
+    validate_english_companion(episode, require_approved=True)
     return True
 
 

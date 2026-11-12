@@ -89,25 +89,40 @@ function chapterButtons(ep){
     return '<button type="button" data-chapter-target="'+escapeHTML(ch.id)+'"><span class="ks60-time">'+timestamp(ch.time_seconds)+'</span><span>'+escapeHTML(ar()?ch.title_ar:ch.title_en)+'</span></button>';
   }).join("")+'</div></details>';
 }
+function hasEnglishArticle(ep){
+ if(!Array.isArray(ep.intro_en)||!Array.isArray(ep.intro)||ep.intro_en.length!==ep.intro.length||!ep.intro_en.every(Boolean)||!ep.pull_quote_en)return false;
+ if(!Array.isArray(ep.chapters))return false;
+ if(!ep.chapters.every(function(ch){
+  return !!ch.title_en&&Array.isArray(ch.paragraphs_en)&&Array.isArray(ch.paragraphs)&&ch.paragraphs_en.length===ch.paragraphs.length&&ch.paragraphs_en.every(Boolean)&&(!ch.bullets||(Array.isArray(ch.bullets_en)&&ch.bullets_en.length===ch.bullets.length&&ch.bullets_en.every(function(b){return b&&b.label&&b.text})));
+ }))return false;
+ if(ep.conclusion&&(!ep.conclusion.title_en||!Array.isArray(ep.conclusion.paragraphs_en)||ep.conclusion.paragraphs_en.length!==ep.conclusion.paragraphs.length||!ep.conclusion.paragraphs_en.every(Boolean)))return false;
+ if(ep.closing_message&&!ep.closing_message_en)return false;
+ return true;
+}
 function articleHTML(ep){
- var languageNotice=ar()?"":'<p class="ks60-language-note" role="note" lang="en" dir="ltr">The full article is currently available in Arabic. The English title and summary are provided for navigation; a reviewed English translation is not yet available.</p>';
- var html=languageNotice+ep.intro.map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("");
- html+='<blockquote class="ks60-quote">«'+escapeHTML(ep.pull_quote)+'»</blockquote>';
+ var isArabic=ar();
+ if(!isArabic&&!hasEnglishArticle(ep)){
+  return '<p class="ks60-language-note" role="status" lang="en" dir="ltr">An English edition is being prepared. The Arabic original remains available via the language switcher. This page will not display untranslated Arabic as English content.</p>';
+ }
+ var html=(isArabic?ep.intro:ep.intro_en).map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("");
+ var quote=isArabic?ep.pull_quote:ep.pull_quote_en;
+ html+='<blockquote class="ks60-quote">'+(isArabic?'«':'“')+escapeHTML(quote)+(isArabic?'»':'”')+'</blockquote>';
  ep.chapters.forEach(function(ch){
   html+='<section class="ks60-section" id="ks60-'+escapeHTML(ch.id)+'">'+
-   '<h2>'+escapeHTML(ch.title_ar)+' <button type="button" class="ks60-playtime" title="'+label("التشغيل من هذه الدقيقة","Play from timestamp")+'" data-seek="'+ch.time_seconds+'">▶ '+timestamp(ch.time_seconds)+'</button></h2>'+
-   (ch.paragraphs||[]).map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("");
-  if(ch.bullets&&ch.bullets.length)html+='<ul>'+ch.bullets.map(function(b){return '<li><strong>'+escapeHTML(b.label)+':</strong> '+escapeHTML(b.text)+'</li>'}).join("")+'</ul>';
+   '<h2>'+escapeHTML(isArabic?ch.title_ar:ch.title_en)+' <button type="button" class="ks60-playtime" title="'+label("التشغيل من هذه الدقيقة","Play from timestamp")+'" data-seek="'+ch.time_seconds+'">▶ '+timestamp(ch.time_seconds)+'</button></h2>'+
+   (isArabic?ch.paragraphs:ch.paragraphs_en).map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("");
+  var bullets=isArabic?ch.bullets:ch.bullets_en;
+  if(bullets&&bullets.length)html+='<ul>'+bullets.map(function(b){return '<li><strong>'+escapeHTML(b.label)+':</strong> '+escapeHTML(b.text)+'</li>'}).join("")+'</ul>';
   html+='</section>';
  });
  if(ep.conclusion){
   html+='<section class="ks60-section ks60-conclusion" id="ks60-conclusion">'+
-   '<h2>'+escapeHTML(ep.conclusion.title_ar)+'</h2>'+
-   (ep.conclusion.paragraphs||[]).map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("")+'</section>';
+   '<h2>'+escapeHTML(isArabic?ep.conclusion.title_ar:ep.conclusion.title_en)+'</h2>'+
+   (isArabic?ep.conclusion.paragraphs:ep.conclusion.paragraphs_en).map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("")+'</section>';
  }
- if(ep.closing_message)html+='<p class="ks60-closing">'+escapeHTML(ep.closing_message)+'</p>';
- if(ep.trailing_fragment)html+='<p>'+escapeHTML(ep.trailing_fragment)+'</p>';
- if(!ep.article_complete)html+='<p class="ks60-notice" role="note">'+escapeHTML(label(ep.editorial_note_ar,ep.editorial_note_en))+'</p>';
+ if(ep.closing_message)html+='<p class="ks60-closing">'+escapeHTML(isArabic?ep.closing_message:ep.closing_message_en)+'</p>';
+ if(isArabic&&ep.trailing_fragment)html+='<p>'+escapeHTML(ep.trailing_fragment)+'</p>';
+ if(!ep.article_complete)html+='<p class="ks60-notice" role="note">'+escapeHTML(label(ep.editorial_note_ar||"المقال قيد المراجعة.",ep.editorial_note_en||"This article is under editorial review."))+'</p>';
  return html;
 }
 function episodePage(ep){
@@ -129,7 +144,7 @@ function episodePage(ep){
  '<button type="button" class="ks60-source-button" data-source="drive" aria-pressed="false" '+(hasDrive?'':'disabled title="'+label("رابط Drive غير معتمد بعد","Drive backup is not yet verified")+'"')+'>Google Drive</button></div>'+
  '<p class="ks60-tip">'+(hasDrive?label("يمكن التبديل إلى النسخة الاحتياطية المعتمدة في Google Drive.","Verified backup available from Google Drive."):label("نسخة Google Drive الاحتياطية ستتاح بعد التحقق من تطابق الفيديو وصلاحية عرضه.","Google Drive backup will be available after verifying the recording and its access."))+'</p>'+'<p class="ks60-external-watch"><a href="https://www.youtube.com/watch?v='+escapeHTML(ep.youtube_id)+'" target="_blank" rel="noopener noreferrer" aria-label="'+label("فتح الفيديو مباشرة في يوتيوب","Open video on YouTube")+'">'+label("إذا تعذّر التشغيل هنا، شاهد الفيديو على YouTube ↗","If playback fails here, watch directly on YouTube ↗")+'</a></p></div>'+
  chapterButtons(ep)+'</aside>'+
- '<article class="ks60-article-pane" id="ks60-article-pane" lang="ar" dir="rtl" aria-label="'+label("المقال","Article")+'">'+articleHTML(ep)+'</article>'+
+ '<article class="ks60-article-pane" id="ks60-article-pane" lang="'+(ar()?"ar":"en")+'" dir="'+(ar()?"rtl":"ltr")+'" aria-label="'+label("المقال","Article")+'">'+articleHTML(ep)+'</article>'+
  '</div>');
 }
 function bindListing(main,data){
