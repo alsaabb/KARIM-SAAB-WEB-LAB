@@ -104,6 +104,15 @@ try:
                 "page_errors":errors[:8],
             }
             assert not errors,"Page script errors: "+repr(errors[:5])
+            page.goto(HOST+"#/en/about/after-sixty/sixty-is-not-a-waiting-room",wait_until="domcontentloaded",timeout=30000)
+            note=page.locator(".ks60-language-note")
+            note.wait_for(state="visible",timeout=20000)
+            assert "currently available in Arabic" in note.inner_text()
+            assert page.locator(".ks60-poster").is_visible(),"English route lost video poster"
+            assert page.locator("#ks60-article-pane").is_visible(),"English route lost source article"
+            assert page.locator(".ks60-external-watch a").is_visible(),"English route lacks YouTube fallback"
+            REPORT[name]["english_language_notice"]=True
+            page.screenshot(path=str(OUT/f"{name}-english-disclosure.png"),full_page=True)
             page.close()
         browser.close()
     (OUT/"report.json").write_text(json.dumps(REPORT,ensure_ascii=False,indent=2),encoding="utf-8")
