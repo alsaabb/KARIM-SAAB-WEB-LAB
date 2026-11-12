@@ -27,3 +27,8 @@ jobs:
           node --check dist/karim-video-articles-v1.js
           node --check dist/bilingual-share-v1.js
           python3 -m unittest discover -s tests -p 'test_bilingual_sharing.py' -v
+
+      - name: Test share controls in representative live-route DOM fixtures
+        run: |
+          npm install --no-save --no-package-lock jsdom@26
+          node --test tests/share_dom.test.cjs
