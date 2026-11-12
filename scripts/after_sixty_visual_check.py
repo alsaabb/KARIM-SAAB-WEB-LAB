@@ -43,6 +43,10 @@ try:
             player=page.locator("#ks60-player")
             poster=page.locator(".ks60-poster")
             assert poster.is_visible(),"YouTube poster missing at initial render"
+            fallback=page.locator(".ks60-external-watch a")
+            assert fallback.count()==1, "External watch fallback missing"
+            assert fallback.get_attribute("href")=="https://www.youtube.com/watch?v=0YT1QXZT6mI"
+            assert fallback.get_attribute("target")=="_blank"
             assert poster.locator(".ks60-poster-play").is_visible(),"Gold play button missing"
             assert poster.locator(".ks60-poster-image").get_attribute("src").endswith("/maxresdefault.jpg")
             assert page.locator("#ks60-frame").count()==0,"YouTube should load only on play"
