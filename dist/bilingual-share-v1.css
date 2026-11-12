@@ -21,3 +21,5 @@
 .ks-share-v1-status{font-size:.8rem;color:#32734c;min-height:1em;margin:8px 0 0}
 @media(max-width:520px){.ks-share-v1{border-radius:12px;margin:22px 0}.ks-share-v1-head{display:block}.ks-share-v1-head p{margin-top:8px}.ks-share-v1-buttons{gap:6px}.ks-share-v1-link,.ks-share-v1-copy{min-width:60px;flex:1 1 60px;min-height:58px;padding:7px 5px}.ks-share-v1-link small,.ks-share-v1-copy small{font-size:.6rem}}
 @media(prefers-reduced-motion:reduce){.ks-share-v1-link,.ks-share-v1-copy{transition:none}.ks-share-v1-link:hover,.ks-share-v1-copy:hover{transform:none}}
+
+.ks-share-v1-link svg{display:block;width:22px;height:22px;fill:currentColor;max-width:100%}
