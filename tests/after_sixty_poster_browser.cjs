@@ -28,6 +28,10 @@ const base='http://127.0.0.1:8765/dist/index.html';
           visibleBadge:!!$('.ks60-poster-badge'),
           isButton:!!$('.ks60-poster[data-start-play]'),
           icon:$('.ks60-poster-play')?.textContent,
+          ctaText:$('.ks60-poster-cta')?.textContent.trim(),
+          ctaRect:(()=>{const q=$('.ks60-poster-cta').getBoundingClientRect();return {cx:q.left+q.width/2,bottom:q.bottom};})(),
+          playerCentre:pr.left+pr.width/2,
+          maskBackground:getComputedStyle($('.ks60-poster-overlay')).backgroundImage,
           hasArticleShare:!!$('#ks60-article-pane .ks-share-v1')
         };
       });
@@ -35,11 +39,22 @@ const base='http://127.0.0.1:8765/dist/index.html';
       assert.equal(data.fit,'cover','Portrait poster must crop the wide video thumbnail to fill, not letterbox');
       assert.ok(data.playerWidth>=290,'Poster too small: '+data.playerWidth);
       assert.ok(Math.abs(data.playerHeight/data.playerWidth-(16/9))<0.05,'Portrait aspect ratio should be 9:16');
-      assert.ok(data.visibleBadge&&data.isButton&&data.icon?.includes('▶'),'Full cover must be tappable with a visible play icon and video badge');
+      assert.ok(data.isButton,'Full cover must remain clickable');
+      assert.equal(data.visibleBadge,false,'No second video badge over the poster');
+      assert.equal(data.icon,undefined,'Remove the large yellow play circle');
+      assert.equal(data.ctaText,'شاهد الفيديو','Keep the single Watch video label');
+      assert.ok(Math.abs(data.ctaRect.cx-data.playerCentre)<4,'Label centered horizontally on poster');
+      assert.ok(data.ctaRect.bottom<=(data.videoBottom-8),'Label must remain inside poster');
+      assert.ok(data.maskBackground.includes('.97'),'Mask the original second play icon near the bottom');
       assert.ok(data.hasArticleShare,'Article sharing cannot be removed');
       if(width<=1100)assert.ok(data.articleTop>=data.videoBottom-3,
         'On phone/tablet the article must appear BELOW the player rather than side-by-side: '+JSON.stringify(data));
       console.log('POSTER MOBILE CHECK OK',width,JSON.stringify(data));
+      if(width===390){
+        await page.locator('.ks60-poster').click();
+        await page.locator('#ks60-frame').waitFor({state:'attached',timeout:8000});
+        console.log('POSTER FULL-COVER CLICK OK');
+      }
       await page.close();
     }
     const page=await browser.newPage({viewport:{width:390,height:900},deviceScaleFactor:1});
