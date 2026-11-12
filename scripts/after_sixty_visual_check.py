@@ -48,7 +48,7 @@ try:
             assert page.locator("#ks60-article-pane [data-seek]").count()==3
             assert page.locator('[data-source="drive"]').is_disabled(),"Unverified Drive fallback activated"
             video=page.locator("#ks60-video-pane").bounding_box()
-            article=page.locator("#ks60-article-pane").bounding_box()
+            article=page.locator("#ks60-article-pane").bounding_box() or {"width":0}
             if name=="desktop":
                 assert abs((video["width"]/(video["width"]+article["width"]))-.4)<.05,"Desktop 40/60 split incorrect"
                 assert page.locator("#ks60-video-pane").evaluate("(el)=>getComputedStyle(el).position")=="sticky"
@@ -59,6 +59,7 @@ try:
                 assert not page.locator("#ks60-article-pane").is_visible(),"Article should be tab-hidden first"
                 page.locator('[data-view="article"]').click()
                 assert page.locator("#ks60-article-pane").is_visible()
+                article=page.locator("#ks60-article-pane").bounding_box() or {"width":0}
                 assert not page.locator("#ks60-video-pane").is_visible()
                 page.screenshot(path=str(OUT/f"{name}-episode-article.png"),full_page=True)
                 page.locator("#ks60-article-pane [data-seek]").first.click()
