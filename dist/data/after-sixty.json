@@ -60,6 +60,10 @@
           "paragraphs": [
             "عندما تبلغ الستين، تكون قد عبرت محطات كبرى؛ فقدت أحبة، وخضت تجارب، وتعلمت دروساً لا تُشترى. من غير المنطقي أن يمتلك الإنسان كل هذا الرصيد من الحكمة والنضج، ثم ينفقه في التوجس والندم أو استدعاء الأحزان.",
             "كل دقيقة تمر في هذه المرحلة هي ثروة حقيقية؛ فإما أن تُستثمر في الطمأنينة والعمل الصالح، وإما أن تُهدر في القلق على ما مضى أو الخوف مما هو آت."
+          ],
+          "paragraphs_en": [
+            "By sixty, you have passed through life's great milestones. You have lost loved ones, faced challenges, and learned lessons that money cannot buy. It makes little sense to gather such a wealth of wisdom and maturity, only to squander it on apprehension, regret, or revisiting old sorrows.",
+            "Every minute at this stage of life is a genuine treasure. You can invest it in peace of mind and good deeds, or allow it to slip away through anxiety about the past and fear of what is yet to come."
           ]
         },
         {
@@ -83,6 +87,23 @@
               "label": "العفو والتجاوز",
               "text": "أن تصفح وتتصالح مع الجميع، حتى مع من ظلمك أو أساء إليك. تذكّر دائماً أن عند الله تجتمع الخصوم، فلا ترحل وفي قلبك كراهية لأحد، ولا تجعل خصومتك مع الناس تسرق صفاء أيامك."
             }
+          ],
+          "paragraphs_en": [
+            "To truly enjoy the years ahead, begin by putting down the burdens you have carried. A heart weighed down by grudges and disputes cannot fully taste happiness. This stage of life calls for a particular kind of spiritual courage:"
+          ],
+          "bullets_en": [
+            {
+              "label": "Draw closer to God",
+              "text": "Devote more time to worship and to strengthening that connection. It offers a tranquillity no worldly pleasure can provide."
+            },
+            {
+              "label": "Settle what you owe",
+              "text": "Fulfil your obligations to others and, where wrongs have been done, make amends and restore their rights."
+            },
+            {
+              "label": "Forgive and move forward",
+              "text": "Offer forgiveness and seek peace with everyone, even those who have hurt or wronged you. Remember that all disputes will ultimately be judged before God. Do not leave this world with hatred in your heart, and do not let conflict rob your remaining days of their serenity."
+            }
           ]
         },
         {
@@ -93,6 +114,10 @@
           "paragraphs": [
             "الصحة النفسية في هذه المرحلة قرار واعٍ وليست صدفة. الجسد والذهن لم يعودا يحتملان استنزاف التوتر المزمن وارتفاع «هرمون الكورتيزول» الذي يفتك بالصحة والمزاج.",
             "السعادة قرار ينبع من داخلك أنت؛ فلن يطرق بابك أحد ليهديك أربعة كيلوغرامات من البهجة الجاهزة! وبالمقابل، ستجد حولك دائماً من يحاول أن يفرغ في مجلسك همومه وطاقته السلبية وأحاديثه المحبطة. هنا يجب أن تكون حازماً في حماية مساحتك النفسية: ابتعد عن مصدّري الكآبة، وضع حدوداً واضحة مع كل من يستنزف روحك—حتى لو كان قريباً—فالمودة محفوظة، واللقاء الأجمل في الجنة بإذن الله، أما في الدنيا فالأولوية لسلامتك النفسية."
+          ],
+          "paragraphs_en": [
+            "Looking after your mental wellbeing at this stage is a conscious choice, not a matter of chance. Neither body nor mind can comfortably withstand the constant strain of chronic stress and persistently elevated cortisol, which can take a toll on health and mood.",
+            "Happiness begins with a decision you make within yourself. Nobody is going to knock on your door carrying four kilograms of ready-made joy! Yet there will always be people who bring their worries, negative energy, and discouraging conversations into your company. This is when you must protect your emotional space with firm but thoughtful boundaries. Step away from those who spread gloom, and set limits with anyone who drains your spirit—even someone close to you. Affection and goodwill need not be lost; and, God willing, our finest reunion will be in Paradise. Here on earth, however, your peace of mind deserves care and priority."
           ]
         }
       ],
@@ -102,11 +127,22 @@
         "title_en": "Conclusion: Leave a Positive Legacy",
         "paragraphs": [
           "عش كل يوم في الستين وكأنه هدية مستقلة. استثمر خبرتك، نقِّ قلبك، احمِ هدوءك النفسي من الضجيج السلبي، وانطلق في هذه المرحلة بروح المغامر الذي أدرك أخيراً قيمة الوقت."
+        ],
+        "paragraphs_en": [
+          "Live each day of your sixties as a gift in its own right. Put your experience to good use, cleanse your heart, guard your peace against needless negativity, and approach this chapter with the spirit of an adventurer who has finally grasped the true value of time."
         ]
       },
       "closing_message": "🌍 أهلًا بكم في منصة #عبدالكريم_الصعب! عبر #مغامرات_عبدالكريم_الصعب نجوب العالم، نلتقي بالناس ونشارك قصصهم وثقافاتهم، لننشر المعرفة والسعادة و#جبر_الخاطر. وننقل لكم خلاصة تجاربنا في المال والأعمال وريادة الأعمال عبر #مشاريع_الصعب. ✨ نسافر لنكتشف، ونعيش لنترك أثرًا جميلًا.",
       "editorial_review_status": "pending_final_approval",
-      "video_orientation": "vertical"
+      "video_orientation": "vertical",
+      "intro_en": [
+        "I often receive private messages from friends and followers in their fifties and sixties. Many describe the same troubling feeling: a heaviness of heart, fading enthusiasm, and sadness creeping into their days—as though life's train had already reached its final station.",
+        "We must be candid with ourselves: the length of our lives rests in the hands of Almighty God. The Prophet Muhammad (peace be upon him) reminded us that the lifespans of his community are generally between sixty and seventy years. Knowing that the road ahead may be shorter should inspire us to live more fully and purposefully, not cause us to withdraw and let our spirits fade."
+      ],
+      "pull_quote_en": "As long as you draw breath each morning and have the strength to move, you are alive. No one else has the right to decide that your time is over before its appointed hour.",
+      "closing_message_en": "🌍 Welcome to the KARIM SAAB platform! Through KARIM SAAB Adventures, we travel the world, meet people, and share their stories and cultures to spread knowledge, happiness, and kindness. Through AL SAAB PROJECTS, we also share lessons from our experiences in business and entrepreneurship. ✨ We travel to discover, and we live to leave a beautiful mark.",
+      "english_translation_status": "pending_owner_review",
+      "english_translation_source": "Arabic article in the same episode record; translated as a complete editorial companion on 2026-11-12"
     }
   ]
 }
