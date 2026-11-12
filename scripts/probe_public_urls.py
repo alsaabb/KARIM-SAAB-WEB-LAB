@@ -28,7 +28,7 @@ for name,url,needle in CHECKS:
         failed.append(name)
         print("FAIL",name,str(e),flush=True)
 # Observational checks: these domains do not necessarily serve this repo.
-for domain in ("https://www.karimsaab.com/","https://www.alsaab.net/"):
+for domain in ("https://www.karimsaab.com/","https://karimsaab.com/","https://www.alsaab.net/","https://alsaab.net/"):
     try:
         with urllib.request.urlopen(urllib.request.Request(domain,headers={"User-Agent":"KARIM-SAAB-site-availability-probe/1.0"}),timeout=15) as r:
             print("DOMAIN",domain,"HTTP",r.status,"final",r.url,flush=True)
