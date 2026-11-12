@@ -68,7 +68,7 @@
     // Match the real, published hash routes, not just the legacy short slugs.
     if (route.startsWith('about/after-sixty/')) {
       // Both the video player and full article must precede the share section.
-      return main.querySelector('.ks60-wrap:has(.ks60-split)');
+      return main.querySelector('.ks60-split') ? main.querySelector('.ks60-wrap') : null;
     }
     if (route.startsWith('about/happiness/video/')) {
       return main.querySelector('.ks-va-section,.ks-ab-container,.ks-reading');
@@ -76,10 +76,10 @@
     if (route==='about/health/depression-anxiety/full')
       return main.querySelector('.ks-health-full');
     if (route==='about/health/depression-anxiety')
-      return main.querySelector('.ks-health-article,.ks-health-detail,.ks-health-main,.ks-health-hero,.ks-health-cta') || main;
+      return main.querySelector('.ks-health-wrap') || main;
     if (route.startsWith('content/')) {
       // Detailed library articles, not the library category or unpublished indexes.
-      return main.querySelector('.source-feature') || main.querySelector('.ks-ab-container:has(.ks-ab-grid)');
+      return main.querySelector('.source-feature') || (main.querySelector('.ks-ab-grid') ? main.querySelector('.ks-ab-container') : null);
     }
     if (route.startsWith('journey/')||route.startsWith('entry/')) return main.querySelector('.body-prose');
     if (route.startsWith('guide/')) return main.querySelector('.ks-reading');
@@ -89,7 +89,7 @@
     var source=window.KARIM_ABOUT_SOURCE;
     if (source && Array.isArray(source.items)) {
       var item=source.items.find(function(x){return x.route===route;});
-      if (item && item.kind==='article') return main.querySelector('.ks-ab-container:has(.ks-ab-grid)') || main.querySelector('.ks-reading');
+      if (item && item.kind==='article') return main.querySelector('.ks-ab-grid') ? main.querySelector('.ks-ab-container') : main.querySelector('.ks-reading');
     }
     return null; // Ignore section listings, homepage, and utility pages.
   }
