@@ -109,14 +109,17 @@ try:
             }
             assert not errors,"Page script errors: "+repr(errors[:5])
             page.goto(HOST+"#/en/about/after-sixty/sixty-is-not-a-waiting-room",wait_until="domcontentloaded",timeout=30000)
-            note=page.locator(".ks60-language-note")
-            note.wait_for(state="visible",timeout=20000)
-            assert "currently available in Arabic" in note.inner_text()
+            article_en=page.locator("#ks60-article-pane")
+            article_en.wait_for(state="visible",timeout=20000)
+            assert article_en.get_attribute("lang")=="en","English article language missing"
+            assert article_en.get_attribute("dir")=="ltr","English article still right-to-left"
+            assert "I often receive private messages" in article_en.inner_text(),"Full English introduction missing"
+            assert "Making Peace with the Past" in article_en.inner_text(),"English chapters missing"
+            assert page.locator(".ks60-language-note").count()==0,"Old Arabic-only warning still visible"
             assert page.locator(".ks60-poster").is_visible(),"English route lost video poster"
-            assert page.locator("#ks60-article-pane").is_visible(),"English route lost source article"
             assert page.locator(".ks60-external-watch a").is_visible(),"English route lacks YouTube fallback"
-            REPORT[name]["english_language_notice"]=True
-            page.screenshot(path=str(OUT/f"{name}-english-disclosure.png"),full_page=True)
+            REPORT[name]["english_article_complete"]=True
+            page.screenshot(path=str(OUT/f"{name}-english-article.png"),full_page=True)
             page.close()
         browser.close()
     (OUT/"report.json").write_text(json.dumps(REPORT,ensure_ascii=False,indent=2),encoding="utf-8")
