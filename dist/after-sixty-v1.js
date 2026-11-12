@@ -90,7 +90,8 @@ function chapterButtons(ep){
   }).join("")+'</div></details>';
 }
 function articleHTML(ep){
- var html=ep.intro.map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("");
+ var languageNotice=ar()?"":'<p class="ks60-language-note" role="note" lang="en" dir="ltr">The full article is currently available in Arabic. The English title and summary are provided for navigation; a reviewed English translation is not yet available.</p>';
+ var html=languageNotice+ep.intro.map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("");
  html+='<blockquote class="ks60-quote">«'+escapeHTML(ep.pull_quote)+'»</blockquote>';
  ep.chapters.forEach(function(ch){
   html+='<section class="ks60-section" id="ks60-'+escapeHTML(ch.id)+'">'+
