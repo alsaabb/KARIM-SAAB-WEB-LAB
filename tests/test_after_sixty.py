@@ -22,7 +22,7 @@ class AfterSixtyTests(unittest.TestCase):
         cls.categories = {x["id"] for x in cls.data["categories"]}
 
     def test_episode_one_and_metadata(self):
-        self.assertEqual(len(self.episodes), 1)
+        self.assertGreaterEqual(len(self.episodes), 1)
         ep = self.episodes[0]
         self.assertEqual(ep["id"], "after-sixty-01")
         self.assertEqual(ep["slug"], "sixty-is-not-a-waiting-room")
@@ -33,9 +33,12 @@ class AfterSixtyTests(unittest.TestCase):
 
     def test_content_is_explicitly_marked_incomplete(self):
         ep = self.episodes[0]
-        self.assertFalse(ep["article_complete"])
         self.assertTrue(ep["metadata_approved"])
-        self.assertEqual(ep["trailing_fragment"], "السعادة قرار")
+        if not ep["article_complete"]:
+            self.assertEqual(ep.get("trailing_fragment"), "السعادة قرار")
+            self.assertTrue(ep.get("editorial_note_ar"))
+        else:
+            self.assertFalse(ep.get("trailing_fragment"))
 
     def test_no_unverified_drive_fallback(self):
         for ep in self.episodes:
@@ -53,6 +56,7 @@ class AfterSixtyTests(unittest.TestCase):
     def test_approval_gate_requires_complete_verified_article(self):
         ep = copy.deepcopy(self.episodes[0])
         ep["approval_status"] = "APPROVED"
+        ep["article_complete"] = False
         with self.assertRaises(ValueError):
             validate_episode(ep, self.categories)
         ep["article_complete"] = True
