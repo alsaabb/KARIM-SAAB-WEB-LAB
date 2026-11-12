@@ -86,8 +86,9 @@ class AfterSixtyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             validate_episode(ep, self.categories)
         ep["article_complete"] = True
+        ep["english_translation_status"] = "pending_owner_review"
         with self.assertRaises(ValueError):
-            validate_episode(ep, self.categories)  # Translation still awaiting owner approval
+            validate_episode(ep, self.categories)  # Unapproved English edition must be blocked
         ep["english_translation_status"] = "approved"
         self.assertTrue(validate_episode(ep, self.categories))
 
