@@ -153,7 +153,7 @@ def scan_drive(drive, folder_id, manifest):
         validate_document(episode, doc_bytes.decode("utf-8-sig"))
         video = backup[0]
         # The mere presence of a Drive video is not permission to embed it publicly.
-        verified = public_reader(drive, video["id"])
+        verified = episode.get("fallback_same_video_approved") is True and public_reader(drive, video["id"])
         episode["drive_fallback_verified"] = bool(verified)
         episode["drive_video_file_id"] = video["id"] if verified else None
         episode.pop("approval_status", None)
