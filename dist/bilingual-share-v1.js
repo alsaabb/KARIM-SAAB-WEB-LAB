@@ -48,14 +48,16 @@
       ? window.KARIM_VIDEO_ARTICLES_SOURCE.videos.find(function(v){return v.route===route;}) : null;
     var trip=(typeof journeys!=='undefined' && route.startsWith('journey/'))
       ? journeys.find(function(x){return x.slug===route.slice(8);}) : null;
-    var ar=ref&&ref.ar || fromVideo&&fromVideo.title_ar || trip&&trip.title&&trip.title[0] || '';
-    var en=ref&&ref.en || fromVideo&&fromVideo.title_en || trip&&trip.title&&trip.title[1] || '';
+    var about=window.KARIM_ABOUT_SOURCE && Array.isArray(window.KARIM_ABOUT_SOURCE.items) ?
+      window.KARIM_ABOUT_SOURCE.items.find(function(x){return x.route===route;}) : null;
+    var ar=ref&&ref.ar || fromVideo&&fromVideo.title_ar || about&&about.title_ar || trip&&trip.title&&trip.title[0] || '';
+    var en=ref&&ref.en || fromVideo&&fromVideo.title_en || about&&about.title_en || trip&&trip.title&&trip.title[1] || '';
     var heading=main.querySelector('.ks-va-head h2,.ks60-episode-head h1,.source-feature h2,.body-prose h2,.ks-reading h2,h1,h2');
     var shown=heading&&heading.textContent.trim() || document.title.split('|')[0].trim();
     if(!ar && lang==='ar')ar=shown;
     if(!en && lang==='en')en=shown;
     var desc=ref && (lang==='ar'?ref.summary_ar:ref.summary_en) ||
-      fromVideo && (lang==='ar'?fromVideo.caption_ar:fromVideo.caption_en) || '';
+      fromVideo && (lang==='ar'?fromVideo.caption_ar:fromVideo.caption_en) || about && (lang==='ar'?about.excerpt_ar:about.excerpt_en) || '';
     if(!desc) {
       var node=main.querySelector('.ks-va-caption,.source-intro,.journey-reading-note,.ks60-article-pane p,.body-prose p,.ks-reading p');
       desc=node&&node.textContent.trim()||'';
@@ -63,15 +65,33 @@
     return {title:lang==='ar'?(ar||shown):(en||shown), ar:ar, en:en, desc:desc.slice(0,230)};
   }
   function locate(route,main) {
-    if (route.startsWith('about/happiness/video/')) return main.querySelector('.ks-va-section');
-    if (route.startsWith('after-sixty/')) return main.querySelector('.ks60-article-pane');
-    if (route.startsWith('content/')) return main.querySelector('.source-feature');
+    // Match the real, published hash routes, not just the legacy short slugs.
+    if (route.startsWith('about/after-sixty/')) {
+      // Both the video player and full article must precede the share section.
+      return main.querySelector('.ks60-wrap:has(.ks60-split)');
+    }
+    if (route.startsWith('about/happiness/video/')) {
+      return main.querySelector('.ks-va-section,.ks-ab-container,.ks-reading');
+    }
+    if (route==='about/health/depression-anxiety/full')
+      return main.querySelector('.ks-health-full');
+    if (route==='about/health/depression-anxiety')
+      return main.querySelector('.ks-health-article,.ks-health-detail,.ks-health-main,.ks-health-hero,.ks-health-cta') || main;
+    if (route.startsWith('content/')) {
+      // Detailed library articles, not the library category or unpublished indexes.
+      return main.querySelector('.source-feature') || main.querySelector('.ks-ab-container:has(.ks-ab-grid)');
+    }
     if (route.startsWith('journey/')||route.startsWith('entry/')) return main.querySelector('.body-prose');
     if (route.startsWith('guide/')) return main.querySelector('.ks-reading');
     if (route.startsWith('story/')) return main.querySelector('.body-prose');
-    if (/\/video\//.test(route)) return main.querySelector('.ks-va-section,.ks-reading,.body-prose,article');
-    if (/^about\/(why-adventures|happiness|business)/.test(route)) return main.querySelector('.ks-reading,.ks-ab-article,.body-prose');
-    return null; // Don't add sharing to category listings, home, drafts, or utility pages.
+    if (/\/video\//.test(route)) return main.querySelector('.ks-va-section,.ks-ab-container,.ks-reading,.body-prose,article');
+    // About Me article pages are rendered by another module, and need explicit support.
+    var source=window.KARIM_ABOUT_SOURCE;
+    if (source && Array.isArray(source.items)) {
+      var item=source.items.find(function(x){return x.route===route;});
+      if (item && item.kind==='article') return main.querySelector('.ks-ab-container:has(.ks-ab-grid)') || main.querySelector('.ks-reading');
+    }
+    return null; // Ignore section listings, homepage, and utility pages.
   }
   function sharePage(r) {
     var slug=r.route.replace(/\//g,'-');
@@ -106,7 +126,7 @@
     if(old&&old.dataset.route===r.route&&old.dataset.lang===r.lang)return;
     if(old)old.remove();
     var m=meta(r.route,r.lang,main), hashtags=makeTags(r.route,r.lang,m.ar,m.en), lang=r.lang==='ar';
-    var itemIsVideo=!!(main.querySelector('video,.ks-va-section,.ks60-player,.ks-ab-video,iframe[src*="youtube"]') || /\/video\//.test(r.route) || /^after-sixty\//.test(r.route));
+    var itemIsVideo=!!(main.querySelector('video,.ks-va-section,.ks60-player,.ks-ab-video,iframe[src*="youtube"]') || /\/video\//.test(r.route) || /^about\/after-sixty\//.test(r.route));
     var h=lang?(itemIsVideo?'شارك هذا الفيديو':'شارك هذا المقال'):(itemIsVideo?'Share this video':'Share this article');
     var nativeAvailable=typeof navigator.share==='function';
     var box=document.createElement('section');
