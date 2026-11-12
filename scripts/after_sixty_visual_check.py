@@ -40,7 +40,7 @@ try:
             page.locator("#ks60-find").fill("")
             assert page.locator(".ks60-card:visible").count()==1,"Search reset broken"
             page.locator(".ks60-card").click()
-            page.locator("#ks60-article-pane").wait_for(timeout=20000)
+            page.locator("#ks60-article-pane").wait_for(state="attached",timeout=20000)
             assert "السعادة قرار ينبع من داخلك" in page.locator("#ks60-article-pane").inner_text()
             assert "الخلاصة: اترك أثراً قبل أن تغادر" in page.locator("#ks60-article-pane").inner_text()
             assert "#مغامرات_عبدالكريم_الصعب" in page.locator("#ks60-article-pane").inner_text()
