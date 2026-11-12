@@ -21,11 +21,37 @@ function breadcrumb(){
 }
 function identity(){return '<p class="ks60-identity">عبد الكريم بن ابراهيم الصعب <span dir="ltr">| KARIM SAAB</span></p>'}
 function wrapper(content){return '<main class="ks60" dir="'+(ar()?"rtl":"ltr")+'"><div class="ks60-wrap">'+content+'</div></main>'}
-function youtubeURL(id,seek){
+function youtubeURL(id,seek,autoplay){
  if(!/^[A-Za-z0-9_-]{11}$/.test(id||""))return "about:blank";
  var query="?rel=0&playsinline=1";
- if(seek>0)query+="&start="+Math.floor(seek)+"&autoplay=1";
+ if(seek>0)query+="&start="+Math.floor(seek);
+ if(autoplay)query+="&autoplay=1";
  return "https://www.youtube-nocookie.com/embed/"+id+query;
+}
+function thumbnailURL(id,quality){
+ if(!/^[A-Za-z0-9_-]{11}$/.test(id||""))return "assets/hero-desert.webp";
+ return "https://i.ytimg.com/vi/"+id+"/"+quality+".jpg";
+}
+function thumbnailMarkup(id,cls,alt,extra){
+ return '<img class="'+cls+'" src="'+thumbnailURL(id,"maxresdefault")+
+  '" data-ks60-thumbnail data-video-id="'+escapeHTML(id)+'" alt="'+escapeHTML(alt||"")+'" '+(extra||"")+'>';
+}
+function bindThumbnails(scope){
+ Array.from(scope.querySelectorAll("img[data-ks60-thumbnail]")).forEach(function(img){
+  var id=img.dataset.videoId,quality=["maxresdefault","sddefault","hqdefault"],index=0;
+  function next(){index++;img.src=index<quality.length?thumbnailURL(id,quality[index]):"assets/hero-desert.webp";}
+  img.addEventListener("error",function(){if(index<=quality.length)next()});
+  img.addEventListener("load",function(){if(img.naturalWidth<=120&&index<quality.length)next()});
+  if(img.complete){if(!img.naturalWidth||img.naturalWidth<=120)next();}
+ });
+}
+function playerPoster(ep){
+ var title=ar()?ep.title_ar:ep.title_en;
+ return '<button type="button" class="ks60-poster" data-start-play aria-label="'+escapeHTML(label("تشغيل فيديو: ","Play video: ")+title)+'">'+
+  thumbnailMarkup(ep.youtube_id,"ks60-poster-blur","",'aria-hidden="true" decoding="async"')+
+  thumbnailMarkup(ep.youtube_id,"ks60-poster-image",title,'decoding="async"')+
+  '<span class="ks60-poster-overlay"><span class="ks60-poster-play" aria-hidden="true">▶</span><span class="ks60-poster-cta">'+label("شاهد الفيديو","Play video")+'</span></span>'+
+ '</button>';
 }
 function driveURL(ep){
  if(ep.drive_fallback_verified!==true||!/^[A-Za-z0-9_-]{15,}$/.test(ep.drive_video_file_id||""))return null;
@@ -34,11 +60,11 @@ function driveURL(ep){
 function episodeURL(ep){return route("about/after-sixty/"+encodeURIComponent(ep.slug))}
 function episodeCard(ep,categories){
  var categoryItem=categories.find(function(c){return c.id===ep.category_id});
- var thumb=ep.thumbnail_url||"assets/hero-desert.webp";
+ var thumb=ep.thumbnail_url||thumbnailURL(ep.youtube_id,"maxresdefault");
  var title=ar()?ep.title_ar:ep.title_en;
  var excerpt=ar()?ep.excerpt_ar:ep.excerpt_en;
  return '<a class="ks60-card" href="'+episodeURL(ep)+'" data-episode-card data-category="'+escapeHTML(ep.category_id)+'" data-text="'+escapeHTML([ep.title_ar,ep.title_en,ep.excerpt_ar,ep.excerpt_en].join(" ").toLocaleLowerCase())+'">'+
-  '<div class="ks60-thumb"><img loading="lazy" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'"><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
+  '<div class="ks60-thumb"><img loading="lazy" data-ks60-thumbnail data-video-id="'+escapeHTML(ep.youtube_id)+'" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'"><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
   '<div class="ks60-cardbody"><div class="ks60-kicker"><span>'+label("الحلقة","Episode")+' #'+String(ep.number).padStart(2,"0")+'</span><span>'+escapeHTML(categoryItem?ar()?categoryItem.ar:categoryItem.en:"")+'</span></div>'+
   '<h2>'+escapeHTML(title)+'</h2><p class="ks60-excerpt">'+escapeHTML(excerpt)+'</p>'+
   '<div class="ks60-kicker" style="margin-top:13px">'+label("مدة القراءة","Reading time")+': '+escapeHTML(ep.reading_minutes)+' '+label("دقائق","min")+'</div></div></a>';
@@ -57,9 +83,11 @@ function listPage(data){
   '<div class="ks60-empty" id="ks60-empty" hidden>'+label("لا توجد حلقات مطابقة للبحث.","No episodes match these filters.")+'</div></div>');
 }
 function chapterButtons(ep){
- return '<section class="ks60-chapters" aria-label="'+label("فصول الحلقة","Episode chapters")+'"><h2>'+label("الفصول الزمنية","Video chapters")+'</h2>'+ep.chapters.map(function(ch){
-  return '<button type="button" data-chapter-target="'+escapeHTML(ch.id)+'"><span class="ks60-time">'+timestamp(ch.time_seconds)+'</span><span>'+escapeHTML(ar()?ch.title_ar:ch.title_en)+'</span></button>'
- }).join("")+'</section>';
+ return '<details class="ks60-chapters" open aria-label="'+label("فصول الحلقة","Episode chapters")+'">'+
+  '<summary><span>'+label("الفصول الزمنية","Video chapters")+'</span><span class="ks60-chapter-count">'+ep.chapters.length+'</span></summary>'+
+  '<div class="ks60-chapter-list">'+ep.chapters.map(function(ch){
+    return '<button type="button" data-chapter-target="'+escapeHTML(ch.id)+'"><span class="ks60-time">'+timestamp(ch.time_seconds)+'</span><span>'+escapeHTML(ar()?ch.title_ar:ch.title_en)+'</span></button>';
+  }).join("")+'</div></details>';
 }
 function articleHTML(ep){
  var html=ep.intro.map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("");
@@ -84,22 +112,21 @@ function articleHTML(ep){
 function episodePage(ep){
  var title=ar()?ep.title_ar:ep.title_en;
  var hasDrive=!!driveURL(ep);
+ var format=ep.video_orientation==="vertical"?"vertical":"landscape";
  var shareLink="share/"+(ar()?"ar":"en")+"/after-sixty-"+encodeURIComponent(ep.slug)+".html";
  return wrapper(breadcrumb()+identity()+
  '<a class="ks60-back" href="'+route("about/after-sixty")+'">← '+label("عودة إلى مكتبة الحلقات","Back to episode library")+'</a>'+
  '<header class="ks60-episode-head"><div class="ks60-stat">'+label("الحلقة","Episode")+' #'+String(ep.number).padStart(2,"0")+'</div>'+
  '<h1>'+escapeHTML(title)+'</h1><p>'+label("مدة الفيديو: ","Video: ")+timestamp(ep.duration_seconds)+' · '+label("مدة القراءة: ","Reading: ")+ep.reading_minutes+' '+label("دقائق","min")+
  ' · <a href="'+shareLink+'" target="_blank" rel="noopener">'+label("رابط المشاركة","Share link")+'</a></p></header>'+
- '<div class="ks60-mobile-switch" role="tablist" aria-label="'+label("التبديل بين المشاهدة والقراءة","Video or article")+'">'+
- '<button type="button" role="tab" data-view="video" aria-selected="true">'+label("مشاهدة الفيديو","Watch video")+'</button>'+
- '<button type="button" role="tab" data-view="article" aria-selected="false">'+label("قراءة المقال","Read article")+'</button></div>'+
  '<div class="ks60-split">'+
- '<aside class="ks60-video-pane" id="ks60-video-pane"><div class="ks60-player-wrap">'+
- '<div class="ks60-source-controls"><strong>'+label("المصدر","Source")+':</strong>'+
+ '<aside class="ks60-video-pane" id="ks60-video-pane" aria-label="'+label("مشغل فيديو الحلقة","Episode video player")+'">'+
+ '<div class="ks60-player-wrap"><div class="ks60-player-stage">'+
+ '<div class="ks60-player" data-orientation="'+format+'" id="ks60-player">'+playerPoster(ep)+'</div></div>'+
+ '<div class="ks60-source-controls" role="group" aria-label="'+label("مصادر الفيديو","Video sources")+'"><strong>'+label("المصدر","Source")+':</strong>'+
  '<button type="button" class="ks60-source-button" data-source="youtube" aria-pressed="true">YouTube</button>'+
  '<button type="button" class="ks60-source-button" data-source="drive" aria-pressed="false" '+(hasDrive?'':'disabled title="'+label("رابط Drive غير معتمد بعد","Drive backup is not yet verified")+'"')+'>Google Drive</button></div>'+
- '<div class="ks60-player"><iframe id="ks60-frame" src="'+escapeHTML(youtubeURL(ep.youtube_id,0))+'" title="'+escapeHTML(title)+'" loading="lazy" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>'+
- '<p class="ks60-tip">'+(hasDrive?label("يمكن التبديل إلى نسخة Google Drive الاحتياطية المعتمدة. قد تتطلب صلاحية عرض عامة.","You can switch to the approved Google Drive backup, provided its access permissions allow viewing."):label("نسخة Google Drive الاحتياطية غير مفعّلة حتى نتأكد من أنها نفس الحلقة وصلاحية عرضها.","Google Drive backup is not enabled until the matching video and public access are verified."))+'</p></div>'+
+ '<p class="ks60-tip">'+(hasDrive?label("يمكن التبديل إلى النسخة الاحتياطية المعتمدة في Google Drive.","Verified backup available from Google Drive."):label("نسخة Google Drive الاحتياطية ستتاح بعد التحقق من تطابق الفيديو وصلاحية عرضه.","Google Drive backup will be available after verifying the recording and its access."))+'</p></div>'+
  chapterButtons(ep)+'</aside>'+
  '<article class="ks60-article-pane" id="ks60-article-pane" lang="ar" dir="rtl" aria-label="'+label("المقال","Article")+'">'+articleHTML(ep)+'</article>'+
  '</div>');
@@ -118,34 +145,47 @@ function bindListing(main,data){
  chips.forEach(function(btn){btn.addEventListener("click",function(){category=btn.dataset.categoryFilter;chips.forEach(function(item){item.setAttribute("aria-pressed",String(item===btn))});filter()})});
 }
 function bindEpisode(main,ep){
- main.dataset.mobileView="video";
- var frame=main.querySelector("#ks60-frame");var active="youtube";
- function chooseSource(src){
-  if(src==="drive"&&!driveURL(ep))return;
-  if(src===active)return;
-  active=src;
-  frame.src=src==="youtube"?youtubeURL(ep.youtube_id,0):driveURL(ep);
-  main.querySelectorAll("[data-source]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.source===src))});
+ var player=main.querySelector("#ks60-player"),active="youtube",chapters=main.querySelector(".ks60-chapters");
+ if(window.matchMedia("(max-width:760px)").matches&&chapters)chapters.open=false;
+ bindThumbnails(main);
+ function updateSources(){
+  main.querySelectorAll("[data-source]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.source===active))});
  }
- function switchView(view){
-  main.dataset.mobileView=view;
-  main.querySelectorAll("[data-view]").forEach(function(b){b.setAttribute("aria-selected",String(b.dataset.view===view))});
+ function insertPlayer(url){
+  var title=ar()?ep.title_ar:ep.title_en;
+  player.innerHTML='<iframe id="ks60-frame" src="'+escapeHTML(url)+'" title="'+escapeHTML(title)+'" loading="eager" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+ }
+ function playYoutube(seconds){
+  active="youtube";updateSources();
+  insertPlayer(youtubeURL(ep.youtube_id,Math.floor(seconds||0),true));
+ }
+ function chooseSource(src){
+  if(src==="drive"){
+   if(!driveURL(ep))return;
+   active="drive";updateSources();insertPlayer(driveURL(ep));return;
+  }
+  if(active==="youtube")return;
+  active="youtube";updateSources();player.innerHTML=playerPoster(ep);bindThumbnails(player);
  }
  main.addEventListener("click",function(e){
-  var source=e.target.closest("[data-source]");if(source){chooseSource(source.dataset.source);return}
-  var tab=e.target.closest("[data-view]");if(tab){switchView(tab.dataset.view);return}
-  var ch=e.target.closest("[data-chapter-target]");if(ch){
-   switchView("article");
-   var section=document.getElementById("ks60-"+ch.dataset.chapterTarget);
-   if(section)requestAnimationFrame(function(){section.scrollIntoView({behavior:"smooth",block:"start"})});
+  var play=e.target.closest("[data-start-play]");
+  if(play){playYoutube(0);return}
+  var source=e.target.closest("[data-source]");
+  if(source){chooseSource(source.dataset.source);return}
+  var chapter=e.target.closest("[data-chapter-target]");
+  if(chapter){
+   var section=main.querySelector("#ks60-"+chapter.dataset.chapterTarget);
+   if(section){
+    if(chapters&&window.matchMedia("(max-width:760px)").matches)chapters.open=false;
+    requestAnimationFrame(function(){section.scrollIntoView({behavior:"smooth",block:"start"})});
+   }
    return;
   }
-  var seek=e.target.closest("[data-seek]");if(seek){
+  var seek=e.target.closest("[data-seek]");
+  if(seek){
    var seconds=Math.max(0,Math.min(Number(seek.dataset.seek)||0,Number(ep.duration_seconds)||9999));
-   if(active!=="youtube"){active="youtube";main.querySelectorAll("[data-source]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.source==="youtube"))})}
-   frame.src=youtubeURL(ep.youtube_id,seconds);
-   switchView("video");
-   if(window.matchMedia("(max-width: 760px)").matches)requestAnimationFrame(function(){main.querySelector("#ks60-video-pane").scrollIntoView({behavior:"smooth",block:"start"})});
+   playYoutube(seconds);
+   if(window.matchMedia("(max-width:760px)").matches)requestAnimationFrame(function(){player.scrollIntoView({behavior:"smooth",block:"start"})});
   }
  });
 }
@@ -166,7 +206,7 @@ function mount(){
   var target=document.querySelector("#app > main");if(!target)return;target.outerHTML=html;
   var rendered=document.querySelector("#app > main.ks60");
   if(ep){document.title=(ar()?ep.title_ar:ep.title_en)+" | KARIM SAAB";bindEpisode(rendered,ep)}
-  else if(current==="about/after-sixty"){document.title=label("الحياة بعد الستين","Life After Sixty")+" | KARIM SAAB";bindListing(rendered,data)}
+  else if(current==="about/after-sixty"){document.title=label("الحياة بعد الستين","Life After Sixty")+" | KARIM SAAB";bindThumbnails(rendered);bindListing(rendered,data)}
   var m=document.querySelector('meta[name="description"]');if(m)m.setAttribute("content",ep?ar()?ep.excerpt_ar:ep.excerpt_en:label("الحياة بعد الستين: مكتبة حلقات وثائقية ومقالات عبد الكريم بن ابراهيم الصعب.","Life After Sixty: Documentary videos and articles by KARIM SAAB."));
  }).catch(function(){
   if(token!==renderToken)return;
