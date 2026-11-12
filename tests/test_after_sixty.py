@@ -109,6 +109,7 @@ class AfterSixtyTests(unittest.TestCase):
         self.assertNotIn('data-view="article"', frontend)
         styles = (ROOT / "dist/after-sixty-v1.css").read_text(encoding="utf-8")
         self.assertIn("background:#F9F8F6", styles)
+        self.assertIn("body:has(main.ks60) #ks-ai-site-link", styles)
         self.assertIn("color:#1A1A1A", styles)
         self.assertIn('ks60-player[data-orientation=vertical]', styles)
 
