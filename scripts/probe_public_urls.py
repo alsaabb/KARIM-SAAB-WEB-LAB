@@ -12,6 +12,10 @@ CHECKS=[
     ("sharing JavaScript",BASE+"dist/bilingual-share-v1.js", "ks-share-v1"),
     ("after-sixty episodes",BASE+"dist/data/after-sixty.json", "episodes"),
     ("real article share page",BASE+"dist/share/ar/journey-legacy-5.html", "<html"),
+    ("Arabic episode video share",BASE+"dist/share/ar/after-sixty-sixty-is-not-a-waiting-room-video.html", 'og:type" content="video.other"'),
+    ("Arabic episode article share",BASE+"dist/share/ar/after-sixty-sixty-is-not-a-waiting-room-article.html", 'og:type" content="article"'),
+    ("English episode video share",BASE+"dist/share/en/after-sixty-sixty-is-not-a-waiting-room-video.html", 'og:type" content="video.other"'),
+    ("English episode article share",BASE+"dist/share/en/after-sixty-sixty-is-not-a-waiting-room-article.html", 'og:type" content="article"'),
 ]
 failed=[]
 for name,url,needle in CHECKS:
