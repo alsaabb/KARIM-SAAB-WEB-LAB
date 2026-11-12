@@ -29,22 +29,22 @@ jobs:
           set -euo pipefail
           mkdir -p "archive-metadata"
           cat > "archive-metadata/README_AR_EN.txt" <<'EOF'
-KARIM SAAB — Life After Sixty | الحياة بعد الستين
-APPROVED UI ARCHIVE — V1.2 (2026-11-12)
-Official name: عبد الكريم بن ابراهيم الصعب | KARIM SAAB
-Repository: alsaabb/KARIM-SAAB-WEB-LAB
-Source branch: feature/after-sixty-library-v1-20261112
-Production state: NOT DEPLOYED — this is an approved design/content snapshot.
-Contents: section UI JS/CSS, data/after-sixty.json with complete Arabic article,
-static share HTML pages, index/sitemap integration, sync scripts, tests,
-publishing guide and real Chromium desktop/mobile screenshots.
-Google Drive video backup is NOT activated; matching recording and public
-permissions have not been verified. The existing user's Drive files are not
-modified. YouTube embeds require client-side playback confirmation.
-The English article has not been translated or approved.
-To restore this feature, integrate the archived files into the repository
-version recorded in the SOURCE_COMMIT file; this is not a standalone website.
-EOF
+          KARIM SAAB — Life After Sixty | الحياة بعد الستين
+          APPROVED UI ARCHIVE — V1.2 (2026-11-12)
+          Official name: عبد الكريم بن ابراهيم الصعب | KARIM SAAB
+          Repository: alsaabb/KARIM-SAAB-WEB-LAB
+          Source branch: feature/after-sixty-library-v1-20261112
+          Production state: NOT DEPLOYED — this is an approved design/content snapshot.
+          Contents: section UI JS/CSS, data/after-sixty.json with complete Arabic article,
+          static share HTML pages, index/sitemap integration, sync scripts, tests,
+          publishing guide and real Chromium desktop/mobile screenshots.
+          Google Drive video backup is NOT activated; matching recording and public
+          permissions have not been verified. The existing user's Drive files are not
+          modified. YouTube embeds require client-side playback confirmation.
+          The English article has not been translated or approved.
+          To restore this feature, integrate the archived files into the repository
+          version recorded in the SOURCE_COMMIT file; this is not a standalone website.
+          EOF
           git rev-parse HEAD > archive-metadata/SOURCE_COMMIT.txt
           printf '%s\n' "Repository: https://github.com/alsaabb/KARIM-SAAB-WEB-LAB" \
             "Review: https://github.com/alsaabb/KARIM-SAAB-WEB-LAB/pull/14" \
