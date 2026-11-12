@@ -16,7 +16,7 @@ class BilingualSharingTests(unittest.TestCase):
         for expected in ('ks-share-v1','sharePage','makeTags','navigator.share',
                          'navigator.clipboard','MutationObserver','lang:lang',
                          "startsWith('content/')","startsWith('journey/')",
-                         "startsWith('after-sixty/')","startsWith('about/happiness/video/')"):
+                         "startsWith('about/after-sixty/')","startsWith('about/happiness/video/')"):
             self.assertIn(expected, js)
     def test_scss_accessibility_and_mobile(self):
         css = (DIST / "bilingual-share-v1.css").read_text(encoding="utf-8")
