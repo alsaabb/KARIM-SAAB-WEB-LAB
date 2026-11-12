@@ -54,7 +54,7 @@ def arabic_source_parts(ep):
 def arabic_source_checksum(ep):
     """Deterministic Adler-style checksum over Unicode code points (editorial freshness only)."""
     a, b = 1, 0
-    for character in "\\n".join(arabic_source_parts(ep)):
+    for character in "\n".join(arabic_source_parts(ep)):
         a = (a + ord(character)) % 65521
         b = (b + a) % 65521
     return f"{b:04x}{a:04x}"
@@ -95,7 +95,7 @@ def validate_english_companion(ep, require_approved=False):
         if not isinstance(ep.get("closing_message_en"), str) or not ep["closing_message_en"].strip():
             raise ValueError("English closing message missing")
         values.append(ep["closing_message_en"])
-    if any(re.search(r"[\\u0600-\\u06FF]", value) for value in values):
+    if any(re.search(r"[\u0600-\u06FF]", value) for value in values):
         raise ValueError("English article contains untranslated Arabic")
     if ep.get("english_translation_source_checksum") != arabic_source_checksum(ep):
         raise ValueError("Arabic article changed after English translation; refresh its English edition")
