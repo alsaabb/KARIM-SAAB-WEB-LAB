@@ -50,7 +50,7 @@ function playerPoster(ep){
  return '<button type="button" class="ks60-poster" data-start-play aria-label="'+escapeHTML(label("تشغيل فيديو: ","Play video: ")+title)+'">'+
   thumbnailMarkup(ep.youtube_id,"ks60-poster-blur","",'aria-hidden="true" decoding="async"')+
   thumbnailMarkup(ep.youtube_id,"ks60-poster-image",title,'decoding="async"')+
-  '<span class="ks60-poster-badge" aria-hidden="true">▶ '+label("فيديو","VIDEO")+'</span>'+'<span class="ks60-poster-overlay"><span class="ks60-poster-play" aria-hidden="true">▶</span><span class="ks60-poster-cta">'+label("شاهد الفيديو","Play video")+'</span></span>'+
+  '<span class="ks60-poster-overlay"><span class="ks60-poster-cta">'+label("شاهد الفيديو","Watch video")+'</span></span>'+
  '</button>';
 }
 function driveURL(ep){
