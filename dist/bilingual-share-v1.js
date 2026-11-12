@@ -45,19 +45,21 @@
   function meta(route,lang,main) {
     var lib=window.KARIM_LIBRARY||{};
     var ref=route.startsWith('content/') ? lib[decodeURIComponent(route.slice(8))] : null;
+    var fromStory=Array.isArray(window.KARIM_HAPPINESS_STORIES)
+      ? window.KARIM_HAPPINESS_STORIES.find(function(v){return v.route===route;}) : null;
     var fromVideo=window.KARIM_VIDEO_ARTICLES_SOURCE && Array.isArray(window.KARIM_VIDEO_ARTICLES_SOURCE.videos)
       ? window.KARIM_VIDEO_ARTICLES_SOURCE.videos.find(function(v){return v.route===route;}) : null;
     var trip=(typeof journeys!=='undefined' && route.startsWith('journey/'))
       ? journeys.find(function(x){return x.slug===route.slice(8);}) : null;
     var about=window.KARIM_ABOUT_SOURCE && Array.isArray(window.KARIM_ABOUT_SOURCE.items) ?
       window.KARIM_ABOUT_SOURCE.items.find(function(x){return x.route===route;}) : null;
-    var ar=ref&&ref.ar || fromVideo&&fromVideo.title_ar || about&&about.title_ar || trip&&trip.title&&trip.title[0] || '';
-    var en=ref&&ref.en || fromVideo&&fromVideo.title_en || about&&about.title_en || trip&&trip.title&&trip.title[1] || '';
+    var ar=fromStory&&fromStory.title_ar || ref&&ref.ar || fromVideo&&fromVideo.title_ar || about&&about.title_ar || trip&&trip.title&&trip.title[0] || '';
+    var en=fromStory&&fromStory.title_en || ref&&ref.en || fromVideo&&fromVideo.title_en || about&&about.title_en || trip&&trip.title&&trip.title[1] || '';
     var heading=main.querySelector('.ks-va-head h2,.ks60-episode-head h1,.source-feature h2,.body-prose h2,.ks-reading h2,h1,h2');
     var shown=heading&&heading.textContent.trim() || document.title.split('|')[0].trim();
     if(!ar && lang==='ar')ar=shown;
     if(!en && lang==='en')en=shown;
-    var desc=ref && (lang==='ar'?ref.summary_ar:ref.summary_en) ||
+    var desc=fromStory && (lang==='ar'?fromStory.excerpt_ar:fromStory.excerpt_en) || ref && (lang==='ar'?ref.summary_ar:ref.summary_en) ||
       fromVideo && (lang==='ar'?fromVideo.caption_ar:fromVideo.caption_en) || about && (lang==='ar'?about.excerpt_ar:about.excerpt_en) || '';
     if(!desc) {
       var node=main.querySelector('.ks-va-caption,.source-intro,.journey-reading-note,.ks60-article-pane p,.body-prose p,.ks-reading p');
@@ -98,6 +100,9 @@
     var slug=r.route.replace(/\//g,'-');
     if (r.route.startsWith('about/after-sixty/')) {
       slug='after-sixty-'+r.route.slice('about/after-sixty/'.length)+'-'+kind;
+    }
+    if(r.route.startsWith('about/happiness/video/')) {
+      slug='happiness-'+r.route.slice('about/happiness/video/'.length)+'-'+kind;
     }
     return new URL('share/'+r.lang+'/'+slug+'.html',new URL('./',location.href.split('#')[0])).href;
   }
@@ -151,11 +156,11 @@
       hashtags.en.map(function(t){return '<span lang="en" dir="ltr">'+esc(t)+'</span>';}).join('')+'</div></div>'+
       '<p class="ks-share-v1-status" role="status" aria-live="polite"></p>';
     target.appendChild(box);
-    var dual=r.route.startsWith('about/after-sixty/');
+    var dual=r.route.startsWith('about/after-sixty/') || (r.route.startsWith('about/happiness/video/') && main.classList.contains('ks-happ'));
     var base=location.href.split('#')[0];
     // A deep link also works if the static social-preview page is unavailable.
     var canonical=base+'#/'+r.lang+'/'+r.route+(dual?'?focus='+kind:'');
-    var imageNode=main.querySelector('.source-hero-photo img,.detail-media,.ks60-player img,.ks-va-section img');
+    var imageNode=main.querySelector('.ks-happ-cover,.source-hero-photo img,.detail-media,.ks60-player img,.ks-va-section img');
     var imageUrl=imageNode&&imageNode.src||'';
     var hashText=hashtags[r.lang].join(' ');
     function updateLinks(){
@@ -187,6 +192,20 @@
   function mount() {
     var r=current(),main=document.querySelector('#app > main');
     if(!main||!r.route)return;
+    if(r.route.startsWith('about/happiness/video/') && main.classList.contains('ks-happ')) {
+      var happyVideo=main.querySelector('#ks-happiness-video-pane');
+      var happyArticle=main.querySelector('#ks-happiness-article-pane');
+      if(!happyVideo || !happyArticle)return;
+      addShare(happyVideo,r,main,'video');
+      addShare(happyArticle,r,main,'article');
+      var targetFocus=/(?:^|[?&])focus=(article|video)(?:&|$)/.exec(location.hash.split('?')[1]||'');
+      if(targetFocus&&lastFocus!==location.hash){
+        var pane=targetFocus[1]==='article'?happyArticle:happyVideo;
+        lastFocus=location.hash;
+        if(pane&&typeof pane.scrollIntoView==='function')pane.scrollIntoView({behavior:'auto',block:'start'});
+      }
+      return;
+    }
     if(r.route.startsWith('about/after-sixty/')) {
       var videoPane=main.querySelector('#ks60-video-pane');
       var articlePane=main.querySelector('#ks60-article-pane');
