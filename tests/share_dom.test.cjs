@@ -28,6 +28,7 @@ async function check(route,markup,selector,lang='ar') {
   assert.equal(panel.dataset.route,route);
   assert.equal(panel.dataset.lang,lang);
   assert.equal(panel.querySelectorAll('[data-network]').length,6);
+  assert.equal(panel.querySelectorAll('[data-network] svg').length,6,'Each platform should have its recognizable icon');
   assert.ok(panel.querySelector('.ks-share-v1-tag-list').textContent.includes('#'));
   assert.ok(panel.querySelector('[data-action=copy]'));
   const x=panel.querySelector('[data-network=x]');
