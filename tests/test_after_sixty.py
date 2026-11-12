@@ -31,14 +31,19 @@ class AfterSixtyTests(unittest.TestCase):
         self.assertEqual(ep["reading_minutes"], 4)
         self.assertEqual([c["time_seconds"] for c in ep["chapters"]], [58, 90, 108])
 
-    def test_content_is_explicitly_marked_incomplete(self):
+    def test_full_article_and_closing_are_present(self):
         ep = self.episodes[0]
+        self.assertTrue(ep["article_complete"])
         self.assertTrue(ep["metadata_approved"])
-        if not ep["article_complete"]:
-            self.assertEqual(ep.get("trailing_fragment"), "السعادة قرار")
-            self.assertTrue(ep.get("editorial_note_ar"))
-        else:
-            self.assertFalse(ep.get("trailing_fragment"))
+        self.assertEqual(ep["editorial_review_status"], "pending_final_approval")
+        self.assertNotIn("trailing_fragment", ep)
+        self.assertNotIn("editorial_note_ar", ep)
+        self.assertIn("السعادة قرار ينبع من داخلك أنت", ep["chapters"][2]["paragraphs"][1])
+        self.assertIn("من غير المنطقي", ep["chapters"][0]["paragraphs"][0])
+        self.assertEqual(ep["conclusion"]["title_ar"], "الخلاصة: اترك أثراً قبل أن تغادر")
+        self.assertIn("عش كل يوم في الستين", ep["conclusion"]["paragraphs"][0])
+        self.assertIn("#مغامرات_عبدالكريم_الصعب", ep["closing_message"])
+        self.assertTrue(ep["closing_message"].endswith("نسافر لنكتشف، ونعيش لنترك أثرًا جميلًا."))
 
     def test_no_unverified_drive_fallback(self):
         for ep in self.episodes:
