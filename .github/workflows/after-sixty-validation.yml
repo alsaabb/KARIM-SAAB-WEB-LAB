@@ -1,0 +1,31 @@
+name: Validate After Sixty review branch — no publication
+on:
+  push:
+    branches:
+      - feature/after-sixty-library-v1-20261112
+  pull_request:
+    paths:
+      - 'dist/after-sixty-v1.*'
+      - 'dist/data/after-sixty.json'
+      - 'dist/share/**'
+      - 'scripts/*after_sixty*'
+      - 'tests/test_after_sixty.py'
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check JS syntax
+        run: node --check dist/after-sixty-v1.js
+      - name: Validate editorial JSON and safe Drive gates
+        run: python -m unittest discover -s tests -p 'test_after_sixty.py' -v
+      - name: Verify existing site SEO and identity
+        run: |
+          python scripts/verify_site.py
+          python scripts/verify_identity.py
+          git diff --check
