@@ -81,6 +81,10 @@ try:
                 assert page.locator(".ks60-chapters").get_attribute("open") is not None
                 page.locator('[data-chapter-target="capital-of-experience"]').click()
                 assert page.locator(".ks60-chapters").get_attribute("open") is None
+            launcher=page.locator("#ks-ai-site-link")
+            assert launcher.bounding_box()["width"]<=56, "AI launcher overlaps reading layout"
+            page.evaluate("window.scrollTo({top:0,behavior:'instant'})")
+            page.wait_for_timeout(100)
             page.screenshot(path=str(OUT/f"{name}-episode-poster.png"),full_page=True)
             # Article and poster stay in DOM simultaneously. Seek starts the YouTube iframe.
             article.locator("[data-seek]").first.click()
