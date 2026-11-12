@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "collection": "after-sixty",
+  "name_ar": "الحياة بعد الستين",
+  "name_en": "Life After Sixty",
+  "author_ar": "عبد الكريم بن ابراهيم الصعب",
+  "author_en": "KARIM SAAB",
+  "categories": [
+    {
+      "id": "mental-energy",
+      "ar": "الصحة النفسية والطاقة",
+      "en": "Mental Wellbeing & Energy"
+    },
+    {
+      "id": "travel-adventure",
+      "ar": "السفر والمغامرة",
+      "en": "Travel & Adventure"
+    },
+    {
+      "id": "reflections",
+      "ar": "تأملات وتجارب",
+      "en": "Reflections & Experiences"
+    },
+    {
+      "id": "time-impact",
+      "ar": "الوقت والأثر",
+      "en": "Time & Legacy"
+    }
+  ],
+  "episodes": [
+    {
+      "id": "after-sixty-01",
+      "number": 1,
+      "slug": "sixty-is-not-a-waiting-room",
+      "category_id": "mental-energy",
+      "title_ar": "الستين ليست محطة انتظار.. بل ذروة الوعي وفن الاستمتاع بالحياة",
+      "title_en": "Sixty Is Not a Waiting Room: The Art of Living Fully",
+      "youtube_url": "https://www.youtube.com/watch?v=0YT1QXZT6mI",
+      "youtube_id": "0YT1QXZT6mI",
+      "drive_video_file_id": null,
+      "drive_fallback_verified": false,
+      "thumbnail_url": "https://i.ytimg.com/vi/0YT1QXZT6mI/hqdefault.jpg",
+      "duration_seconds": 144,
+      "reading_minutes": 4,
+      "excerpt_ar": "لماذا يستسلم البعض للكآبة في الخمسين والستين بينما يملكون أعظم رأس مال وهو الخبرة؟ تأملات صريحة في تصفية الحسابات مع الماضي، وإقصاء مصادر التوتر، وصناعة البهجة الذاتية.",
+      "excerpt_en": "Why let worry and sadness overshadow later life when experience is our greatest asset? Reflections on letting go of the past, easing stress and cultivating joy.",
+      "pull_quote": "طالما أن هناك نفساً يتردد في صدرك كل صباح، وعافيةً تعينك على الحركة، فأنت لا تزال على قيد الحياة.. ولا يملك أحدٌ سواك حق إيقاف ساعتك قبل أوانها.",
+      "article_complete": false,
+      "metadata_approved": true,
+      "intro": [
+        "كثيراً ما تصلني رسائل خاصة من أصدقاء ومتابعين في الخمسين والستين من أعمارهم، يجمعها قاسم مشترك يدعو للتأمل: شكوى متكررة من ضيق الصدر، وتراجع الشغف، وتسلل الكآبة إلى أيامهم، وكأن قطار الحياة قد أعلن وصوله إلى محطته الأخيرة.",
+        "الحقيقة التي يجب أن نواجه بها أنفسنا بصراحة تامة هي أن الأعمار بيد الله عز وجل، وإذا كان النبي ﷺ قد أخبرنا بأن أعمار أمته ما بين الستين والسبعين، فإن هذا الوعي بقِصر الرحلة المتبقية يجب أن يكون وقوداً للاشتعال بالحياة، لا سبباً للانطفاء والانزواء."
+      ],
+      "chapters": [
+        {
+          "id": "capital-of-experience",
+          "time_seconds": 58,
+          "title_ar": "أولاً: رأس مال الخبرة.. لا تستثمره في الحزن",
+          "title_en": "Experience Is Your Capital",
+          "paragraphs": [
+            "عندما تبلغ الستين، تكون قد عبرت محطات كبرى؛ فقدت أحبة، وخضت تجارب، وتعلمت دروساً لا تُشترى. من غير المنطق أن يمتلك الإنسان كل هذا الرصيد من الحكمة والنضج، ثم ينفقه في التوجس والندم أو استدعاء الأحزان.",
+            "كل دقيقة تمر في هذه المرحلة هي ثروة حقيقية؛ فإما أن تُستثمر في الطمأنينة والعمل الصالح، وإما أن تُهدر في القلق على ما مضى أو الخوف مما هو آت."
+          ]
+        },
+        {
+          "id": "letting-go",
+          "time_seconds": 90,
+          "title_ar": "ثانياً: تصفية الحسابات والتحرر من الأثقال",
+          "title_en": "Making Peace with the Past",
+          "paragraphs": [
+            "الاستمتاع الحقيقي بما تبقى من العمر يبدأ بتخفيف الأحمال. لا يمكن لقلبٍ مثقل بالضغائن أو الخصومات أن يتذوق طعم السعادة. هذه المرحلة تتطلب شجاعة روحية عالية:"
+          ],
+          "bullets": [
+            {
+              "label": "الإقبال على الله",
+              "text": "الإكثار من الطاعة والقرب، ففيها السكينة التي لا تمنحها أي متعة دنيوية."
+            },
+            {
+              "label": "براءة الذمة",
+              "text": "التحلل من حقوق الآخرين وردّ المظالم إن وُجدت."
+            },
+            {
+              "label": "العفو والتجاوز",
+              "text": "أن تصفح وتتصالح مع الجميع، حتى مع من ظلمك أو أساء إليك. تذكّر دائماً أن عند الله تجتمع الخصوم، فلا ترحل وفي قلبك كراهية لأحد، ولا تجعل خصومتك مع الناس تسرق صفاء أيامك."
+            }
+          ]
+        },
+        {
+          "id": "joy-and-energy",
+          "time_seconds": 108,
+          "title_ar": "ثالثاً: إدارة كيمياء السعادة.. وإقصاء سارقي الطاقة",
+          "title_en": "Cultivating Joy and Protecting Energy",
+          "paragraphs": [
+            "الصحة النفسية في هذه المرحلة قرار واعٍ وليست صدفة. الجسد والذهن لم يعودا يحتملان استنزاف التوتر المزمن وارتفاع «هرمون الكورتيزول» الذي يفتك بالصحة والمزاج."
+          ]
+        }
+      ],
+      "trailing_fragment": "السعادة قرار",
+      "editorial_note_ar": "النص المرسل ينتهي بعبارة «السعادة قرار». هذا مقتطف غير مكتمل من المقال المعتمد، ويجب إكماله من المصدر الأصلي قبل اعتماد النشر النهائي.",
+      "editorial_note_en": "The supplied article ends at “Happiness is a decision.” Its ending is incomplete and needs the approved source before final publication."
+    }
+  ]
+}
