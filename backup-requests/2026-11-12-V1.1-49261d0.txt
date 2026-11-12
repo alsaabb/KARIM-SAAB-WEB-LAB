@@ -1,0 +1,5 @@
+KARIM SAAB archival snapshot request
+Date: 2026-11-12
+Requested main commit: 49261d002d11f2a05b6980cb00bd8117ab013b60
+Purpose: export full main source and published dist for non-destructive archival in Google Drive.
+No changes to main or live website.
