@@ -72,7 +72,8 @@
       return main.querySelector('.ks60-split') ? main.querySelector('.ks60-wrap') : null;
     }
     if (route.startsWith('about/happiness/video/')) {
-      return main.querySelector('.ks-va-section') || main.querySelector('.ks-ab-container,.ks-reading');
+      // Allow the V9 review page to attach video sharing directly under the player.
+      return main.querySelector('.ks-h11-video-pane') || main.querySelector('.ks-va-section') || main.querySelector('.ks-ab-container,.ks-reading');
     }
     if (route==='about/health/depression-anxiety/full')
       return main.querySelector('.ks-health-full');
