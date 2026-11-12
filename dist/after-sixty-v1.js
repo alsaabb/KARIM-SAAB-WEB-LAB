@@ -71,6 +71,12 @@ function articleHTML(ep){
   if(ch.bullets&&ch.bullets.length)html+='<ul>'+ch.bullets.map(function(b){return '<li><strong>'+escapeHTML(b.label)+':</strong> '+escapeHTML(b.text)+'</li>'}).join("")+'</ul>';
   html+='</section>';
  });
+ if(ep.conclusion){
+  html+='<section class="ks60-section ks60-conclusion" id="ks60-conclusion">'+
+   '<h2>'+escapeHTML(ep.conclusion.title_ar)+'</h2>'+
+   (ep.conclusion.paragraphs||[]).map(function(p){return '<p>'+escapeHTML(p)+'</p>'}).join("")+'</section>';
+ }
+ if(ep.closing_message)html+='<p class="ks60-closing">'+escapeHTML(ep.closing_message)+'</p>';
  if(ep.trailing_fragment)html+='<p>'+escapeHTML(ep.trailing_fragment)+'</p>';
  if(!ep.article_complete)html+='<p class="ks60-notice" role="note">'+escapeHTML(label(ep.editorial_note_ar,ep.editorial_note_en))+'</p>';
  return html;
