@@ -80,6 +80,13 @@ def safe_target(name: str) -> Path:
         raise ValueError("Unsafe github_path")
     if len(path.parts) < 2 or path.parts[0] != "dist":
         raise ValueError("Only dist/ files may be changed")
+    # After Sixty uses an explicit, owner-reviewed PR sync. Never allow the
+    # unrelated six-hour publisher to bypass its editorial approval gate.
+    if (path.parts[1] in ("after-sixty-v1.js", "after-sixty-v1.css")
+        or (len(path.parts) >= 3 and path.parts[1:3] == ("data", "after-sixty.json"))
+        or (len(path.parts) >= 4 and path.parts[1] == "share" and path.parts[3].startswith("after-sixty-"))):
+        raise ValueError("After Sixty assets require the separate review workflow")
+
     if path.suffix.lower() not in ALLOWED_EXTENSIONS:
         raise ValueError("Unsupported extension for approved site file")
     dest = ROOT.joinpath(*path.parts)
