@@ -1,0 +1,73 @@
+name: Preview — Happiness World V9 (no production deployment)
+on:
+  push:
+    branches:
+      - preview/happiness-world-is-not-paradise-v9-20261112
+    paths:
+      - .github/workflows/happiness-world-v9-visual-review.yml
+      - dist/happiness-world-v9-review.js
+      - dist/happiness-world-v9-review.css
+      - dist/index.html
+      - dist/bilingual-share-v1.js
+      - tests/happiness_world_v9_preview_browser.cjs
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  visual-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout review branch only (NOT production)
+        uses: actions/checkout@v4
+      - name: Fetch authentic YouTube Shorts thumbnail and commit it ONLY to the review branch
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, urllib.request, sys
+          target=pathlib.Path("dist/assets/happiness/world-is-not-paradise-youtube-poster.jpg")
+          target.parent.mkdir(parents=True,exist_ok=True)
+          if target.exists() and target.stat().st_size>15000:
+              print("Already archived YouTube preview JPEG",target.stat().st_size)
+              sys.exit(0)
+          for quality in ("maxresdefault","sddefault","hqdefault"):
+              url="https://i.ytimg.com/vi/e8YffqIamRI/"+quality+".jpg"
+              try:
+                  request=urllib.request.Request(url,headers={"User-Agent":"Mozilla/5.0"})
+                  with urllib.request.urlopen(request,timeout=25) as resp:data=resp.read()
+                  if len(data)>15000 and data[:3]==b"\xff\xd8\xff":
+                      target.write_bytes(data)
+                      print("Verified authentic YouTube thumbnail source",url,"bytes",len(data))
+                      break
+                  else:print("Skipping small thumbnail",url,len(data))
+              except Exception as error:print("Thumbnail candidate error",quality,str(error)[:200])
+          if not target.exists():raise SystemExit("Cannot verify the actual Shorts thumbnail; do not substitute a generic picture")
+          PY
+          if ! git ls-files --error-unmatch dist/assets/happiness/world-is-not-paradise-youtube-poster.jpg >/dev/null 2>&1; then
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config user.name "github-actions[bot]"
+            git add dist/assets/happiness/world-is-not-paradise-youtube-poster.jpg
+            git commit -m "preview: archive verified YouTube Shorts thumbnail for World Is Not Paradise"
+            git push origin HEAD:preview/happiness-world-is-not-paradise-v9-20261112
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium integration tooling
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Validate both languages and phone/tablet/desktop poster, without publishing
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ks-h11-preview.log 2>&1 &
+          node tests/happiness_world_v9_preview_browser.cjs
+      - name: Save review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: HAPPINESS_WORLD_V9_DESIGN_REVIEW_2026-11-12
+          path: review-screenshots/happiness-world-v9/
+          if-no-files-found: warn
+          retention-days: 30
