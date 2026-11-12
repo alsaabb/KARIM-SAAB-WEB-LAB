@@ -68,3 +68,6 @@
 @media(prefers-reduced-motion:reduce){.ks60-card{transition:none}}
 
 .ks60 [hidden]{display:none!important}
+
+.ks60-conclusion{margin-top:36px;padding-top:15px;border-top:1px solid var(--ks60-line)}
+.ks60-article-pane .ks60-closing{font-size:1rem;line-height:1.9;background:#242118;border:1px solid var(--ks60-line);border-radius:10px;padding:18px 20px;margin-top:27px;overflow-wrap:anywhere}
