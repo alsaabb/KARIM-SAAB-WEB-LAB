@@ -231,3 +231,44 @@ body:has(main.ks60) .ks-ai-site-link-symbol::after{
  .ks60-grid-single .ks60-thumb{aspect-ratio:9/16}
  .ks60-poster-badge,.ks60-card-video-badge{font-size:.87rem}
 }
+
+/* Single-call-to-action cover: no floating play circles or second "play" mark.
+   The YouTube thumbnail itself contains a baked-in play symbol near the bottom.
+   Mask the lower artwork non-destructively so it does not duplicate our CTA. */
+.ks60-player .ks60-poster-overlay{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  flex-direction:column;
+  gap:0;
+  padding:0 16px clamp(27px,5.5%,46px);
+  background:linear-gradient(180deg,
+    rgba(10,10,10,0) 0%,
+    rgba(10,10,10,0) 66%,
+    rgba(10,10,10,.97) 80%,
+    #101010 100%);
+}
+.ks60-player .ks60-poster-cta{
+  position:relative;
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  margin:0 auto;
+  min-width:155px;
+  padding:11px 24px;
+  font-size:clamp(1.1rem,2.5vw,1.28rem);
+  line-height:1.45;
+  font-weight:800;
+  color:#f7e0a0;
+  background:rgba(21,20,18,.87);
+  border:1px solid rgba(234,202,115,.67);
+  border-radius:999px;
+  box-shadow:0 7px 24px rgba(0,0,0,.32);
+  pointer-events:none;
+}
+.ks60-player .ks60-poster:hover .ks60-poster-cta,
+.ks60-player .ks60-poster:focus-visible .ks60-poster-cta{
+  background:#d4af37;
+  color:#141414;
+  border-color:#f4d985;
+}
