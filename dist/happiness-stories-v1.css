@@ -1,0 +1,37 @@
+/* KARIM SAAB — Happiness bilingual video+article: approved After Sixty V9 design logic. */
+.ks-happ{--kh-gold:#d4af37;background:#141414;color:#f5f0e7;min-height:88vh;padding:clamp(24px,5vw,58px) clamp(14px,4vw,44px) 78px;line-height:1.85;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.ks-happ *{box-sizing:border-box}
+.ks-happ-wrap{max-width:1340px;margin:0 auto}
+.ks-happ-breadcrumb{font-size:.92rem;color:#cfc2a4;margin-bottom:20px}
+.ks-happ-breadcrumb a{color:#e2bc72;text-underline-offset:4px}
+.ks-happ-head{text-align:center;max-width:960px;margin:0 auto 30px}
+.ks-happ-head small{font-size:.84rem;letter-spacing:.09em;color:#d4af37;font-weight:750}
+.ks-happ-head h1{color:#f8e9c5;line-height:1.3;font-size:clamp(2rem,4.8vw,3.2rem);margin:9px 0}
+.ks-happ-head p{color:#ddd4c2;font-size:clamp(1rem,1.7vw,1.2rem);line-height:1.7}
+.ks-happ-split{display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1.1fr);gap:26px;align-items:start}
+.ks-happ-video-pane{position:sticky;top:18px;min-width:0;display:flex;align-items:center;flex-direction:column}
+.ks-happ-player{width:min(100%,420px);aspect-ratio:9/16;position:relative;overflow:hidden;border-radius:16px;background:#090909;border:1px solid #d4af3766;box-shadow:0 12px 36px #0007}
+.ks-happ-player iframe{position:absolute;inset:0;display:block;border:0;width:100%;height:100%}
+.ks-happ-poster{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#101010;overflow:hidden;color:#fff;cursor:pointer;display:block}
+.ks-happ-poster:focus-visible{outline:3px solid #ffe7a2;outline-offset:-4px}
+.ks-happ-cover{width:100%;height:100%;object-fit:cover;object-position:center;display:block;pointer-events:none;filter:brightness(.94)}
+.ks-happ-poster-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 16px clamp(28px,6%,47px);background:linear-gradient(180deg,transparent 0%,transparent 65%,rgba(10,10,10,.97) 80%,#111 100%);pointer-events:none}
+.ks-happ-cta{display:inline-flex;align-items:center;justify-content:center;min-width:155px;padding:11px 25px;font-size:1.17rem;line-height:1.4;font-weight:800;color:#f7e0a0;background:rgba(21,20,18,.9);border:1px solid #eacb80b0;border-radius:999px;box-shadow:0 7px 24px #0006}
+.ks-happ-poster:hover .ks-happ-cta,.ks-happ-poster:focus-visible .ks-happ-cta{background:#d4af37;color:#141414}
+.ks-happ-watch-link{max-width:430px;text-align:center;font-size:.91rem;line-height:1.8;color:#b8a98b;padding:0 6px;margin:12px 0 15px}
+.ks-happ-watch-link a{color:#f3d58e;text-underline-offset:4px}
+.ks-happ-article-pane{min-width:0;color:#2a271f;background:#f8f5ed;border:1px solid #d7c9a6;border-radius:16px;padding:clamp(18px,3vw,40px);line-height:2.03;overflow-wrap:anywhere}
+.ks-happ-article-intro{padding-bottom:18px;border-bottom:1px solid #ded1b8;margin-bottom:23px}
+.ks-happ-kicker{font-size:.79rem;font-weight:800;letter-spacing:.04em;color:#82631d}
+.ks-happ-article-pane h2{font-size:clamp(1.5rem,3vw,2.05rem);line-height:1.5;color:#674b18;margin:10px 0}
+.ks-happ-article-pane h3{font-size:clamp(1.16rem,2vw,1.45rem);color:#785519;line-height:1.55;margin:24px 0 11px}
+.ks-happ-article-pane p{font-size:1.06rem;line-height:2.1;margin:0 0 16px}
+.ks-happ-article-section+.ks-happ-article-section{border-top:1px solid #e6ddca;padding-top:10px}
+.ks-happ-sources{font-size:.87rem;color:#524a3d;border-top:1px solid #e2d8bf;padding-top:18px;margin-top:24px}
+.ks-happ-sources a{color:#765718;text-decoration:underline}
+.ks-happ-author{border-top:1px solid #e2d8bf;padding-top:14px;margin-top:30px;font-weight:700;color:#514124;font-size:.93rem!important}
+.ks-happ-video-pane .ks-share-v1{width:min(100%,525px);margin-top:14px}
+.ks-happ-article-pane .ks-share-v1{margin-top:27px}
+.ks-happ-back{display:inline-block;color:#d8bb7a;border:1px solid #c1a15a;border-radius:8px;text-decoration:none;padding:10px 15px;margin-top:25px}
+@media(max-width:1100px){.ks-happ-split{display:block}.ks-happ-video-pane{width:100%;position:static;margin:0 auto 25px}.ks-happ-article-pane{width:min(100%,920px);margin:0 auto}}
+@media(max-width:760px){.ks-happ{padding-inline:13px}.ks-happ-player{width:min(100%,420px)}.ks-happ-head h1{font-size:clamp(1.9rem,6.5vw,2.5rem)}.ks-happ-article-pane p{font-size:1.03rem}}
