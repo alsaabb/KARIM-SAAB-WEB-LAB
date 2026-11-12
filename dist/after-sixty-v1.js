@@ -126,7 +126,7 @@ function episodePage(ep){
  '<div class="ks60-source-controls" role="group" aria-label="'+label("مصادر الفيديو","Video sources")+'"><strong>'+label("المصدر","Source")+':</strong>'+
  '<button type="button" class="ks60-source-button" data-source="youtube" aria-pressed="true">YouTube</button>'+
  '<button type="button" class="ks60-source-button" data-source="drive" aria-pressed="false" '+(hasDrive?'':'disabled title="'+label("رابط Drive غير معتمد بعد","Drive backup is not yet verified")+'"')+'>Google Drive</button></div>'+
- '<p class="ks60-tip">'+(hasDrive?label("يمكن التبديل إلى النسخة الاحتياطية المعتمدة في Google Drive.","Verified backup available from Google Drive."):label("نسخة Google Drive الاحتياطية ستتاح بعد التحقق من تطابق الفيديو وصلاحية عرضه.","Google Drive backup will be available after verifying the recording and its access."))+'</p></div>'+
+ '<p class="ks60-tip">'+(hasDrive?label("يمكن التبديل إلى النسخة الاحتياطية المعتمدة في Google Drive.","Verified backup available from Google Drive."):label("نسخة Google Drive الاحتياطية ستتاح بعد التحقق من تطابق الفيديو وصلاحية عرضه.","Google Drive backup will be available after verifying the recording and its access."))+'</p>'+'<p class="ks60-external-watch"><a href="https://www.youtube.com/watch?v='+escapeHTML(ep.youtube_id)+'" target="_blank" rel="noopener noreferrer" aria-label="'+label("فتح الفيديو مباشرة في يوتيوب","Open video on YouTube")+'">'+label("إذا تعذّر التشغيل هنا، شاهد الفيديو على YouTube ↗","If playback fails here, watch directly on YouTube ↗")+'</a></p></div>'+
  chapterButtons(ep)+'</aside>'+
  '<article class="ks60-article-pane" id="ks60-article-pane" lang="ar" dir="rtl" aria-label="'+label("المقال","Article")+'">'+articleHTML(ep)+'</article>'+
  '</div>');
