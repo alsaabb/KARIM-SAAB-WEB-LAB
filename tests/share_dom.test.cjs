@@ -31,7 +31,7 @@ async function check(route,markup,selector,lang='ar') {
   assert.ok(panel.querySelector('.ks-share-v1-tag-list').textContent.includes('#'));
   assert.ok(panel.querySelector('[data-action=copy]'));
   const x=panel.querySelector('[data-network=x]');
-  assert.match(x.href,/share\/(?:ar|en)\//);
+  assert.match(new URL(x.href).searchParams.get('url')||'',/share\/(?:ar|en)\//);
   dom.window.close();
 }
 test('Arabic and English Life After Sixty VIDEO+ARTICLE pages',async()=>{
