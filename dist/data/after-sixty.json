@@ -39,7 +39,7 @@
       "youtube_id": "0YT1QXZT6mI",
       "drive_video_file_id": null,
       "drive_fallback_verified": false,
-      "thumbnail_url": "https://i.ytimg.com/vi/0YT1QXZT6mI/hqdefault.jpg",
+      "thumbnail_url": "https://i.ytimg.com/vi/0YT1QXZT6mI/maxresdefault.jpg",
       "duration_seconds": 144,
       "reading_minutes": 4,
       "excerpt_ar": "لماذا يستسلم البعض للكآبة في الخمسين والستين بينما يملكون أعظم رأس مال وهو الخبرة؟ تأملات صريحة في تصفية الحسابات مع الماضي، وإقصاء مصادر التوتر، وصناعة البهجة الذاتية.",
@@ -105,7 +105,8 @@
         ]
       },
       "closing_message": "🌍 أهلًا بكم في منصة #عبدالكريم_الصعب! عبر #مغامرات_عبدالكريم_الصعب نجوب العالم، نلتقي بالناس ونشارك قصصهم وثقافاتهم، لننشر المعرفة والسعادة و#جبر_الخاطر. وننقل لكم خلاصة تجاربنا في المال والأعمال وريادة الأعمال عبر #مشاريع_الصعب. ✨ نسافر لنكتشف، ونعيش لنترك أثرًا جميلًا.",
-      "editorial_review_status": "pending_final_approval"
+      "editorial_review_status": "pending_final_approval",
+      "video_orientation": "vertical"
     }
   ]
 }
