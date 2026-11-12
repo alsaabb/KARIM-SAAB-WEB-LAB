@@ -1,0 +1,22 @@
+name: Check externally published KARIM SAAB URLs
+on:
+  pull_request:
+    paths:
+      - "scripts/probe_public_urls.py"
+      - ".github/workflows/public-url-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-http-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check live URLs using public HTTPS from runner
+        run: python3 scripts/probe_public_urls.py
+      - name: Install browser automation driver
+        run: npm install --no-save --no-package-lock playwright@1.56.1
+      - name: Render real public pages in Chrome
+        run: node scripts/probe_browser.cjs
