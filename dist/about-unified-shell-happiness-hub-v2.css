@@ -1,0 +1,51 @@
+/* Unified About Me shell + V9-inspired Happiness home, bilingual and mobile-first. */
+.ks-about-header .ks-about-section-nav{display:block;width:100%;background:#101c27;color:#ead6aa;border-top:1px solid #b89a614a;border-bottom:1px solid #b89a6155}
+.ks-about-nav-track{max-width:1340px;display:flex;align-items:center;gap:5px;justify-content:center;margin:0 auto;padding:8px 14px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#8c784a #101c27}
+.ks-about-link{font-size:12px;line-height:1.35;white-space:nowrap;flex:0 0 auto;display:inline-flex;padding:9px 12px;border-radius:7px;text-decoration:none;color:#e6ddcf;border:1px solid transparent;font-weight:650;min-height:37px;align-items:center}
+.ks-about-link:hover,.ks-about-link:focus-visible{background:#283340;color:#fae6b9;border-color:#9f804e;outline:none}
+.ks-about-link.is-current{color:#181818;background:#dfc17c;border-color:#e9d49a}
+.ks-about-footer .ks-about-footer-nav{border-top:1px solid #48515a;border-bottom:1px solid #48515a;padding:22px 0 25px;margin:10px 0 26px}
+.ks-about-footer-head{display:flex;flex-direction:column;gap:6px}
+.ks-about-footer-head span{color:#d7b36f;font-size:11px;letter-spacing:.1em}
+.ks-about-footer-head strong{color:#f7edd8;font-size:clamp(19px,3vw,26px)}
+.ks-about-footer-head p{color:#c8c0b2;font-size:13px;line-height:1.8;max-width:700px;margin:0}
+.ks-about-footer-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.ks-about-footer-links .ks-about-link{border:1px solid #58616a;font-size:12px}
+.ks-about-footer-links .ks-about-link.is-current{border-color:#e7cd91;color:#181818}
+.ks-about-hub{--kh-gold:#d4af37;background:linear-gradient(165deg,#081725,#133046 60%,#101b24);color:#f8f2e6;min-height:75vh;padding:clamp(24px,4vw,45px) clamp(13px,3vw,30px) 78px;line-height:1.85}
+.ks-about-hub *{box-sizing:border-box}
+.ks-hub-width{max-width:1320px;margin:0 auto}
+.ks-hub-breadcrumb{font-size:12px;color:#d1c3a9;margin-bottom:25px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ks-hub-breadcrumb a{color:#e5c98e;text-decoration:underline;text-underline-offset:4px}
+.ks-hub-hero{text-align:center;border:1px solid #d4af3755;border-radius:22px;background:radial-gradient(ellipse at 50% 5%,#a885382d,transparent 65%),#102234;max-width:1100px;margin:0 auto 40px;padding:clamp(28px,5vw,60px) clamp(18px,4vw,48px)}
+.ks-hub-kicker{color:#dbc18b;font-size:12px;font-weight:800;letter-spacing:.12em}
+.ks-hub-hero h1{color:#f8e9c2;font-size:clamp(2.2rem,5.3vw,3.9rem);margin:11px 0 15px;line-height:1.35}
+.ks-hub-hero p{max-width:750px;margin:0 auto;color:#e2d8c3;font-size:clamp(1rem,1.6vw,1.2rem);line-height:2}
+.ks-hub-section-top{text-align:center;margin-bottom:25px}
+.ks-hub-section-top span{font-size:12px;letter-spacing:.1em;color:#ddb87a}
+.ks-hub-section-top h2{font-size:clamp(1.6rem,3vw,2.1rem);color:#fff1d0;margin:8px 0}
+.ks-hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+.ks-hub-card{border:1px solid #bfa36a7a;border-radius:20px;background:#f9f5ed;overflow:hidden;color:#282522;display:flex;flex-direction:column;min-width:0;box-shadow:0 16px 40px #0004}
+.ks-hub-poster{display:block;position:relative;overflow:hidden;align-self:center;width:min(100%,390px);aspect-ratio:9/13;background:#0d1016;text-decoration:none;flex:0 0 auto}
+.ks-hub-poster img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none;transition:transform .25s ease}
+.ks-hub-poster:hover img{transform:scale(1.025)}
+.ks-hub-poster-shade{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;flex-direction:column;padding:20px 12px 30px;background:linear-gradient(180deg,transparent 50%,#0b0d10d8 100%)}
+.ks-hub-cta{display:inline-flex;align-items:center;justify-content:center;padding:9px 22px;min-width:155px;border:1px solid #e6c882;border-radius:999px;background:#151a1edc;color:#ffe2a9;font-size:17px;font-weight:800}
+.ks-hub-card-body{padding:clamp(20px,3vw,30px);display:flex;flex-direction:column;gap:11px;flex:1}
+.ks-hub-number{color:#8b6c39;font-size:12px;letter-spacing:.06em;font-weight:800}
+.ks-hub-number span{padding-inline:7px}
+.ks-hub-card-body h2{font-size:clamp(1.6rem,3vw,2.1rem);line-height:1.45;margin:0}
+.ks-hub-card-body h2 a{text-decoration:none;color:#674b1f}
+.ks-hub-card-body h3{font-size:clamp(1.05rem,2vw,1.2rem);line-height:1.55;color:#302b25;margin:0}
+.ks-hub-card-body p{font-size:15px;line-height:1.9;color:#55504a;margin:0 0 8px}
+.ks-hub-read{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:10px;background:#d2ad58;color:#1d1c1a!important;text-decoration:none;font-weight:800;font-size:14px;margin-top:auto}
+.ks-hub-read:hover{background:#eac778}
+.ks-hub-share{display:flex;flex-wrap:wrap;gap:14px;padding-top:7px}
+.ks-hub-share a{font-size:13px;color:#70572a;text-decoration:underline;text-underline-offset:4px}
+.ks-hub-endnote{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:36px;padding:22px;border:1px solid #ae94635e;border-radius:13px}
+.ks-hub-endnote p{font-size:13px;color:#e3d7bd;margin:0;max-width:700px}
+.ks-hub-endnote a{border:1px solid #d7b979;border-radius:7px;padding:9px 14px;color:#f2d69b;text-decoration:none}
+.ks-about-hub a:focus-visible{outline:3px solid #ffdb83;outline-offset:3px}
+@media(max-width:1080px){.ks-about-nav-track{justify-content:flex-start}.ks-hub-grid{gap:16px}}
+@media(max-width:730px){.ks-hub-grid{grid-template-columns:minmax(0,1fr);gap:24px}.ks-about-hub{padding-inline:12px}.ks-hub-card{max-width:610px;width:100%;margin:0 auto}.ks-hub-hero{margin-bottom:28px}.ks-about-header .ks-about-link{font-size:11px;padding:7px 10px;min-height:35px}.ks-about-footer-links{gap:6px}.ks-hub-poster{width:min(100%,420px);aspect-ratio:9/13}}
+@media(prefers-reduced-motion:reduce){.ks-hub-poster img{transition:none}}
