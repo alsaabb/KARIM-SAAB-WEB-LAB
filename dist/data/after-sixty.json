@@ -144,7 +144,12 @@
       "english_translation_status": "approved",
       "english_translation_source": "Arabic article in the same episode record; translated as a complete editorial companion on 2026-11-12",
       "english_translation_source_checksum": "41049878",
-      "english_translation_approved_on": "2026-11-12"
+      "english_translation_approved_on": "2026-11-12",
+      "approved_archive_folder_id": "1NGCiSe9PX4KW5HsLZe4ELOajjPtVPxPA",
+      "approved_archive_folder_url": "https://drive.google.com/drive/folders/1NGCiSe9PX4KW5HsLZe4ELOajjPtVPxPA",
+      "approved_release_zip_url": "https://drive.google.com/file/d/1uCvG-UB90Hs6IHzWsMn4QTS6NOs8Pxtp/view"
     }
-  ]
+  ],
+  "canonical_drive_about_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn",
+  "canonical_drive_category_folder_id": "1keq0Jhny7MNY75ryYaingqp8quPzEkEC"
 }
