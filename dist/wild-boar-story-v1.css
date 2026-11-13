@@ -13,8 +13,11 @@
 .ks-wb .ks-wb-sticky{position:sticky;top:90px;max-width:480px;margin-inline:auto;}
 .ks-wb .ks-wb-video-surface{width:100%;max-width:380px;aspect-ratio:9/16;margin-inline:auto;background:#050505;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 18px 42px #0005;}
 .ks-wb .ks-wb-play{position:relative;display:block;width:100%;height:100%;border:0;padding:0;cursor:pointer;background:#090909;overflow:hidden;color:#fff;}
-.ks-wb .ks-wb-play img{width:100%;height:100%;object-fit:contain;display:block;position:relative;z-index:1;background:#0b0a0a;}
-.ks-wb .ks-wb-play:before{content:"";inset:0;position:absolute;background:radial-gradient(#46351b 0%,#090909 75%);}
+.ks-wb .ks-wb-play img{width:100%;height:100%;object-fit:contain;display:block;position:relative;z-index:1;background:transparent;}
+/* Keep a portrait 9:16 player while using the horizontal YouTube thumbnail as a blurred
+   edge-to-edge backdrop. The original artwork stays uncropped in the foreground. */
+.ks-wb .ks-wb-play:before{content:"";inset:-10%;position:absolute;background-image:var(--wb-poster-image,radial-gradient(#46351b 0%,#090909 75%));background-size:cover;background-position:center;filter:blur(22px) brightness(.52);transform:scale(1.05);pointer-events:none;}
+.ks-wb .ks-wb-play:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0003 0%,transparent 32%,transparent 66%,#0009 100%);pointer-events:none;z-index:1;}
 .ks-wb .ks-wb-gold-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;display:grid;place-items:center;background:rgba(193,150,80,.95);border:2px solid #e9c888;color:#181818;font-size:27px;border-radius:50%;z-index:2;box-shadow:0 4px 22px #0008;transition:transform .2s ease;}
 .ks-wb .ks-wb-play:hover .ks-wb-gold-play,.ks-wb .ks-wb-play:focus-visible .ks-wb-gold-play{transform:translate(-50%,-50%) scale(1.08);}
 .ks-wb .ks-wb-play-label{position:absolute;bottom:15px;inset-inline:0;color:#fff;text-shadow:0 2px 12px #000;font-weight:600;z-index:2;}
@@ -58,3 +61,6 @@
 .ks-wb-card .ks-wb-no-thumb .ks-wb-card-fallback{display:block;color:#e8c58d;text-align:center;font-size:1.15rem;line-height:1.6;font-weight:750;padding:1.2rem;}
 
 .ks-wb [data-wb-poster][hidden],.ks-wb-card [data-wb-card-poster][hidden]{display:none!important;}
+
+/* If the thumbnail server is blocked, the existing editorial fallback still fills the portrait player. */
+.ks-wb .ks-wb-play.ks-wb-no-thumb:before{background-image:radial-gradient(circle at 70% 55%,#675338 0%,#22241c 52%,#0b0c0b 100%);filter:none;inset:0;transform:none;}
