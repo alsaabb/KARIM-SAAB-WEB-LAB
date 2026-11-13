@@ -23,8 +23,11 @@ jobs:
       - name: Validate changed JavaScript syntax
         run: |
           node --check dist/karim-products.js
-          node --check dist/karim-video-articles-source-v1.js
-          node --check dist/karim-video-articles-v1.js
+          node --check dist/about-drive-source-v2.js
+          node --check dist/about-drive-layout-v2.js
+          node --check dist/happiness-stories-v1.js
+          node --check dist/shared-shell-v2.js
+          node --check dist/about-unified-shell-happiness-hub-v2.js
           node --check dist/bilingual-share-v1.js
           python3 -m unittest discover -s tests -p 'test_bilingual_sharing.py' -v
 
