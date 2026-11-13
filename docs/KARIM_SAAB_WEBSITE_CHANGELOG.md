@@ -1,5 +1,23 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+## 2026-11-13 — تحسين عرض غلاف فيديو الخنزير البري على الجوال (REVIEW ONLY)
+
+- **Observed:** owner screenshots of Arabic/English story showed a horizontal YouTube
+  thumbnail centered inside the correct 9:16 portrait surface, leaving large black bars.
+- **Non-destructive fix:** keep exact 9:16 video player and the entire original thumbnail
+  uncropped; reuse the loaded thumbnail as a blurred background filling the side portrait
+  surface. Preserve gold play button, accessible title, source link, full Arabic/English
+  article, header/footer and floating KARIM AI button. Existing fallback remains when
+  remote thumbnail is blocked.
+- **Files:** `dist/wild-boar-story-v1.css`, `dist/wild-boar-story-v1.js`,
+  `dist/index.html` (cache bust), browser regression test and site CI.
+- **Review:** `fix/wild-boar-mobile-poster-20261113`; pending owner review and distinct
+  permission to publish. No content copy or video IDs changed; no Google Drive upload.
+- **Test requirements:** browser verifies horizontal thumbnail loads, blurred backdrop
+  fills portrait frame, 9:16 aspect is preserved, both languages render, existing
+  fallback and complete articles survive. Live YouTube playback remains independently
+  unverified.
+
 ## 2026-11-13 — «مواجهة في الظلام… الخنزير البري في اليونان» (source-approved publishing request)
 
 - **Author-approved sources:** the existing Arabic and English Google Docs in the
