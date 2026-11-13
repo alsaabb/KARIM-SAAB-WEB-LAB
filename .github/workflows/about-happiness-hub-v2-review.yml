@@ -1,0 +1,52 @@
+name: Review About Me unified shell and Happiness V9 landing
+on:
+  push:
+    branches:
+      - feature/about-unified-shell-happiness-hub-v2-20261113
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-and-functional-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate new JS syntax, fixed About links and approved source
+        run: |
+          node --check dist/about-unified-shell-happiness-hub-v2.js
+          node --check dist/happiness-stories-v1.js
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('dist/data/happiness-stories-v1.json').read_text(encoding='utf-8'))
+          assert len(d['entries'])==2
+          for story in d['entries']:
+              assert story['title_ar'] and story['title_en']
+              assert Path('dist/assets/happiness/'+story['slug']+'-youtube-poster.jpg').exists()
+              assert story['youtube_id'] in ('fk3fYq2lljM','e8YffqIamRI')
+          html=Path('dist/index.html').read_text(encoding='utf-8')
+          assert html.count('about-unified-shell-happiness-hub-v2.js')==1
+          assert html.count('about-unified-shell-happiness-hub-v2.css')==1
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser tools
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Validate Arabic and English on phone/tablet/desktop and all About page routes
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/about-home-v2-http.log 2>&1 &
+          node tests/about_happiness_hub_shell_browser.cjs
+      - name: Upload review screenshots, never deploy during review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_ABOUT_HAPPINESS_HUB_V2_REVIEW_2026-11-13
+          path: review-screenshots/about-v2/
+          if-no-files-found: warn
+          retention-days: 30
