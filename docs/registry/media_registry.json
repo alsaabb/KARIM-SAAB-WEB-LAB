@@ -655,6 +655,22 @@
     },
     {
       "drive_public_fallback_verified": false,
+      "drive_reference_present": false,
+      "media_id": "youtube:SVdg9IxoS4k",
+      "original_url": "https://www.youtube.com/watch?v=SVdg9IxoS4k",
+      "playback_verified_on_real_device": false,
+      "rights_verified": false,
+      "source_files": [
+        "dist/data/stories-road-v1.json"
+      ],
+      "type": "youtube_video",
+      "used_by_routes": [
+        "story/wild-boar-greece"
+      ],
+      "youtube_id": "SVdg9IxoS4k"
+    },
+    {
+      "drive_public_fallback_verified": false,
       "drive_reference_present": true,
       "media_id": "youtube:e8YffqIamRI",
       "original_url": "https://www.youtube.com/watch?v=e8YffqIamRI",
@@ -688,5 +704,5 @@
   ],
   "missing_referenced_public_assets": [],
   "schema_version": "1.0",
-  "youtube_video_count": 3
+  "youtube_video_count": 4
 }

@@ -1,6 +1,6 @@
 {
   "basis": "current git checkout; not evidence of live browser success",
-  "page_count": 218,
+  "page_count": 219,
   "pages": [
     {
       "editorial_status": "not_verified",
@@ -6177,12 +6177,42 @@
         "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/en/stories-road.html"
       },
       "source_files": [
+        "dist/data/stories-road-v1.json",
         "dist/share/ar/stories-road.html",
         "dist/share/en/stories-road.html"
       ],
       "title": {
         "ar": "حكايات من الطريق | عبدالكريم الصعب",
         "en": "Stories from the Road | KARIM SAAB"
+      }
+    },
+    {
+      "editorial_status": "owner_approved_bilingual",
+      "hash_urls": {
+        "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/story/wild-boar-greece",
+        "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/en/story/wild-boar-greece"
+      },
+      "link_mapping": "share_link_to_hash_route",
+      "live_page_tested": false,
+      "notes": [],
+      "page_id": "ks-page-f7e868fffe145683",
+      "route": "story/wild-boar-greece",
+      "share_files": {
+        "ar": "dist/share/ar/story-wild-boar-greece.html",
+        "en": "dist/share/en/story-wild-boar-greece.html"
+      },
+      "share_urls": {
+        "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/ar/story-wild-boar-greece.html",
+        "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/en/story-wild-boar-greece.html"
+      },
+      "source_files": [
+        "dist/data/stories-road-v1.json",
+        "dist/share/ar/story-wild-boar-greece.html",
+        "dist/share/en/story-wild-boar-greece.html"
+      ],
+      "title": {
+        "ar": "مواجهة في الظلام… الخنزير البري في غابات اليونان المحروقة!",
+        "en": "Encounter in the Dark: A Wild Boar in Greece's Fire-Scarred Forests"
       }
     },
     {
@@ -6215,8 +6245,8 @@
     }
   ],
   "schema_version": "1.0",
-  "share_html_count": 424,
-  "sitemap_url_count": 418,
+  "share_html_count": 426,
+  "sitemap_url_count": 420,
   "sources": [
     "dist/share/ar/*.html",
     "dist/share/en/*.html",
@@ -6224,6 +6254,7 @@
     "dist/data/about-master-v2.json",
     "dist/sitemap.xml",
     "dist/data/happiness-stories-v1.json",
-    "dist/data/after-sixty.json"
+    "dist/data/after-sixty.json",
+    "dist/data/stories-road-v1.json"
   ]
 }
