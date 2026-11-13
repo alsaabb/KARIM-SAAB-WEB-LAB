@@ -43,6 +43,34 @@ const OUT='visual-review/wild-boar';
     await page.close();
   }
   try{
+    // Regression for the owner-reported mobile black bars: a successful horizontal
+    // thumbnail must fill the full portrait 9:16 surface with a blurred backdrop
+    // while retaining the complete image as the main (uncropped) layer.
+    const proof=await browser.newPage({viewport:{width:390,height:844}});
+    await proof.route('https://i.ytimg.com/**',r=>r.fulfill({
+      status:200,contentType:'image/webp',
+      body:fs.readFileSync('dist/assets/journal-greece.webp')
+    }));
+    await proof.goto(BASE+'#/ar/story/wild-boar-greece',{waitUntil:'domcontentloaded'});
+    const cover=proof.locator('.ks-wb-play img[data-wb-poster]');
+    await cover.waitFor({timeout:15000});
+    await proof.waitForFunction(()=>document.querySelector('.ks-wb-play')?.style.getPropertyValue('--wb-poster-image').includes('ytimg.com'),{timeout:10000});
+    const posterState=await proof.evaluate(()=>{
+      const play=document.querySelector('.ks-wb-play');
+      const img=play.querySelector('img[data-wb-poster]');
+      return {
+        background:getComputedStyle(play,'::before').backgroundImage,
+        imageFit:getComputedStyle(img).objectFit,
+        width:img.naturalWidth,
+        imageBackground:getComputedStyle(img).backgroundColor,
+        aspect:play.getBoundingClientRect().width/play.getBoundingClientRect().height
+      };
+    });
+    if(!posterState.background.includes('ytimg.com')||posterState.imageFit!=='contain'||posterState.width<=120||
+       Math.abs(posterState.aspect-9/16)>.04)
+       throw Error('Portrait backdrop regression '+JSON.stringify(posterState));
+    await proof.screenshot({path:OUT+'/ar-mobile-thumbnail-filled.png',fullPage:false});
+    await proof.close();
     await testStory('ar',1440,900,'ar-desktop.png');
     await testStory('ar',390,844,'ar-mobile.png');
     await testStory('en',390,844,'en-mobile.png');
