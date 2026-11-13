@@ -1,7 +1,18 @@
 name: KARIM SAAB Master — audit and registry review (no publish)
+# Auto-regenerates registries on *review branches*, never on main.
+# This does NOT access Google Drive or authorize automatic publishing.
 on:
   push:
-    branches: [feature/universal-media-master-v1-20261113]
+    branches:
+      - 'feature/**'
+      - 'fix/**'
+      - 'chore/**'
+    paths:
+      - 'dist/**'
+      - 'scripts/build_site_master_registry.py'
+      - 'docs/KARIM_SAAB_WEBSITE_MASTER.md'
+      - 'docs/KARIM_SAAB_WEBSITE_CHANGELOG.md'
+      - '.github/workflows/website-master-registry-review.yml'
   workflow_dispatch:
 
 permissions:
@@ -9,7 +20,7 @@ permissions:
 
 jobs:
   audit:
-    if: github.ref == 'refs/heads/feature/universal-media-master-v1-20261113'
+    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB' && github.ref != 'refs/heads/main' && (startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/') || startsWith(github.ref, 'refs/heads/chore/'))
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -36,12 +47,12 @@ jobs:
           git add docs/registry/page_registry.json docs/registry/media_registry.json docs/registry/INVENTORY_REPORT.md
           if ! git diff --cached --quiet; then
             git commit -m "docs(master): snapshot all bilingual routes and media from site sources"
-            git push origin HEAD:feature/universal-media-master-v1-20261113
+            git push origin "HEAD:${GITHUB_REF#refs/heads/}"
           fi
       - name: Upload review-only inventory snapshots (NOT deployed)
         uses: actions/upload-artifact@v4
         with:
-          name: KARIM_SAAB_SITE_MASTER_REGISTRY_REVIEW
+          name: KARIM_SAAB_SITE_MASTER_REGISTRY_REVIEW_${{ github.run_id }}
           path: |
             docs/KARIM_SAAB_WEBSITE_MASTER.md
             docs/KARIM_SAAB_WEBSITE_CHANGELOG.md

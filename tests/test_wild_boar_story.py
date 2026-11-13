@@ -11,6 +11,33 @@ class WildBoarStoryTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.data=json.loads((ROOT/"dist/data/stories-road-v1.json").read_text(encoding="utf-8"))
+    def test_poster_source_is_drive_story_folder_not_unapproved_public_link(self):
+        d=self.data
+        self.assertEqual(d["poster_source"],"owner_designated_poster_in_same_story_folder")
+        self.assertIn(d["poster_status"],("awaiting_owner_poster","approved_and_published"))
+        # No direct Drive preview URL, because public-site img tags cannot reliably
+        # render private Drive images and should never change Drive permissions.
+        if d["poster_status"]=="awaiting_owner_poster":
+            self.assertIsNone(d["poster_asset"])
+        else:
+            import re
+            path=d["poster_asset"]
+            self.assertRegex(path,r"^assets/stories/wild-boar-greece/[A-Za-z0-9._-]+\\.(webp|png|jpg|jpeg|avif)$")
+            public=(ROOT/"dist"/path).resolve()
+            self.assertTrue(public.is_relative_to((ROOT/"dist/assets/stories/wild-boar-greece").resolve()))
+            self.assertTrue(public.is_file())
+            self.assertGreater(public.stat().st_size,1000)
+        self.assertIn("stories-road/card",d["poster_shared_for"])
+        self.assertIn("bilingual-share-og-image",d["poster_shared_for"])
+        # A future approved poster must also be the social preview for BOTH languages.
+        if d["poster_status"]=="approved_and_published":
+            public=BASE+"/"+d["poster_asset"]
+            for lang in ("ar","en"):
+                share=(ROOT/"dist/share"/lang/"story-wild-boar-greece.html").read_text(encoding="utf-8")
+                self.assertIn('property="og:image" content="'+public+'"',share)
+                self.assertIn('name="twitter:image" content="'+public+'"',share)
+
+
     def test_original_sources_and_video_id(self):
         d=self.data
         self.assertEqual(d["slug"],"wild-boar-greece")

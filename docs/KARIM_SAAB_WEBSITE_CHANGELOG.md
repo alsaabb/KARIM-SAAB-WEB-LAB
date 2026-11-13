@@ -1,5 +1,40 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+## 2026-11-13 — Poster-first master V1.1 + Greek wild boar mobile cover (REVIEW ONLY)
+
+- **Observed:** owner screenshots of Arabic/English story showed a horizontal YouTube
+  thumbnail centered inside the correct 9:16 portrait surface, leaving large black bars.
+- **Non-destructive fix:** keep exact 9:16 video player and the entire original thumbnail
+  uncropped; reuse the loaded thumbnail as a blurred background filling the side portrait
+  surface. Preserve gold play button, accessible title, source link, full Arabic/English
+  article, header/footer and floating KARIM AI button. Existing fallback remains when
+  remote thumbnail is blocked.
+- **Files:** `dist/wild-boar-story-v1.css`, `dist/wild-boar-story-v1.js`,
+  `dist/index.html` (cache bust), browser regression test and site CI.
+- **Owner's 2026-11-13 clarification:** the new, explicitly selected video poster will
+  be placed in the SAME already-approved Google Drive story folder as the article/video;
+  this owner's poster, not an auto-selected thumbnail, is the authoritative future cover.
+- **Source precedence:** owner-selected Drive poster -> verified optimized public copy
+  in `dist/assets/stories/wild-boar-greece/` -> YouTube still image -> neutral
+  fallback. Do NOT use private Drive `view` URLs as public image sources.
+- **Current status:** no newly designated poster has been selected yet. Existing
+  generic-named PNG in the folder must NOT be silently assumed to be the new poster.
+  `dist/data/stories-road-v1.json`: `poster_status=awaiting_owner_poster`,
+  `poster_asset=null`. UI and SEO retain their existing fallback for now.
+- **Previous approved pattern:** full 9:16 approved portrait cover with single
+  "شاهد الفيديو" CTA, avoid second giant gold play button, mobile video above full
+  article, desktop video/article columns when appropriate.
+- **Master rule V1.1:** this poster-first approach applies to ALL future site URLs.
+  Master and automated registry review now describe owner poster approval and safe,
+  ongoing source-to-GitHub index synchronization on review branches.
+- **Review:** GitHub draft PR #35 `fix/wild-boar-mobile-poster-20261113`;
+  owner review and publication approval are still required. No original article/video
+  copy changed; no Google Drive item modified or publicly shared.
+- **Test requirements:** browser verifies horizontal thumbnail loads, blurred backdrop
+  fills portrait frame, 9:16 aspect is preserved, both languages render, existing
+  fallback and complete articles survive. Live YouTube playback remains independently
+  unverified.
+
 ## 2026-11-13 — «مواجهة في الظلام… الخنزير البري في اليونان» (source-approved publishing request)
 
 - **Author-approved sources:** the existing Arabic and English Google Docs in the

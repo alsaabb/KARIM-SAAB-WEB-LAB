@@ -1,10 +1,11 @@
 const {chromium}=require('playwright');
 const fs=require('fs');
+const chrome=['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'].find(fs.existsSync);
 const BASE='http://127.0.0.1:8765/dist/index.html';
 const OUT='visual-review/wild-boar';
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});
-  const browser=await chromium.launch({headless:true});
+  const browser=await chromium.launch({headless:true,...(chrome?{executablePath:chrome}:{}),args:['--no-sandbox','--disable-dev-shm-usage']});
   async function testStory(lang,width,height,screenshot){
     const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
     const errors=[];
@@ -43,6 +44,73 @@ const OUT='visual-review/wild-boar';
     await page.close();
   }
   try{
+    // Regression for the owner-reported mobile black bars: a successful horizontal
+    // thumbnail must fill the full portrait 9:16 surface with a blurred backdrop
+    // while retaining the complete image as the main (uncropped) layer.
+    const proof=await browser.newPage({viewport:{width:390,height:844}});
+    await proof.route('https://i.ytimg.com/**',r=>r.fulfill({
+      status:200,contentType:'image/webp',
+      body:fs.readFileSync('dist/assets/journal-greece.webp')
+    }));
+    await proof.goto(BASE+'#/ar/story/wild-boar-greece',{waitUntil:'domcontentloaded'});
+    const cover=proof.locator('.ks-wb-play img[data-wb-poster]');
+    await cover.waitFor({timeout:15000});
+    await proof.waitForFunction(()=>document.querySelector('.ks-wb-play')?.style.getPropertyValue('--wb-poster-image').includes('ytimg.com'),{timeout:10000});
+    const posterState=await proof.evaluate(()=>{
+      const play=document.querySelector('.ks-wb-play');
+      const img=play.querySelector('img[data-wb-poster]');
+      return {
+        background:getComputedStyle(play,'::before').backgroundImage,
+        imageFit:getComputedStyle(img).objectFit,
+        width:img.naturalWidth,
+        imageBackground:getComputedStyle(img).backgroundColor,
+        aspect:play.getBoundingClientRect().width/play.getBoundingClientRect().height
+      };
+    });
+    if(!posterState.background.includes('ytimg.com')||posterState.imageFit!=='contain'||posterState.width<=120||
+       Math.abs(posterState.aspect-9/16)>.04)
+       throw Error('Portrait backdrop regression '+JSON.stringify(posterState));
+    await proof.screenshot({path:OUT+'/ar-mobile-thumbnail-filled.png',fullPage:false});
+    await proof.close();
+
+    // FUTURE OWNER POSTER: simulate a verified public copy. The real Drive image
+    // remains private; no publication or permission change is done by this test.
+    const owner=await browser.newPage({viewport:{width:390,height:844}});
+    await owner.route('**/data/stories-road-v1.json*',r=>{
+      const copy=JSON.parse(fs.readFileSync('dist/data/stories-road-v1.json','utf8'));
+      copy.poster_status='approved_and_published';
+      copy.poster_asset='assets/stories/wild-boar-greece/poster.webp';
+      return r.fulfill({json:copy});
+    });
+    await owner.route('**/assets/stories/wild-boar-greece/poster.webp',r=>r.fulfill({
+      status:200,contentType:'image/svg+xml',
+      body:'<svg xmlns="http://www.w3.org/2000/svg" width="360" height="640" viewBox="0 0 360 640"><rect width="360" height="640" fill="#58472e"/><text x="180" y="310" text-anchor="middle" fill="#f3e2bd" font-size="21">APPROVED POSTER TEST</text></svg>'
+    }));
+    await owner.route('https://i.ytimg.com/**',r=>r.abort());
+    await owner.goto(BASE+'#/ar/story/wild-boar-greece',{waitUntil:'domcontentloaded'});
+    await owner.locator('.ks-wb-play img[data-wb-poster]').waitFor({timeout:15000});
+    await owner.waitForFunction(()=>document.querySelector('[data-wb-poster]')?.dataset.wbActiveSource==='owner-approved-poster');
+    const poster=await owner.evaluate(()=>{
+      const img=document.querySelector('.ks-wb-play img[data-wb-poster]'),b=img.closest('button');
+      const r=b.getBoundingClientRect();
+      return {source:img.dataset.wbActiveSource,fit:getComputedStyle(img).objectFit,
+        ratio:r.width/r.height,portrait:b.classList.contains('ks-wb-owner-portrait'),
+        title:document.querySelector('main.ks-wb h1')?.textContent,
+        buttonCount:b.querySelectorAll('.ks-wb-gold-play').length};
+    });
+    if(poster.source!=='owner-approved-poster'||poster.fit!=='cover'||!poster.portrait||
+       Math.abs(poster.ratio-9/16)>.04||poster.buttonCount!==0)
+      throw Error('Owner poster preferred incorrectly: '+JSON.stringify(poster));
+    await owner.screenshot({path:OUT+'/ar-mobile-future-owner-poster.png',fullPage:false});
+    await owner.goto(BASE+'#/ar/stories-road',{waitUntil:'domcontentloaded'});
+    await owner.locator('[data-wb-card-poster]').waitFor({timeout:15000});
+    await owner.waitForFunction(()=>document.querySelector('[data-wb-card-poster]')?.dataset.wbActiveSource==='owner-approved-poster');
+    const cardPoster=await owner.locator('[data-wb-card-poster]').getAttribute('src');
+    if(cardPoster!=='assets/stories/wild-boar-greece/poster.webp')
+      throw Error('Story card must use the SAME approved owner poster: '+cardPoster);
+    await owner.screenshot({path:OUT+'/ar-story-card-future-owner-poster.png',fullPage:false});
+    await owner.close();
+
     await testStory('ar',1440,900,'ar-desktop.png');
     await testStory('ar',390,844,'ar-mobile.png');
     await testStory('en',390,844,'en-mobile.png');

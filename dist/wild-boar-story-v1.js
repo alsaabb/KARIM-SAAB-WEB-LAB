@@ -10,24 +10,59 @@
   function link(r){return '#/'+(ar()?'ar':'en')+'/'+r}
   function article(){return data.langs[ar()?'ar':'en']}
   function routeNow(){return (state.route||'').split('?')[0]}
+  // Source priority: owner-approved, locally hosted Drive poster > YouTube thumbnail.
+  // A private Google Drive preview link is NEVER used as an image src.
+  function ownerPoster(){
+    if(!data||data.poster_status!=='approved_and_published')return null;
+    var src=data.poster_asset;
+    return typeof src==='string'&&/^assets\/stories\/wild-boar-greece\/[a-zA-Z0-9._-]+\.(?:png|jpe?g|webp|avif)$/i.test(src)?src:null;
+  }
+  function posterSrc(kind){
+    return ownerPoster() || 'https://i.ytimg.com/vi/'+VIDEO+'/'+(kind==='card'?'hqdefault':'maxresdefault')+'.jpg';
+  }
+
   function videoPoster(kind){
-    var lang=article(),src='https://i.ytimg.com/vi/'+VIDEO+'/maxresdefault.jpg';
+    var lang=article(),src=posterSrc(kind),owner=!!ownerPoster();
     return '<div class="ks-wb-video-surface" id="ks-wb-player">'+
       '<button type="button" class="ks-wb-play" data-wb-play aria-label="'+esc(tr('تشغيل فيديو المواجهة','Play encounter video'))+'">'+
-       '<img data-wb-poster alt="'+esc(lang.title)+'" src="'+src+'" loading="'+(kind==='card'?'lazy':'eager')+'">'+
+       '<img data-wb-poster data-wb-owner="'+(owner?'true':'false')+'" alt="'+esc(lang.title)+'" src="'+esc(src)+'" loading="'+(kind==='card'?'lazy':'eager')+'">'+
        '<span class="ks-wb-fallback-copy" aria-hidden="true">'+esc(tr('مواجهة في الظلام · الخنزير البري في اليونان','ENCOUNTER IN THE DARK · WILD BOAR IN GREECE'))+'</span>'+
-       '<span class="ks-wb-gold-play" aria-hidden="true">▶</span>'+
-       '<span class="ks-wb-play-label">'+esc(tr('شاهد المواجهة','Watch the encounter'))+'</span>'+
+       '<span class="ks-wb-play-label">'+esc(tr('شاهد الفيديو','Watch video'))+'</span>'+
       '</button></div>'
   }
   function imageFallback(img){
     if(!img||img.dataset.wbFallback)return;
     img.dataset.wbFallback='1';
-    var urls=['https://i.ytimg.com/vi/'+VIDEO+'/sddefault.jpg','https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg'];var idx=0;
-    function next(){if(idx<urls.length){img.src=urls[idx++]}else{img.hidden=true;img.closest('.ks-wb-play,.ks-wb-card-poster')?.classList.add('ks-wb-no-thumb')}}
+    var urls=(img.dataset.wbOwner==='true'?['https://i.ytimg.com/vi/'+VIDEO+'/maxresdefault.jpg']:[])
+      .concat(['https://i.ytimg.com/vi/'+VIDEO+'/sddefault.jpg','https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg']);
+    var idx=0;
+    function next(){
+      img.dataset.wbOwner='false';
+      var container=img.closest('.ks-wb-play,.ks-wb-card-poster');
+      if(container)container.classList.remove('ks-wb-owner-portrait','ks-wb-owner-card');
+      if(idx<urls.length){img.src=urls[idx++]}else{
+        img.hidden=true;
+        if(container)container.classList.add('ks-wb-no-thumb');
+      }
+    }
     img.addEventListener('error',next);
-    img.addEventListener('load',function(){if(img.naturalWidth<=120)next()});
-    if(img.complete&&img.naturalWidth<=120)next();
+    // Reuse the verified, successfully loaded YouTube thumbnail as a soft background.
+    // This fills the vertical player without cropping the horizontal source artwork.
+    function applyBackdrop(){
+      if(img.naturalWidth<=120){next();return}
+      var surface=img.closest('.ks-wb-play,.ks-wb-card-poster');
+      if(surface){
+        surface.style.setProperty('--wb-poster-image','url("'+img.currentSrc+'")');
+        var isOwner=img.dataset.wbOwner==='true';
+        var portrait=(img.naturalWidth/img.naturalHeight)>0.48 && (img.naturalWidth/img.naturalHeight)<0.68;
+        surface.classList.toggle('ks-wb-owner-portrait',isOwner&&portrait);
+        surface.classList.toggle('ks-wb-owner-card',isOwner&&!!img.hasAttribute('data-wb-card-poster'));
+        surface.classList.remove('ks-wb-no-thumb');
+        img.dataset.wbActiveSource=isOwner?'owner-approved-poster':'youtube-fallback';
+      }
+    }
+    img.addEventListener('load',applyBackdrop);
+    if(img.complete)applyBackdrop();
   }
   function buildStory(){
     var a=article();
@@ -43,7 +78,7 @@
          '<div class="ks-wb-layout"><aside class="ks-wb-video-pane">'+
             '<div class="ks-wb-sticky">'+videoPoster('hero')+
              '<div class="ks-wb-video-links"><a href="'+source+'" target="_blank" rel="noopener noreferrer">'+esc(tr('فتح الفيديو الأصلي على YouTube','Open original video on YouTube'))+' ↗</a>'+
-             '<span>'+esc(tr('الفيديو رأسي 9:16 — غلاف من YouTube','Portrait video 9:16 — YouTube thumbnail'))+'</span></div></div>'+
+             '<span>'+esc(ownerPoster()?tr('الفيديو رأسي 9:16 — بوستر صاحب القصة','Portrait video 9:16 — owner-selected poster'):tr('الفيديو رأسي 9:16 — صورة احتياطية من YouTube','Portrait video 9:16 — YouTube fallback image'))+'</span></div></div>'+
            '</aside><article class="ks-wb-article" id="ks-wb-article"><div class="ks-wb-article-label">'+esc(tr('القصة الكاملة','THE FULL STORY'))+'</div>'+
              paragraphs+
              '<div class="ks-wb-source-link"><a href="'+source+'" target="_blank" rel="noopener noreferrer">'+esc(tr('شاهد لحظة المواجهة الموثقة','Watch the recorded encounter'))+' ↗</a></div>'+
@@ -72,7 +107,7 @@
   function card(){
     var a=article();
     return '<a class="ks-simple-card ks-wb-card" data-wb-index-card href="'+link(STORY)+'">'+
-      '<div class="ks-wb-card-poster"><img data-wb-card-poster src="https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg" alt="'+esc(a.title)+'" loading="lazy"><span class="ks-wb-card-fallback">'+esc(tr('غابات اليونان · مواجهة الخنزير البري','GREECE · WILD BOAR ENCOUNTER'))+'</span></div>'+
+      '<div class="ks-wb-card-poster"><img data-wb-card-poster data-wb-owner="'+(ownerPoster()?'true':'false')+'" src="'+esc(posterSrc('card'))+'" alt="'+esc(a.title)+'" loading="lazy"><span class="ks-wb-card-fallback">'+esc(tr('غابات اليونان · مواجهة الخنزير البري','GREECE · WILD BOAR ENCOUNTER'))+'</span></div>'+
       '<span class="eyebrow">'+esc(tr('اليونان · مغامرة حقيقية بالدراجة','GREECE · REAL CYCLING ADVENTURE'))+'</span>'+
       '<h3>'+esc(a.title)+'</h3><p>'+esc(a.sections[1].text)+'</p>'+
       '<span class="ks-wb-card-cta">'+esc(tr('شاهد الفيديو واقرأ القصة كاملة','Watch the video and read the full story'))+' ↗</span></a>'
