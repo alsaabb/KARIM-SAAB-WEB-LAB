@@ -44,10 +44,37 @@ const OUT='visual-review/wild-boar';
     await page.close();
   }
   try{
+    // Verify the ACTUAL optimized owner poster (not a mock) on mobile in both languages.
+    for(const lang of ['ar','en']){
+      const current=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});
+      await current.route('https://i.ytimg.com/**',r=>r.abort());
+      await current.goto(BASE+'#/'+lang+'/story/wild-boar-greece',{waitUntil:'domcontentloaded'});
+      await current.locator('.ks-wb-play img[data-wb-poster]').waitFor({timeout:15000});
+      await current.waitForFunction(()=>document.querySelector('[data-wb-poster]')?.dataset.wbActiveSource==='owner-approved-poster',
+        {timeout:10000});
+      const real=await current.evaluate(()=>{
+        const img=document.querySelector('[data-wb-poster]'),button=img.closest('button');
+        const bounds=button.getBoundingClientRect();
+        return {src:img.getAttribute('src'),w:img.naturalWidth,h:img.naturalHeight,
+          fit:getComputedStyle(img).objectFit,ratio:bounds.width/bounds.height,
+          hasCaption:!!button.querySelector('.ks-wb-play-label'),
+          hasDuplicatePlayIcon:!!button.querySelector('.ks-wb-gold-play'),
+          portrait:button.classList.contains('ks-wb-owner-portrait')};
+      });
+      if(real.src!=='assets/stories/wild-boar-greece/poster.webp'||real.w!==941||real.h!==1672||
+         real.fit!=='cover'||Math.abs(real.ratio-9/16)>.04||!real.portrait||
+         !real.hasCaption||real.hasDuplicatePlayIcon)
+        throw Error('Real owner poster regression '+lang+' '+JSON.stringify(real));
+      await current.screenshot({path:OUT+'/'+lang+'-mobile-real-owner-poster.png',fullPage:false});
+      await current.close();
+    }
     // Regression for the owner-reported mobile black bars: a successful horizontal
     // thumbnail must fill the full portrait 9:16 surface with a blurred backdrop
     // while retaining the complete image as the main (uncropped) layer.
     const proof=await browser.newPage({viewport:{width:390,height:844}});
+    // If the owner's hosted poster cannot load, the YouTube still remains a
+    // safe horizontal fallback with blurred background instead of black bars.
+    await proof.route('**/assets/stories/wild-boar-greece/poster.webp',r=>r.abort());
     await proof.route('https://i.ytimg.com/**',r=>r.fulfill({
       status:200,contentType:'image/webp',
       body:fs.readFileSync('dist/assets/journal-greece.webp')

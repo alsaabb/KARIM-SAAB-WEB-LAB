@@ -1,5 +1,16 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+## 2026-11-13 — Owner-selected Greece Wild Boar vertical poster (REVIEW, V1.1.1)
+
+- **Source authorization:** owner stated poster had been uploaded, then provided the exact approved Greece wild-boar story folder URL. That folder contained one PNG poster and three already-approved Docs, no other image.
+- **Original:** `file_000000000f2481f4bf36a757cba0373b.png`, 941×1672, SHA-256 `8013a6d7ed2ceb2408ce4e08f03888565f6d03c3eefcae72f3545d56ca70f6b5`; inspected as a **composited editorial poster**, not as independently verified incident footage.
+- **Safe staging:** original PNG processed on isolated review branch; one-time optimizer removed the staging PNG after generating `dist/assets/stories/wild-boar-greece/poster.webp` (941×1672, 402,000 bytes). The PNG original in Google Drive remains untouched and its permissions are unchanged.
+- **Site cover:** `dist/data/stories-road-v1.json` now points to the optimized WebP as owner poster. This same image powers the story's 9:16 mobile/desktop video cover and the Stories Road card; YouTube thumbnail remains fallback if the public asset fails.
+- **Sharing/SEO:** both `dist/share/ar/story-wild-boar-greece.html` and `dist/share/en/story-wild-boar-greece.html` use the same published WebP for `og:image`, `twitter:image`, inline share image and VideoObject thumbnail.
+- **Text and playback:** owner-approved Arabic/English articles and YouTube ID `SVdg9IxoS4k` unchanged. The editorial poster's existence is not proof that the boar was photographed in that scene.
+- **Verification:** targeted unit checks and Chromium mobile/desktop source-fallback tests required. Publication is via user-authorized review PR after checks; latest GitHub Pages deployment and public HTTP asset must be verified separately.
+- **Archiving:** no Drive archive upload or replacement authorized by this poster integration; keep V1.0 and original media.
+
 ## 2026-11-13 — Poster-first master V1.1 + Greek wild boar mobile cover (APPROVED AND RELEASED)
 
 - **Observed:** owner screenshots of Arabic/English story showed a horizontal YouTube

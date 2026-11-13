@@ -7,6 +7,7 @@ on:
       - 'feature/**'
       - 'fix/**'
       - 'chore/**'
+      - 'poster/**'
     paths:
       - 'dist/**'
       - 'scripts/build_site_master_registry.py'
@@ -20,7 +21,7 @@ permissions:
 
 jobs:
   audit:
-    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB' && github.ref != 'refs/heads/main' && (startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/') || startsWith(github.ref, 'refs/heads/chore/'))
+    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB' && github.ref != 'refs/heads/main' && (startsWith(github.ref, 'refs/heads/feature/') || startsWith(github.ref, 'refs/heads/fix/') || startsWith(github.ref, 'refs/heads/chore/') || startsWith(github.ref, 'refs/heads/poster/'))
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
