@@ -20,6 +20,9 @@ jobs:
       - name: V1.1 products and video article source checks
         run: python3 -m unittest discover -s tests -p 'test_approved_sections_v11.py' -v
 
+      - name: Protect owner-approved single Drive archive tree
+        run: python3 -m unittest discover -s tests -p 'test_about_canonical_drive_tree.py' -v
+
       - name: Validate changed JavaScript syntax
         run: |
           node --check dist/karim-products.js

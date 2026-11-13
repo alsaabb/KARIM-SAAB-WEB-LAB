@@ -37,7 +37,9 @@
       "children": [
         "about/happiness/video/happiness-not-for-sale",
         "about/happiness/video/world-is-not-paradise"
-      ]
+      ],
+      "drive_folder_index_doc_id": "1hpgwKatIOTvnMmEAVmHYj4PLX4A6lufSnfETq8RJrmA",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1hpgwKatIOTvnMmEAVmHYj4PLX4A6lufSnfETq8RJrmA/edit"
     },
     {
       "route": "about/happiness/video/happiness-not-for-sale",
@@ -60,7 +62,13 @@
       "article_language_status": "approved_ar_en",
       "approved_article_archive_id": "1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l",
       "approved_article_archive_url": "https://drive.google.com/file/d/1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l/view",
-      "archive_status": "approved_ar_en_preserves_original_video"
+      "archive_status": "approved_ar_en_preserves_original_video",
+      "drive_folder_index_doc_id": "1xTqBzHGTE_K8diVCa_kpLUkv7-s2UrenNRirbELrQ4s",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1xTqBzHGTE_K8diVCa_kpLUkv7-s2UrenNRirbELrQ4s/edit",
+      "published_article_ar_drive_doc_id": "1E3o4mczkCQrjTmmCvqCVqYnv90iAUR04q9tKl9-eRBk",
+      "published_article_en_drive_doc_id": "1dfIXmajNfZvHoHsPw4ybd2XdmPGK_-rhAvwLNPsWMb4",
+      "approved_poster_drive_doc_id": "1IbsiD3XaQmVXP9zoCSBSqLu-Us6lJvsYGjiMOiSk_qc",
+      "approved_archive_zip_drive_file_id": "1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l"
     },
     {
       "route": "about/happiness/video/world-is-not-paradise",
@@ -83,7 +91,13 @@
       "article_language_status": "approved_ar_en",
       "approved_article_archive_id": "1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN",
       "approved_article_archive_url": "https://drive.google.com/file/d/1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN/view",
-      "archive_status": "approved_ar_en_preserves_original_video"
+      "archive_status": "approved_ar_en_preserves_original_video",
+      "drive_folder_index_doc_id": "1SEGzG9ICWObIdYLAG_9JEeevqyvmscIWaT62uTCPecE",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1SEGzG9ICWObIdYLAG_9JEeevqyvmscIWaT62uTCPecE/edit",
+      "published_article_ar_drive_doc_id": "1AGxQD0VmBU8ss3luS4_Rov4ZmUkJnTSWTyAguhrD_mc",
+      "published_article_en_drive_doc_id": "1lFAoUZMp7b3K7t5Yj4TGi7pjz2anK5l3WRBEVPfw0vY",
+      "approved_poster_drive_doc_id": "1lpHQnVkr0ZrggDd1VvxuhArl5CyR7X7u9aNIYkvT9U0",
+      "approved_archive_zip_drive_file_id": "1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN"
     },
     {
       "route": "about/after-sixty",
@@ -98,7 +112,9 @@
       "source_document_id": "1ZJIMuzoJIZ59xerY3snViKcmuao8K2EH",
       "source_document_url": "https://docs.google.com/document/d/1ZJIMuzoJIZ59xerY3snViKcmuao8K2EH/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1rOGP0HjEq9fXuxK64Bd1TcSI4ZbiSxi9Wkza0ny7xuY",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1rOGP0HjEq9fXuxK64Bd1TcSI4ZbiSxi9Wkza0ny7xuY/edit"
     },
     {
       "route": "about/health",
@@ -115,7 +131,9 @@
       "source_status": "verified_article",
       "children": [
         "about/health/depression-anxiety"
-      ]
+      ],
+      "drive_folder_index_doc_id": "12p706_neLlNcrH4tB2uhcNboj7xl_UjBcchVnMxllEA",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/12p706_neLlNcrH4tB2uhcNboj7xl_UjBcchVnMxllEA/edit"
     },
     {
       "route": "about/health/depression-anxiety",
@@ -130,7 +148,9 @@
       "source_document_id": "1Y-pXXYnV8qt0odbFfWUahOm3HgKHxrRZ",
       "source_document_url": "https://docs.google.com/document/d/1Y-pXXYnV8qt0odbFfWUahOm3HgKHxrRZ/edit",
       "source_status": "verified_article",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1AOcmhaLbVhJuKV5J-3tJSQTr8aQm7S1bakiMmN_AUj4",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1AOcmhaLbVhJuKV5J-3tJSQTr8aQm7S1bakiMmN_AUj4/edit"
     },
     {
       "route": "about/why-adventures",
@@ -145,7 +165,9 @@
       "source_document_id": "1r7H8lispdDH_YyQW8Xm72Y4c-qAIfZXm",
       "source_document_url": "https://docs.google.com/document/d/1r7H8lispdDH_YyQW8Xm72Y4c-qAIfZXm/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1Nx5PLGTFbS7cqeMUMfeb_gY-KLRP_jelhbK3JAru51c",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1Nx5PLGTFbS7cqeMUMfeb_gY-KLRP_jelhbK3JAru51c/edit"
     },
     {
       "route": "about/business",
@@ -160,7 +182,9 @@
       "source_document_id": "18DYfk1ci9xAvVdyFXmHMBZvh6gdLWM68",
       "source_document_url": "https://docs.google.com/document/d/18DYfk1ci9xAvVdyFXmHMBZvh6gdLWM68/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1RQPwRopD1-_08KZo7WBPbxRt6zDEiIyMc5eMmXywxK4",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1RQPwRopD1-_08KZo7WBPbxRt6zDEiIyMc5eMmXywxK4/edit"
     },
     {
       "route": "about/volunteer-programs",
@@ -183,7 +207,9 @@
         "content/community-orphans",
         "about/mosques",
         "about/quran-circles"
-      ]
+      ],
+      "drive_folder_index_doc_id": "18qnKPJbeFlVp6fFRJNsor4QSHG05rjKA4XkKHed4H84",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/18qnKPJbeFlVp6fFRJNsor4QSHG05rjKA4XkKHed4H84/edit"
     },
     {
       "route": "about/volunteering",
@@ -198,7 +224,9 @@
       "source_document_id": "1RuhKkAqRE_87TIumpwRCQRXJE92_a6rP",
       "source_document_url": "https://docs.google.com/document/d/1RuhKkAqRE_87TIumpwRCQRXJE92_a6rP/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "10Rf_8CKgD2pcnantfkK2ih-aYUG4Os3N-ihBqLThFQg",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/10Rf_8CKgD2pcnantfkK2ih-aYUG4Os3N-ihBqLThFQg/edit"
     },
     {
       "route": "content/community-wells",
@@ -213,7 +241,9 @@
       "source_document_id": "1wVyjN1Rz7rhs4c5zlq4jjtLa0-UmpSyw",
       "source_document_url": "https://docs.google.com/document/d/1wVyjN1Rz7rhs4c5zlq4jjtLa0-UmpSyw/edit",
       "source_status": "index_only",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1KAy4NVMwJgKQR3wlZHB0BphSBfXKX8zE3W3uH-Z_B0c",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1KAy4NVMwJgKQR3wlZHB0BphSBfXKX8zE3W3uH-Z_B0c/edit"
     },
     {
       "route": "content/community-iftar-eg",
@@ -228,7 +258,9 @@
       "source_document_id": "1FmUGflI9CjMiXLtakUzKFoifGjCInZBw",
       "source_document_url": "https://docs.google.com/document/d/1FmUGflI9CjMiXLtakUzKFoifGjCInZBw/edit",
       "source_status": "index_only",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1a3O41j3Ard1TigyXbQRaHC0ukf4-ailddmaqTCahhr4",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1a3O41j3Ard1TigyXbQRaHC0ukf4-ailddmaqTCahhr4/edit"
     },
     {
       "route": "content/community-iftar-srilanka",
@@ -243,7 +275,9 @@
       "source_document_id": "14730cZdmnLBJTFzpwJ49p8E2W-NQxSgM",
       "source_document_url": "https://docs.google.com/document/d/14730cZdmnLBJTFzpwJ49p8E2W-NQxSgM/edit",
       "source_status": "index_only",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1fe6LP5c2SDpTbN0cjmAp3n9Rl-HHeExe58OAifV48Nw",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1fe6LP5c2SDpTbN0cjmAp3n9Rl-HHeExe58OAifV48Nw/edit"
     },
     {
       "route": "content/community-orphans",
@@ -258,7 +292,9 @@
       "source_document_id": "1msZ5MvMvishl1IoajYBqGIUJDKVVSNbJ",
       "source_document_url": "https://docs.google.com/document/d/1msZ5MvMvishl1IoajYBqGIUJDKVVSNbJ/edit",
       "source_status": "index_only",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1yZvgkP6lF5ydQvQnQQHAUj-aX89atCxHr1wW7miQYfM",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1yZvgkP6lF5ydQvQnQQHAUj-aX89atCxHr1wW7miQYfM/edit"
     },
     {
       "route": "about/mosques",
@@ -273,7 +309,9 @@
       "source_document_id": "1RMUW-m2VQFVwzn6zk6Cz_W7whunuCy5u",
       "source_document_url": "https://docs.google.com/document/d/1RMUW-m2VQFVwzn6zk6Cz_W7whunuCy5u/edit",
       "source_status": "index_only",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1_9IfAO0ViuD-De8Tf21h-asLv243m8Jdo3XQeknJVPQ",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1_9IfAO0ViuD-De8Tf21h-asLv243m8Jdo3XQeknJVPQ/edit"
     },
     {
       "route": "about/quran-circles",
@@ -288,7 +326,9 @@
       "source_document_id": "1iJgPIoOypeJRkyDsyw5Ri4KIyqbai_J0",
       "source_document_url": "https://docs.google.com/document/d/1iJgPIoOypeJRkyDsyw5Ri4KIyqbai_J0/edit",
       "source_status": "index_only",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1572otdfZxxv_tjS_4Gb3tT8W0WzOHahM6RlOvMyq8VY",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1572otdfZxxv_tjS_4Gb3tT8W0WzOHahM6RlOvMyq8VY/edit"
     },
     {
       "route": "about/source-archive",
@@ -310,7 +350,9 @@
         "content/method",
         "content/volunteer",
         "content/bio"
-      ]
+      ],
+      "drive_folder_index_doc_id": "1rTu9WFAS7fobWF8ZyZLlOItZmXRphwNZnqn3xPR1WZU",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1rTu9WFAS7fobWF8ZyZLlOItZmXRphwNZnqn3xPR1WZU/edit"
     },
     {
       "route": "content/founder",
@@ -325,7 +367,9 @@
       "source_document_id": "1yYinlhMEHgLVtiXjlG8uwmy9UBXcGJ8o",
       "source_document_url": "https://docs.google.com/document/d/1yYinlhMEHgLVtiXjlG8uwmy9UBXcGJ8o/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1VB0e4BsTY9GuaLPWnsZx1MzF7Grjdh7cFNPjH1tRX0o",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1VB0e4BsTY9GuaLPWnsZx1MzF7Grjdh7cFNPjH1tRX0o/edit"
     },
     {
       "route": "content/entities",
@@ -340,7 +384,9 @@
       "source_document_id": "1e2TAB3WV_uIjMBBNqusj1NkjIZISCqNS",
       "source_document_url": "https://docs.google.com/document/d/1e2TAB3WV_uIjMBBNqusj1NkjIZISCqNS/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1TETHhgh91GzJpU4tIRHUMiONk4hPbAREYx2fg3wgKa8",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1TETHhgh91GzJpU4tIRHUMiONk4hPbAREYx2fg3wgKa8/edit"
     },
     {
       "route": "content/philosophy",
@@ -355,7 +401,9 @@
       "source_document_id": "1XcE_jZ1vw8gSYkCH-CWswrWPtV-FNHlC",
       "source_document_url": "https://docs.google.com/document/d/1XcE_jZ1vw8gSYkCH-CWswrWPtV-FNHlC/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1hTD8FB-xkBWyCBkDF1k612xR4XKBe-EywYGgxX7ael0",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1hTD8FB-xkBWyCBkDF1k612xR4XKBe-EywYGgxX7ael0/edit"
     },
     {
       "route": "content/method",
@@ -370,7 +418,9 @@
       "source_document_id": "17Y6ffcaK5x_GwsMnEe6G9527aBzNJzsK",
       "source_document_url": "https://docs.google.com/document/d/17Y6ffcaK5x_GwsMnEe6G9527aBzNJzsK/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1JaIvjklrJ8Lslvb_kDOF8R22k5LIqBb4y1wkXZxUV3I",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1JaIvjklrJ8Lslvb_kDOF8R22k5LIqBb4y1wkXZxUV3I/edit"
     },
     {
       "route": "content/volunteer",
@@ -385,7 +435,9 @@
       "source_document_id": "1El61H7CRDyYb1q4BMvk2xjV_8aVUq61P",
       "source_document_url": "https://docs.google.com/document/d/1El61H7CRDyYb1q4BMvk2xjV_8aVUq61P/edit",
       "source_status": "index_only",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1xElVioHYEw9WcO5pTCplRsdHhnpxG1b5v3HZAJHuAMo",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1xElVioHYEw9WcO5pTCplRsdHhnpxG1b5v3HZAJHuAMo/edit"
     },
     {
       "route": "content/bio",
@@ -400,7 +452,9 @@
       "source_document_id": "1M36nULAOOGkb7m3OV3Frmao_dJvi1V4W",
       "source_document_url": "https://docs.google.com/document/d/1M36nULAOOGkb7m3OV3Frmao_dJvi1V4W/edit",
       "source_status": "draft",
-      "children": []
+      "children": [],
+      "drive_folder_index_doc_id": "1-rY9XQ5EN3K2uuIsaCpp_MAL9VsiRFtwazqRnDlmc0c",
+      "drive_folder_index_doc_url": "https://docs.google.com/document/d/1-rY9XQ5EN3K2uuIsaCpp_MAL9VsiRFtwazqRnDlmc0c/edit"
     }
   ],
   "published_happiness_source": "dist/data/happiness-stories-v1.json",
@@ -425,5 +479,9 @@
     "happiness-not-for-sale": "https://drive.google.com/drive/folders/1JTGn0DMXQM0zEypKgIwyG9avHFYS5tNY",
     "world-is-not-paradise": "https://drive.google.com/drive/folders/1TJtoT0AeqC--rV9cGaZLw14ZgguSpMrJ",
     "sixty-is-not-a-waiting-room": "https://drive.google.com/drive/folders/1NGCiSe9PX4KW5HsLZe4ELOajjPtVPxPA"
-  }
+  },
+  "canonical_drive_index_doc_id": "1TgnBGFR_IkT14F0vnXHcW072xEynD1yjKkvNKsw8gvA",
+  "canonical_drive_index_doc_url": "https://docs.google.com/document/d/1TgnBGFR_IkT14F0vnXHcW072xEynD1yjKkvNKsw8gvA/edit",
+  "editorial_archive_policy": "The selected Google Drive root is the single canonical source for editable About Me content and approved archives. GitHub contains only the released static site mirror.",
+  "drive_archive_structure_status": "owner-approved, folders and linked documents read-back verified 2026-11-13"
 }

@@ -117,7 +117,13 @@
       "archive_folder_url": "https://drive.google.com/drive/folders/1TJtoT0AeqC--rV9cGaZLw14ZgguSpMrJ",
       "approved_zip_file_id": "1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN",
       "approved_zip_url": "https://drive.google.com/file/d/1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN/view",
-      "editorial_archive_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn"
+      "editorial_archive_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn",
+      "approved_drive_folder_id": "1TJtoT0AeqC--rV9cGaZLw14ZgguSpMrJ",
+      "approved_ar_article_drive_doc_id": "1AGxQD0VmBU8ss3luS4_Rov4ZmUkJnTSWTyAguhrD_mc",
+      "approved_en_article_drive_doc_id": "1lFAoUZMp7b3K7t5Yj4TGi7pjz2anK5l3WRBEVPfw0vY",
+      "approved_drive_links_doc_id": "1SEGzG9ICWObIdYLAG_9JEeevqyvmscIWaT62uTCPecE",
+      "approved_drive_poster_doc_id": "1lpHQnVkr0ZrggDd1VvxuhArl5CyR7X7u9aNIYkvT9U0",
+      "approved_drive_archive_zip_id": "1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN"
     },
     {
       "slug": "happiness-not-for-sale",
@@ -244,7 +250,15 @@
       "archive_folder_url": "https://drive.google.com/drive/folders/1JTGn0DMXQM0zEypKgIwyG9avHFYS5tNY",
       "approved_zip_file_id": "1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l",
       "approved_zip_url": "https://drive.google.com/file/d/1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l/view",
-      "editorial_archive_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn"
+      "editorial_archive_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn",
+      "approved_drive_folder_id": "1JTGn0DMXQM0zEypKgIwyG9avHFYS5tNY",
+      "approved_ar_article_drive_doc_id": "1E3o4mczkCQrjTmmCvqCVqYnv90iAUR04q9tKl9-eRBk",
+      "approved_en_article_drive_doc_id": "1dfIXmajNfZvHoHsPw4ybd2XdmPGK_-rhAvwLNPsWMb4",
+      "approved_drive_links_doc_id": "1xTqBzHGTE_K8diVCa_kpLUkv7-s2UrenNRirbELrQ4s",
+      "approved_drive_poster_doc_id": "1IbsiD3XaQmVXP9zoCSBSqLu-Us6lJvsYGjiMOiSk_qc",
+      "approved_drive_archive_zip_id": "1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l"
     }
-  ]
+  ],
+  "canonical_drive_about_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn",
+  "canonical_drive_index_doc_id": "1TgnBGFR_IkT14F0vnXHcW072xEynD1yjKkvNKsw8gvA"
 }
