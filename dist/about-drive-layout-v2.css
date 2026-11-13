@@ -1,4 +1,4 @@
-/* KARIM SAAB — About Me Drive-first presentation, V1.0; scoped to section only */
+/* KARIM SAAB — About Me Drive-first presentation, V2.0; scoped to section only */
 .ks-about-main{min-height:68vh;background:linear-gradient(145deg,#0b2034 0%,#123149 62%,#092037 100%);color:#fff;padding:clamp(30px,4vw,62px) 0 clamp(58px,7vw,95px)}
 .ks-about-main a:focus-visible,.ks-about-main button:focus-visible{outline:3px solid #f5ce85;outline-offset:4px}
 .ks-about-main .ks-ab-container{width:min(1130px,calc(100% - 36px));margin-inline:auto}

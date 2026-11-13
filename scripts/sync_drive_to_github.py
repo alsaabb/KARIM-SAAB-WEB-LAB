@@ -87,6 +87,38 @@ def safe_target(name: str) -> Path:
         or (len(path.parts) >= 4 and path.parts[1] == "share" and path.parts[3].startswith("after-sixty-"))):
         raise ValueError("After Sixty assets require the separate review workflow")
 
+    # Owner-approved production V2 is authoritative. The six-hour Drive importer
+    # may append OTHER approved files, but must never replay an old index, overwrite
+    # live navigation/articles/SEO, or reintroduce retired About/Happiness copies.
+    # Changes to these paths require a tested, owner-reviewed GitHub pull request.
+    locked_site_paths = {
+        "dist/index.html", "dist/sitemap.xml",
+        "dist/data/about-master-v2.json", "dist/data/happiness-stories-v1.json",
+        "dist/about-drive-source-v2.js", "dist/about-drive-layout-v2.js",
+        "dist/about-drive-layout-v2.css", "dist/shared-shell-v2.js",
+        "dist/shared-shell-v2.css", "dist/happiness-stories-v1.js",
+        "dist/happiness-stories-v1.css",
+        "dist/about-unified-shell-happiness-hub-v2.js",
+        "dist/about-unified-shell-happiness-hub-v2.css",
+        "dist/bilingual-share-v1.js", "dist/bilingual-share-v1.css",
+        # Retired copies must never reappear after being removed from dist.
+        "dist/about-drive-source-v1.js", "dist/about-drive-layout-v1.js",
+        "dist/about-drive-layout-v1.css", "dist/shared-shell-preview.js",
+        "dist/shared-shell-preview.css",
+        "dist/ks-happiness-branch-v10-preview.js",
+        "dist/ks-happiness-branch-v10-preview.css",
+        "dist/karim-video-articles-v1.js", "dist/karim-video-articles-v1.css",
+        "dist/karim-video-articles-source-v1.js"
+    }
+    if path.as_posix() in locked_site_paths:
+        raise ValueError("Owner-approved live site asset is PR-only, not Drive auto-sync")
+    if len(path.parts) >= 4 and path.parts[1] == "share" and (
+        path.parts[3].startswith("happiness-")
+        or path.parts[3].startswith("about-happiness")):
+        raise ValueError("Happiness social previews are PR-only")
+    if len(path.parts) >= 4 and path.parts[1:3] == ("assets", "happiness"):
+        raise ValueError("Approved poster assets are PR-only")
+
     if path.suffix.lower() not in ALLOWED_EXTENSIONS:
         raise ValueError("Unsupported extension for approved site file")
     dest = ROOT.joinpath(*path.parts)

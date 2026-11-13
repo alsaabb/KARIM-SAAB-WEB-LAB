@@ -1,4 +1,4 @@
-/* KARIM SAAB shared navigation/footer proposal. Preview branch only. */
+/* KARIM SAAB shared global header and footer, current active production module. */
 (function(){
 'use strict';
 const groups=[

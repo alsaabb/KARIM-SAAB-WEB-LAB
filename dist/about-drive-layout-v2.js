@@ -1,7 +1,7 @@
-/* KARIM SAAB — Drive-first About Me presentation V1.0.
-   Source is a verified, versioned Google Drive manifest (Drive ID 1O1zOs0R9Y7GlhVAoAuVFXbJQbOfRcKtG).
-   This static JS runs from a matching export; it does NOT read private Drive files live.
-   Never treat an index-only entry as a completed article or expose restricted Drive content.
+/* KARIM SAAB — About Me editorial presentation V2.0.
+   GitHub main/dist/data/about-master-v2.json is the current published index.
+   Historical original Google Drive documents remain intact as source archives.
+   Never present draft or index-only entries as approved long-form articles.
 */
 (function(){
 'use strict';
@@ -10,7 +10,7 @@ if(!master || !Array.isArray(master.items))return;
 const byRoute=Object.create(null);
 master.items.forEach(x=>{byRoute[x.route]=x;});
 const rootFolder=master.canonical_drive_folder_url;
-const versionLink='https://drive.google.com/file/d/1O1zOs0R9Y7GlhVAoAuVFXbJQbOfRcKtG/view?usp=drivesdk';
+const versionLink='https://github.com/alsaabb/KARIM-SAAB-WEB-LAB/blob/main/dist/data/about-master-v2.json';
 const isAr=()=>state.lang!=='en';
 const L=(ar,en)=>isAr()?ar:en;
 const h=(x)=>esc(String(x||''));
@@ -19,7 +19,7 @@ const teaser=x=>h(isAr()?x.excerpt_ar:x.excerpt_en);
 const local=(route)=>path(route);
 function titleByRoute(r){const x=byRoute[r];return x?label(x):h(L('من أنا','About Me'));}
 function status(x){
- const statuses={verified_media:['فيديو موثق','Archived video'],verified_article:['مقال مؤرشف','Archived article'],draft:['محتوى تمهيدي','Introductory content'],index_only:['عنوان أرشيفي','Index-only entry']};
+ const statuses={verified_media:['فيديو موثق','Archived video'],verified_article:['مقال معتمد','Approved article'],draft:['محتوى تمهيدي','Introductory content'],index_only:['عنوان أرشيفي','Index-only entry']};
  const t=statuses[x.source_status]||statuses.draft;
  return '<span class="ks-ab-status">'+h(L(t[0],t[1]))+'</span>';
 }
@@ -36,13 +36,13 @@ function docsPanel(x){
  if(x.source_folder_url)rows.push(cta(x.source_folder_url,L('مجلد هذا القسم في Google Drive','This section’s Google Drive folder'),true));
  return '<div class="ks-ab-actions">'+rows.join('')+'</div><p class="ks-ab-caption">'+h(L('قد يتطلب فتح الملفات الأصلية صلاحية وصول. لا يغيّر الموقع أذونات Google Drive.','Opening source files may require permission. The website does not change Google Drive access settings.'))+'</p>';
 }
-function provenance(){return '<aside class="ks-ab-provenance">'+h(L('المصدر الرئيسي للمحتوى: مجلد «من أنا» في Google Drive. المعروض هنا نسخة نشر ثابتة من الفهرس المعتمد، وليس مزامنة مباشرة من الملفات الخاصة.','Primary editorial source: the About Me folder on Google Drive. This is a published static snapshot of the verified manifest, not live synchronization with private Drive files.'))+' '+ '<a href="'+h(versionLink)+'" target="_blank" rel="noopener noreferrer">'+h(L('الفهرس المرجعي V1.0','Master manifest V1.0'))+'</a></aside>';}
+function provenance(){return '<aside class="ks-ab-provenance">'+h(L('المرجع المعتمد حاليًا: الإصدار V2 المنشور في موقع KARIM SAAB. ملفات Google Drive الأصلية محفوظة للأرشفة، وليست فهرسًا يتحكم بالموقع المنشور.','Current authority: the published KARIM SAAB V2 editorial index. Original Google Drive materials remain archival sources, not a competing live index.'))+' '+ '<a href="'+h(versionLink)+'" target="_blank" rel="noopener noreferrer">'+h(L('الفهرس المعتمد V2','Approved index V2'))+'</a></aside>';}
 function tile(x){
  const desc=teaser(x);
  return '<a class="ks-ab-tile" href="'+h(local(x.route))+'"><span class="ks-ab-badgeicon" aria-hidden="true">'+h(x.icon)+'</span><span class="ks-ab-tilecopy"><strong>'+label(x)+'</strong><span class="ks-ab-desc">'+desc+'</span>'+status(x)+'</span><span class="ks-ab-arrow" aria-hidden="true">↗</span></a>';
 }
 function pageWrapper(title,desc,trail,content,icon){
- return '<main class="ks-about-main" dir="'+L('rtl','ltr')+'"><div class="ks-ab-container">'+bread(trail)+'<div class="ks-ab-kicker">KARIM SAAB / ABOUT ME · GOOGLE DRIVE ARCHIVE</div><h1>'+h(title)+'</h1>'+(desc?'<p class="ks-ab-subtitle">'+h(desc)+'</p>':'')+content+provenance()+'</div></main>';
+ return '<main class="ks-about-main" dir="'+L('rtl','ltr')+'"><div class="ks-ab-container">'+bread(trail)+'<div class="ks-ab-kicker">KARIM SAAB / ABOUT ME · APPROVED SITE RELEASE</div><h1>'+h(title)+'</h1>'+(desc?'<p class="ks-ab-subtitle">'+h(desc)+'</p>':'')+content+provenance()+'</div></main>';
 }
 function aboutHome(){
  const primary=master.main_navigation.map(r=>byRoute[r]).filter(Boolean);

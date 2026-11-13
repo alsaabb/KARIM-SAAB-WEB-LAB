@@ -1,4 +1,4 @@
-/* Shared header/footer preview: fixed identity, contextual section, accessible mobile */
+/* Shared active header/footer V2: fixed identity, contextual section, accessible mobile */
 .ks-shared-header{position:sticky;top:0;z-index:1100;background:#08141d;box-shadow:0 2px 16px #0005}
 .ks-shared-header .ks-section-strip{padding:5px 16px;text-align:center;font-size:12px;letter-spacing:.04em;background:#132431;color:#e2b66e;border-top:1px solid #35414b}
 .ks-shared-header[data-section="products"] .ks-section-strip{background:#1d2830}
