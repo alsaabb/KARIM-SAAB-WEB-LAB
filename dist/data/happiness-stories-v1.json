@@ -112,7 +112,12 @@
           "name": "Qur'an 51:56",
           "url": "https://quran.com/ar/51:56"
         }
-      ]
+      ],
+      "archive_folder_id": "1TJtoT0AeqC--rV9cGaZLw14ZgguSpMrJ",
+      "archive_folder_url": "https://drive.google.com/drive/folders/1TJtoT0AeqC--rV9cGaZLw14ZgguSpMrJ",
+      "approved_zip_file_id": "1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN",
+      "approved_zip_url": "https://drive.google.com/file/d/1UBzUmoI5SWGe82voQ1-bm-88gtU0fDhN/view",
+      "editorial_archive_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn"
     },
     {
       "slug": "happiness-not-for-sale",
@@ -234,7 +239,12 @@
           ]
         }
       ],
-      "sources": []
+      "sources": [],
+      "archive_folder_id": "1JTGn0DMXQM0zEypKgIwyG9avHFYS5tNY",
+      "archive_folder_url": "https://drive.google.com/drive/folders/1JTGn0DMXQM0zEypKgIwyG9avHFYS5tNY",
+      "approved_zip_file_id": "1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l",
+      "approved_zip_url": "https://drive.google.com/file/d/1nXR5ESpvMwlR5g-nccU6fYmEydCm2T6l/view",
+      "editorial_archive_root_id": "1sa2tExEXORyGtXUqRKJLko_SsOU61RVn"
     }
   ]
 }

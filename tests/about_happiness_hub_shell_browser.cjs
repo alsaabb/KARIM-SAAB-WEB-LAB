@@ -47,7 +47,8 @@ async function go(page,lang,r){
           cardPosters:cards.map(x=>x.querySelector('.ks-hub-poster').getAttribute('href')),
           cardRead:cards.map(x=>x.querySelector('.ks-hub-read').getAttribute('href')),
           videoShareLinks:cards.map(x=>x.querySelector('.ks-hub-share a:first-child').getAttribute('href')),
-          articleShareLinks:cards.map(x=>x.querySelector('.ks-hub-share a:last-child').getAttribute('href')),
+          articleShareLinks:cards.map(x=>x.querySelector('.ks-hub-share a:nth-child(2)').getAttribute('href')),
+          archiveLinks:cards.map(x=>x.querySelector('.ks-hub-share a:nth-child(3)').getAttribute('href')),
           ctaText:cards.map(x=>x.querySelector('.ks-hub-cta').textContent.trim()),
           panelCount:document.querySelectorAll('#app > header.site-header .ks-about-section-nav').length,
           footerCount:document.querySelectorAll('#app > footer.footer .ks-about-footer-nav').length,
@@ -81,6 +82,10 @@ async function go(page,lang,r){
       assert.ok(result.socialX.includes('https://x.com/karim_saab'));
       result.videoShareLinks.forEach((x,i)=>assert.equal(x,'share/'+lang+'/happiness-'+hrefSlugs[i]+'-video.html'));
       result.articleShareLinks.forEach((x,i)=>assert.equal(x,'share/'+lang+'/happiness-'+hrefSlugs[i]+'-article.html'));
+      assert.deepEqual(result.archiveLinks,[
+        'https://drive.google.com/drive/folders/1JTGn0DMXQM0zEypKgIwyG9avHFYS5tNY',
+        'https://drive.google.com/drive/folders/1TJtoT0AeqC--rV9cGaZLw14ZgguSpMrJ'
+      ]);
       if(width!==980) await page.screenshot({path:'review-screenshots/about-v2/happiness-home-'+lang+'-'+width+'.png',fullPage:true,animations:'disabled'});
       // Clicking article route must preserve video and article V9 layouts.
       await page.locator('.ks-hub-read').first().click();

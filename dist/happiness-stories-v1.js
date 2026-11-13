@@ -70,7 +70,8 @@
         '<aside class="ks-happ-video-pane" id="ks-happiness-video-pane" aria-label="'+tr('فيديو القصة','Story video')+'">'+
          '<div class="ks-happ-player" id="ks-happ-player" data-orientation="vertical">'+poster(story)+'</div>'+
          '<p class="ks-happ-watch-link"><a href="'+external+'" target="_blank" rel="noopener noreferrer">'+tr('شاهده على YouTube','Watch on YouTube')+'</a>'+
-          ' <span aria-hidden="true"> · </span> <a href="'+drive+'" rel="noopener noreferrer" target="_blank">'+tr('الفيديو السابق في Google Drive','Previous Google Drive archive')+'</a></p>'+
+          ' <span aria-hidden="true"> · </span> <a href="'+drive+'" rel="noopener noreferrer" target="_blank">'+tr('الفيديو الأصلي في Google Drive','Original video in Google Drive')+'</a>'+
+          ' <span aria-hidden="true"> · </span> <a href="'+story.archive_folder_url+'" rel="noopener noreferrer" target="_blank">'+tr('مجلد القصة المعتمد','Approved story folder')+'</a></p>'+
         '</aside>'+
         article(story)+
        '</div>'+
