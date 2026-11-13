@@ -20,7 +20,7 @@
 .ks-wb .ks-wb-play:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0003 0%,transparent 32%,transparent 66%,#0009 100%);pointer-events:none;z-index:1;}
 .ks-wb .ks-wb-gold-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;display:grid;place-items:center;background:rgba(193,150,80,.95);border:2px solid #e9c888;color:#181818;font-size:27px;border-radius:50%;z-index:2;box-shadow:0 4px 22px #0008;transition:transform .2s ease;}
 .ks-wb .ks-wb-play:hover .ks-wb-gold-play,.ks-wb .ks-wb-play:focus-visible .ks-wb-gold-play{transform:translate(-50%,-50%) scale(1.08);}
-.ks-wb .ks-wb-play-label{position:absolute;bottom:15px;inset-inline:0;color:#fff;text-shadow:0 2px 12px #000;font-weight:600;z-index:2;}
+.ks-wb .ks-wb-play-label{position:absolute;bottom:16px;left:50%;inset-inline:auto;transform:translateX(-50%);max-width:calc(100% - 28px);width:max-content;white-space:normal;text-align:center;color:#f3d998;background:rgba(15,15,15,.84);border:1px solid #a98548;border-radius:20px;padding:7px 16px;text-shadow:0 1px 5px #000;font-weight:750;font-size:.92rem;line-height:1.45;z-index:3;}
 .ks-wb .ks-wb-video-surface iframe{border:0;width:100%;height:100%;display:block;}
 .ks-wb .ks-wb-video-links{text-align:center;display:flex;flex-direction:column;gap:11px;margin:20px auto 0;font-size:.9rem;line-height:1.7;}
 .ks-wb .ks-wb-video-links a{color:#edce90;}
@@ -64,3 +64,26 @@
 
 /* If the thumbnail server is blocked, the existing editorial fallback still fills the portrait player. */
 .ks-wb .ks-wb-play.ks-wb-no-thumb:before{background-image:radial-gradient(circle at 70% 55%,#675338 0%,#22241c 52%,#0b0c0b 100%);filter:none;inset:0;transform:none;}
+
+/* Master V1.1: the full-width owner-authorized 9:16 poster is the primary cover
+   once the public optimized copy is explicitly installed and approved. */
+.ks-wb .ks-wb-play.ks-wb-owner-portrait img{
+  object-fit:cover; /* Already 9:16: no artificial black letterboxing or meaningful cropping */
+}
+.ks-wb .ks-wb-play.ks-wb-owner-portrait:before{
+  display:none;
+}
+.ks-wb .ks-wb-play.ks-wb-owner-portrait:after{
+  background:linear-gradient(180deg,transparent 68%,rgba(0,0,0,.56) 100%);
+}
+.ks-wb .ks-wb-play img{pointer-events:none;}
+/* The list card uses the SAME approved source without cropping a vertical poster into 16:9. */
+.ks-wb-card .ks-wb-card-poster.ks-wb-owner-card:before{
+  content:"";position:absolute;inset:-8%;background-image:var(--wb-poster-image);
+  background-size:cover;background-position:center;filter:blur(16px) brightness(.5);
+  transform:scale(1.08);pointer-events:none;
+}
+.ks-wb-card .ks-wb-card-poster.ks-wb-owner-card img{position:relative;z-index:1;object-fit:contain;}
+@media (prefers-reduced-motion:reduce){
+  .ks-wb .ks-wb-play-label{transition:none;}
+}
