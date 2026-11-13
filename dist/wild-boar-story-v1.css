@@ -47,3 +47,12 @@
  .ks-wb .ks-wb-head h1{font-size:clamp(1.55rem,6vw,2.1rem);}
 }
 @media (prefers-reduced-motion:reduce){.ks-wb .ks-wb-gold-play{transition:none;}}
+
+/* If remote YouTube thumbnails fail, keep a readable editorial background rather than a broken-image icon. */
+.ks-wb .ks-wb-play.ks-wb-no-thumb{background:radial-gradient(circle at 70% 55%,#4f422e 0%,#1c201b 48%,#090a0a 95%);}
+.ks-wb .ks-wb-fallback-copy{display:none;}
+.ks-wb .ks-wb-no-thumb .ks-wb-fallback-copy{display:block;position:absolute;top:18%;inset-inline:12%;font-size:clamp(1.15rem,2vw,1.8rem);font-weight:800;line-height:1.7;text-align:center;z-index:2;color:#f6e1b7;text-shadow:0 3px 14px #0009;}
+.ks-wb-card .ks-wb-card-poster{position:relative;}
+.ks-wb-card .ks-wb-card-fallback{display:none;}
+.ks-wb-card .ks-wb-card-poster.ks-wb-no-thumb{background:linear-gradient(130deg,#1b211e,#565039 50%,#1c1d18);display:flex;align-items:center;justify-content:center;}
+.ks-wb-card .ks-wb-no-thumb .ks-wb-card-fallback{display:block;color:#e8c58d;text-align:center;font-size:1.15rem;line-height:1.6;font-weight:750;padding:1.2rem;}
