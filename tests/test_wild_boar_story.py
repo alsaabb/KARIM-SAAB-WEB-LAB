@@ -29,6 +29,14 @@ class WildBoarStoryTest(unittest.TestCase):
             self.assertGreater(public.stat().st_size,1000)
         self.assertIn("stories-road/card",d["poster_shared_for"])
         self.assertIn("bilingual-share-og-image",d["poster_shared_for"])
+        # A future approved poster must also be the social preview for BOTH languages.
+        if d["poster_status"]=="approved_and_published":
+            public=BASE+"/"+d["poster_asset"]
+            for lang in ("ar","en"):
+                share=(ROOT/"dist/share"/lang/"story-wild-boar-greece.html").read_text(encoding="utf-8")
+                self.assertIn('property="og:image" content="'+public+'"',share)
+                self.assertIn('name="twitter:image" content="'+public+'"',share)
+
 
     def test_original_sources_and_video_id(self):
         d=self.data
