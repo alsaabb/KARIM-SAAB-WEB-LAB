@@ -1,10 +1,11 @@
 const {chromium}=require('playwright');
 const fs=require('fs');
+const chrome=['/usr/bin/google-chrome','/usr/bin/chromium','/usr/bin/chromium-browser'].find(fs.existsSync);
 const BASE='http://127.0.0.1:8765/dist/index.html';
 const OUT='visual-review/wild-boar';
 (async()=>{
   fs.mkdirSync(OUT,{recursive:true});
-  const browser=await chromium.launch({headless:true});
+  const browser=await chromium.launch({headless:true,...(chrome?{executablePath:chrome}:{}),args:['--no-sandbox','--disable-dev-shm-usage']});
   async function testStory(lang,width,height,screenshot){
     const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
     const errors=[];
