@@ -37,6 +37,8 @@ jobs:
           node --check dist/shared-shell-v2.js
           node --check dist/about-unified-shell-happiness-hub-v2.js
           node --check dist/bilingual-share-v1.js
+          node --check dist/wild-boar-story-v1.js
+          python3 -m unittest discover -s tests -p 'test_wild_boar_story.py' -v
           python3 -m unittest discover -s tests -p 'test_bilingual_sharing.py' -v
 
       - name: Test share controls in representative live-route DOM fixtures
@@ -49,3 +51,11 @@ jobs:
           npm install --no-save --no-package-lock playwright@1.56.1
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ks60-preview-http.log 2>&1 &
           node tests/after_sixty_poster_browser.cjs
+          node tests/wild_boar_story_browser.cjs
+      - name: Store wild boar mobile review screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_WILD_BOAR_MOBILE_PREVIEW
+          path: visual-review/wild-boar/
+          if-no-files-found: error
+          retention-days: 14
