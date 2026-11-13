@@ -102,6 +102,13 @@ const OUT='visual-review/wild-boar';
        Math.abs(poster.ratio-9/16)>.04||poster.buttonCount!==0)
       throw Error('Owner poster preferred incorrectly: '+JSON.stringify(poster));
     await owner.screenshot({path:OUT+'/ar-mobile-future-owner-poster.png',fullPage:false});
+    await owner.goto(BASE+'#/ar/stories-road',{waitUntil:'domcontentloaded'});
+    await owner.locator('[data-wb-card-poster]').waitFor({timeout:15000});
+    await owner.waitForFunction(()=>document.querySelector('[data-wb-card-poster]')?.dataset.wbActiveSource==='owner-approved-poster');
+    const cardPoster=await owner.locator('[data-wb-card-poster]').getAttribute('src');
+    if(cardPoster!=='assets/stories/wild-boar-greece/poster.webp')
+      throw Error('Story card must use the SAME approved owner poster: '+cardPoster);
+    await owner.screenshot({path:OUT+'/ar-story-card-future-owner-poster.png',fullPage:false});
     await owner.close();
 
     await testStory('ar',1440,900,'ar-desktop.png');
