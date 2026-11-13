@@ -1,0 +1,78 @@
+name: Verify sole canonical About Me Drive folder
+on:
+  push:
+    branches:
+      - feature/one-canonical-about-drive-root-20261113
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-canonical-about:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate the approved canonical root and exact route inventory
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_site.py
+          python3 -m unittest discover -s tests -p 'test_approved_sections_v11.py' -v
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          from urllib.parse import urlparse
+          root='1sa2tExEXORyGtXUqRKJLko_SsOU61RVn'
+          m=json.loads(Path('dist/data/about-master-v2.json').read_text())
+          assert m['canonical_drive_folder_id']==root
+          assert m['canonical_drive_folder_url']=='https://drive.google.com/drive/folders/'+root
+          assert len(m['items'])==23
+          folder_ids=[r['source_folder_id'] for r in m['items']]
+          assert len(set(folder_ids))==23,'Each link must have its own folder'
+          assert all(r['source_folder_url']=='https://drive.google.com/drive/folders/'+r['source_folder_id'] for r in m['items'])
+          assert all(r['source_document_id'] is None or r['source_document_url'].endswith('/'+r['source_document_id']+'/edit') for r in m['items'])
+          v={r['route']:r for r in m['items']}
+          assert v['about/happiness']['source_folder_id']=='1gAhnxv9197ImdeCH_R9-dwaq0Xsdf887'
+          assert v['about/happiness/video/happiness-not-for-sale']['source_folder_id']=='1JTGn0DMXQM0zEypKgIwyG9avHFYS5tNY'
+          assert v['about/happiness/video/world-is-not-paradise']['source_folder_id']=='1TJtoT0AeqC--rV9cGaZLw14ZgguSpMrJ'
+          assert v['about/after-sixty']['source_folder_id']=='1keq0Jhny7MNY75ryYaingqp8quPzEkEC'
+          stories=json.loads(Path('dist/data/happiness-stories-v1.json').read_text())['entries']
+          for s in stories:
+            assert s['archive_folder_id']==v[s['route']]['source_folder_id']
+            assert s['editorial_archive_root_id']==root
+            assert s['approved_zip_file_id']
+            assert len(s['sections'])>=5
+          sixty=json.loads(Path('dist/data/after-sixty.json').read_text())
+          assert sixty['canonical_drive_about_root_id']==root
+          assert sixty['episodes'][0]['approved_archive_folder_id']=='1NGCiSe9PX4KW5HsLZe4ELOajjPtVPxPA'
+          from_js=Path('dist/about-drive-source-v2.js').read_text()
+          assert '"canonical_drive_folder_id":"'+root+'"' in from_js
+          assert 'approved story folder' in Path('dist/happiness-stories-v1.js').read_text().lower()
+          for x in ['index.html','about-drive-layout-v2.js','happiness-stories-v1.js']:
+            assert Path('dist/'+x).exists()
+          print('PASS canonical Drive root, 23 unique page folders, two stories, After Sixty')
+          PY
+          node --check dist/about-drive-source-v2.js
+          node --check dist/about-drive-layout-v2.js
+          node --check dist/about-unified-shell-happiness-hub-v2.js
+          node --check dist/happiness-stories-v1.js
+          git diff --check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test both languages, all About routes, and original V9 video articles
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ks-canonical-root-preview.log 2>&1 &
+          node tests/about_happiness_hub_shell_browser.cjs
+          node tests/happiness_stories_browser.cjs
+      - name: Save previews for audit, never auto-publish
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_ABOUT_SINGLE_CANONICAL_DRIVE_ROOT_V2
+          path: review-screenshots/about-v2/
+          if-no-files-found: warn
+          retention-days: 14
