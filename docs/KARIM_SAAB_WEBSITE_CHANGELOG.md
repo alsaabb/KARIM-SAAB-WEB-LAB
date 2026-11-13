@@ -1,6 +1,6 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
-## 2026-11-13 — Unified site-wide media protocol, V1.0 (REVIEW)
+## 2026-11-13 — Unified site-wide media protocol, V1.0 (APPROVED AND RELEASED)
 
 - Starting point: public GitHub repository main at SHA 7a72f5e1f297230cc67d8c33a6a0219f4d42b336.
 - Source reference: historical KARIM_SAAB_WEBSITE_MASTER_REFERENCE_2026-10-30.docx (not overwritten).
@@ -15,10 +15,10 @@
   45 local public assets; 3 structured video IDs. No missing scanned local assets.
   The repository validation will now check registry freshness on subsequent PR/main runs.
 - Verification: https://github.com/alsaabb/KARIM-SAAB-WEB-LAB/actions/runs/43405870494
-- Pending: owner review, confirmation of the generated route/media registry, and optional
-  explicit request to archive a new version of the master DOCX in a selected Drive folder.
-- **No main merge, Pages deployment, Drive upload or public permission changes authorized
-  by this review-stage implementation.**
+- **Approved and merged:** GitHub PR #31, release commit `316ca69c395e9e9be9596a19194faf6cecac3ea1`.
+- **GitHub Actions confirmed successful:** site validation run 43407360142; GitHub Pages deployment run 43407360255; Pages build run 43407360192.
+- No changes to rendered site files or original media. Public URL browser reachability and real-video playback have not been independently confirmed by this audit.
+- **Not archived separately in Google Drive:** optional master DOCX archival requires separate owner consent and choice of actual folder. No Drive file was uploaded or sharing permission changed by this release.
 
 ## Verified previous historical milestones
 
