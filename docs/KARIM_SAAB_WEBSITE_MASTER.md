@@ -1,13 +1,13 @@
 # KARIM SAAB — WEBSITE MASTER | الماستر التشغيلي للموقع
 
-**Master version:** 1.1 — owner-directed poster & continuous registry policy, 2026-11-13 (APPROVED AND RELEASED; owner poster file pending)  
+**Master version:** 1.1.1 — owner-designated Greece story poster integration, 2026-11-13 (REVIEW; V1.1 released)  
 **Scope:** ALL current and future pages, images, videos, stories, articles, documents and product galleries.  
 **Owner:** عبدالكريم بن إبراهيم الصعب — KARIM SAAB  
 **Repository:** https://github.com/alsaabb/KARIM-SAAB-WEB-LAB  
 **Production:** https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html  
 **Release branch:** main  
 **Status of V1.0:** owner-approved and merged into `main` through PR #31 on 2026-11-13; release commit `316ca69c395e9e9be9596a19194faf6cecac3ea1`. GitHub Pages deployment and site validation succeeded. Real-device page and media playback remain independently unverified.
-**Status of V1.1:** user-directed poster-first and auto-registry policy approved and merged through PR #35 as `588e572bb1195e7da9a07b36bf613d188abefd79`; site validation 43447296310, Pages deployment 43447296266 and Pages build 43447295838 all passed. The *new owner-designated poster* has not yet been uploaded or assigned; YouTube art remains the fallback. This release did not change any Google Drive file, sharing permission or archive.
+**Status of V1.1:** user-directed poster-first and auto-registry policy approved and merged through PR #35 as `588e572bb1195e7da9a07b36bf613d188abefd79`; site validation 43447296310, Pages deployment 43447296266 and Pages build 43447295838 all passed. That V1.1 release did not assign the later owner poster. The V1.1.1 review now includes the owner-designated WebP asset and shares its URL; no Google Drive file, sharing permission or archive is changed.
 
 > This is the operational master alongside — not a deletion or replacement of — the historical
 > `KARIM_SAAB_WEBSITE_MASTER_REFERENCE_2026-10-30.docx`. That historical source cites a
@@ -114,9 +114,11 @@ are generated automatically in the inventory report rather than hand-maintained.
 مُعرّف الفيديو: `SVdg9IxoS4k`.
 بيانات القصة الحالية: `dist/data/stories-road-v1.json`.
 الحقول `poster_source`, `poster_status`, `poster_asset` تحدد أولوية الغلاف.
-**البوستر الجديد الذي وعد به المالك لم يُعيَّن بعد**: إلى أن يرد الملف المسمى/المحدد ويُتحقق من محتواه وموافقته، اترك `poster_asset: null` و`poster_status: awaiting_owner_poster`.
-لا تستبدل ذلك بالصورة القديمة ذات الاسم الآلي التي قد تكون في المجلد دون اختيار المالك.
-عند وصول صورة معتمدة، خزّن نسخة الويب ضمن `dist/assets/stories/wild-boar-greece/` وغيّر الحالة إلى `approved_and_published` فقط مع اكتمال ملفات العرض والمراجعة.
+**تحديث 2026-11-13 — تم تعيين البوستر عبر رابط المجلد الذي قدمه المالك:** يوجد ملف PNG واحد في مجلد القصة المحدد باسم `file_000000000f2481f4bf36a757cba0373b.png`، أبعاده `941×1672`، وهو بوستر تحريري مركب عمودي (وليس تصويرًا فوتوغرافيًا مثبتًا لمواجهة حيوان أثناء الحدث). طابقنا أصله قبل المعالجة باستخدام SHA-256 `8013a6d7ed2ceb2408ce4e08f03888565f6d03c3eefcae72f3545d56ca70f6b5`.
+- أصل PNG باقٍ في Google Drive دون تغيير أو تعديل صلاحيات.
+- نسخة الويب المحسنة `dist/assets/stories/wild-boar-greece/poster.webp` بدقة `941×1672` وبحجم `402000` بايت، وهي المرجع نفسه لواجهة الفيديو وبطاقة القائمة ومعاينات المشاركة العربية والإنجليزية.
+- `poster_asset: assets/stories/wild-boar-greece/poster.webp`؛ تُفعل واجهة الموقع `poster_status: approved_and_published` بعد دمج ونشر الإصدار. قبل الدمج، تبقى هذه البيانات في فرع مراجعة فقط.
+- صورة YouTube الافتراضية تبقى احتياطية عند تعذر تحميل الصورة المعتمدة. لا يُمس أي نص أو فيديو أو صور Drive أصلية.
 
 ### آلية الماستر المتجدد باستمرار
 
