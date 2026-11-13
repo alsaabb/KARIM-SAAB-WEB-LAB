@@ -22,11 +22,18 @@ class WildBoarStoryTest(unittest.TestCase):
         else:
             import re
             path=d["poster_asset"]
-            self.assertRegex(path,r"^assets/stories/wild-boar-greece/[A-Za-z0-9._-]+\\.(webp|png|jpg|jpeg|avif)$")
+            self.assertRegex(path,r"^assets/stories/wild-boar-greece/[A-Za-z0-9._-]+\.(webp|png|jpg|jpeg|avif)$")
             public=(ROOT/"dist"/path).resolve()
             self.assertTrue(public.is_relative_to((ROOT/"dist/assets/stories/wild-boar-greece").resolve()))
             self.assertTrue(public.is_file())
             self.assertGreater(public.stat().st_size,1000)
+            self.assertLess(public.stat().st_size,800000,"Owner poster should be mobile-optimized")
+            self.assertEqual(public.suffix,".webp")
+            self.assertEqual(public.read_bytes()[:4],b"RIFF")
+            self.assertEqual(public.read_bytes()[8:12],b"WEBP")
+            self.assertEqual(d["poster_web_dimensions"],{"width":941,"height":1672})
+            self.assertEqual(d["poster_web_file_bytes"],public.stat().st_size)
+            self.assertEqual(d["poster_kind"],"owner_designated_composite_editorial_poster_not_a_documentary_photo")
         self.assertIn("stories-road/card",d["poster_shared_for"])
         self.assertIn("bilingual-share-og-image",d["poster_shared_for"])
         # A future approved poster must also be the social preview for BOTH languages.
