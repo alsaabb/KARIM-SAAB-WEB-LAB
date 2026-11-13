@@ -17,6 +17,11 @@ jobs:
       - name: Check sitemap and bilingual links
         run: python3 scripts/verify_site.py
 
+      - name: Keep site-wide master page and media registries current
+        run: |
+          python3 scripts/build_site_master_registry.py --check
+          python3 -m unittest discover -s tests -p 'test_site_master_registry.py' -v
+
       - name: V1.1 products and video article source checks
         run: python3 -m unittest discover -s tests -p 'test_approved_sections_v11.py' -v
 
