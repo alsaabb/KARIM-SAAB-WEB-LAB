@@ -107,7 +107,8 @@
      '<h3>'+sub+'</h3>'+
      '<p>'+excerpt+'</p>'+
      '<a class="ks-hub-read" href="'+page+'?focus=article">'+tr('شاهد الفيديو واقرأ المقال','Watch the video & read the article')+' <span aria-hidden="true">↗</span></a>'+
-     '<div class="ks-hub-share"><a href="'+videoShare+'">'+tr('مشاركة الفيديو','Share video')+'</a><a href="'+articleShare+'">'+tr('مشاركة المقال','Share article')+'</a></div>'+
+     '<div class="ks-hub-share"><a href="'+videoShare+'">'+tr('مشاركة الفيديو','Share video')+'</a><a href="'+articleShare+'">'+tr('مشاركة المقال','Share article')+'</a>'+
+     '<a href="'+escH(story.archive_folder_url)+'" target="_blank" rel="noopener noreferrer">'+tr('مجلد القصة','Story folder')+'</a></div>'+
     '</div></article>';
  }
  function home(stories){
