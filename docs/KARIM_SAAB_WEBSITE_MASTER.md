@@ -54,6 +54,21 @@ dynamic JS/CSS image references and media rights need separate review.
 Each addition or change must update the generator/sources as appropriate,
 regenerate inventory, and pass check. Never hand-edit generated inventory files.
 
+### Reproducible baseline audit — 2026-11-13
+
+The generator completed successfully on the review branch with these verified
+repository counts (not live browser confirmation):
+- **218** distinct discovered hash routes;
+- **424** static Arabic/English share pages including noindex/alias pages;
+- **418** sitemap URLs;
+- **80** content library entries; **23** About master records;
+- **45** local public image/video assets;
+- **3** YouTube IDs in structured After Sixty/Happiness episode metadata;
+- **0** missing local public asset files in the share/library reference scan.
+
+These figures may grow as pages are added, and the exact current numbers
+are generated automatically in the inventory report rather than hand-maintained.
+
 ## 3. Generalized content intake (every URL)
 
 ### Determine destination before any mutation
