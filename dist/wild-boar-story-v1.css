@@ -56,3 +56,5 @@
 .ks-wb-card .ks-wb-card-fallback{display:none;}
 .ks-wb-card .ks-wb-card-poster.ks-wb-no-thumb{background:linear-gradient(130deg,#1b211e,#565039 50%,#1c1d18);display:flex;align-items:center;justify-content:center;}
 .ks-wb-card .ks-wb-no-thumb .ks-wb-card-fallback{display:block;color:#e8c58d;text-align:center;font-size:1.15rem;line-height:1.6;font-weight:750;padding:1.2rem;}
+
+.ks-wb [data-wb-poster][hidden],.ks-wb-card [data-wb-card-poster][hidden]{display:none!important;}
