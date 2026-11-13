@@ -1,6 +1,6 @@
 {
   "basis": "repository media presence and structured JSON URLs only",
-  "local_asset_count": 45,
+  "local_asset_count": 46,
   "media": [
     {
       "media_id": "local:assets/about-approved.png",
@@ -636,6 +636,18 @@
       "source_status": "file_present",
       "type": "image",
       "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/stories/wild-boar-greece/poster.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/wild-boar-greece/poster.webp",
+      "repository_path": "dist/assets/stories/wild-boar-greece/poster.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "stories-road",
+        "story/wild-boar-greece"
+      ]
     },
     {
       "drive_public_fallback_verified": false,
