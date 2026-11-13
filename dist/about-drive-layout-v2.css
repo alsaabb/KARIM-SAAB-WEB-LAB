@@ -1,0 +1,58 @@
+/* KARIM SAAB — About Me Drive-first presentation, V2.0; scoped to section only */
+.ks-about-main{min-height:68vh;background:linear-gradient(145deg,#0b2034 0%,#123149 62%,#092037 100%);color:#fff;padding:clamp(30px,4vw,62px) 0 clamp(58px,7vw,95px)}
+.ks-about-main a:focus-visible,.ks-about-main button:focus-visible{outline:3px solid #f5ce85;outline-offset:4px}
+.ks-about-main .ks-ab-container{width:min(1130px,calc(100% - 36px));margin-inline:auto}
+.ks-about-main .ks-ab-breadcrumb{display:flex;gap:8px;flex-wrap:wrap;align-items:center;color:#e9cc9b;font-size:13px;margin-bottom:27px}
+.ks-about-main .ks-ab-breadcrumb a{text-decoration:underline;text-underline-offset:4px;color:#e9cc9b}
+.ks-about-main .ks-ab-breadcrumb span{opacity:.68}
+.ks-about-main .ks-ab-kicker{font:700 12px/1.4 Arial,sans-serif;letter-spacing:.17em;color:#d9b573;margin-bottom:13px}
+.ks-about-main h1{font-size:clamp(29px,5vw,49px);line-height:1.35;color:#fff;margin:0 0 12px}
+.ks-about-main .ks-ab-subtitle{line-height:1.9;font-size:clamp(15px,2vw,18px);color:#e5edf4;max-width:810px;margin:0 0 30px}
+.ks-about-main .ks-ab-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:20px;align-items:start}
+.ks-about-main .ks-ab-panel{background:#fff;color:#26384d;border:1px solid #dac7a9;border-radius:20px;box-shadow:0 12px 36px #05142442;overflow:hidden}
+.ks-about-main .ks-ab-art{width:100%;aspect-ratio:1.55;display:flex;align-items:center;justify-content:center;isolation:isolate;position:relative;overflow:hidden;background:radial-gradient(circle at 72% 23%,#d4b57c55,#203b54 32%,#0e2439 75%)}
+.ks-about-main .ks-ab-art:before{content:"";width:205px;height:205px;border:1px solid #e5c48d66;border-radius:50%;position:absolute;box-shadow:0 0 0 34px #e5c48d0a,0 0 0 68px #e5c48d08}
+.ks-about-main .ks-ab-art:after{content:"";position:absolute;bottom:-22%;width:120%;height:43%;border-top:1px solid #edcc8558;background:linear-gradient(#d4ae6933,transparent);transform:rotate(-6deg)}
+.ks-about-main .ks-ab-art-symbol{font:750 clamp(73px,11vw,130px)/1 Arial,sans-serif;letter-spacing:-.07em;color:#f4d8a2;filter:drop-shadow(0 5px 25px #ffcc6755);z-index:1}
+.ks-about-main .ks-ab-art[data-kind="video"]{background:linear-gradient(140deg,#0d273e,#263f54 52%,#a87f53)}
+.ks-about-main .ks-ab-art[data-kind="video"] .ks-ab-art-symbol{font-size:clamp(90px,12vw,125px)}
+.ks-about-main .ks-ab-panel-body{padding:clamp(18px,3vw,27px)}
+.ks-about-main .ks-ab-panel h2{font-size:clamp(20px,3vw,27px);line-height:1.55;color:#1b3246;margin:0 0 10px}
+.ks-about-main .ks-ab-panel p,.ks-about-main .ks-ab-panel li{font-size:15px;line-height:2;color:#43566b}
+.ks-about-main .ks-ab-panel p{margin-bottom:13px}
+.ks-about-main .ks-ab-panel .ks-ab-small{font-size:12px;color:#637588}
+.ks-about-main .ks-ab-contents{background:linear-gradient(150deg,#fffdf7,#f3e8d7)}
+.ks-about-main .ks-ab-contents ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:9px}
+.ks-about-main .ks-ab-contents li{border-bottom:1px solid #dfd1bb;padding:6px 0}
+.ks-about-main .ks-ab-contents li:last-child{border-bottom:0}
+.ks-about-main .ks-ab-contents a{color:#18334a;text-decoration:underline;text-decoration-color:#c6a66b;text-underline-offset:5px;font-weight:650}
+.ks-about-main .ks-ab-contents .ks-ab-list-icon{color:#977240;margin-inline-end:8px}
+.ks-about-main .ks-ab-section-title{font-size:clamp(22px,3.5vw,30px);margin:38px 0 18px;color:#f9f0df}
+.ks-about-main .ks-ab-tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:14px 0 22px}
+.ks-about-main .ks-ab-tile{display:flex;gap:14px;align-items:start;padding:21px;border:1px solid #dbc7a4;background:#fff;color:#1b3549;border-radius:16px;transition:transform .18s,box-shadow .18s;text-decoration:none}
+.ks-about-main .ks-ab-tile:hover{transform:translateY(-3px);box-shadow:0 16px 26px #06182c55}
+.ks-about-main .ks-ab-tile .ks-ab-badgeicon{min-width:49px;height:49px;border-radius:12px;display:grid;place-items:center;background:#f7edda;color:#82643d;font-size:24px}
+.ks-about-main .ks-ab-tile .ks-ab-tilecopy{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.ks-about-main .ks-ab-tile strong{font-size:18px;line-height:1.55}
+.ks-about-main .ks-ab-tile span.ks-ab-desc{font-size:13px;color:#576979;line-height:1.8;font-weight:400}
+.ks-about-main .ks-ab-tile .ks-ab-arrow{color:#886a42;font-size:24px;align-self:center}
+.ks-about-main .ks-ab-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:24px 0 0}
+.ks-about-main .ks-ab-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 20px;background:linear-gradient(115deg,#e5b971,#f7e6c9);color:#162c41;border:1px solid #edcf97;border-radius:40px;text-decoration:none;font-weight:750;font-size:14px;line-height:1.6}
+.ks-about-main .ks-ab-link.secondary{background:#173a54;color:#e9cb99;border-color:#bc9964}
+.ks-about-main .ks-ab-link:hover{filter:brightness(1.08)}
+.ks-about-main .ks-ab-caption{font-size:12px!important;line-height:1.9!important;color:#bfcfda!important;margin-top:16px}
+.ks-about-main .ks-ab-provenance{border-inline-start:3px solid #e5c48b;background:#1b3950;border-radius:10px;padding:13px 17px;margin:25px 0;color:#f1dec1;font-size:12px;line-height:1.9}
+.ks-about-main .ks-ab-provenance a{color:#fff;text-decoration:underline}
+.ks-about-main .ks-ab-video-frame{width:100%;aspect-ratio:16/9;background:#061d2f}
+.ks-about-main .ks-ab-video-frame iframe{width:100%;height:100%;border:0}
+.ks-about-main .ks-ab-quote{padding:18px 22px;background:#fff8e9;border-inline-start:4px solid #b18b58;border-radius:11px;color:#34485a;line-height:2;font-size:17px}
+.ks-about-main .ks-ab-status{display:inline-flex;border-radius:30px;padding:3px 10px;background:#f3ebde;color:#795f3c;font-size:11px;font-weight:700}
+.ks-about-main .ks-ab-reading{max-width:920px;margin:0 auto}
+.ks-about-main .ks-ab-reading .ks-ab-panel{padding:clamp(21px,4vw,42px)}
+.ks-about-main .ks-ab-reading h1{font-size:clamp(27px,4.2vw,41px)}
+.ks-about-main .ks-ab-reading .ks-ab-quote{margin:25px 0}
+.ks-about-main .ks-ab-reading p{font-size:17px;line-height:2}
+.ks-about-main .ks-ab-rootcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:25px}
+.ks-about-main[dir="ltr"] .ks-ab-art-symbol{letter-spacing:0}
+@media(max-width:760px){.ks-about-main .ks-ab-grid,.ks-about-main .ks-ab-tiles,.ks-about-main .ks-ab-rootcards{grid-template-columns:1fr}.ks-about-main .ks-ab-art{aspect-ratio:1.55}.ks-about-main .ks-ab-tiles{margin-top:14px}.ks-about-main .ks-ab-tile{padding:17px}.ks-about-main .ks-ab-panel-body{padding:19px}.ks-about-main .ks-ab-art-symbol{font-size:90px}}
+@media(prefers-reduced-motion:reduce){.ks-about-main .ks-ab-tile{transition:none}}
