@@ -11,6 +11,10 @@
 - New master documents the standardized image/video/article intake, independent
   authorization for publication and Drive archive, privacy rules, and resumption procedure.
 - New test and review-only GitHub workflow keep registers reproducible.
+- **Actual completed inventory:** 218 distinct routes; 424 share HTML files; 418 sitemap URLs;
+  45 local public assets; 3 structured video IDs. No missing scanned local assets.
+  The repository validation will now check registry freshness on subsequent PR/main runs.
+- Verification: https://github.com/alsaabb/KARIM-SAAB-WEB-LAB/actions/runs/43405870494
 - Pending: owner review, confirmation of the generated route/media registry, and optional
   explicit request to archive a new version of the master DOCX in a selected Drive folder.
 - **No main merge, Pages deployment, Drive upload or public permission changes authorized
