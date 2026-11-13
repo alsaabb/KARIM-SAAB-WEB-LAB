@@ -1,12 +1,13 @@
 # KARIM SAAB — WEBSITE MASTER | الماستر التشغيلي للموقع
 
-**Master version:** 1.1 — owner-directed poster & continuous registry policy, 2026-11-13 (review; V1.0 remains live)  
+**Master version:** 1.1 — owner-directed poster & continuous registry policy, 2026-11-13 (APPROVED AND RELEASED; owner poster file pending)  
 **Scope:** ALL current and future pages, images, videos, stories, articles, documents and product galleries.  
 **Owner:** عبدالكريم بن إبراهيم الصعب — KARIM SAAB  
 **Repository:** https://github.com/alsaabb/KARIM-SAAB-WEB-LAB  
 **Production:** https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html  
 **Release branch:** main  
 **Status of V1.0:** owner-approved and merged into `main` through PR #31 on 2026-11-13; release commit `316ca69c395e9e9be9596a19194faf6cecac3ea1`. GitHub Pages deployment and site validation succeeded. Real-device page and media playback remain independently unverified.
+**Status of V1.1:** user-directed poster-first and auto-registry policy approved and merged through PR #35 as `588e572bb1195e7da9a07b36bf613d188abefd79`; site validation 43447296310, Pages deployment 43447296266 and Pages build 43447295838 all passed. The *new owner-designated poster* has not yet been uploaded or assigned; YouTube art remains the fallback. This release did not change any Google Drive file, sharing permission or archive.
 
 > This is the operational master alongside — not a deletion or replacement of — the historical
 > `KARIM_SAAB_WEBSITE_MASTER_REFERENCE_2026-10-30.docx`. That historical source cites a
