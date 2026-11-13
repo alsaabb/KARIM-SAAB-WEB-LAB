@@ -8,7 +8,7 @@
   "youtube_url": "https://youtube.com/shorts/SVdg9IxoS4k",
   "video_orientation": "vertical",
   "drive_video_fallback_verified": false,
-  "poster": "Owner-designated poster from the same approved Google Drive story folder is the primary source. Until an approved optimized public copy is installed, the YouTube thumbnail is fallback only.",
+  "poster": "Owner-designated vertical editorial poster from approved Google Drive story folder; optimized WebP copy is hosted publicly on GitHub Pages. Keep original private/source permissions unchanged. YouTube thumbnail remains fallback if poster fails.",
   "langs": {
     "ar": {
       "title": "مواجهة في الظلام… الخنزير البري في غابات اليونان المحروقة!",
@@ -248,12 +248,21 @@
     }
   },
   "poster_source": "owner_designated_poster_in_same_story_folder",
-  "poster_status": "awaiting_owner_poster",
-  "poster_asset": null,
+  "poster_status": "approved_and_published",
+  "poster_asset": "assets/stories/wild-boar-greece/poster.webp",
   "poster_shared_for": [
     "story/video-poster",
     "stories-road/card",
     "bilingual-share-og-image"
   ],
-  "poster_approval_policy": "Only set poster_status=approved_and_published and poster_asset=assets/... after explicit source selection, file/dimensions/rights verification and installing an optimized public copy in dist/assets; never embed a private Drive preview link in the public site."
+  "poster_approval_policy": "Only set poster_status=approved_and_published and poster_asset=assets/... after explicit source selection, file/dimensions/rights verification and installing an optimized public copy in dist/assets; never embed a private Drive preview link in the public site.",
+  "poster_original_filename": "file_000000000f2481f4bf36a757cba0373b.png",
+  "poster_source_verification": "Single PNG image in owner-provided story folder inspected on 2026-11-13; owner directed use of poster from this folder. Original remains unchanged in Drive.",
+  "poster_original_sha256": "8013a6d7ed2ceb2408ce4e08f03888565f6d03c3eefcae72f3545d56ca70f6b5",
+  "poster_web_dimensions": {
+    "width": 941,
+    "height": 1672
+  },
+  "poster_web_file_bytes": 402000,
+  "poster_kind": "owner_designated_composite_editorial_poster_not_a_documentary_photo"
 }
