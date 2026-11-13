@@ -6,7 +6,7 @@
 **Repository:** https://github.com/alsaabb/KARIM-SAAB-WEB-LAB  
 **Production:** https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html  
 **Release branch:** main  
-**Status of THIS revision:** staged on a REVIEW branch. Not merged/deployed until the owner approves.
+**Status of V1.0:** owner-approved and merged into `main` through PR #31 on 2026-11-13; release commit `316ca69c395e9e9be9596a19194faf6cecac3ea1`. GitHub Pages deployment and site validation succeeded. Real-device page and media playback remain independently unverified.
 
 > This is the operational master alongside — not a deletion or replacement of — the historical
 > `KARIM_SAAB_WEBSITE_MASTER_REFERENCE_2026-10-30.docx`. That historical source cites a
