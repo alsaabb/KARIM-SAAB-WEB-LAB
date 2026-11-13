@@ -21,8 +21,11 @@
   structured metadata and sitemap. No existing share URL deleted.
 - **Master inventory:** auto-generated Page Registry and Media Registry record the new route
   and `youtube:SVdg9IxoS4k` without leaking original Google Drive IDs.
-- **Publishing consent:** owner explicitly requested uploading this article/video to the
-  KARIM SAAB website. Release/deployment SHA and live playback must be verified separately.
+- **Publishing consent and release:** owner explicitly requested public publication.
+  GitHub PR #33 merged as commit `4c9da45dcef9722ee77dc85a9ea9c5baca25fad4`.
+  Site validation passed (Actions 43433583023), and both GitHub Pages deployment
+  and Pages build succeeded (Actions 43433583026 and 43433582054).
+  Independent third-party browser streaming of the YouTube video remains unverified.
 - **Drive archive:** this GitHub site publication is *not* a new archival upload.
   Owner's separate Google Drive archive selection is still required for any new ZIP/DOCX.
 - **Rollback:** revert the story feature merge commit; do not delete approved originals.
