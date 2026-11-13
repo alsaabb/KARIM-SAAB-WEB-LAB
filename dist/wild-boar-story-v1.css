@@ -1,0 +1,49 @@
+/* KARIM SAAB / Stories from the Road — owner-approved Wild Boar story V1.
+   Scoped styles; no global header/footer modifications. */
+.ks-wb{--wb-ink:#21211f;--wb-gold:#c49c56;--wb-cream:#f9f8f6;background:#f4f1eb;color:var(--wb-ink);min-height:65vh;overflow-x:clip;}
+.ks-wb .ks-wb-shell{width:min(1320px,calc(100% - 48px));margin-inline:auto;padding:40px 0 64px;}
+.ks-wb .ks-wb-crumb{display:flex;gap:9px;align-items:center;font-size:.9rem;color:#625a4e;margin-bottom:24px;flex-wrap:wrap;}
+.ks-wb .ks-wb-crumb a,.ks-wb .ks-wb-back a,.ks-wb .ks-wb-video-links a,.ks-wb .ks-wb-source-link a{color:#946d2d;text-decoration:underline;text-underline-offset:4px;}
+.ks-wb .ks-wb-head{padding-bottom:30px;}
+.ks-wb .ks-wb-kicker{color:#946d2d;font-size:.8rem;letter-spacing:.19em;font-weight:700;}
+.ks-wb .ks-wb-head h1{max-width:990px;margin:13px 0;font-size:clamp(1.8rem,3.2vw,2.8rem);line-height:1.45;color:#23211d;}
+.ks-wb .ks-wb-head p{font-size:1rem;color:#605b52;}
+.ks-wb .ks-wb-layout{display:grid;grid-template-columns:minmax(280px,2fr) minmax(0,3fr);align-items:start;border:1px solid #e0d8cb;border-radius:16px;overflow:clip;min-height:500px;background:var(--wb-cream);}
+.ks-wb .ks-wb-video-pane{background:#181818;color:#e9e0d1;min-height:100%;padding:26px 20px;}
+.ks-wb .ks-wb-sticky{position:sticky;top:90px;max-width:480px;margin-inline:auto;}
+.ks-wb .ks-wb-video-surface{width:100%;max-width:380px;aspect-ratio:9/16;margin-inline:auto;background:#050505;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 18px 42px #0005;}
+.ks-wb .ks-wb-play{position:relative;display:block;width:100%;height:100%;border:0;padding:0;cursor:pointer;background:#090909;overflow:hidden;color:#fff;}
+.ks-wb .ks-wb-play img{width:100%;height:100%;object-fit:contain;display:block;position:relative;z-index:1;background:#0b0a0a;}
+.ks-wb .ks-wb-play:before{content:"";inset:0;position:absolute;background:radial-gradient(#46351b 0%,#090909 75%);}
+.ks-wb .ks-wb-gold-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;display:grid;place-items:center;background:rgba(193,150,80,.95);border:2px solid #e9c888;color:#181818;font-size:27px;border-radius:50%;z-index:2;box-shadow:0 4px 22px #0008;transition:transform .2s ease;}
+.ks-wb .ks-wb-play:hover .ks-wb-gold-play,.ks-wb .ks-wb-play:focus-visible .ks-wb-gold-play{transform:translate(-50%,-50%) scale(1.08);}
+.ks-wb .ks-wb-play-label{position:absolute;bottom:15px;inset-inline:0;color:#fff;text-shadow:0 2px 12px #000;font-weight:600;z-index:2;}
+.ks-wb .ks-wb-video-surface iframe{border:0;width:100%;height:100%;display:block;}
+.ks-wb .ks-wb-video-links{text-align:center;display:flex;flex-direction:column;gap:11px;margin:20px auto 0;font-size:.9rem;line-height:1.7;}
+.ks-wb .ks-wb-video-links a{color:#edce90;}
+.ks-wb .ks-wb-video-links span{opacity:.75;font-size:.81rem;}
+.ks-wb .ks-wb-article{background:var(--wb-cream);padding:clamp(22px,3.5vw,54px);line-height:2.05;min-width:0;font-size:1.03rem;}
+.ks-wb .ks-wb-article-label{font-size:.8rem;letter-spacing:.18em;color:#ad8140;font-weight:700;margin-bottom:24px;}
+.ks-wb .ks-wb-article h2{color:#3b3022;font-size:clamp(1.18rem,2vw,1.52rem);margin:31px 0 13px;line-height:1.65;}
+.ks-wb .ks-wb-article p{color:#27251f;line-height:2.05;margin:0 0 16px;white-space:normal;}
+.ks-wb .ks-wb-article .ks-wb-source-link{margin-top:32px;padding:18px 0;border-top:1px solid #ddd3c6;}
+.ks-wb .ks-wb-hashtags{display:flex;gap:8px;flex-wrap:wrap;font-size:.78rem;line-height:1.4;padding-top:20px;}
+.ks-wb .ks-wb-hashtags span{padding:6px 10px;border:1px solid #e1d2b8;border-radius:20px;background:#f2eade;color:#77552a;}
+.ks-wb .ks-wb-back{padding-top:26px;}
+.ks-wb .ks-share-wrap,.ks-wb .ks-end-links{background:transparent;}
+.ks-wb-failure{padding:48px 22px;text-align:center;}
+.ks-card-grid .ks-wb-card{overflow:hidden;border:1px solid #decdb2;background:#fdfaf5;}
+.ks-wb-card .ks-wb-card-poster{width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:8px;margin-bottom:16px;background:#171717;}
+.ks-wb-card .ks-wb-card-poster img{width:100%;height:100%;object-fit:cover;}
+.ks-wb-card .ks-wb-card-cta{display:block;margin-top:12px;font-size:.92rem;color:#99712f;font-weight:700;}
+@media (max-width:840px){
+ .ks-wb .ks-wb-shell{width:min(100% - 28px,660px);padding:22px 0 40px;}
+ .ks-wb .ks-wb-layout{display:flex;flex-direction:column;}
+ .ks-wb .ks-wb-video-pane{width:100%;padding:20px 14px 24px;min-height:auto;}
+ .ks-wb .ks-wb-sticky{position:static;}
+ .ks-wb .ks-wb-video-surface{width:min(100%,340px);}
+ .ks-wb .ks-wb-article{width:100%;padding:24px 18px;}
+ .ks-wb .ks-wb-head{padding-bottom:18px;}
+ .ks-wb .ks-wb-head h1{font-size:clamp(1.55rem,6vw,2.1rem);}
+}
+@media (prefers-reduced-motion:reduce){.ks-wb .ks-wb-gold-play{transition:none;}}
