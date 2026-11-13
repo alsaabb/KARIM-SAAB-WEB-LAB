@@ -1,6 +1,6 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
-## 2026-11-13 — Poster-first master V1.1 + Greek wild boar mobile cover (REVIEW ONLY)
+## 2026-11-13 — Poster-first master V1.1 + Greek wild boar mobile cover (APPROVED AND RELEASED)
 
 - **Observed:** owner screenshots of Arabic/English story showed a horizontal YouTube
   thumbnail centered inside the correct 9:16 portrait surface, leaving large black bars.
@@ -27,9 +27,14 @@
 - **Master rule V1.1:** this poster-first approach applies to ALL future site URLs.
   Master and automated registry review now describe owner poster approval and safe,
   ongoing source-to-GitHub index synchronization on review branches.
-- **Review:** GitHub draft PR #35 `fix/wild-boar-mobile-poster-20261113`;
-  owner review and publication approval are still required. No original article/video
-  copy changed; no Google Drive item modified or publicly shared.
+- **Owner approval and release:** GitHub PR #35 merged into `main` at commit
+  `588e572bb1195e7da9a07b36bf613d188abefd79`. Website validation
+  Actions #43447296310, Pages deploy #43447296266 and Pages build #43447295838
+  succeeded. This updates the player layout, master V1.1 and automatic review-branch
+  registries; it DOES NOT publish the not-yet-designated owner poster.
+- **Live-site limit:** third-party mobile browser/player playback not independently verified.
+- **Google Drive archive:** not copied as V1.1 yet; request separate archive consent
+  and destination, and preserve previous V1.0 Word copy and all original files.
 - **Test requirements:** browser verifies horizontal thumbnail loads, blurred backdrop
   fills portrait frame, 9:16 aspect is preserved, both languages render, existing
   fallback and complete articles survive. Live YouTube playback remains independently
