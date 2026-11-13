@@ -1,0 +1,87 @@
+name: Verify retirement of legacy About files (no publication)
+on:
+  push:
+    branches:
+      - maintenance/retire-old-about-manifests-20261113
+
+permissions:
+  contents: read
+
+jobs:
+  about-v2-retirement:
+    runs-on: ubuntu-latest
+    timeout-minutes: 23
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check master, old-file removals, and sync protections
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_site.py
+          python3 -m unittest discover -s tests -p 'test_approved_sections_v11.py' -v
+          python3 -m unittest discover -s tests -p 'test_bilingual_sharing.py' -v
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          app=Path('dist/index.html').read_text(encoding='utf-8')
+          assert 'KARIM_ABOUT_SOURCE_MASTER_V2.0_2026-11-13' in app
+          obsolete=['about-drive-source-v1.js','about-drive-layout-v1.js','about-drive-layout-v1.css',
+             'ks-happiness-branch-v10-preview.js','ks-happiness-branch-v10-preview.css',
+             'karim-video-articles-v1.js','karim-video-articles-v1.css',
+             'karim-video-articles-source-v1.js','shared-shell-preview.js','shared-shell-preview.css']
+          for name in obsolete:
+              assert name not in app
+              assert not (Path('dist')/name).exists(),name
+          source=json.loads(Path('dist/data/about-master-v2.json').read_text(encoding='utf-8'))
+          assert source['schema_version']=='2.0'
+          assert len(source['items'])>=20
+          assert len([x for x in source['items'] if x.get('article_language_status')=='approved_ar_en'])==2
+          for lang in ('ar','en'):
+              for slug in ('happiness-not-for-sale','world-is-not-paradise'):
+                  approved=Path('dist/share')/lang/('happiness-'+slug+'-article.html')
+                  old=Path('dist/share')/lang/('about-happiness-video-'+slug+'.html')
+                  assert approved.exists()
+                  assert old.exists()
+                  assert 'noindex,follow' in old.read_text(encoding='utf-8')
+          print('PASS: Only approved V2 About + Happiness runtime is referenced')
+          PY
+          python3 - <<'PY'
+          import sys,os
+          sys.path.insert(0,os.path.abspath('scripts'))
+          from sync_drive_to_github import safe_target
+          for path in ('dist/index.html','dist/about-drive-source-v1.js','dist/ks-happiness-branch-v10-preview.js',
+                       'dist/karim-video-articles-v1.js','dist/data/happiness-stories-v1.json','dist/data/about-master-v2.json',
+                       'dist/share/ar/happiness-happiness-not-for-sale-video.html'):
+              try:safe_target(path)
+              except ValueError:pass
+              else:raise RuntimeError('Unsafe Drive sync would overwrite or reintroduce: '+path)
+          print('PASS: legacy V1 and approved site V2 cannot be auto-overwritten from Drive')
+          PY
+          node --check dist/about-drive-source-v2.js
+          node --check dist/about-drive-layout-v2.js
+          node --check dist/shared-shell-v2.js
+          node --check dist/happiness-stories-v1.js
+          node --check dist/about-unified-shell-happiness-hub-v2.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium and jsdom
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1 jsdom@26
+          npx playwright install --with-deps chromium
+      - name: Check site share buttons and all About pages in both languages
+        run: |
+          node --test tests/share_dom.test.cjs
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/about-cleanup-http.log 2>&1 &
+          node tests/about_happiness_hub_shell_browser.cjs
+          node tests/happiness_stories_browser.cjs
+          node tests/after_sixty_poster_browser.cjs
+      - name: Save screenshot proofs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_SAAB_AUTHORITATIVE_V2_CLEANUP_VERIFIED
+          path: |
+            review-screenshots/about-v2
+            review-screenshots/happiness-bilingual
+          if-no-files-found: warn
+          retention-days: 14
