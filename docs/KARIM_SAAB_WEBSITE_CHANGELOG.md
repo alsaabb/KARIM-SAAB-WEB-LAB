@@ -1,5 +1,33 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+## 2026-11-13 — «مواجهة في الظلام… الخنزير البري في اليونان» (source-approved publishing request)
+
+- **Author-approved sources:** the existing Arabic and English Google Docs in the
+  Google Drive `🔴 03 - مغامراتي / 🟢 02 - حكايات من الطريق / 01 - مواجهة في الظلام - الخنزير البري في اليونان`
+  project folder (source document names: "01 - مواجهة في الظلام — المقال العربي (معتمد)"
+  and "02 - Encounter in the Dark — English Article (Approved)").
+- **Video:** owner-document confirmed YouTube Shorts ID `SVdg9IxoS4k`,
+  https://www.youtube.com/shorts/SVdg9IxoS4k — portrait 9:16.
+- **Browser routes:** `#/ar/story/wild-boar-greece` and `#/en/story/wild-boar-greece`;
+  story appears in both languages' `stories-road` index.
+- **Article source in website:** `dist/data/stories-road-v1.json`, with the original full
+  Arabic and English approved paragraphs and hashtags, not AI rewrites.
+- **Public video UI:** YouTube embed activated only by click, direct YouTube fallback;
+  YouTube thumbnail with an editorial fallback design where thumbnail servers are blocked.
+- **Original owner poster:** remains untouched in the selected Drive folder. It is not
+  embedded via an unverified public Drive URL and should not be described as a
+  documentary photograph of the incident.
+- **Share/SEO:** bilingual static `dist/share/{ar,en}/story-wild-boar-greece.html` pages,
+  structured metadata and sitemap. No existing share URL deleted.
+- **Master inventory:** auto-generated Page Registry and Media Registry record the new route
+  and `youtube:SVdg9IxoS4k` without leaking original Google Drive IDs.
+- **Publishing consent:** owner explicitly requested uploading this article/video to the
+  KARIM SAAB website. Release/deployment SHA and live playback must be verified separately.
+- **Drive archive:** this GitHub site publication is *not* a new archival upload.
+  Owner's separate Google Drive archive selection is still required for any new ZIP/DOCX.
+- **Rollback:** revert the story feature merge commit; do not delete approved originals.
+
+
 ## 2026-11-13 — Unified site-wide media protocol, V1.0 (APPROVED AND RELEASED)
 
 - Starting point: public GitHub repository main at SHA 7a72f5e1f297230cc67d8c33a6a0219f4d42b336.
