@@ -142,6 +142,21 @@ def build(root):
         video_record(ep.get("youtube_id"),"about/after-sixty/"+ep["slug"],
                     "dist/data/after-sixty.json",ep.get("drive_video_file_id"),
                     ep.get("drive_fallback_verified") is True)
+    # Every approved Stories from the Road article is inventoried without exposing
+    # private original Google Docs/Drive file IDs in the public repository.
+    road_path=dist/"data/stories-road-v1.json"
+    if road_path.exists():
+        road=json.loads(road_path.read_text(encoding="utf-8"))
+        route=road.get("route","story/"+road["slug"])
+        src="dist/data/stories-road-v1.json"
+        video_record(road.get("youtube_id"),route,src)
+        for linked in (route,road.get("parent_route","stories-road")):
+            row=ensure(linked)
+            row["source_files"].append(src)
+        entry=ensure(route)
+        entry["editorial_status"]="owner_approved_bilingual"
+        for lang in ("ar","en"):
+            entry["title"][lang]=road["langs"][lang]["title"]
     assets=[]
     for f in sorted((dist/"assets").rglob("*")):
         if not f.is_file() or f.suffix.lower() not in IMAGE|VIDEO: continue
@@ -164,7 +179,8 @@ def build(root):
         "sitemap_url_count":len(sitemap),
         "sources":["dist/share/ar/*.html","dist/share/en/*.html","dist/content.js",
                    "dist/data/about-master-v2.json","dist/sitemap.xml",
-                   "dist/data/happiness-stories-v1.json","dist/data/after-sixty.json"],
+                   "dist/data/happiness-stories-v1.json","dist/data/after-sixty.json",
+                   "dist/data/stories-road-v1.json"],
         "pages":[pages[k] for k in sorted(pages)]}
     mediareg={
         "schema_version":"1.0","basis":"repository media presence and structured JSON URLs only",
