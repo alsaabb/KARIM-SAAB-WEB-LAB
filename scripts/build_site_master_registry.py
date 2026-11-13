@@ -153,6 +153,14 @@ def build(root):
         for linked in (route,road.get("parent_route","stories-road")):
             row=ensure(linked)
             row["source_files"].append(src)
+        # Poster is a *public asset after owner approval*, not an arbitrary Drive URL.
+        # The same asset feeds the article and its Stories from the Road card.
+        if road.get("poster_status")=="approved_and_published":
+            poster=asset_ref(road.get("poster_asset"))
+            if not poster or not poster.startswith("assets/stories/"+road["slug"]+"/"):
+                raise ValueError("Approved owner poster must point to a local story asset")
+            for linked in (route,road.get("parent_route","stories-road")):
+                use_asset(poster,linked)
         entry=ensure(route)
         entry["editorial_status"]="owner_approved_bilingual"
         for lang in ("ar","en"):
