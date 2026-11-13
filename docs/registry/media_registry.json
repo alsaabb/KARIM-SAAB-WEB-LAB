@@ -1,0 +1,692 @@
+{
+  "basis": "repository media presence and structured JSON URLs only",
+  "local_asset_count": 45,
+  "media": [
+    {
+      "media_id": "local:assets/about-approved.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/about-approved.png",
+      "repository_path": "dist/assets/about-approved.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/adventures-approved.jpg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/adventures-approved.jpg",
+      "repository_path": "dist/assets/adventures-approved.jpg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/alps-clean.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/alps-clean.webp",
+      "repository_path": "dist/assets/alps-clean.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/books/150kg-author.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/150kg-author.webp",
+      "repository_path": "dist/assets/books/150kg-author.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/books/150kg.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/150kg.webp",
+      "repository_path": "dist/assets/books/150kg.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/book-150kg"
+      ]
+    },
+    {
+      "media_id": "local:assets/books/australia-original.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/australia-original.png",
+      "repository_path": "dist/assets/books/australia-original.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/book-australia-1999"
+      ]
+    },
+    {
+      "media_id": "local:assets/books/birth.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/birth.webp",
+      "repository_path": "dist/assets/books/birth.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/book-birth"
+      ]
+    },
+    {
+      "media_id": "local:assets/books/english-origins-author.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/english-origins-author.webp",
+      "repository_path": "dist/assets/books/english-origins-author.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/books/english-origins.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/english-origins.webp",
+      "repository_path": "dist/assets/books/english-origins.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/book-english-origins"
+      ]
+    },
+    {
+      "media_id": "local:assets/books/japan-journal-author.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/japan-journal-author.webp",
+      "repository_path": "dist/assets/books/japan-journal-author.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/books/japan-north-south.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/japan-north-south.webp",
+      "repository_path": "dist/assets/books/japan-north-south.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/book-japan-north-south"
+      ]
+    },
+    {
+      "media_id": "local:assets/books/japan-tile-approved.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/japan-tile-approved.png",
+      "repository_path": "dist/assets/books/japan-tile-approved.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/books/pole-preview.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/pole-preview.webp",
+      "repository_path": "dist/assets/books/pole-preview.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/book-pole"
+      ]
+    },
+    {
+      "media_id": "local:assets/books/shiel-author.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/shiel-author.webp",
+      "repository_path": "dist/assets/books/shiel-author.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/books/shiel.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/shiel.webp",
+      "repository_path": "dist/assets/books/shiel.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/book-shiel"
+      ]
+    },
+    {
+      "media_id": "local:assets/cycling.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/cycling.webp",
+      "repository_path": "dist/assets/cycling.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "day/legacy-5/1",
+        "guide/legacy-10",
+        "guide/legacy-11",
+        "guide/legacy-12",
+        "guide/legacy-13",
+        "guide/legacy-15",
+        "guide/legacy-16",
+        "guide/legacy-17",
+        "guide/legacy-18",
+        "guide/legacy-5",
+        "guide/legacy-6",
+        "guide/legacy-7",
+        "guide/legacy-8",
+        "guide/legacy-9",
+        "journey/legacy-10",
+        "journey/legacy-11",
+        "journey/legacy-12",
+        "journey/legacy-13",
+        "journey/legacy-14",
+        "journey/legacy-15",
+        "journey/legacy-16",
+        "journey/legacy-17",
+        "journey/legacy-18",
+        "journey/legacy-5",
+        "journey/legacy-6",
+        "journey/legacy-7",
+        "journey/legacy-8",
+        "journey/legacy-9",
+        "shop/item/product-tshirts"
+      ]
+    },
+    {
+      "media_id": "local:assets/happiness/happiness-not-for-sale-youtube-poster.jpg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/happiness/happiness-not-for-sale-youtube-poster.jpg",
+      "repository_path": "dist/assets/happiness/happiness-not-for-sale-youtube-poster.jpg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "about-happiness-video-happiness-not-for-sale",
+        "about/happiness/video/happiness-not-for-sale?focus=article",
+        "about/happiness/video/happiness-not-for-sale?focus=video"
+      ]
+    },
+    {
+      "media_id": "local:assets/happiness/world-is-not-paradise-youtube-poster.jpg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/happiness/world-is-not-paradise-youtube-poster.jpg",
+      "repository_path": "dist/assets/happiness/world-is-not-paradise-youtube-poster.jpg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "about-happiness-video-world-is-not-paradise",
+        "about/happiness/video/world-is-not-paradise?focus=article",
+        "about/happiness/video/world-is-not-paradise?focus=video"
+      ]
+    },
+    {
+      "media_id": "local:assets/health-depression-illustration.svg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/health-depression-illustration.svg",
+      "repository_path": "dist/assets/health-depression-illustration.svg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/hero-ar-approved.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-ar-approved.png",
+      "repository_path": "dist/assets/hero-ar-approved.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        ""
+      ]
+    },
+    {
+      "media_id": "local:assets/hero-desert.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-desert.webp",
+      "repository_path": "dist/assets/hero-desert.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "about",
+        "about/after-sixty",
+        "about/business",
+        "about/mosques",
+        "about/quran-circles",
+        "about/volunteering",
+        "about/why-adventures",
+        "archive",
+        "books",
+        "contact",
+        "entry/1",
+        "entry/10",
+        "entry/11",
+        "entry/12",
+        "entry/13",
+        "entry/14",
+        "entry/15",
+        "entry/16",
+        "entry/17",
+        "entry/18",
+        "entry/19",
+        "entry/2",
+        "entry/20",
+        "entry/21",
+        "entry/22",
+        "entry/23",
+        "entry/24",
+        "entry/25",
+        "entry/26",
+        "entry/27",
+        "entry/28",
+        "entry/29",
+        "entry/3",
+        "entry/30",
+        "entry/31",
+        "entry/32",
+        "entry/33",
+        "entry/34",
+        "entry/35",
+        "entry/36",
+        "entry/37",
+        "entry/38",
+        "entry/39",
+        "entry/4",
+        "entry/40",
+        "entry/41",
+        "entry/42",
+        "entry/43",
+        "entry/44",
+        "entry/45",
+        "entry/46",
+        "entry/47",
+        "entry/48",
+        "entry/49",
+        "entry/5",
+        "entry/6",
+        "entry/7",
+        "entry/8",
+        "entry/9",
+        "journeys",
+        "links",
+        "more",
+        "privacy",
+        "products",
+        "projects",
+        "shop/item/product-mugs",
+        "stories",
+        "stories-road",
+        "travel-guides"
+      ]
+    },
+    {
+      "media_id": "local:assets/hero-en-approved.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-en-approved.png",
+      "repository_path": "dist/assets/hero-en-approved.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        ""
+      ]
+    },
+    {
+      "media_id": "local:assets/hero-europe.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-europe.webp",
+      "repository_path": "dist/assets/hero-europe.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "shop/item/product-caps",
+        "shop/item/product-magnets"
+      ]
+    },
+    {
+      "media_id": "local:assets/hiking/hiking_cooking_waterfall.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_cooking_waterfall.png",
+      "repository_path": "dist/assets/hiking/hiking_cooking_waterfall.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/hiking/hiking_main_hero_poster.jpg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_main_hero_poster.jpg",
+      "repository_path": "dist/assets/hiking/hiking_main_hero_poster.jpg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/hiking/hiking_morning_coffee.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_morning_coffee.png",
+      "repository_path": "dist/assets/hiking/hiking_morning_coffee.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/hiking/hiking_tent_campfire.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_tent_campfire.png",
+      "repository_path": "dist/assets/hiking/hiking_tent_campfire.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/hiking.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking.webp",
+      "repository_path": "dist/assets/hiking.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "guide/legacy-19",
+        "guide/legacy-20",
+        "guide/legacy-21",
+        "guide/legacy-22",
+        "guide/legacy-23",
+        "journey/legacy-19",
+        "journey/legacy-20",
+        "journey/legacy-21",
+        "journey/legacy-22",
+        "journey/legacy-23",
+        "shop/item/product-vests"
+      ]
+    },
+    {
+      "media_id": "local:assets/hospitality.jpg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hospitality.jpg",
+      "repository_path": "dist/assets/hospitality.jpg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/journal-desert.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/journal-desert.webp",
+      "repository_path": "dist/assets/journal-desert.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "shop/item/product-bags"
+      ]
+    },
+    {
+      "media_id": "local:assets/journal-greece.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/journal-greece.webp",
+      "repository_path": "dist/assets/journal-greece.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "shop/item/product-artworks"
+      ]
+    },
+    {
+      "media_id": "local:assets/journal-mountains.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/journal-mountains.webp",
+      "repository_path": "dist/assets/journal-mountains.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/adventure-skydive",
+        "content/archive-10",
+        "content/archive-11",
+        "content/archive-12",
+        "content/archive-13",
+        "content/archive-14",
+        "content/archive-15",
+        "content/archive-16",
+        "content/archive-17",
+        "content/archive-18",
+        "content/archive-19",
+        "content/archive-20",
+        "content/archive-21",
+        "content/archive-22",
+        "content/archive-23",
+        "content/archive-24",
+        "content/archive-25",
+        "content/archive-26",
+        "content/archive-27",
+        "content/archive-28",
+        "content/archive-29",
+        "content/archive-30",
+        "content/archive-31",
+        "content/archive-36",
+        "content/archive-37",
+        "content/archive-38",
+        "content/archive-39",
+        "content/archive-40",
+        "content/archive-41",
+        "content/archive-42",
+        "content/archive-43",
+        "content/archive-44",
+        "content/archive-5",
+        "content/archive-6",
+        "content/archive-7",
+        "content/archive-8",
+        "content/archive-9",
+        "content/bio",
+        "content/book-after-sixty",
+        "content/book-childhood-najd",
+        "content/book-how",
+        "content/book-japan",
+        "content/book-rulers",
+        "content/book-world",
+        "content/community-iftar-eg",
+        "content/community-iftar-srilanka",
+        "content/community-orphans",
+        "content/community-wells",
+        "content/cycling",
+        "content/diving",
+        "content/egypt-estates",
+        "content/entities",
+        "content/founder",
+        "content/hiking",
+        "content/hospitality",
+        "content/ksa-estates",
+        "content/media-center",
+        "content/method",
+        "content/mount-munnar",
+        "content/paris-storyboard",
+        "content/philosophy",
+        "content/polar-article",
+        "content/product-artworks",
+        "content/product-bags",
+        "content/product-caps",
+        "content/product-hoodies",
+        "content/product-mugs",
+        "content/product-perfumes",
+        "content/product-tshirts",
+        "content/product-vests",
+        "content/snow",
+        "content/social-directory",
+        "content/volunteer",
+        "shop/item/product-hoodies"
+      ]
+    },
+    {
+      "media_id": "local:assets/ks-approved-original.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/ks-approved-original.png",
+      "repository_path": "dist/assets/ks-approved-original.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "about/happiness"
+      ]
+    },
+    {
+      "media_id": "local:assets/mark.svg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/mark.svg",
+      "repository_path": "dist/assets/mark.svg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/perfume-japan-concept.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/perfume-japan-concept.webp",
+      "repository_path": "dist/assets/perfume-japan-concept.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "content/perfume-japan",
+        "shop/gifts",
+        "shop/item/product-perfumes",
+        "shop/item/product-soaps",
+        "shop/kids",
+        "shop/men",
+        "shop/women"
+      ]
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/artworks.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/artworks.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/artworks.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/bags.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/bags.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/bags.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/caps.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/caps.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/caps.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/hero-bike-camp.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/hero-bike-camp.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/hero-bike-camp.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/hoodies.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/hoodies.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/hoodies.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/journey-banner.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/journey-banner.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/journey-banner.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/mugs.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/mugs.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/mugs.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/perfumes.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/perfumes.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/perfumes.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/tshirts.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/tshirts.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/tshirts.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/products-reference-v1.1/vests.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/vests.webp",
+      "repository_path": "dist/assets/products-reference-v1.1/vests.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "drive_public_fallback_verified": false,
+      "drive_reference_present": false,
+      "media_id": "youtube:0YT1QXZT6mI",
+      "original_url": "https://www.youtube.com/watch?v=0YT1QXZT6mI",
+      "playback_verified_on_real_device": false,
+      "rights_verified": false,
+      "source_files": [
+        "dist/data/after-sixty.json"
+      ],
+      "type": "youtube_video",
+      "used_by_routes": [
+        "about/after-sixty/sixty-is-not-a-waiting-room"
+      ],
+      "youtube_id": "0YT1QXZT6mI"
+    },
+    {
+      "drive_public_fallback_verified": false,
+      "drive_reference_present": true,
+      "media_id": "youtube:e8YffqIamRI",
+      "original_url": "https://www.youtube.com/watch?v=e8YffqIamRI",
+      "playback_verified_on_real_device": false,
+      "rights_verified": false,
+      "source_files": [
+        "dist/data/happiness-stories-v1.json"
+      ],
+      "type": "youtube_video",
+      "used_by_routes": [
+        "about/happiness/video/world-is-not-paradise"
+      ],
+      "youtube_id": "e8YffqIamRI"
+    },
+    {
+      "drive_public_fallback_verified": false,
+      "drive_reference_present": true,
+      "media_id": "youtube:fk3fYq2lljM",
+      "original_url": "https://www.youtube.com/watch?v=fk3fYq2lljM",
+      "playback_verified_on_real_device": false,
+      "rights_verified": false,
+      "source_files": [
+        "dist/data/happiness-stories-v1.json"
+      ],
+      "type": "youtube_video",
+      "used_by_routes": [
+        "about/happiness/video/happiness-not-for-sale"
+      ],
+      "youtube_id": "fk3fYq2lljM"
+    }
+  ],
+  "missing_referenced_public_assets": [],
+  "schema_version": "1.0",
+  "youtube_video_count": 3
+}
