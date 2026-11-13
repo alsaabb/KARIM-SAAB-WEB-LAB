@@ -44,6 +44,7 @@ jobs:
                   assert 'noindex,follow' in old.read_text(encoding='utf-8')
           print('PASS: Only approved V2 About + Happiness runtime is referenced')
           PY
+          python3 -m pip install --disable-pip-version-check google-api-python-client google-auth
           python3 - <<'PY'
           import sys,os
           sys.path.insert(0,os.path.abspath('scripts'))
