@@ -26,8 +26,15 @@
     var urls=['https://i.ytimg.com/vi/'+VIDEO+'/sddefault.jpg','https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg'];var idx=0;
     function next(){if(idx<urls.length){img.src=urls[idx++]}else{img.hidden=true;img.closest('.ks-wb-play,.ks-wb-card-poster')?.classList.add('ks-wb-no-thumb')}}
     img.addEventListener('error',next);
-    img.addEventListener('load',function(){if(img.naturalWidth<=120)next()});
-    if(img.complete&&img.naturalWidth<=120)next();
+    // Reuse the verified, successfully loaded YouTube thumbnail as a soft background.
+    // This fills the vertical player without cropping the horizontal source artwork.
+    function applyBackdrop(){
+      if(img.naturalWidth<=120){next();return}
+      var play=img.closest('.ks-wb-play');
+      if(play)play.style.setProperty('--wb-poster-image','url("'+img.currentSrc+'")');
+    }
+    img.addEventListener('load',applyBackdrop);
+    if(img.complete)applyBackdrop();
   }
   function buildStory(){
     var a=article();
