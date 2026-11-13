@@ -20,12 +20,17 @@
   function posterSrc(kind){
     return ownerPoster() || 'https://i.ytimg.com/vi/'+VIDEO+'/'+(kind==='card'?'hqdefault':'maxresdefault')+'.jpg';
   }
+  function posterAlt(){
+    return ownerPoster()
+      ? tr('بوستر تصميمي لمغامرة الخنزير البري في غابات اليونان','Editorial poster for the Wild Boar in Greece cycling adventure')
+      : article().title;
+  }
 
   function videoPoster(kind){
     var lang=article(),src=posterSrc(kind),owner=!!ownerPoster();
     return '<div class="ks-wb-video-surface" id="ks-wb-player">'+
       '<button type="button" class="ks-wb-play" data-wb-play aria-label="'+esc(tr('تشغيل فيديو المواجهة','Play encounter video'))+'">'+
-       '<img data-wb-poster data-wb-owner="'+(owner?'true':'false')+'" alt="'+esc(lang.title)+'" src="'+esc(src)+'" loading="'+(kind==='card'?'lazy':'eager')+'">'+
+       '<img data-wb-poster data-wb-owner="'+(owner?'true':'false')+'" alt="'+esc(posterAlt())+'" src="'+esc(src)+'" loading="'+(kind==='card'?'lazy':'eager')+'">'+
        '<span class="ks-wb-fallback-copy" aria-hidden="true">'+esc(tr('مواجهة في الظلام · الخنزير البري في اليونان','ENCOUNTER IN THE DARK · WILD BOAR IN GREECE'))+'</span>'+
        '<span class="ks-wb-play-label">'+esc(tr('شاهد الفيديو','Watch video'))+'</span>'+
       '</button></div>'
@@ -107,7 +112,7 @@
   function card(){
     var a=article();
     return '<a class="ks-simple-card ks-wb-card" data-wb-index-card href="'+link(STORY)+'">'+
-      '<div class="ks-wb-card-poster"><img data-wb-card-poster data-wb-owner="'+(ownerPoster()?'true':'false')+'" src="'+esc(posterSrc('card'))+'" alt="'+esc(a.title)+'" loading="lazy"><span class="ks-wb-card-fallback">'+esc(tr('غابات اليونان · مواجهة الخنزير البري','GREECE · WILD BOAR ENCOUNTER'))+'</span></div>'+
+      '<div class="ks-wb-card-poster"><img data-wb-card-poster data-wb-owner="'+(ownerPoster()?'true':'false')+'" src="'+esc(posterSrc('card'))+'" alt="'+esc(posterAlt())+'" loading="lazy"><span class="ks-wb-card-fallback">'+esc(tr('غابات اليونان · مواجهة الخنزير البري','GREECE · WILD BOAR ENCOUNTER'))+'</span></div>'+
       '<span class="eyebrow">'+esc(tr('اليونان · مغامرة حقيقية بالدراجة','GREECE · REAL CYCLING ADVENTURE'))+'</span>'+
       '<h3>'+esc(a.title)+'</h3><p>'+esc(a.sections[1].text)+'</p>'+
       '<span class="ks-wb-card-cta">'+esc(tr('شاهد الفيديو واقرأ القصة كاملة','Watch the video and read the full story'))+' ↗</span></a>'
@@ -135,7 +140,7 @@
   }
   function load(){
     if(promise)return promise;
-    promise=fetch('data/stories-road-v1.json?v=20261113-wb-v1').then(function(r){if(!r.ok)throw Error('Story data not available');return r.json()})
+    promise=fetch('data/stories-road-v1.json?v=20261113-wb-poster-v2').then(function(r){if(!r.ok)throw Error('Story data not available');return r.json()})
     .then(function(x){
       if(x.slug!=='wild-boar-greece'||x.youtube_id!==VIDEO||!x.langs||!x.langs.ar||!x.langs.en)throw Error('Invalid approved story');
       ['ar','en'].forEach(function(lang){if(!x.langs[lang].sections||x.langs[lang].sections.length<15)throw Error('Incomplete article')});
