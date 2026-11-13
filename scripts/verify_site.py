@@ -47,7 +47,13 @@ def run():
         issues.append("Sitemap is empty or has duplicate URLs")
 
     pages = sorted((DIST / "share").glob("*/*.html"))
-    expected = {BASE + "/" + p.relative_to(DIST).as_posix() for p in pages}
+    # Retired URLs remain functional redirect aliases for existing external links.
+    # They are noindex and intentionally omitted from the active XML sitemap.
+    expected = {
+        BASE + "/" + p.relative_to(DIST).as_posix()
+        for p in pages
+        if '<meta name="robots" content="noindex,follow">' not in p.read_text(encoding="utf-8")
+    }
     for missing in sorted(expected - urlset):
         issues.append("Not in sitemap: " + missing)
     for extra in sorted(urlset - expected):
