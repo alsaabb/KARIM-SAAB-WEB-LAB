@@ -15,6 +15,7 @@
     return '<div class="ks-wb-video-surface" id="ks-wb-player">'+
       '<button type="button" class="ks-wb-play" data-wb-play aria-label="'+esc(tr('تشغيل فيديو المواجهة','Play encounter video'))+'">'+
        '<img data-wb-poster alt="'+esc(lang.title)+'" src="'+src+'" loading="'+(kind==='card'?'lazy':'eager')+'">'+
+       '<span class="ks-wb-fallback-copy" aria-hidden="true">'+esc(tr('مواجهة في الظلام · الخنزير البري في اليونان','ENCOUNTER IN THE DARK · WILD BOAR IN GREECE'))+'</span>'+
        '<span class="ks-wb-gold-play" aria-hidden="true">▶</span>'+
        '<span class="ks-wb-play-label">'+esc(tr('شاهد المواجهة','Watch the encounter'))+'</span>'+
       '</button></div>'
@@ -23,7 +24,7 @@
     if(!img||img.dataset.wbFallback)return;
     img.dataset.wbFallback='1';
     var urls=['https://i.ytimg.com/vi/'+VIDEO+'/sddefault.jpg','https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg'];var idx=0;
-    function next(){if(idx<urls.length)img.src=urls[idx++]}
+    function next(){if(idx<urls.length){img.src=urls[idx++]}else{img.hidden=true;img.closest('.ks-wb-play,.ks-wb-card-poster')?.classList.add('ks-wb-no-thumb')}}
     img.addEventListener('error',next);
     img.addEventListener('load',function(){if(img.naturalWidth<=120)next()});
     if(img.complete&&img.naturalWidth<=120)next();
@@ -71,7 +72,7 @@
   function card(){
     var a=article();
     return '<a class="ks-simple-card ks-wb-card" data-wb-index-card href="'+link(STORY)+'">'+
-      '<div class="ks-wb-card-poster"><img data-wb-card-poster src="https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg" alt="'+esc(a.title)+'" loading="lazy"></div>'+
+      '<div class="ks-wb-card-poster"><img data-wb-card-poster src="https://i.ytimg.com/vi/'+VIDEO+'/hqdefault.jpg" alt="'+esc(a.title)+'" loading="lazy"><span class="ks-wb-card-fallback">'+esc(tr('غابات اليونان · مواجهة الخنزير البري','GREECE · WILD BOAR ENCOUNTER'))+'</span></div>'+
       '<span class="eyebrow">'+esc(tr('اليونان · مغامرة حقيقية بالدراجة','GREECE · REAL CYCLING ADVENTURE'))+'</span>'+
       '<h3>'+esc(a.title)+'</h3><p>'+esc(a.sections[1].text)+'</p>'+
       '<span class="ks-wb-card-cta">'+esc(tr('شاهد الفيديو واقرأ القصة كاملة','Watch the video and read the full story'))+' ↗</span></a>'
