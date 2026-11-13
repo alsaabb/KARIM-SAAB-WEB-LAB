@@ -125,11 +125,11 @@ def build(root):
         key="youtube:"+vid
         row=videos.setdefault(key,{"media_id":key,"type":"youtube_video",
             "youtube_id":vid,"original_url":"https://www.youtube.com/watch?v="+vid,
-            "used_by_routes":[],"source_files":[],"drive_file_ids":[],
+            "used_by_routes":[],"source_files":[],
             "playback_verified_on_real_device":False,"rights_verified":False,
-            "drive_public_fallback_verified":False})
+            "drive_public_fallback_verified":False,"drive_reference_present":False})
         row["used_by_routes"].append(route);row["source_files"].append(source)
-        if drive_id: row["drive_file_ids"].append(drive_id)
+        if drive_id: row["drive_reference_present"]=True
         if public: row["drive_public_fallback_verified"]=True
         ensure(route)["source_files"].append(source)
     happiness=json.loads((dist/"data/happiness-stories-v1.json").read_text(encoding="utf-8"))
@@ -157,7 +157,7 @@ def build(root):
         if "additional_share_pages" in row:
             row["additional_share_pages"].sort(key=lambda x:(x["language"],x["file"]))
     for row in videos.values():
-        for k in ("used_by_routes","source_files","drive_file_ids"):row[k]=sorted(set(row[k]))
+        for k in ("used_by_routes","source_files"):row[k]=sorted(set(row[k]))
     pagereg={
         "schema_version":"1.0","basis":"current git checkout; not evidence of live browser success",
         "page_count":len(pages),"share_html_count":len(shares),
