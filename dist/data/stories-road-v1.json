@@ -8,7 +8,7 @@
   "youtube_url": "https://youtube.com/shorts/SVdg9IxoS4k",
   "video_orientation": "vertical",
   "drive_video_fallback_verified": false,
-  "poster": "YouTube thumbnail; original owner image retained privately in Google Drive",
+  "poster": "Owner-designated poster from the same approved Google Drive story folder is the primary source. Until an approved optimized public copy is installed, the YouTube thumbnail is fallback only.",
   "langs": {
     "ar": {
       "title": "مواجهة في الظلام… الخنزير البري في غابات اليونان المحروقة!",
@@ -246,5 +246,14 @@
       ],
       "video_link": "https://youtube.com/shorts/SVdg9IxoS4k"
     }
-  }
+  },
+  "poster_source": "owner_designated_poster_in_same_story_folder",
+  "poster_status": "awaiting_owner_poster",
+  "poster_asset": null,
+  "poster_shared_for": [
+    "story/video-poster",
+    "stories-road/card",
+    "bilingual-share-og-image"
+  ],
+  "poster_approval_policy": "Only set poster_status=approved_and_published and poster_asset=assets/... after explicit source selection, file/dimensions/rights verification and installing an optimized public copy in dist/assets; never embed a private Drive preview link in the public site."
 }
