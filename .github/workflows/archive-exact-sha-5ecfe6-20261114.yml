@@ -1,0 +1,44 @@
+name: One-time archive approved historical SHA (no deploy)
+
+on:
+  push:
+    branches:
+      - 'archive/snapshot-5ecfe6ffcda2-20261114'
+
+permissions:
+  contents: read
+
+jobs:
+  archive-exact-sha:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout exact historical main commit
+        uses: actions/checkout@v4
+        with:
+          ref: '5ecfe6ffcda2602c8e80acbbfacb6164a16c470c'
+          persist-credentials: false
+      - name: Make reproducible source snapshot and integrity manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED='5ecfe6ffcda2602c8e80acbbfacb6164a16c470c'
+          ACTUAL="$(git rev-parse HEAD)"
+          test "$ACTUAL" = "$EXPECTED"
+          mkdir -p backup
+          NAME='KARIM_SAAB_GITHUB_MAIN_2026-11-14_5ecfe6ffcda2'
+          git archive --format=zip --output="backup/${NAME}.zip" HEAD
+          printf '%s\n' "$ACTUAL" > backup/SOURCE_COMMIT_SHA.txt
+          git ls-files | wc -l | tr -d ' ' > backup/SOURCE_FILE_COUNT.txt
+          (cd backup && sha256sum "${NAME}.zip" > SHA256SUMS.txt)
+          printf 'Archive of approved exact historical main SHA; no deploy, no .git history or secrets.\n' > backup/README.txt
+          (cd backup && sha256sum -c SHA256SUMS.txt)
+          echo "Archived exact SHA: $ACTUAL"
+      - name: Preserve GitHub Actions backup artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_SAAB_GITHUB_MAIN_2026-11-14_5ecfe6ffcda2
+          path: backup/
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 0
