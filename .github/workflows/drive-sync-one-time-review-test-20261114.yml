@@ -1,0 +1,73 @@
+name: One-time KARIM SAAB approved Drive staging test (no deploy)
+
+on:
+  push:
+    branches:
+      - 'test/drive-approved-review-20261114'
+
+permissions:
+  contents: write
+
+env:
+  GDRIVE_FOLDER_ID: '1Y97cN3z1sUzWmmK0nt0P3ZiEkYxd3aQP'
+
+jobs:
+  approved-file-review-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out main as read-only source baseline
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Confirm existing private credential is configured (without printing)
+        env:
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
+        shell: bash
+        run: |
+          test -n "$GDRIVE_SERVICE_ACCOUNT_KEY"
+      - name: Install Google Drive Python API
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth
+      - name: Run exact approved-content importer from main
+        env:
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/sync_drive_to_github.py
+      - name: Verify imported test file and existing site checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/verify_site.py
+          python scripts/verify_identity.py
+          git diff --check
+          test -f dist/drive-content/karim-saab-sync-test-20261114.html
+          grep -Fq 'هذا نص اختبار تقني فقط' dist/drive-content/karim-saab-sync-test-20261114.html
+      - name: Stage exclusively on new review branch (never deploy or merge)
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add -- dist/drive-content/
+          git diff --cached --check
+          if git diff --cached --quiet; then
+            echo '::error::No staging changes found; test not completed'
+            exit 1
+          fi
+          TREE="$(git write-tree)"
+          REVIEW_BRANCH="drive/approved-review-${TREE:0:16}"
+          if git ls-remote --exit-code --heads origin "refs/heads/$REVIEW_BRANCH" >/dev/null; then
+            echo "Review branch already exists: $REVIEW_BRANCH"
+            echo "Review branch already exists: $REVIEW_BRANCH" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git switch --create "$REVIEW_BRANCH"
+          git commit -m 'review: staging-only approved Google Drive test file'
+          git push origin "HEAD:refs/heads/$REVIEW_BRANCH"
+          echo "Review branch: $REVIEW_BRANCH" >> "$GITHUB_STEP_SUMMARY"
+          echo 'No changes were pushed to main, no merge, no deployment.' >> "$GITHUB_STEP_SUMMARY"
