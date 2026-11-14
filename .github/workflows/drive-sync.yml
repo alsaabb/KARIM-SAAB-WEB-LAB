@@ -1,27 +1,37 @@
-name: Sync approved content from Google Drive
+name: Sync approved Google Drive content to review branches (no deploy)
 
 on:
+  push:
+    branches:
+      - feature/automatic-drive-review-and-backups-20261114
+    paths:
+      - '.github/workflows/drive-sync.yml'
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
 
+# Write access is limited by the commands below to append-only review branches.
+# Never commit to main, merge a PR, or dispatch deployment.
 permissions:
   contents: write
-  actions: write
 
 concurrency:
-  group: karim-saab-drive-sync-main
+  group: karim-saab-drive-review-pipeline
   cancel-in-progress: false
 
+env:
+  GDRIVE_FOLDER_ID: '1Y97cN3z1sUzWmmK0nt0P3ZiEkYxd3aQP'
+
 jobs:
-  sync:
+  prepare-for-approval:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - name: Checkout main
+      - name: Checkout production baseline without modifying it
         uses: actions/checkout@v4
         with:
           ref: main
+          fetch-depth: 1
           persist-credentials: true
 
       - name: Set up Python
@@ -29,64 +39,56 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Check required GitHub secrets
+      - name: Check private key exists without printing it
         env:
           GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
-          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
         shell: bash
         run: |
-          if [[ -z "$GDRIVE_SERVICE_ACCOUNT_KEY" || -z "$GDRIVE_FOLDER_ID" ]]; then
-            echo "::error::Drive sync is not activated. Configure GDRIVE_SERVICE_ACCOUNT_KEY and GDRIVE_FOLDER_ID under Settings > Secrets and variables > Actions."
+          if [[ -z "$GDRIVE_SERVICE_ACCOUNT_KEY" ]]; then
+            echo "::error::Missing GDRIVE_SERVICE_ACCOUNT_KEY"
             exit 1
           fi
 
-      - name: Install Google Drive Python packages
-        run: |
-          python -m pip install --disable-pip-version-check google-api-python-client google-auth
+      - name: Install Google Drive API libraries
+        run: python -m pip install --disable-pip-version-check google-api-python-client google-auth
 
-      - name: Scan Drive and sync approved files
+      - name: Read only explicitly approved Drive content
         env:
           GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
-          GDRIVE_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
         run: python scripts/sync_drive_to_github.py
 
-      - name: Validate site before publishing
+      - name: Validate site changes before staging
         run: |
           python -m py_compile scripts/sync_drive_to_github.py
           python scripts/verify_site.py
           python scripts/verify_identity.py
           git diff --check
 
-      - name: Commit and push approved changes
-        id: commit
+      - name: Create a unique, non-destructive review branch if content changes
         shell: bash
         run: |
+          set -euo pipefail
           git add -- dist/
+          git diff --cached --check
           if git diff --cached --quiet; then
-            echo "No approved changes; keeping the live site untouched."
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Drive scan succeeded. Nothing changed; production not touched."
+            echo "No approved changes detected." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          TREE="$(git write-tree)"
+          REVIEW_BRANCH="drive/approved-review-${TREE:0:16}"
+          if git ls-remote --exit-code --heads origin "refs/heads/$REVIEW_BRANCH" >/dev/null; then
+            echo "Review branch already exists: $REVIEW_BRANCH; no duplicate created."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore: publish approved Google Drive site updates"
-          git pull --rebase origin main
-          git push origin HEAD:main
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-          echo "commit_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git switch --create "$REVIEW_BRANCH"
+          git commit -m "review: stage explicitly approved Google Drive content"
+          git push origin "HEAD:refs/heads/$REVIEW_BRANCH"
+          echo "Proposed files transferred into review branch: $REVIEW_BRANCH" >> "$GITHUB_STEP_SUMMARY"
+          echo "Production main, dist deployment, and existing review branches remain untouched." >> "$GITHUB_STEP_SUMMARY"
+          git diff-tree --no-commit-id --name-only -r HEAD -- dist/ >> "$GITHUB_STEP_SUMMARY"
+          echo "A human approval and separate merge are required to publish." >> "$GITHUB_STEP_SUMMARY"
 
-      # A push made using GITHUB_TOKEN does not normally start 'on: push'
-      # workflows, so dispatch the existing Pages workflow explicitly.
-      - name: Trigger existing GitHub Pages deployment
-        if: steps.commit.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          curl --fail --silent --show-error --request POST \
-            --header "Accept: application/vnd.github+json" \
-            --header "Authorization: Bearer $GH_TOKEN" \
-            --header "X-GitHub-Api-Version: 2022-11-28" \
-            "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/workflows/deploy.yml/dispatches" \
-            --data '{"ref":"main"}'
-          echo "Pages deployment requested for commit ${{ steps.commit.outputs.commit_sha }}"
+      # Deliberately no direct push to main, PR merge, or site deployment.
