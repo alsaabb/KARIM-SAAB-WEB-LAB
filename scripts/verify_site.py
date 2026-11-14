@@ -54,6 +54,22 @@ def run():
         for p in pages
         if '<meta name="robots" content="noindex,follow">' not in p.read_text(encoding="utf-8")
     }
+    # The canonical homepage is a first-class sitemap entry alongside share pages.
+    homepage = BASE + "/index.html"
+    expected.add(homepage)
+    if not urls or urls[0] != homepage:
+        issues.append("Canonical homepage must be the first sitemap URL")
+    homepage_head = HeadLinks()
+    homepage_head.feed(app)
+    if homepage_head.canonical != [homepage]:
+        issues.append("Incorrect homepage canonical")
+    for lang in ("ar", "en"):
+        alternate = BASE + "/share/" + lang + "/home.html"
+        if homepage_head.alternates.get(lang) != alternate:
+            issues.append(f"Incorrect homepage hreflang {lang}")
+    if homepage_head.alternates.get("x-default") != homepage:
+        issues.append("Incorrect homepage x-default hreflang")
+
     for missing in sorted(expected - urlset):
         issues.append("Not in sitemap: " + missing)
     for extra in sorted(urlset - expected):
