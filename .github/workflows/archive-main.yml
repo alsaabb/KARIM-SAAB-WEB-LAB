@@ -1,0 +1,69 @@
+name: Archive KARIM SAAB source and published site (no deploy)
+
+on:
+  push:
+    branches:
+      - main
+      - feature/automatic-drive-review-and-backups-20261114
+    paths:
+      - '.github/workflows/archive-main.yml'
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: karim-saab-main-archive
+  cancel-in-progress: false
+
+jobs:
+  make-archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout current main snapshot only
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Package all tracked source files including published dist
+        id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p backup
+          SHA="$(git rev-parse HEAD)"
+          SHORT="${SHA:0:12}"
+          DATE="$(date -u +%Y-%m-%d)"
+          NAME="KARIM_SAAB_GITHUB_MAIN_${DATE}_${SHORT}"
+          git archive --format=zip --output="backup/${NAME}.zip" HEAD
+          printf '%s\n' "$SHA" > backup/SOURCE_COMMIT_SHA.txt
+          git ls-files | wc -l | tr -d ' ' > backup/SOURCE_FILE_COUNT.txt
+          (cd backup && sha256sum "${NAME}.zip" > SHA256SUMS.txt)
+          printf 'Complete tracked main snapshot including dist, no secrets or .git history.\n' > backup/README.txt
+          printf 'Verify SHA256SUMS and SOURCE_COMMIT_SHA before restoration.\n' >> backup/README.txt
+          echo "artifact_name=${NAME}" >> "$GITHUB_OUTPUT"
+          echo "source_sha=${SHA}" >> "$GITHUB_OUTPUT"
+          (cd backup && sha256sum -c SHA256SUMS.txt)
+          echo "Source main SHA: ${SHA}"
+          echo "Backup file: ${NAME}.zip"
+
+      - name: Store immutable backup bundle in GitHub Actions
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.package.outputs.artifact_name }}
+          path: backup/
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Summarize archiving and Drive handoff
+        shell: bash
+        run: |
+          echo "Source main SHA: ${{ steps.package.outputs.source_sha }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "Artifact: ${{ steps.package.outputs.artifact_name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "No live changes, no deletes, no automatic Google Drive write." >> "$GITHUB_STEP_SUMMARY"
+          echo "Daily KARIM SAAB archiving automation transfers new SHA artifacts to Google Drive and verifies them." >> "$GITHUB_STEP_SUMMARY"
