@@ -5,7 +5,7 @@ YouTube ID as proof of playback, public Drive permissions, or media rights.
 
 - Discovered unique routes: 219
 - Static share pages (AR + EN, including aliases): 426
-- Sitemap URLs: 420
+- Sitemap URLs: 421
 - Existing content-library entries: 80
 - About-master entries: 23
 - Local public media files: 45
