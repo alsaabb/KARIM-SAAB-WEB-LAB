@@ -182,7 +182,7 @@ def run() -> int:
     else:
         html = index_path.read_text(encoding="utf-8")
         required = {
-            "canonical": r'<link\s+rel="canonical"\s+href="' + re.escape(BASE + "index.html"),
+            "canonical": r'<link\s+rel="canonical"\s+href="' + re.escape(BASE),
             "Arabic hreflang": r'<link\s+rel="alternate"\s+hreflang="ar"\s+href="' + re.escape(BASE + "share/ar/home.html"),
             "English hreflang": r'<link\s+rel="alternate"\s+hreflang="en"\s+href="' + re.escape(BASE + "share/en/home.html"),
             "default hreflang": r'<link\s+rel="alternate"\s+hreflang="x-default"',
@@ -233,8 +233,8 @@ def run() -> int:
         doc = ET.parse(sitemap_path)
         ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         locations = [n.text.strip() for n in doc.findall("sm:url/sm:loc", ns) if n.text]
-        if not locations or locations[0] != BASE + "index.html":
-            bad(sitemap_path, "dist/index.html must be first sitemap URL")
+        if not locations or locations[0] != BASE:
+            bad(sitemap_path, "/dist/ must be first sitemap URL")
         for location in locations:
             if not location.startswith(BASE):
                 bad(sitemap_path, "non-production sitemap URL")
