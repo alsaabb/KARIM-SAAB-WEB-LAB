@@ -1,5 +1,17 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+## 2026-11-15 — Mount Athos Greece bilingual Destinations review (NOT RELEASED)
+
+- Owner-supplied Arabic and English text is preserved without editorial alteration in `dist/data/destination-mount-athos-greece.json`; neither text has been fact-checked against external evidence at publication level.
+- Authorized YouTube ID: `zsYOR7WmvAQ`. Bilingual detail route: `destination/mount-athos-greece`, added as a card under `destinations`.
+- 9:16 YouTube click-to-play viewer, distinct share-video/article links, original article text visible under the player on mobile, CSS scoped to the feature.
+- Crawlable HTML share pages `dist/share/{ar,en}/destination-mount-athos-greece.html` with canonical/hreflang/OG and full approved text; sitemap URLs appended.
+- Authorized Arabic Drive folder `1Zxc-TAlZmbSz2e1NDuKPecq6xT9vkfrU` contains document `1_Pcod-pBRSprQ_x6RRy8y1kViwqiuWn4ZhPMkPflHiY`.
+- Authorized English Drive folder `1SZOf88DupvsGa0nS9Z-1w8CPh-MCdzYT` contains document `1C7lEW2bSW3ZEa2dLQKiQoiMNs9xhFlOYVxUh2GvPCIU`.
+- Branch: `feature/destination-mount-athos-greece`. Not merged to `main`. No Google Pages publication and no copying into the Approved Content Sync folder before owner approval.
+- Site and registry checks are review-branch checks and are not evidence of real-device YouTube playback or Google Search Console indexation.
+
+
 ## 2026-11-13 — Poster-first master V1.1 + Greek wild boar mobile cover (APPROVED AND RELEASED)
 
 - **Observed:** owner screenshots of Arabic/English story showed a horizontal YouTube
