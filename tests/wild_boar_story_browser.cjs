@@ -56,20 +56,32 @@ const OUT='visual-review/wild-boar';
     const cover=proof.locator('.ks-wb-play img[data-wb-poster]');
     await cover.waitFor({timeout:15000});
     await proof.waitForFunction(()=>document.querySelector('.ks-wb-play')?.style.getPropertyValue('--wb-poster-image').includes('ytimg.com'),{timeout:10000});
+    await proof.locator('.ks-wb-video-surface.ks-wb-landscape-preview').waitFor({timeout:10000});
     const posterState=await proof.evaluate(()=>{
       const play=document.querySelector('.ks-wb-play');
+      const frame=document.querySelector('.ks-wb-video-surface');
       const img=play.querySelector('img[data-wb-poster]');
+      const rect=img.getBoundingClientRect(),surface=frame.getBoundingClientRect();
+      const text=document.querySelector('.ks-wb-article').getBoundingClientRect();
+      const label=play.querySelector('.ks-wb-play-label');
       return {
-        background:getComputedStyle(play,'::before').backgroundImage,
+        backgroundDisplay:getComputedStyle(play,'::before').display,
         imageFit:getComputedStyle(img).objectFit,
-        width:img.naturalWidth,
-        imageBackground:getComputedStyle(img).backgroundColor,
-        aspect:play.getBoundingClientRect().width/play.getBoundingClientRect().height
+        naturalRatio:img.naturalWidth/img.naturalHeight,
+        shownRatio:rect.width/rect.height,
+        surfaceHeight:surface.height,
+        articleGap:text.top-surface.bottom,
+        labelPosition:getComputedStyle(label).position,
+        landscape:frame.classList.contains('ks-wb-landscape-preview')
       };
     });
-    if(!posterState.background.includes('ytimg.com')||posterState.imageFit!=='contain'||posterState.width<=120||
-       Math.abs(posterState.aspect-9/16)>.04)
-       throw Error('Portrait backdrop regression '+JSON.stringify(posterState));
+    // The original horizontal thumbnail stays uncropped with no stretched blurred band.
+    // The iframe swaps to 9:16 only after clicking Watch Video.
+    if(!posterState.landscape||posterState.backgroundDisplay!=='none'||posterState.imageFit!=='contain'||
+       Math.abs(posterState.naturalRatio-posterState.shownRatio)>.07||
+       posterState.surfaceHeight>410||posterState.articleGap>80||
+       posterState.labelPosition!=='static')
+      throw Error('Thumbnail must be naturally sized, one gold label and article next: '+JSON.stringify(posterState));
     await proof.screenshot({path:OUT+'/ar-mobile-thumbnail-filled.png',fullPage:false});
     await proof.close();
 
