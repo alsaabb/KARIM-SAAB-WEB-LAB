@@ -169,7 +169,7 @@ function bindEpisode(main,ep){
  }
  function insertPlayer(url){
   var title=ar()?ep.title_ar:ep.title_en;
-  player.innerHTML='<iframe id="ks60-frame" src="'+escapeHTML(url)+'" title="'+escapeHTML(title)+'" loading="eager" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>';
+  player.innerHTML='<iframe id="ks60-frame" src="'+escapeHTML(url)+'" title="'+escapeHTML(title)+'" loading="eager" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox"></iframe>';
  }
  function playYoutube(seconds){
   active="youtube";updateSources();
