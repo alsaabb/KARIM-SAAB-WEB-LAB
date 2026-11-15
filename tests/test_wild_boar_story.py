@@ -78,9 +78,13 @@ class WildBoarStoryTest(unittest.TestCase):
         self.assertEqual(sum(x["type"]=="heading" for x in self.data["langs"]["en"]["sections"]),2)
     def test_html_assets_and_share_links(self):
         html=(ROOT/"dist/index.html").read_text(encoding="utf-8")
-        for f in ("wild-boar-story-v1.js","wild-boar-story-v1.css"):
-            self.assertIn(f,html)
-            self.assertTrue((ROOT/"dist"/f).is_file())
+        self.assertIn("wild-boar-story-v1.js", html)
+        self.assertIn('href="styles.bundle.min.css"', html)
+        self.assertTrue((ROOT/"dist/wild-boar-story-v1.js").is_file())
+        # Source CSS is preserved while production loads the single CSS bundle.
+        original_css = (ROOT/"dist/wild-boar-story-v1.css")
+        self.assertTrue(original_css.is_file())
+        self.assertIn(".ks-wb", (ROOT/"dist/styles.bundle.min.css").read_text(encoding="utf-8"))
         js=(ROOT/"dist/wild-boar-story-v1.js").read_text(encoding="utf-8")
         self.assertIn("story/wild-boar-greece",js)
         self.assertIn("stories-road",js)

@@ -23,7 +23,7 @@ function karimProductsPage(){
     const route=original?.route||'content/'+x.id;
     const label=t(x.ar,x.en);
     return '<a class="ks-v11-card" href="'+path(route)+'" aria-label="'+esc(label)+'">'+
-      '<img loading="lazy" decoding="async" src="'+asset+x.image+'" alt="'+esc(t('صورة من المرجع البصري لفئة '+x.ar,'Approved visual reference for '+x.en))+'">'+
+      '<img loading="lazy" decoding="async" src="'+asset+x.image+'" alt="'+esc(t('صورة من المرجع البصري لفئة '+x.ar,'Approved visual reference for '+x.en))+'" width="900" height="900">'+
       '<span class="ks-v11-card-fade"></span><span class="ks-v11-card-label"><strong>'+esc(label)+'</strong><small>'+esc(t(x.en,x.ar))+'</small></span>'+
       '<span class="ks-v11-arrow" aria-hidden="true">➜</span></a>';
   }).join('');

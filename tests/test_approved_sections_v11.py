@@ -77,9 +77,16 @@ class ApprovedSectionTests(unittest.TestCase):
                     'about-unified-shell-happiness-hub-v2.js')
         positions = [page.index('<script src="' + name) for name in required]
         self.assertEqual(positions, sorted(positions))
+        # The original CSS sources are preserved; production now uses one
+        # minified cascade bundle, so individual link tags must not be required.
+        self.assertIn('<link rel="stylesheet" href="styles.bundle.min.css">', page)
+        bundled = (DIST / 'styles.bundle.min.css').read_text(encoding='utf-8')
         for name in ('about-drive-layout-v2.css', 'happiness-stories-v1.css',
                      'karim-products.css', 'shared-shell-v2.css'):
-            self.assertIn(name, page)
+            original_css = (DIST / name).read_text(encoding='utf-8')
+            selectors = re.findall(r'\.[A-Za-z][A-Za-z0-9_-]+', original_css)
+            self.assertTrue(selectors, name + ' must have style selectors')
+            self.assertIn(selectors[0], bundled, name + ' missing from CSS bundle')
         about = (DIST / 'enhancements.js').read_text(encoding='utf-8')
         self.assertIn("route:'about/health'", about)
         self.assertIn("route:'about/happiness'", about)

@@ -6,21 +6,21 @@
   const base = 'assets/hiking/';
   const photos = [
     {
-      file: 'hiking_tent_campfire.png',
+      file: 'hiking_tent_campfire.webp',
       ar: 'المخيم ونار المساء',
       en: 'Tent & Campfire',
       descriptionAr: 'خيمة مضاءة ونار المخيم وسط أجواء الطبيعة الهادئة.',
       descriptionEn: 'A glowing tent and campfire in the quiet of the outdoors.'
     },
     {
-      file: 'hiking_morning_coffee.png',
+      file: 'hiking_morning_coffee.webp',
       ar: 'قهوة الصباح في الطبيعة',
       en: 'Morning Coffee Outdoors',
       descriptionAr: 'لحظة قهوة هادئة مع نسيم الصباح وإطلالة الطبيعة.',
       descriptionEn: 'A quiet cup of coffee surrounded by the beauty of the morning.'
     },
     {
-      file: 'hiking_cooking_waterfall.png',
+      file: 'hiking_cooking_waterfall.webp',
       ar: 'الطبخ عند الشلال',
       en: 'Cooking by the Waterfall',
       descriptionAr: 'تجهيز الطعام في الهواء الطلق بجوار الشلال.',
@@ -56,10 +56,10 @@
       + 'ADVENTURES / HIKING & CAMPING</span><h2 id="hiking-gallery-title">' + title
       + '</h2><p>' + subtitle + '</p></div>'
       + '<div class="hiking-gallery__feature">'
-      + '<a href="' + base + 'hiking_main_hero_poster.jpg" target="_blank" rel="noopener noreferrer"'
+      + '<a href="' + base + 'hiking_main_hero_poster.webp" target="_blank" rel="noopener noreferrer"'
       + ' class="hiking-gallery__poster" aria-label="'
       + (ar ? 'فتح الغلاف الكامل لقسم الهايكنج' : 'Open full-size hiking poster') + '">'
-      + '<img src="' + base + 'hiking_main_hero_poster.jpg"'
+      + '<img src="' + base + 'hiking_main_hero_poster.webp"'
       + ' alt="' + (ar ? 'غلاف المغامرة: الهايكنج والتخييم' : 'Explore the Wild hiking and camping poster')
       + '" loading="lazy" decoding="async" width="747" height="1000"></a>'
       + '<div class="hiking-gallery__story"><span class="hiking-gallery__eyebrow">'

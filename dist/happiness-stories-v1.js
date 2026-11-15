@@ -28,7 +28,7 @@
     var title=tr(story.title_ar,story.title_en);
     var src='assets/happiness/'+story.slug+'-youtube-poster.jpg';
     return '<button type="button" class="ks-happ-poster" data-happ-play aria-label="'+escH(tr('تشغيل فيديو: ','Play video: ')+title)+'">'+
-      '<img class="ks-happ-cover" alt="'+escH(title)+'" src="'+escH(src)+'" decoding="async" data-happ-youtube-id="'+escH(story.youtube_id)+'">'+
+      '<img class="ks-happ-cover" alt="'+escH(title)+'" src="'+escH(src)+'" decoding="async" data-happ-youtube-id="'+escH(story.youtube_id)+'" loading="lazy" width="720" height="1280">'+
       '<span class="ks-happ-poster-overlay"><span class="ks-happ-cta">'+tr('شاهد الفيديو','Watch video')+'</span></span></button>';
   }
   function article(story){
@@ -102,6 +102,7 @@
         var player=main.querySelector('#ks-happ-player');
         if(!player)return;
         var iframe=document.createElement('iframe');
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox');
         iframe.id='ks-happ-youtube-embed';
         iframe.src='https://www.youtube-nocookie.com/embed/'+story.youtube_id+'?autoplay=1&playsinline=1&rel=0';
         iframe.title=tr(story.title_ar,story.title_en);

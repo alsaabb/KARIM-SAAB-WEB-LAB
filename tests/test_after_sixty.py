@@ -116,7 +116,11 @@ class AfterSixtyTests(unittest.TestCase):
 
     def test_site_loader(self):
         index = (ROOT / "dist/index.html").read_text(encoding="utf-8")
-        self.assertIn("after-sixty-v1.css", index)
+        # Production bundles the preserved After Sixty stylesheet to reduce requests.
+        self.assertIn('href="styles.bundle.min.css"', index)
+        bundled = (ROOT / "dist/styles.bundle.min.css").read_text(encoding="utf-8")
+        self.assertIn("ks60-video-pane", bundled)
+        self.assertIn("ks60-player", bundled)
         self.assertIn("after-sixty-v1.js", index)
         frontend = (ROOT / "dist/after-sixty-v1.js").read_text(encoding="utf-8")
         self.assertIn("data/after-sixty.json", frontend)

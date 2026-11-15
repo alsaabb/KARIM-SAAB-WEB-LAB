@@ -1,20 +1,20 @@
 {
   "basis": "repository media presence and structured JSON URLs only",
-  "local_asset_count": 45,
+  "local_asset_count": 50,
   "media": [
     {
-      "media_id": "local:assets/about-approved.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/about-approved.png",
-      "repository_path": "dist/assets/about-approved.png",
+      "media_id": "local:assets/about-approved.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/about-approved.webp",
+      "repository_path": "dist/assets/about-approved.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
       "used_by_routes_from_share_or_library": []
     },
     {
-      "media_id": "local:assets/adventures-approved.jpg",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/adventures-approved.jpg",
-      "repository_path": "dist/assets/adventures-approved.jpg",
+      "media_id": "local:assets/adventures-approved.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/adventures-approved.webp",
+      "repository_path": "dist/assets/adventures-approved.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
@@ -50,9 +50,9 @@
       ]
     },
     {
-      "media_id": "local:assets/books/australia-original.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/australia-original.png",
-      "repository_path": "dist/assets/books/australia-original.png",
+      "media_id": "local:assets/books/australia-original.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/australia-original.webp",
+      "repository_path": "dist/assets/books/australia-original.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
@@ -112,9 +112,9 @@
       ]
     },
     {
-      "media_id": "local:assets/books/japan-tile-approved.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/japan-tile-approved.png",
-      "repository_path": "dist/assets/books/japan-tile-approved.png",
+      "media_id": "local:assets/books/japan-tile-approved.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/books/japan-tile-approved.webp",
+      "repository_path": "dist/assets/books/japan-tile-approved.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
@@ -226,9 +226,9 @@
       "used_by_routes_from_share_or_library": []
     },
     {
-      "media_id": "local:assets/hero-ar-approved.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-ar-approved.png",
-      "repository_path": "dist/assets/hero-ar-approved.png",
+      "media_id": "local:assets/hero-ar-approved.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-ar-approved.webp",
+      "repository_path": "dist/assets/hero-ar-approved.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
@@ -316,9 +316,9 @@
       ]
     },
     {
-      "media_id": "local:assets/hero-en-approved.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-en-approved.png",
-      "repository_path": "dist/assets/hero-en-approved.png",
+      "media_id": "local:assets/hero-en-approved.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hero-en-approved.webp",
+      "repository_path": "dist/assets/hero-en-approved.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
@@ -339,36 +339,36 @@
       ]
     },
     {
-      "media_id": "local:assets/hiking/hiking_cooking_waterfall.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_cooking_waterfall.png",
-      "repository_path": "dist/assets/hiking/hiking_cooking_waterfall.png",
+      "media_id": "local:assets/hiking/hiking_cooking_waterfall.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_cooking_waterfall.webp",
+      "repository_path": "dist/assets/hiking/hiking_cooking_waterfall.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
       "used_by_routes_from_share_or_library": []
     },
     {
-      "media_id": "local:assets/hiking/hiking_main_hero_poster.jpg",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_main_hero_poster.jpg",
-      "repository_path": "dist/assets/hiking/hiking_main_hero_poster.jpg",
+      "media_id": "local:assets/hiking/hiking_main_hero_poster.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_main_hero_poster.webp",
+      "repository_path": "dist/assets/hiking/hiking_main_hero_poster.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
       "used_by_routes_from_share_or_library": []
     },
     {
-      "media_id": "local:assets/hiking/hiking_morning_coffee.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_morning_coffee.png",
-      "repository_path": "dist/assets/hiking/hiking_morning_coffee.png",
+      "media_id": "local:assets/hiking/hiking_morning_coffee.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_morning_coffee.webp",
+      "repository_path": "dist/assets/hiking/hiking_morning_coffee.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
       "used_by_routes_from_share_or_library": []
     },
     {
-      "media_id": "local:assets/hiking/hiking_tent_campfire.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_tent_campfire.png",
-      "repository_path": "dist/assets/hiking/hiking_tent_campfire.png",
+      "media_id": "local:assets/hiking/hiking_tent_campfire.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/hiking/hiking_tent_campfire.webp",
+      "repository_path": "dist/assets/hiking/hiking_tent_campfire.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
@@ -511,9 +511,9 @@
       ]
     },
     {
-      "media_id": "local:assets/ks-approved-original.png",
-      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/ks-approved-original.png",
-      "repository_path": "dist/assets/ks-approved-original.png",
+      "media_id": "local:assets/ks-approved-original.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/ks-approved-original.webp",
+      "repository_path": "dist/assets/ks-approved-original.webp",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
@@ -632,6 +632,51 @@
       "media_id": "local:assets/products-reference-v1.1/vests.webp",
       "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/vests.webp",
       "repository_path": "dist/assets/products-reference-v1.1/vests.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/layers-2x.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/layers-2x.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/layers-2x.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/layers.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/layers.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/layers.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/marker-icon-2x.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/marker-icon-2x.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/marker-icon-2x.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/marker-icon.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/marker-icon.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/marker-icon.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/marker-shadow.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/marker-shadow.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/marker-shadow.png",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",

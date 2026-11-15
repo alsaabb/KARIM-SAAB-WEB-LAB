@@ -1,0 +1,37 @@
+name: QA — security, bilingual SEO and asset performance
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout proposed pull request
+        uses: actions/checkout@v4
+      - name: Python version
+        run: python3 --version
+      - name: Install pinned CSS minifier for deterministic bundle verification
+        run: python3 -m pip install --disable-pip-version-check csscompressor==0.9.5
+      - name: Ensure the CSS bundle is current and preserves the approved cascade
+        run: python3 scripts/build_css_bundle.py --check
+      - name: Run mandatory fail-closed QA gate
+        run: python3 scripts/qa_gate.py
+      - name: Validate existing bilingual release routes
+        run: python3 scripts/verify_site.py
+      - name: Validate website registry consistency
+        run: python3 scripts/build_site_master_registry.py --check
+      - name: Execute every repository Python unit test
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Verify site identity and branding requirements
+        run: python3 scripts/verify_identity.py
+      - name: Syntax-check every application JavaScript source
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' file; do
+            node --check "$file"
+          done < <(find dist -maxdepth 1 -name '*.js' -type f -print0)
