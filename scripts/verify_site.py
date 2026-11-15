@@ -33,8 +33,8 @@ def run():
     issues = []
     site_root = (ROOT / "index.html").read_text(encoding="utf-8")
     app = (DIST / "index.html").read_text(encoding="utf-8")
-    if "/KARIM-SAAB-WEB-LAB/dist/index.html" not in site_root:
-        issues.append("Root entry does not redirect to /dist/index.html")
+    if "/KARIM-SAAB-WEB-LAB/dist/" not in site_root:
+        issues.append("Root entry does not redirect to /dist/")
     if "https://karim-ai-virtual-assistant.ai.studio" not in app:
         issues.append("Published app has no KARIM AI external link")
 
@@ -55,7 +55,7 @@ def run():
         if '<meta name="robots" content="noindex,follow">' not in p.read_text(encoding="utf-8")
     }
     # The canonical homepage is a first-class sitemap entry alongside share pages.
-    homepage = BASE + "/index.html"
+    homepage = BASE + "/"
     expected.add(homepage)
     if not urls or urls[0] != homepage:
         issues.append("Canonical homepage must be the first sitemap URL")
@@ -63,6 +63,8 @@ def run():
     homepage_head.feed(app)
     if homepage_head.canonical != [homepage]:
         issues.append("Incorrect homepage canonical")
+    if homepage_head.og_urls != [homepage]:
+        issues.append("Incorrect homepage og:url")
     for lang in ("ar", "en"):
         alternate = BASE + "/share/" + lang + "/home.html"
         if homepage_head.alternates.get(lang) != alternate:
