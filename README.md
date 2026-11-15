@@ -4,6 +4,8 @@ Live website: https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/
 
 This repository contains the public bilingual KARIM SAAB site and its GitHub Pages deployment. The `main` branch is the release source. The root `index.html` redirects visitors to `dist/index.html`. The `dist/` directory contains the published app, share/SEO pages, styling and public assets.
 
+**Owner-approved engineering governance:** [docs/ENGINEERING_GOVERNANCE.md](docs/ENGINEERING_GOVERNANCE.md) — all security, bilingual SEO, performance, QA and PR/release decisions. Coding agents also follow [AGENTS.md](AGENTS.md). Changes must be proposed on a review branch and only merged after an **explicit owner instruction for that PR**. Static PR approvals are not permission to deploy.
+
 ## Release and safe development
 
 1. Work on a new branch, not directly on `main`.
