@@ -1,0 +1,22 @@
+name: QA — security, bilingual SEO and asset performance
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout proposed pull request
+        uses: actions/checkout@v4
+      - name: Python version
+        run: python3 --version
+      - name: Run mandatory fail-closed QA gate
+        run: python3 scripts/qa_gate.py
+      - name: Validate existing bilingual release routes
+        run: python3 scripts/verify_site.py
+      - name: Validate website registry consistency
+        run: python3 scripts/build_site_master_registry.py --check
