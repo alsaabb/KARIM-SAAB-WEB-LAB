@@ -164,7 +164,7 @@ def make_share(path: Path, raw: str, data: dict, title_counts: Counter,
     if title_counts[(lang, title)]:
         title = title + " — " + path.stem.replace("-", " ")
     title_counts[(lang, title)] += 1
-    description = original_desc or visible_text(raw)[:180]
+    description = (original_desc or visible_text(raw)[:180])[:190]
     if description_counts[(lang, description)]:
         description = (description.rstrip(". ")[:125] + " — " + title[:55]).strip()
     description_counts[(lang, description)] += 1
