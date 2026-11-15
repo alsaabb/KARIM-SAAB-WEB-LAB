@@ -1,0 +1,35 @@
+name: Rebuild video-poster CSS bundle (review branch only)
+on:
+  push:
+    branches: [fix/video-portrait-poster-mobile-20261115]
+    paths:
+      - 'dist/wild-boar-story-v1.css'
+      - '.github/workflows/video-poster-review-build.yml'
+permissions:
+  contents: write
+concurrency:
+  group: video-poster-bundle-review
+  cancel-in-progress: false
+jobs:
+  bundle:
+    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB' && github.ref == 'refs/heads/fix/video-portrait-poster-mobile-20261115'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Install exact pinned minifier
+        run: python3 -m pip install --disable-pip-version-check csscompressor==0.9.5
+      - name: Regenerate CSS from source with original cascade order
+        run: |
+          python3 scripts/build_css_bundle.py --write
+          python3 scripts/build_css_bundle.py --check
+      - name: Commit updated bundle only on review branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add dist/styles.bundle.min.css
+          if ! git diff --cached --quiet; then
+            git commit -m 'build(css): regenerate source-backed bundle for mobile video previews'
+            git push origin HEAD:refs/heads/fix/video-portrait-poster-mobile-20261115
+          fi
