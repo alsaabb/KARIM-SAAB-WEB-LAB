@@ -95,7 +95,7 @@
     if(play)play.addEventListener('click',function(){
       var player=main.querySelector('#ks-wb-player');if(!player)return;
       var iframe=document.createElement('iframe');
-      iframe.setAttribute('sandbox','allow-scripts allow-same-origin allow-presentation allow-popups');
+      iframe.setAttribute('sandbox','allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox');
       iframe.src='https://www.youtube-nocookie.com/embed/'+VIDEO+'?autoplay=1&playsinline=1&rel=0';
       iframe.title=article().title;
       iframe.allow='autoplay; encrypted-media; gyroscope; accelerometer; picture-in-picture; web-share';
