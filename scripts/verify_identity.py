@@ -24,7 +24,7 @@ expected={
  'ivory':('#f7f5ef',css),
  'brand stylesheet':('styles.bundle.min.css',html),
  'brand CSS cascade preserved':('.site-header .brand-word',bundled),
- 'root redirect':('/KARIM-SAAB-WEB-LAB/dist/index.html',root),
+ 'root redirect':('/KARIM-SAAB-WEB-LAB/dist/',root),
  'automatic deployment':('actions/deploy-pages@v4',workflow),
 }
 failed=[name for name,(token,source) in expected.items() if token not in source]

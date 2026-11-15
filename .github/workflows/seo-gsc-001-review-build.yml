@@ -1,0 +1,56 @@
+name: SEO-GSC-001 build source-driven static pages (review branch only)
+on:
+  push:
+    branches:
+      - fix/seo-gsc-001-structural-20261115
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: seo-gsc-001-review-only
+  cancel-in-progress: false
+
+jobs:
+  rebuild-review-only:
+    if: github.ref == 'refs/heads/fix/seo-gsc-001-structural-20261115'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the exact review branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/seo-gsc-001-structural-20261115
+          persist-credentials: true
+      - name: Compile SEO scripts
+        run: |
+          python3 -m py_compile scripts/build_seo_share.py scripts/verify_seo_gsc_001.py scripts/probe_seo_public.py scripts/build_after_sixty_share.py
+      - name: Measure the five URLs on the existing published site
+        continue-on-error: true
+        run: python3 scripts/probe_seo_public.py
+      - name: Generate bilingual SEO documents from the approved manifests
+        run: |
+          python3 scripts/build_seo_share.py --write
+          python3 scripts/build_site_master_registry.py --write
+      - name: Validate XML, sources, canonical and hreflang
+        run: |
+          python3 scripts/build_seo_share.py --check
+          python3 scripts/verify_site.py
+          python3 scripts/verify_identity.py
+          python3 scripts/qa_gate.py
+          python3 -m unittest discover -s tests -p "test_after_sixty.py" -v
+          python3 scripts/verify_seo_gsc_001.py
+          python3 scripts/build_site_master_registry.py --check
+      - name: Commit generated HTML, sitemap, report and inventory only to the review branch
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "fix/seo-gsc-001-structural-20261115"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- dist/share dist/sitemap.xml docs/registry docs/seo
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit"
+          else
+            git commit -m "build(seo): materialize verified bilingual static pages [skip ci]"
+            git push origin HEAD:refs/heads/fix/seo-gsc-001-structural-20261115
+          fi
