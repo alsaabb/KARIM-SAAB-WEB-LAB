@@ -218,6 +218,8 @@ def make_share(path: Path, raw: str, data: dict, title_counts: Counter,
     head = TITLE.sub("", head, count=1)
     head = DESCRIPTION.sub("", head, count=1)
     head = OG_URL.sub("", head)
+    # Prevent accumulating whitespace when regenerating the same page.
+    head = re.sub(r"[ \\t]*\\n(?:[ \\t]*\\n)+", "\\n", head).rstrip()
     metadata = [
         "<title>" + escape(title) + "</title>",
         '<meta name="description" content="' + escape(description[:190], quote=True) + '">',
@@ -353,6 +355,15 @@ def generate(write: bool):
           "| intentional noindex:", len(excluded), "| source gaps:", len(thin))
     print("Sitemap target count:", new_map.count("<loc>"), "| pending files:", len(pending))
     if not write and pending:
+        import difflib
+        first = pending[0]
+        before = first.read_text(encoding="utf-8") if first.exists() else ""
+        difference = list(difflib.unified_diff(
+            before.splitlines(True), all_changes[first].splitlines(True),
+            fromfile="current/" + str(first.relative_to(ROOT)),
+            tofile="generated/" + str(first.relative_to(ROOT))))
+        for line in difference[:50]:
+            print(line.rstrip())
         raise SystemExit("Generated pages stale: run --write in review branch")
     return 0
 
