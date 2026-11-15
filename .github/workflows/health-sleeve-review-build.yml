@@ -1,0 +1,78 @@
+name: Health sleeve article — review-only materialization and QA
+on:
+  push:
+    branches:
+      - feature/health-sleeve-Cv8l-mLzG9g-v1
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: health-sleeve-review-build
+  cancel-in-progress: false
+jobs:
+  generate-and-check:
+    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB' && github.ref == 'refs/heads/feature/health-sleeve-Cv8l-mLzG9g-v1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/health-sleeve-Cv8l-mLzG9g-v1
+          persist-credentials: true
+      - name: Rebuild approved SEO/share pages and master index on review branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/build_seo_share.py --write
+          python3 scripts/build_seo_share.py --check
+          python3 scripts/build_site_master_registry.py --write
+          python3 scripts/build_site_master_registry.py --check
+          python3 -m unittest discover -s tests -p 'test_site_master_registry.py' -v
+          python3 scripts/verify_site.py
+          python3 -m py_compile scripts/build_seo_share.py
+          node --check dist/health-sleeve-v1.js
+          node --check tests/health_sleeve_browser.cjs
+      - name: Verify this is a fully separate AR and EN article pair, never a teaser
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          from html import escape
+          d=json.loads(Path("dist/data/health-sleeve-v1.json").read_text())
+          assert d['youtube_id']=='Cv8l-mLzG9g'
+          for lang in ['ar','en']:
+              article=d['article_'+lang]
+              html=Path('dist/share/'+lang+'/about-health-from-150kg-to-cycling-europe.html').read_text()
+              assert len(article)>1500 and article.count('### ')==3
+              assert '<section id="ks-seo-source-content">' in html
+              assert escape(article.splitlines()[0][2:]) in html
+              assert escape(article.splitlines()[-1]) in html
+              assert escape(article.splitlines()[-1]) not in Path('dist/share/'+('en' if lang=='ar' else 'ar')+'/about-health-from-150kg-to-cycling-europe.html').read_text()
+              print('COMPLETE',lang,'characters=',len(article),'headings=',article.count('### '))
+          PY
+      - name: Commit generated pages and registries to REVIEW BRANCH only
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH='feature/health-sleeve-Cv8l-mLzG9g-v1'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git reset --hard "origin/$BRANCH"
+            python3 scripts/build_seo_share.py --write
+            python3 scripts/build_site_master_registry.py --write
+            git add -- dist/share dist/sitemap.xml docs/registry docs/seo
+            if git diff --cached --quiet; then
+              echo 'Already current'
+              exit 0
+            fi
+            git commit -m 'build(health): materialize full language-specific article share pages [skip ci]'
+            if git push origin "HEAD:refs/heads/$BRANCH"; then
+              echo 'Generated articles committed on review branch'
+              exit 0
+            fi
+            sleep 3
+          done
+          echo 'Could not push generated sources safely' >&2
+          exit 1
