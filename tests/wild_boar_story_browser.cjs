@@ -49,8 +49,8 @@ const OUT='visual-review/wild-boar';
     // while retaining the complete image as the main (uncropped) layer.
     const proof=await browser.newPage({viewport:{width:390,height:844}});
     await proof.route('https://i.ytimg.com/**',r=>r.fulfill({
-      status:200,contentType:'image/webp',
-      body:fs.readFileSync('dist/assets/journal-greece.webp')
+      status:200,contentType:'image/svg+xml',
+      body:Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720"><rect width="1280" height="720" fill="#42513b"/><text x="640" y="360" font-size="76" text-anchor="middle" fill="#f5db9b">REAL LANDSCAPE THUMBNAIL</text></svg>')
     }));
     await proof.goto(BASE+'#/ar/story/wild-boar-greece',{waitUntil:'domcontentloaded'});
     const cover=proof.locator('.ks-wb-play img[data-wb-poster]');
