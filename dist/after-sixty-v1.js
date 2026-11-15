@@ -34,7 +34,7 @@ function thumbnailURL(id,quality){
 }
 function thumbnailMarkup(id,cls,alt,extra){
  return '<img class="'+cls+'" src="'+thumbnailURL(id,"maxresdefault")+
-  '" data-ks60-thumbnail data-video-id="'+escapeHTML(id)+'" alt="'+escapeHTML(alt||"")+'" '+(extra||"")+'>';
+  '" data-ks60-thumbnail data-video-id="'+escapeHTML(id)+'" alt="'+escapeHTML(alt||"")+'" '+(extra||"")+' decoding="async" loading="lazy">';
 }
 function bindThumbnails(scope){
  Array.from(scope.querySelectorAll("img[data-ks60-thumbnail]")).forEach(function(img){
@@ -64,7 +64,7 @@ function episodeCard(ep,categories){
  var title=ar()?ep.title_ar:ep.title_en;
  var excerpt=ar()?ep.excerpt_ar:ep.excerpt_en;
  return '<a class="ks60-card" href="'+episodeURL(ep)+'" data-episode-card data-category="'+escapeHTML(ep.category_id)+'" data-text="'+escapeHTML([ep.title_ar,ep.title_en,ep.excerpt_ar,ep.excerpt_en].join(" ").toLocaleLowerCase())+'">'+
-  '<div class="ks60-thumb"><img loading="lazy" data-ks60-thumbnail data-video-id="'+escapeHTML(ep.youtube_id)+'" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'"><span class="ks60-card-video-badge" aria-hidden="true">▶ '+label("شاهد الفيديو","Watch video")+'</span><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
+  '<div class="ks60-thumb"><img loading="lazy" data-ks60-thumbnail data-video-id="'+escapeHTML(ep.youtube_id)+'" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'" decoding="async"><span class="ks60-card-video-badge" aria-hidden="true">▶ '+label("شاهد الفيديو","Watch video")+'</span><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
   '<div class="ks60-cardbody"><div class="ks60-kicker"><span>'+label("الحلقة","Episode")+' #'+String(ep.number).padStart(2,"0")+'</span><span>'+escapeHTML(categoryItem?ar()?categoryItem.ar:categoryItem.en:"")+'</span></div>'+
   '<h2>'+escapeHTML(title)+'</h2><p class="ks60-excerpt">'+escapeHTML(excerpt)+'</p>'+
   '<div class="ks60-kicker" style="margin-top:13px">'+label("مدة القراءة","Reading time")+': '+escapeHTML(ep.reading_minutes)+' '+label("دقائق","min")+'</div></div></a>';
@@ -134,7 +134,7 @@ function episodePage(ep){
  '<a class="ks60-back" href="'+route("about/after-sixty")+'">← '+label("عودة إلى مكتبة الحلقات","Back to episode library")+'</a>'+
  '<header class="ks60-episode-head"><div class="ks60-stat">'+label("الحلقة","Episode")+' #'+String(ep.number).padStart(2,"0")+'</div>'+
  '<h1>'+escapeHTML(title)+'</h1><p>'+label("مدة الفيديو: ","Video: ")+timestamp(ep.duration_seconds)+' · '+label("مدة القراءة: ","Reading: ")+ep.reading_minutes+' '+label("دقائق","min")+
- ' · <a href="'+shareBase+'-video.html" target="_blank" rel="noopener">'+label("مشاركة الفيديو","Share video")+'</a>'+' · <a href="'+shareBase+'-article.html" target="_blank" rel="noopener">'+label("مشاركة المقال","Share article")+'</a></p></header>'+
+ ' · <a href="'+shareBase+'-video.html" target="_blank" rel="noopener noreferrer">'+label("مشاركة الفيديو","Share video")+'</a>'+' · <a href="'+shareBase+'-article.html" target="_blank" rel="noopener noreferrer">'+label("مشاركة المقال","Share article")+'</a></p></header>'+
  '<div class="ks60-split">'+
  '<aside class="ks60-video-pane" id="ks60-video-pane" aria-label="'+label("مشغل فيديو الحلقة","Episode video player")+'">'+
  '<div class="ks60-player-wrap"><div class="ks60-player-stage">'+
@@ -169,7 +169,7 @@ function bindEpisode(main,ep){
  }
  function insertPlayer(url){
   var title=ar()?ep.title_ar:ep.title_en;
-  player.innerHTML='<iframe id="ks60-frame" src="'+escapeHTML(url)+'" title="'+escapeHTML(title)+'" loading="eager" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  player.innerHTML='<iframe id="ks60-frame" src="'+escapeHTML(url)+'" title="'+escapeHTML(title)+'" loading="eager" allow="accelerometer;autoplay;encrypted-media;gyroscope;picture-in-picture;web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"></iframe>';
  }
  function playYoutube(seconds){
   active="youtube";updateSources();

@@ -25,7 +25,7 @@
     var lang=article(),src=posterSrc(kind),owner=!!ownerPoster();
     return '<div class="ks-wb-video-surface" id="ks-wb-player">'+
       '<button type="button" class="ks-wb-play" data-wb-play aria-label="'+esc(tr('تشغيل فيديو المواجهة','Play encounter video'))+'">'+
-       '<img data-wb-poster data-wb-owner="'+(owner?'true':'false')+'" alt="'+esc(lang.title)+'" src="'+esc(src)+'" loading="'+(kind==='card'?'lazy':'eager')+'">'+
+       '<img data-wb-poster data-wb-owner="'+(owner?'true':'false')+'" alt="'+esc(lang.title)+'" src="'+esc(src)+'" loading="'+(kind==='card'?'lazy':'eager')+'" decoding="async">'+
        '<span class="ks-wb-fallback-copy" aria-hidden="true">'+esc(tr('مواجهة في الظلام · الخنزير البري في اليونان','ENCOUNTER IN THE DARK · WILD BOAR IN GREECE'))+'</span>'+
        '<span class="ks-wb-play-label">'+esc(tr('شاهد الفيديو','Watch video'))+'</span>'+
       '</button></div>'
@@ -107,7 +107,7 @@
   function card(){
     var a=article();
     return '<a class="ks-simple-card ks-wb-card" data-wb-index-card href="'+link(STORY)+'">'+
-      '<div class="ks-wb-card-poster"><img data-wb-card-poster data-wb-owner="'+(ownerPoster()?'true':'false')+'" src="'+esc(posterSrc('card'))+'" alt="'+esc(a.title)+'" loading="lazy"><span class="ks-wb-card-fallback">'+esc(tr('غابات اليونان · مواجهة الخنزير البري','GREECE · WILD BOAR ENCOUNTER'))+'</span></div>'+
+      '<div class="ks-wb-card-poster"><img data-wb-card-poster data-wb-owner="'+(ownerPoster()?'true':'false')+'" src="'+esc(posterSrc('card'))+'" alt="'+esc(a.title)+'" loading="lazy" decoding="async"><span class="ks-wb-card-fallback">'+esc(tr('غابات اليونان · مواجهة الخنزير البري','GREECE · WILD BOAR ENCOUNTER'))+'</span></div>'+
       '<span class="eyebrow">'+esc(tr('اليونان · مغامرة حقيقية بالدراجة','GREECE · REAL CYCLING ADVENTURE'))+'</span>'+
       '<h3>'+esc(a.title)+'</h3><p>'+esc(a.sections[1].text)+'</p>'+
       '<span class="ks-wb-card-cta">'+esc(tr('شاهد الفيديو واقرأ القصة كاملة','Watch the video and read the full story'))+' ↗</span></a>'
