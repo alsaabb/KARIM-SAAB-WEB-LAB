@@ -219,7 +219,7 @@ def make_share(path: Path, raw: str, data: dict, title_counts: Counter,
     head = DESCRIPTION.sub("", head, count=1)
     head = OG_URL.sub("", head)
     # Prevent accumulating whitespace when regenerating the same page.
-    head = re.sub(r"[ \\t]*\\n(?:[ \\t]*\\n)+", "\\n", head).rstrip()
+    head = re.sub(r"[ \t]*\n(?:[ \t]*\n)+", "\n", head).rstrip()
     metadata = [
         "<title>" + escape(title) + "</title>",
         '<meta name="description" content="' + escape(description[:190], quote=True) + '">',
