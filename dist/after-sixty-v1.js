@@ -34,7 +34,7 @@ function thumbnailURL(id,quality){
 }
 function thumbnailMarkup(id,cls,alt,extra){
  return '<img class="'+cls+'" src="'+thumbnailURL(id,"maxresdefault")+
-  '" data-ks60-thumbnail data-video-id="'+escapeHTML(id)+'" alt="'+escapeHTML(alt||"")+'" '+(extra||"")+' decoding="async" loading="lazy">';
+  '" data-ks60-thumbnail data-video-id="'+escapeHTML(id)+'" alt="'+escapeHTML(alt||"")+'" '+(extra||"")+' decoding="async" loading="lazy" width="720" height="1280">';
 }
 function bindThumbnails(scope){
  Array.from(scope.querySelectorAll("img[data-ks60-thumbnail]")).forEach(function(img){
@@ -64,7 +64,7 @@ function episodeCard(ep,categories){
  var title=ar()?ep.title_ar:ep.title_en;
  var excerpt=ar()?ep.excerpt_ar:ep.excerpt_en;
  return '<a class="ks60-card" href="'+episodeURL(ep)+'" data-episode-card data-category="'+escapeHTML(ep.category_id)+'" data-text="'+escapeHTML([ep.title_ar,ep.title_en,ep.excerpt_ar,ep.excerpt_en].join(" ").toLocaleLowerCase())+'">'+
-  '<div class="ks60-thumb"><img loading="lazy" data-ks60-thumbnail data-video-id="'+escapeHTML(ep.youtube_id)+'" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'" decoding="async"><span class="ks60-card-video-badge" aria-hidden="true">▶ '+label("شاهد الفيديو","Watch video")+'</span><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
+  '<div class="ks60-thumb"><img loading="lazy" data-ks60-thumbnail data-video-id="'+escapeHTML(ep.youtube_id)+'" alt="'+escapeHTML(title)+'" src="'+escapeHTML(thumb)+'" decoding="async" width="720" height="1280"><span class="ks60-card-video-badge" aria-hidden="true">▶ '+label("شاهد الفيديو","Watch video")+'</span><span class="ks60-duration">'+timestamp(ep.duration_seconds)+'</span></div>'+
   '<div class="ks60-cardbody"><div class="ks60-kicker"><span>'+label("الحلقة","Episode")+' #'+String(ep.number).padStart(2,"0")+'</span><span>'+escapeHTML(categoryItem?ar()?categoryItem.ar:categoryItem.en:"")+'</span></div>'+
   '<h2>'+escapeHTML(title)+'</h2><p class="ks60-excerpt">'+escapeHTML(excerpt)+'</p>'+
   '<div class="ks60-kicker" style="margin-top:13px">'+label("مدة القراءة","Reading time")+': '+escapeHTML(ep.reading_minutes)+' '+label("دقائق","min")+'</div></div></a>';
