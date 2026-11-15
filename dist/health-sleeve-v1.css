@@ -17,3 +17,6 @@
 .ks-sleeve-card{margin-top:18px}
 @media(max-width:1100px){.ks-sleeve .ks-happ-split{display:block}.ks-sleeve .ks-happ-video-pane{margin-bottom:0}.ks-sleeve .ks-happ-player{max-width:760px;margin-inline:auto}.ks-sleeve .ks-happ-article-pane{margin-top:12px}}
 @media(max-width:760px){.ks-sleeve .ks-happ-head{margin-bottom:18px}.ks-sleeve .ks-happ-video-pane{margin:0 auto}.ks-sleeve .ks-sleeve-article{border-top-left-radius:0;border-top-right-radius:0;padding-top:16px}}
+
+.ks-sleeve .ks-sleeve-poster.ks-sleeve-owner-portrait{width:min(100%,430px);margin-inline:auto}
+.ks-sleeve .ks-sleeve-poster.ks-sleeve-owner-portrait .ks-sleeve-cover{width:100%;aspect-ratio:9/16;object-fit:cover}
