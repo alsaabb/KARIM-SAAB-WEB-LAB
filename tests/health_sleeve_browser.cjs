@@ -28,6 +28,7 @@ function sentences(md){
       await page.route('https://www.youtube-nocookie.com/**',r=>r.abort());
       await page.goto(BASE+'#/'+lang+'/'+route,{waitUntil:'domcontentloaded'});
       await page.locator('#app > main.ks-sleeve .ks-sleeve-article').waitFor({timeout:20000});
+      await page.locator('.ks-sleeve-cover').evaluate(async img=>{await img.decode();});
       const actual=await page.locator('.ks-sleeve-article > h1, .ks-sleeve-article > h3, .ks-sleeve-article > p, .ks-sleeve-article > blockquote > p').allTextContents();
       assert.deepEqual(actual.map(x=>x.trim()),sentences(article['article_'+lang]),'The published '+lang+' article must preserve every original line verbatim');
       const meta=await page.evaluate(()=>{
