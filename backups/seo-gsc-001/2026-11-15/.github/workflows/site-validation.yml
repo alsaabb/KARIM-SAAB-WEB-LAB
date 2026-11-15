@@ -1,0 +1,61 @@
+name: Validate KARIM SAAB site
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  site-sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Check sitemap and bilingual links
+        run: python3 scripts/verify_site.py
+
+      - name: Keep site-wide master page and media registries current
+        run: |
+          python3 scripts/build_site_master_registry.py --check
+          python3 -m unittest discover -s tests -p 'test_site_master_registry.py' -v
+
+      - name: V1.1 products and video article source checks
+        run: python3 -m unittest discover -s tests -p 'test_approved_sections_v11.py' -v
+
+      - name: Protect owner-approved single Drive archive tree
+        run: python3 -m unittest discover -s tests -p 'test_about_canonical_drive_tree.py' -v
+
+      - name: Validate changed JavaScript syntax
+        run: |
+          node --check dist/karim-products.js
+          node --check dist/about-drive-source-v2.js
+          node --check dist/about-drive-layout-v2.js
+          node --check dist/happiness-stories-v1.js
+          node --check dist/shared-shell-v2.js
+          node --check dist/about-unified-shell-happiness-hub-v2.js
+          node --check dist/bilingual-share-v1.js
+          node --check dist/wild-boar-story-v1.js
+          python3 -m unittest discover -s tests -p 'test_wild_boar_story.py' -v
+          python3 -m unittest discover -s tests -p 'test_bilingual_sharing.py' -v
+
+      - name: Test share controls in representative live-route DOM fixtures
+        run: |
+          npm install --no-save --no-package-lock jsdom@26
+          node --test tests/share_dom.test.cjs
+
+      - name: Verify portrait poster and mobile episode layout in Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ks60-preview-http.log 2>&1 &
+          node tests/after_sixty_poster_browser.cjs
+          node tests/wild_boar_story_browser.cjs
+      - name: Store wild boar mobile review screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_WILD_BOAR_MOBILE_PREVIEW
+          path: visual-review/wild-boar/
+          if-no-files-found: error
+          retention-days: 14
