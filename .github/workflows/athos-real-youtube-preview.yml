@@ -1,0 +1,29 @@
+name: Mount Athos — genuine YouTube art review screenshots only
+on:
+  push:
+    branches: [fix/video-portrait-poster-mobile-20261115]
+    paths:
+      - 'tests/athos_real_youtube_thumbnail_review.cjs'
+      - '.github/workflows/athos-real-youtube-preview.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  make-real-review-screenshots:
+    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install test browser
+        run: npm install --no-save --no-package-lock playwright@1.56.1
+      - name: Capture real YouTube thumbnail screenshots — no fixtures
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/athos-preview-server.log 2>&1 &
+          node tests/athos_real_youtube_thumbnail_review.cjs
+      - name: Upload genuinely sourced images for owner review
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_ATHOS_GENUINE_YOUTUBE_REVIEW
+          path: visual-review/athos-real-youtube/
+          if-no-files-found: error
+          retention-days: 14
