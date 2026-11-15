@@ -130,8 +130,7 @@
       "source_document_url": "",
       "source_status": "verified_article",
       "children": [
-        "about/health/depression-anxiety",
-        "about/health/from-150kg-to-cycling-europe"
+        "about/health/depression-anxiety"
       ],
       "drive_folder_index_doc_id": "12p706_neLlNcrH4tB2uhcNboj7xl_UjBcchVnMxllEA",
       "drive_folder_index_doc_url": ""
@@ -456,25 +455,6 @@
       "children": [],
       "drive_folder_index_doc_id": "1-rY9XQ5EN3K2uuIsaCpp_MAL9VsiRFtwazqRnDlmc0c",
       "drive_folder_index_doc_url": ""
-    },
-    {
-      "route": "about/health/from-150kg-to-cycling-europe",
-      "title_ar": "من 150 كيلوغرامًا إلى قطع أوروبا بالدراجة: قصة التحول الجذري وتجربة التكميم",
-      "title_en": "From 150 kg to Cycling Across Europe: My Sleeve Gastrectomy Journey & Transformation",
-      "excerpt_ar": "قصتي من وزن 150 كيلوغرامًا إلى السفر بالدراجة في أوروبا بعد عملية التكميم؛ فيديو ومقال كامل.",
-      "excerpt_en": "My story of moving from 150 kg to long-distance cycling across Europe after sleeve gastrectomy; complete video and article.",
-      "kind": "article",
-      "icon": "▶",
-      "source_folder_id": null,
-      "source_folder_url": null,
-      "source_document_id": null,
-      "source_document_url": null,
-      "source_status": "verified_article",
-      "children": [],
-      "approved_video_youtube_id": "Cv8l-mLzG9g",
-      "published_article_source": "dist/data/health-sleeve-v1.json",
-      "article_language_status": "approved_ar_en",
-      "archive_status": "pending_verified_ar_en_archive"
     }
   ],
   "published_happiness_source": "dist/data/happiness-stories-v1.json",
