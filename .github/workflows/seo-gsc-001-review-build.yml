@@ -36,6 +36,9 @@ jobs:
         run: |
           python3 scripts/build_seo_share.py --check
           python3 scripts/verify_site.py
+          python3 scripts/verify_identity.py
+          python3 scripts/qa_gate.py
+          python3 -m unittest discover -s tests -p "test_after_sixty.py" -v
           python3 scripts/verify_seo_gsc_001.py
           python3 scripts/build_site_master_registry.py --check
       - name: Commit generated HTML, sitemap, report and inventory only to the review branch
