@@ -87,3 +87,61 @@
 @media (prefers-reduced-motion:reduce){
   .ks-wb .ks-wb-play-label{transition:none;}
 }
+
+
+/* MOBILE VIDEO POSTER REGRESSION FIX — preserve image information.
+   If YouTube offers a horizontal thumbnail, preview it at its real aspect ratio
+   without creating half-screen blurred/empty strips. The player stays portrait
+   9:16 after the viewer clicks; the owner's true portrait poster keeps 9:16. */
+.ks-wb .ks-wb-video-surface.ks-wb-landscape-preview{
+  aspect-ratio:auto;
+  height:auto;
+  background:#131311;
+}
+.ks-wb .ks-wb-video-surface.ks-wb-landscape-preview .ks-wb-play{
+  height:auto;
+  display:flex;
+  flex-direction:column;
+  background:#131311;
+}
+.ks-wb .ks-wb-video-surface.ks-wb-landscape-preview .ks-wb-play:before,
+.ks-wb .ks-wb-video-surface.ks-wb-landscape-preview .ks-wb-play:after{
+  display:none;
+}
+.ks-wb .ks-wb-video-surface.ks-wb-landscape-preview .ks-wb-play img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  background:#111;
+  flex:none;
+}
+.ks-wb .ks-wb-video-surface.ks-wb-landscape-preview .ks-wb-play-label{
+  position:static;
+  transform:none;
+  margin:0;
+  width:100%;
+  max-width:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  border:0;
+  border-top:1px solid #f3d49d;
+  border-radius:0;
+  background:linear-gradient(110deg,#ebce90,#b88c42);
+  color:#211b11;
+  text-shadow:none;
+  font-weight:800;
+  font-size:1rem;
+}
+/* The player reclaims 9:16 immediately when the iframe is activated. */
+.ks-wb .ks-wb-video-surface.ks-wb-playing{
+  aspect-ratio:9/16;
+  background:#080808;
+}
+@media(max-width:840px){
+  .ks-wb .ks-wb-video-pane{padding:0;min-height:0;}
+  .ks-wb .ks-wb-sticky{max-width:none;}
+  .ks-wb .ks-wb-video-surface{width:100%;max-width:none;border-radius:0;box-shadow:none;}
+  .ks-wb .ks-wb-article{padding:18px 18px 26px;}
+}

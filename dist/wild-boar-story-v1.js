@@ -40,14 +40,14 @@
       img.dataset.wbOwner='false';
       var container=img.closest('.ks-wb-play,.ks-wb-card-poster');
       if(container)container.classList.remove('ks-wb-owner-portrait','ks-wb-owner-card');
+      var player=img.closest('.ks-wb-video-surface');if(player)player.classList.remove('ks-wb-landscape-preview');
       if(idx<urls.length){img.src=urls[idx++]}else{
         img.hidden=true;
         if(container)container.classList.add('ks-wb-no-thumb');
       }
     }
     img.addEventListener('error',next);
-    // Reuse the verified, successfully loaded YouTube thumbnail as a soft background.
-    // This fills the vertical player without cropping the horizontal source artwork.
+    // Inspect the actual thumbnail ratio. Horizontal fallback stays naturally sized; video itself plays 9:16.
     function applyBackdrop(){
       if(img.naturalWidth<=120){next();return}
       var surface=img.closest('.ks-wb-play,.ks-wb-card-poster');
@@ -56,6 +56,8 @@
         var isOwner=img.dataset.wbOwner==='true';
         var portrait=(img.naturalWidth/img.naturalHeight)>0.48 && (img.naturalWidth/img.naturalHeight)<0.68;
         surface.classList.toggle('ks-wb-owner-portrait',isOwner&&portrait);
+        var player=img.closest('.ks-wb-video-surface');
+        if(player)player.classList.toggle('ks-wb-landscape-preview',!isOwner&&!img.hasAttribute('data-wb-card-poster'));
         surface.classList.toggle('ks-wb-owner-card',isOwner&&!!img.hasAttribute('data-wb-card-poster'));
         surface.classList.remove('ks-wb-no-thumb');
         img.dataset.wbActiveSource=isOwner?'owner-approved-poster':'youtube-fallback';
@@ -77,8 +79,7 @@
          '<header class="ks-wb-head"><span class="ks-wb-kicker">KARIM SAAB · REAL ADVENTURE</span><h1>'+esc(a.title)+'</h1><p>'+esc(a.byline)+'</p></header>'+
          '<div class="ks-wb-layout"><aside class="ks-wb-video-pane">'+
             '<div class="ks-wb-sticky">'+videoPoster('hero')+
-             '<div class="ks-wb-video-links"><a href="'+source+'" target="_blank" rel="noopener noreferrer">'+esc(tr('فتح الفيديو الأصلي على YouTube','Open original video on YouTube'))+' ↗</a>'+
-             '<span>'+esc(ownerPoster()?tr('الفيديو رأسي 9:16 — بوستر صاحب القصة','Portrait video 9:16 — owner-selected poster'):tr('الفيديو رأسي 9:16 — صورة احتياطية من YouTube','Portrait video 9:16 — YouTube fallback image'))+'</span></div></div>'+
+             '</div>'+
            '</aside><article class="ks-wb-article" id="ks-wb-article"><div class="ks-wb-article-label">'+esc(tr('القصة الكاملة','THE FULL STORY'))+'</div>'+
              paragraphs+
              '<div class="ks-wb-source-link"><a href="'+source+'" target="_blank" rel="noopener noreferrer">'+esc(tr('شاهد لحظة المواجهة الموثقة','Watch the recorded encounter'))+' ↗</a></div>'+
@@ -101,6 +102,8 @@
       iframe.allow='autoplay; encrypted-media; gyroscope; accelerometer; picture-in-picture; web-share';
       iframe.allowFullscreen=true;iframe.referrerPolicy='strict-origin-when-cross-origin';
       iframe.loading='eager';
+      player.classList.remove('ks-wb-landscape-preview');
+      player.classList.add('ks-wb-playing');
       player.replaceChildren(iframe);
     });
     if(typeof bindShare==='function')bindShare();
