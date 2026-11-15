@@ -102,7 +102,7 @@
         var player=main.querySelector('#ks-happ-player');
         if(!player)return;
         var iframe=document.createElement('iframe');
-        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups');
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation allow-popups allow-popups-to-escape-sandbox');
         iframe.id='ks-happ-youtube-embed';
         iframe.src='https://www.youtube-nocookie.com/embed/'+story.youtube_id+'?autoplay=1&playsinline=1&rel=0';
         iframe.title=tr(story.title_ar,story.title_en);
