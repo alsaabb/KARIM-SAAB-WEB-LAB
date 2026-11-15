@@ -59,6 +59,7 @@ jobs:
           node tests/after_sixty_poster_browser.cjs
           node tests/wild_boar_story_browser.cjs
           node tests/athos_mobile_poster_browser.cjs
+          node tests/health_sleeve_browser.cjs
       - name: Store wild boar mobile review screenshots
         uses: actions/upload-artifact@v4
         with:
@@ -74,3 +75,12 @@ jobs:
           path: visual-review/video-poster-mobile/
           if-no-files-found: error
           retention-days: 30
+
+      - name: Store health sleeve AR/EN mobile/desktop screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_HEALTH_SLEEVE_AR_EN_REVIEW
+          path: visual-review/health-sleeve/
+          if-no-files-found: warn
+          retention-days: 14
