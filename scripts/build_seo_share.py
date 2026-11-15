@@ -275,7 +275,7 @@ def make_share(path: Path, raw: str, data: dict, title_counts: Counter,
              "item": BASE + "share/" + lang + "/home.html"},
             {"@type": "ListItem", "position": 2, "name": title, "item": url},
         ]})
-    if video_id and ('<iframe' in tail + out or path.stem == "about-health-from-150kg-to-cycling-europe"):
+    if video_id and '<iframe' in tail + out:
         poster_match = re.search(r'<meta\b[^>]*property=["\']og:image["\'][^>]*>', head, re.I)
         poster_val = CONTENT_VALUE.search(poster_match.group()) if poster_match else None
         thumb = unescape(poster_val.group(1)) if poster_val else "https://i.ytimg.com/vi/" + video_id + "/hqdefault.jpg"
