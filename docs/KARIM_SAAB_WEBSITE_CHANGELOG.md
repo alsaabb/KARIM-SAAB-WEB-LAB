@@ -1,5 +1,15 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+## 2026-11-15 — Mobile video poster and article-order regression fix (REVIEW ONLY)
+
+- Owner mobile screenshot identified repeat failure: forced portrait preview around horizontal YouTube art, oversized blurred bands, duplicate gold play elements, and article pushed below social links.
+- Review branch: fix/video-portrait-poster-mobile-20261115.
+- Mount Athos (zsYOR7WmvAQ): actual source thumbnail dimensions without crop or blurred bars, one integrated gold Watch Video CTA, full approved bilingual article immediately after preview on phone, direct YouTube link and share links after article, iframe 9:16 only after click.
+- Wild boar (SVdg9IxoS4k): same natural-ratio fallback without blurred bars. Existing explicitly approved 9:16 owner poster remains priority. Full article directly follows player on phone.
+- No changes to source article texts, hashtags, video IDs, existing header/footer, Google Drive original files or archives.
+- Master video policy now requires visual checks at 390px and 1440px, one CTA, no large empty preview bands, natural image source ratio, article immediately below video, portrait owner poster and iframe after click. Enforced through Playwright review tests.
+- No release before owner review approval. Streaming and indexing require independent checks.
+
 
 - Review-only SEO materialization: review workflow #43684182336 passed. Source-derived Article structured data, both language previews, sitemap and automatic inventory were regenerated on the feature branch; validation on the new head is required before approval.
 
