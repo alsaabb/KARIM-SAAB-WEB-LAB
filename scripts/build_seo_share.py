@@ -65,6 +65,25 @@ def paragraphs(strings) -> str:
     return "".join("<p>" + escape(value) + "</p>" for value in strings if isinstance(value, str) and value.strip())
 
 
+def approved_markdown_html(source: str) -> str:
+    """Render the owner-approved Markdown without changing the stored original."""
+    result = []
+    for line in source.splitlines():
+        if not line.strip():
+            continue
+        tag = "p"
+        if line.startswith("### "):
+            tag, line = "h2", line[4:]
+        elif line.startswith("# "):
+            tag, line = "h1", line[2:]
+        elif line.startswith("> "):
+            tag, line = "blockquote", line[2:]
+        safe = escape(line)
+        safe = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", safe)
+        result.append("<" + tag + ">" + safe + "</" + tag + ">")
+    return "\n".join(result)
+
+
 def original_sections(path: Path, lang: str, data: dict) -> tuple[str, str, str | None]:
     """Return approved, longer form body content, article kind, and video ID."""
     name = path.stem
@@ -114,6 +133,10 @@ def original_sections(path: Path, lang: str, data: dict) -> tuple[str, str, str 
             article += "<h2>" + escape(ending.get("title_" + lang, "")) + "</h2>"
             article += paragraphs(ending.get("paragraphs" if lang == "ar" else "paragraphs_en", []))
             kind = "BlogPosting"
+    if name == "about-health-from-150kg-to-cycling-europe":
+        article = approved_markdown_html(data["health_sleeve"]["article_" + lang])
+        kind = "BlogPosting"
+        video_id = data["health_sleeve"]["youtube_id"]
     return article, kind, video_id
 
 
@@ -306,6 +329,7 @@ def generate(write: bool):
         "athos": load_json("data/destination-mount-athos-greece.json"),
         "happiness": {x["slug"]: x for x in load_json("data/happiness-stories-v1.json")["entries"]},
         "after": load_json("data/after-sixty.json")["episodes"][0],
+        "health_sleeve": load_json("data/health-sleeve-v1.json"),
         "library": json.loads(re.sub(r";\s*$", "", re.sub(r"^\s*window\.KARIM_LIBRARY\s*=\s*",
                                   "", (DIST / "content.js").read_text(encoding="utf-8")).strip())),
     }
