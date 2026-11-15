@@ -45,13 +45,14 @@
     var title=L(item.title_ar,item.title_en);
     var article=L(item.article_ar,item.article_en);
     var video='https://www.youtube.com/watch?v='+encodeURIComponent(item.youtube_id);
-    var poster='https://i.ytimg.com/vi/'+encodeURIComponent(item.youtube_id)+'/maxresdefault.jpg';
+    var ownerPoster=item.poster_status==='approved_and_published' && /^assets\/[A-Za-z0-9_./-]+\.webp$/.test(item.poster_asset||'');
+    var poster=ownerPoster?item.poster_asset:'https://i.ytimg.com/vi/'+encodeURIComponent(item.youtube_id)+'/maxresdefault.jpg';
     return '<main class="ks-happ ks-sleeve" data-sleeve-id="'+safe(item.youtube_id)+'" dir="'+L('rtl','ltr')+'">'+
       '<div class="ks-happ-wrap"><nav class="ks-happ-breadcrumb" aria-label="'+L('مسار التصفح','Breadcrumb')+'">'+
       '<a href="'+path('about')+'">'+L('من أنا','About Me')+'</a> / <a href="'+path('about/health')+'">'+L('ماذا تعرف عن صحتك؟','What Do You Know About Your Health?')+'</a></nav>'+
       '<header class="ks-happ-head"><small>KARIM SAAB | '+L('فيديو ومقال وثائقي','DOCUMENTARY VIDEO & ARTICLE')+'</small><h1>'+safe(title)+'</h1></header>'+
       '<div class="ks-happ-split"><div class="ks-happ-video-pane">'+
-      '<div class="ks-happ-player" id="ks-sleeve-player"><button type="button" class="ks-sleeve-poster" data-sleeve-play aria-label="'+safe(L('تشغيل الفيديو','Play video'))+'">'+
+      '<div class="ks-happ-player" id="ks-sleeve-player"><button type="button" class="ks-sleeve-poster'+(ownerPoster?' ks-sleeve-owner-portrait':'')+'" data-sleeve-play aria-label="'+safe(L('تشغيل الفيديو','Play video'))+'">'+
       '<img class="ks-sleeve-cover" src="'+safe(poster)+'" alt="'+safe(title)+'" width="1280" height="720" decoding="async">'+
       '<span class="ks-sleeve-gold-play">▶ '+L('تشغيل الفيديو','Play video')+'</span></button></div></div>'+
       '<article id="ks-sleeve-article" class="ks-happ-article-pane ks-sleeve-article" lang="'+L('ar','en')+'" dir="'+L('rtl','ltr')+'">'+markdown(article)+'</article></div>'+
@@ -64,10 +65,10 @@
     var thumb=root.querySelector('.ks-sleeve-cover');
     if(thumb&&!thumb.dataset.fallbackBound){
       thumb.dataset.fallbackBound='1';
-      var srcs=['sddefault.jpg','hqdefault.jpg','mqdefault.jpg'];
+      var srcs=(item.poster_status==='approved_and_published' && item.poster_asset)?['maxresdefault.jpg','sddefault.jpg','hqdefault.jpg','mqdefault.jpg']:['sddefault.jpg','hqdefault.jpg','mqdefault.jpg'];
       var index=0;
       function next(){
-        if(index<srcs.length)thumb.src='https://i.ytimg.com/vi/'+item.youtube_id+'/'+srcs[index++];
+        if(index<srcs.length){root.querySelector('.ks-sleeve-poster').classList.remove('ks-sleeve-owner-portrait');thumb.src='https://i.ytimg.com/vi/'+item.youtube_id+'/'+srcs[index++];}
         else {thumb.hidden=true;root.querySelector('.ks-sleeve-poster').classList.add('ks-sleeve-no-image');}
       }
       thumb.addEventListener('error',next);
