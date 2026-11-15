@@ -1,5 +1,8 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+
+- Review-only SEO materialization: review workflow #43684182336 passed. Source-derived Article structured data, both language previews, sitemap and automatic inventory were regenerated on the feature branch; validation on the new head is required before approval.
+
 ## 2026-11-15 — Mount Athos Greece bilingual Destinations review (NOT RELEASED)
 
 - Owner-supplied Arabic and English text is preserved without editorial alteration in `dist/data/destination-mount-athos-greece.json`; neither text has been fact-checked against external evidence at publication level.
