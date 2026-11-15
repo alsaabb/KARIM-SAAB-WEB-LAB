@@ -17,6 +17,11 @@ jobs:
       - name: Check sitemap and bilingual links
         run: python3 scripts/verify_site.py
 
+      - name: Check generated SEO pages and metadata
+        run: |
+          python3 scripts/build_seo_share.py --check
+          python3 scripts/verify_seo_gsc_001.py
+
       - name: Keep site-wide master page and media registries current
         run: |
           python3 scripts/build_site_master_registry.py --check
