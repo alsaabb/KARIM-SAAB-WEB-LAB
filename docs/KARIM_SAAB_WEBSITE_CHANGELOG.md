@@ -2,6 +2,8 @@
 
 ## 2026-11-15 — Mobile video poster and article-order regression fix (REVIEW ONLY)
 
+- Deterministic CSS bundle regenerated from all approved sources by review-only action 43686694679; browser testing and final release remain gated by PR checks.
+
 - Owner mobile screenshot identified repeat failure: forced portrait preview around horizontal YouTube art, oversized blurred bands, duplicate gold play elements, and article pushed below social links.
 - Review branch: fix/video-portrait-poster-mobile-20261115.
 - Mount Athos (zsYOR7WmvAQ): actual source thumbnail dimensions without crop or blurred bars, one integrated gold Watch Video CTA, full approved bilingual article immediately after preview on phone, direct YouTube link and share links after article, iframe 9:16 only after click.
