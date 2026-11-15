@@ -71,6 +71,10 @@ def original_sections(path: Path, lang: str, data: dict) -> tuple[str, str, str 
     article = ""
     kind = ""
     video_id = None
+    if name == "destination-mount-athos-greece":
+        source = data["athos"]["langs"][lang]["full_text"]
+        article = '<div class="ks-seo-full-article" style="white-space:pre-wrap">' + escape(source) + '</div>'
+        kind = "Article"
     if name == "story-wild-boar-greece":
         src = data["story"]
         sections = src["langs"][lang]["sections"]
@@ -299,6 +303,7 @@ def make_sitemap(original: str, excluded: set[str], changed: set[str]) -> str:
 def generate(write: bool):
     data = {
         "story": load_json("data/stories-road-v1.json"),
+        "athos": load_json("data/destination-mount-athos-greece.json"),
         "happiness": {x["slug"]: x for x in load_json("data/happiness-stories-v1.json")["entries"]},
         "after": load_json("data/after-sixty.json")["episodes"][0],
         "library": json.loads(re.sub(r";\s*$", "", re.sub(r"^\s*window\.KARIM_LIBRARY\s*=\s*",

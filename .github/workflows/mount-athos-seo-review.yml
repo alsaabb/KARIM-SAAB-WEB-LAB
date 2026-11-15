@@ -1,0 +1,49 @@
+name: Mount Athos — generate and check SEO on review branch only
+on:
+  push:
+    branches:
+      - feature/destination-mount-athos-greece
+    paths:
+      - 'scripts/build_seo_share.py'
+      - 'dist/data/destination-mount-athos-greece.json'
+      - 'dist/share/ar/destination-mount-athos-greece.html'
+      - 'dist/share/en/destination-mount-athos-greece.html'
+      - '.github/workflows/mount-athos-seo-review.yml'
+permissions:
+  contents: write
+concurrency:
+  group: mount-athos-review-seo
+  cancel-in-progress: false
+jobs:
+  stage-and-verify:
+    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB' && github.ref == 'refs/heads/feature/destination-mount-athos-greece'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate source-backed SEO previews without any publication
+        run: |
+          python3 scripts/build_seo_share.py --write
+          python3 scripts/build_seo_share.py --check
+          python3 scripts/build_site_master_registry.py --write
+          python3 scripts/build_site_master_registry.py --check
+      - name: Verify original article and source-backed route
+        run: |
+          python3 -m unittest discover -s tests -p 'test_destination_mount_athos.py' -v
+          python3 -m unittest discover -s tests -p 'test_site_master_registry.py' -v
+          python3 scripts/verify_site.py
+          python3 scripts/verify_seo_gsc_001.py
+          node --check dist/destination-mount-athos-greece.js
+      - name: Commit generated review assets only
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add dist/share dist/sitemap.xml docs/seo docs/registry
+          if ! git diff --cached --quiet; then
+            git commit -m "build(review): regenerate SEO and inventory for Mount Athos [skip ci]"
+            git push origin HEAD:refs/heads/feature/destination-mount-athos-greece
+          fi
