@@ -107,6 +107,31 @@ def run() -> int:
                 bad(source, f"Broken Asset Check: missing {asset}")
     print(f"Broken Asset Check: checked {len(checked_assets)} distinct static references")
 
+    # The library feeds public book/document buttons. A label must never point
+    # to an empty/unsafe destination; verified local PDFs are checked on disk.
+    content_path = DIST / "content.js"
+    try:
+        content_text = content_path.read_text(encoding="utf-8")
+        if not content_text.startswith("window.KARIM_LIBRARY="):
+            raise ValueError("unexpected KARIM_LIBRARY assignment")
+        library = json.loads(content_text.split("=", 1)[1].strip().rstrip(";"))
+        source_count = 0
+        for entry_key, entry in library.items():
+            if not isinstance(entry, dict):
+                continue
+            for source in entry.get("sources", []):
+                source_count += 1
+                url = source.get("url", "") if isinstance(source, dict) else ""
+                if not isinstance(url, str) or not url.strip():
+                    bad(content_path, f"{entry_key}: public button has an empty destination")
+                elif not (url.startswith("https://") or url.startswith("assets/")):
+                    bad(content_path, f"{entry_key}: unsafe or unsupported book destination")
+                elif url.startswith("assets/") and not (DIST / url).is_file():
+                    bad(content_path, f"{entry_key}: local reading copy does not exist")
+        print(f"Public book source links: {source_count}; all require nonempty verified destinations")
+    except (OSError, ValueError, json.JSONDecodeError) as error:
+        bad(content_path, f"invalid content library: {error}")
+
     ar = DIST / "share" / "ar"
     en = DIST / "share" / "en"
     ar_files = {p.name for p in ar.glob("*.html")} if ar.is_dir() else set()
