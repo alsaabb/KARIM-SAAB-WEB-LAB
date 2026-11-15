@@ -333,7 +333,7 @@ def generate(write: bool):
         "This output is a draft; no Google indexing is guaranteed.",
         "",
         "- Share pages inspected: " + str(len(files)),
-        "- HTML pages changed: " + str(len(changes)),
+        "- Static share HTML pages covered by generator: " + str(len(files)),
         "- Pages with expanded approved article text: " + str(enriched),
         "- Intentionally noindex pages: " + str(len(excluded)),
         "- Still short indexable pages requiring approved editorial text: " + str(len(thin)),
