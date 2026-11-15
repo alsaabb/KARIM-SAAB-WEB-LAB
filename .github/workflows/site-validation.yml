@@ -43,6 +43,7 @@ jobs:
           node --check dist/about-unified-shell-happiness-hub-v2.js
           node --check dist/bilingual-share-v1.js
           node --check dist/wild-boar-story-v1.js
+          node --check dist/destination-mount-athos-greece.js
           python3 -m unittest discover -s tests -p 'test_wild_boar_story.py' -v
           python3 -m unittest discover -s tests -p 'test_bilingual_sharing.py' -v
 
