@@ -32,7 +32,13 @@ class CanonicalAboutDriveTests(unittest.TestCase):
         for item in items:
             self.assertTrue(item["source_folder_id"],item["route"])
             self.assertTrue(item["drive_folder_index_doc_id"],item["route"])
-            self.assertIn(item["drive_folder_index_doc_id"],item["drive_folder_index_doc_url"])
+            # A non-public Drive document must retain its authoritative ID
+            # without exposing a live /edit link in published client data.
+            # Only verified viewer URLs may be nonempty.
+            url = item["drive_folder_index_doc_url"]
+            if url:
+                self.assertIn(item["drive_folder_index_doc_id"], url)
+                self.assertNotIn("/edit", url)
             self.assertIn(item["source_folder_id"],item["source_folder_url"])
             self.assertNotEqual(item["source_folder_id"],ROOT_ID,item["route"])
 
