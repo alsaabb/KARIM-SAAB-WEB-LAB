@@ -60,6 +60,7 @@ def share_html(ep: dict, lang: str) -> str:
         '<link rel="canonical" href="' + link + '">'
         '<link rel="alternate" hreflang="ar" href="' + link_ar + '">'
         '<link rel="alternate" hreflang="en" href="' + link_en + '">'
+        '<link rel="alternate" hreflang="x-default" href="' + link_en + '">'
         '<meta property="og:type" content="article">'
         '<meta property="og:site_name" content="' + site + '">'
         '<meta property="og:title" content="' + esc(title) + '">'
@@ -78,8 +79,7 @@ def share_html(ep: dict, lang: str) -> str:
         '</head><body><main><small>' + esc(person) + ' | KARIM SAAB</small>'
         '<h1>' + esc(title) + '</h1><img src="' + image + '" alt="' + esc(title) + '">'
         '<p>' + esc(description) + '</p><a href="' + app + '">' + call + '</a></main>'
-        '<script>if(!/bot|crawler|spider|facebookexternalhit|twitterbot|pinterest|whatsapp|linkedinbot|slackbot|googlebot/i.test(navigator.userAgent)){window.location.replace('
-        + json.dumps(app) + ');}</script></body></html>\n'
+        '</body></html>\\n'
     )
     return doc
 
@@ -108,6 +108,9 @@ def build():
             raise ValueError("Invalid sitemap")
         sitemap.write_text(xml.replace("</urlset>", "".join(additions) + "</urlset>"), encoding="utf-8")
     print("Prepared share pages:", 2 * len(manifest["episodes"]))
+    # Normalize SEO metadata and complete approved content across all share pages.
+    from build_seo_share import generate
+    generate(True)
 
 
 if __name__ == "__main__":
