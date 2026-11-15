@@ -8,7 +8,7 @@ YouTube ID as proof of playback, public Drive permissions, or media rights.
 - Sitemap URLs: 421
 - Existing content-library entries: 80
 - About-master entries: 23
-- Local public media files: 45
+- Local public media files: 50
 - YouTube IDs from structured episode data: 4
 - Missing referenced local public images: 0
 

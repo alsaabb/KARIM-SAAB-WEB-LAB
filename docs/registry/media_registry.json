@@ -1,6 +1,6 @@
 {
   "basis": "repository media presence and structured JSON URLs only",
-  "local_asset_count": 45,
+  "local_asset_count": 50,
   "media": [
     {
       "media_id": "local:assets/about-approved.webp",
@@ -632,6 +632,51 @@
       "media_id": "local:assets/products-reference-v1.1/vests.webp",
       "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/vests.webp",
       "repository_path": "dist/assets/products-reference-v1.1/vests.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/layers-2x.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/layers-2x.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/layers-2x.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/layers.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/layers.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/layers.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/marker-icon-2x.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/marker-icon-2x.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/marker-icon-2x.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/marker-icon.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/marker-icon.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/marker-icon.png",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/vendor/leaflet/images/marker-shadow.png",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/marker-shadow.png",
+      "repository_path": "dist/assets/vendor/leaflet/images/marker-shadow.png",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
