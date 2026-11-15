@@ -6,6 +6,7 @@ app=(r/'dist/app.js').read_text(encoding='utf-8')
 extra=(r/'dist/enhancements.js').read_text(encoding='utf-8')
 html=(r/'dist/index.html').read_text(encoding='utf-8')
 css=(r/'dist/identity-2026.css').read_text(encoding='utf-8')
+bundled=(r/'dist/styles.bundle.min.css').read_text(encoding='utf-8')
 root=(r/'index.html').read_text(encoding='utf-8')
 workflow=(r/'.github/workflows/deploy.yml').read_text(encoding='utf-8')
 expected={
@@ -21,7 +22,8 @@ expected={
  'charcoal':('#141414',css+html),
  'vintage gold':('#D4AF37',css),
  'ivory':('#f7f5ef',css),
- 'brand stylesheet':('identity-2026.css',html),
+ 'brand stylesheet':('styles.bundle.min.css',html),
+ 'brand CSS cascade preserved':('.site-header .brand-word',bundled),
  'root redirect':('/KARIM-SAAB-WEB-LAB/dist/index.html',root),
  'automatic deployment':('actions/deploy-pages@v4',workflow),
 }
