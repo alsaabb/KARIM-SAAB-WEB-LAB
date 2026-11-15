@@ -28,7 +28,7 @@
     var title=tr(story.title_ar,story.title_en);
     var src='assets/happiness/'+story.slug+'-youtube-poster.jpg';
     return '<button type="button" class="ks-happ-poster" data-happ-play aria-label="'+escH(tr('تشغيل فيديو: ','Play video: ')+title)+'">'+
-      '<img class="ks-happ-cover" alt="'+escH(title)+'" src="'+escH(src)+'" decoding="async" data-happ-youtube-id="'+escH(story.youtube_id)+'" loading="lazy">'+
+      '<img class="ks-happ-cover" alt="'+escH(title)+'" src="'+escH(src)+'" decoding="async" data-happ-youtube-id="'+escH(story.youtube_id)+'" loading="lazy" width="720" height="1280">'+
       '<span class="ks-happ-poster-overlay"><span class="ks-happ-cta">'+tr('شاهد الفيديو','Watch video')+'</span></span></button>';
   }
   function article(story){
