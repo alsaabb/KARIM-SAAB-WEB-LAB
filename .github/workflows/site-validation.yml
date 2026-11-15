@@ -57,6 +57,7 @@ jobs:
           python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/ks60-preview-http.log 2>&1 &
           node tests/after_sixty_poster_browser.cjs
           node tests/wild_boar_story_browser.cjs
+          node tests/athos_mobile_poster_browser.cjs
       - name: Store wild boar mobile review screenshots
         uses: actions/upload-artifact@v4
         with:
