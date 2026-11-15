@@ -66,3 +66,11 @@ jobs:
           path: visual-review/wild-boar/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Store Mount Athos mobile and desktop poster regression screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_ATHOS_MOBILE_PREVIEW
+          path: visual-review/video-poster-mobile/
+          if-no-files-found: error
+          retention-days: 30
