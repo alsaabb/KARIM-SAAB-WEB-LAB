@@ -10,6 +10,10 @@ function href(s){return '#/'+(ar()?'ar':'en')+'/'+s}
 function shareUrl(){return 'https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/'+(ar()?'ar':'en')+'/destination-mount-athos-greece.html'}
 function title(){return source.langs[ar()?'ar':'en'].full_text.split('\n')[0].replace(/^(?:العنوان: |Title: )/,'')}
 function text(){return source.langs[ar()?'ar':'en'].full_text}
+function approvedPoster(){
+ var p=source&&source.poster,asset=p&&p.public_asset;
+ return p&&p.owner_poster_approved===true&&typeof asset==='string'&&/^assets\/stories\/[a-zA-Z0-9/_-]+\.(?:webp|png|jpe?g|avif)$/i.test(asset)?asset:null;
+}
 function share(kind){
  var u=kind==='video'?'https://www.youtube.com/watch?v='+ID:shareUrl();
  var t=title(),message=encodeURIComponent(t+' '+u);
@@ -25,17 +29,19 @@ function share(kind){
  '<button type="button" data-ks-athos-copy="'+kind+'">'+tr('نسخ الرابط','Copy link')+'</button></div></div>';
 }
 function video(){
+ var owner=approvedPoster(),src=owner||'https://i.ytimg.com/vi/'+ID+'/maxresdefault.jpg';
  return '<div class="ks-athos-frame" id="ks-athos-player"><button type="button" id="ks-athos-play" class="ks-athos-play" aria-label="'+tr('شاهد الفيديو','Watch video')+'">'+
- '<img data-ks-athos-thumb src="https://i.ytimg.com/vi/'+ID+'/maxresdefault.jpg" alt="'+enc(title())+'">'+
- '<span class="ks-athos-gold" aria-hidden="true">▶</span><span class="ks-athos-watch">'+tr('شاهد الفيديو','Watch video')+'</span></button></div>';
+ '<img data-ks-athos-thumb data-ks-athos-owner="'+(owner?'true':'false')+'" src="'+enc(src)+'" alt="'+enc(title())+'" decoding="async">'+
+ '<span class="ks-athos-editorial" hidden>'+enc(tr('جبل آثوس · اليونان','MOUNT ATHOS · GREECE'))+'</span>'+
+ '<span class="ks-athos-watch"><span aria-hidden="true">▶</span> '+tr('شاهد الفيديو','Watch video')+'</span></button></div>';
 }
 function story(){
  return '<main class="ks-athos" dir="'+(ar()?'rtl':'ltr')+'" lang="'+(ar()?'ar':'en')+'"><div class="ks-athos-container">'+
  '<nav class="ks-athos-crumb"><a href="'+href(LIST)+'">'+tr('الوجهات','Destinations')+'</a> / '+tr('جبل آثوس، اليونان','Mount Athos, Greece')+'</nav>'+
  '<span class="ks-athos-kicker">KARIM SAAB · GREECE</span><h1>'+enc(title())+'</h1>'+
- '<div class="ks-athos-layout"><aside><div class="ks-athos-sticky">'+video()+
- '<p class="ks-athos-direct"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v='+ID+'">'+tr('مشاهدة الفيديو على YouTube','Watch on YouTube')+'</a></p>'+share('video')+'</div></aside>'+
- '<article class="ks-athos-article"><div class="ks-athos-full-text" role="document">'+enc(text())+'</div>'+share('article')+'</article></div>'+
+ '<div class="ks-athos-layout"><aside><div class="ks-athos-sticky">'+video()+'</div></aside>'+
+ '<article class="ks-athos-article"><div class="ks-athos-full-text" role="document">'+enc(text())+'</div>'+share('article')+
+ '<p class="ks-athos-direct"><a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/watch?v='+ID+'">'+tr('مشاهدة الفيديو على YouTube','Watch on YouTube')+'</a></p>'+share('video')+'</article></div>'+
  '<p><a class="ks-athos-back" href="'+href(LIST)+'">'+tr('العودة إلى الوجهات','Back to Destinations')+'</a></p></div></main>';
 }
 function card(){
@@ -47,18 +53,43 @@ function list(){
 }
 function bind(){
  document.querySelector('#ks-athos-play')?.addEventListener('click',function(){
-  var f=document.querySelector('#ks-athos-player');if(!f)return;
+  var surface=document.querySelector('#ks-athos-player');if(!surface)return;
   var frame=document.createElement('iframe');
   frame.src='https://www.youtube-nocookie.com/embed/'+ID+'?autoplay=1&playsinline=1';
   frame.title=title();frame.allow='autoplay;encrypted-media;picture-in-picture';frame.allowFullscreen=true;
-  frame.referrerPolicy='strict-origin-when-cross-origin';f.replaceChildren(frame);
+  frame.referrerPolicy='strict-origin-when-cross-origin';
+  surface.classList.remove('ks-athos-owner-portrait','ks-athos-landscape-thumbnail');
+  surface.classList.add('ks-athos-playing');
+  surface.replaceChildren(frame);
  });
  var img=document.querySelector('[data-ks-athos-thumb]');if(img){
-  var fallbacks=['sddefault.jpg','hqdefault.jpg'],i=0;
-  function fallback(){if(i<fallbacks.length){img.src='https://i.ytimg.com/vi/'+ID+'/'+fallbacks[i++]}else img.hidden=true}
+  var urls=(img.dataset.ksAthosOwner==='true'?['maxresdefault.jpg']:[]).concat(['sddefault.jpg','hqdefault.jpg']);
+  var index=0;
+  function fallback(){
+   img.dataset.ksAthosOwner='false';
+   if(index<urls.length){img.src='https://i.ytimg.com/vi/'+ID+'/'+urls[index++];}
+   else{
+    img.hidden=true;
+    var copy=img.parentElement.querySelector('.ks-athos-editorial');
+    if(copy)copy.hidden=false;
+    img.closest('.ks-athos-frame')?.classList.add('ks-athos-no-thumb');
+   }
+  }
+  function loaded(){
+   if(img.naturalWidth<=120||img.naturalHeight<=90){fallback();return;}
+   var ratio=img.naturalWidth/img.naturalHeight;
+   var ownerPortrait=img.dataset.ksAthosOwner==='true' && ratio>0.48 && ratio<0.69;
+   if(img.dataset.ksAthosOwner==='true'&&!ownerPortrait){fallback();return;}
+   var surface=img.closest('.ks-athos-frame');
+   if(surface){
+    surface.classList.toggle('ks-athos-owner-portrait',ownerPortrait);
+    surface.classList.toggle('ks-athos-landscape-thumbnail',!ownerPortrait);
+    surface.classList.remove('ks-athos-no-thumb');
+   }
+  }
   img.addEventListener('error',fallback);
-  img.addEventListener('load',function(){if(img.naturalWidth<120){fallback();return}img.parentElement.style.setProperty('--athos-bg','url("'+img.currentSrc+'")')});
-  if(img.complete&&img.naturalWidth>120)img.parentElement.style.setProperty('--athos-bg','url("'+img.currentSrc+'")');
+  img.addEventListener('load',loaded);
+  if(img.complete&&img.naturalWidth>0)loaded();
  }
  document.querySelectorAll('[data-ks-athos-copy]').forEach(function(b){b.addEventListener('click',function(){
   var url=b.dataset.ksAthosCopy==='video'?'https://www.youtube.com/watch?v='+ID:shareUrl();
