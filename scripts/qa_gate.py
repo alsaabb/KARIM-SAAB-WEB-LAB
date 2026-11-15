@@ -2,6 +2,8 @@
 """Fail-closed, read-only quality gate for KARIM SAAB's published /dist tree."""
 from __future__ import annotations
 
+import base64
+import hashlib
 import json
 import re
 import sys
@@ -15,6 +17,39 @@ MAX_IMAGE_BYTES = 250 * 1024
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif", ".bmp"}
 TEXT_EXTS = {".js", ".html", ".json", ".css", ".xml", ".txt", ".csv"}
 YOUTUBE_ID = re.compile(r"^[A-Za-z0-9_-]{11}$")
+
+# Only concrete literal asset paths can be checked statically. Runtime-built
+# paths need a separate application/manifest test rather than a false failure.
+STATIC_ASSET_REF = re.compile(
+    r"(?<![A-Za-z0-9_./-])assets/(?:[A-Za-z0-9_.%-]+/)*[A-Za-z0-9_.%-]+\."
+    r"(?:png|jpe?g|webp|gif|svg|avif|bmp|pdf|js|css|json|woff2?|ttf|mp4|webm)",
+    re.I,
+)
+ARABIC_SCRIPT = re.compile(r"[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]")
+LEAFLET_SHA256 = {
+    "leaflet.css": "p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=",
+    "leaflet.js": "20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=",
+}
+
+
+def iter_static_assets(text: str):
+    """Yield literal assets/... references only; ignore dynamic template paths."""
+    for match in STATIC_ASSET_REF.finditer(text.replace("\\/", "/")):
+        yield match.group(0)
+
+
+def english_strings(value):
+    """Inspect a translated field even when its body is a paragraph list."""
+    if isinstance(value, str):
+        yield value
+    elif isinstance(value, list):
+        for item in value:
+            yield from english_strings(item)
+    elif isinstance(value, dict):
+        for item in value.values():
+            yield from english_strings(item)
+
+
 DOC_EDIT = re.compile(r"https?://docs\.google\.com/(?:document|spreadsheets|presentation)/d/[^\s\"'<>]+?/edit(?:[?#][^\s\"'<>]*)?", re.I)
 SECRET_RULES = {
     "private key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
@@ -54,6 +89,24 @@ def run() -> int:
         if "?usp=drivesdk" in decoded.lower() or "&usp=drivesdk" in decoded.lower():
             bad(f, "Drive SDK tracking/edit link exposed")
 
+
+    # Broken Asset Check: inspect concrete references in production HTML/JS
+    # and the CSS bundle, resolving every target from dist/.
+    static_sources = sorted(DIST.glob("*.js")) + sorted(DIST.glob("*.html"))
+    static_sources.append(DIST / "styles.bundle.min.css")
+    checked_assets = set()
+    for source in static_sources:
+        if not source.is_file():
+            bad(source, "referenced source is missing")
+            continue
+        value = source.read_text(encoding="utf-8")
+        for asset in iter_static_assets(value):
+            checked_assets.add(asset)
+            candidate = (DIST / asset).resolve()
+            if not candidate.is_relative_to(DIST.resolve()) or not candidate.is_file():
+                bad(source, f"Broken Asset Check: missing {asset}")
+    print(f"Broken Asset Check: checked {len(checked_assets)} distinct static references")
+
     ar = DIST / "share" / "ar"
     en = DIST / "share" / "en"
     ar_files = {p.name for p in ar.glob("*.html")} if ar.is_dir() else set()
@@ -80,6 +133,11 @@ def run() -> int:
                 ):
                     bad(path, f"{loc}: missing {translation}")
             for key, val in obj.items():
+                if key in {"title_en", "body_en"}:
+                    for paragraph in english_strings(val):
+                        if ARABIC_SCRIPT.search(paragraph):
+                            bad(path, f"{loc}.{key}: Arabic-script text leaked into English field")
+                            break
                 if key == "youtube_id" and val not in (None, "") and (
                     not isinstance(val, str) or not YOUTUBE_ID.fullmatch(val)
                 ):
@@ -117,10 +175,34 @@ def run() -> int:
         for label, pattern in required.items():
             if not re.search(pattern, html, re.I):
                 bad(index_path, f"missing {label}")
-        if "leaflet.css" in html and not re.search(r'leaflet\.css"[^>]*integrity="sha256-', html):
-            bad(index_path, "Leaflet CSS requires SRI")
-        if "leaflet.js" in html and not re.search(r'leaflet\.js"[^>]*integrity="sha256-', html):
-            bad(index_path, "Leaflet JS requires SRI")
+        for name in LEAFLET_SHA256:
+            local_url = f"assets/vendor/leaflet/{name}"
+            if f'"{local_url}"' not in html:
+                bad(index_path, f"Leaflet must be self-hosted: {local_url}")
+            local_path = DIST / local_url
+            if not local_path.is_file():
+                bad(index_path, f"missing local Leaflet file: {local_url}")
+            else:
+                actual = base64.b64encode(hashlib.sha256(local_path.read_bytes()).digest()).decode("ascii")
+                if actual != LEAFLET_SHA256[name]:
+                    bad(index_path, f"Leaflet {name} SHA-256 does not match official 1.9.4 release")
+        for icon_name in ("marker-icon.png", "marker-icon-2x.png", "marker-shadow.png",
+                          "layers.png", "layers-2x.png"):
+            if not (DIST / "assets/vendor/leaflet/images" / icon_name).is_file():
+                bad(index_path, f"missing Leaflet icon: {icon_name}")
+        if not (DIST / "assets/vendor/leaflet/LICENSE").is_file():
+            bad(index_path, "missing Leaflet license attribution")
+        csp_match = re.search(r'<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)"', html)
+        if csp_match:
+            csp = csp_match.group(1)
+            if "https://*.googleusercontent.com" not in csp.split("img-src", 1)[-1].split(";", 1)[0]:
+                bad(index_path, "Drive preview image source googleusercontent.com absent from img-src")
+            if "https://unpkg.com" in csp:
+                bad(index_path, "unpkg.com should not remain in CSP after Leaflet self-hosting")
+        for js_file in ("after-sixty-v1.js", "happiness-stories-v1.js", "wild-boar-story-v1.js"):
+            code = (DIST / js_file).read_text(encoding="utf-8")
+            if "allow-popups-to-escape-sandbox" not in code:
+                bad(DIST / js_file, "missing sandbox popup escape for video links")
     sitemap_path = DIST / "sitemap.xml"
     try:
         doc = ET.parse(sitemap_path)
@@ -145,7 +227,7 @@ def run() -> int:
             print(f"... {len(problems)-80} more failures")
         print(f"QA FAILED: {len(problems)} issue(s)")
         return 1
-    print(f"QA PASSED: {len(ar_files)} AR + {len(en_files)} EN share pages; metadata, security, media limits, localizations, and sitemap validated.")
+    print(f"QA PASSED: {len(ar_files)} AR + {len(en_files)} EN share pages; metadata, security, static asset references, English script, media limits, localizations, and sitemap validated.")
     return 0
 
 
