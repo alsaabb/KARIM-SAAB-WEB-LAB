@@ -116,7 +116,7 @@ def run():
             issues.append("Fragment/host issue in sitemap: " + xmlurl)
     for element in sitemap.findall(".//sm:url", ns):
         lastmod = element.find("sm:lastmod", ns)
-        if lastmod is not None and (not lastmod.text or not re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", lastmod.text)):
+        if lastmod is not None and (not lastmod.text or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", lastmod.text)):
             issues.append("Invalid sitemap lastmod date")
     if "https://schema.org" not in app or '"WebSite"' not in app or '"Person"' not in app:
         issues.append("Homepage JSON-LD Person/WebSite missing")
