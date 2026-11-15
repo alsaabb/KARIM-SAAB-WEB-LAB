@@ -22,14 +22,24 @@
   }
   function card(){
     if(!item)return;
-    var node=document.querySelector('#app > main.ks-health-main .ks-health-wrap');
-    if(!node||node.querySelector('[data-sleeve-card]'))return;
-    var link=document.createElement('a');
-    link.className='ks-health-panel ks-health-article-card ks-sleeve-card';
-    link.href=path(ROUTE);
-    link.setAttribute('data-sleeve-card','1');
-    link.innerHTML='<span class="ks-health-icon" aria-hidden="true">🚴</span><span style="flex:1"><strong>'+safe(L(item.title_ar,item.title_en))+'</strong><small>'+safe(L('قصتي من وزن 150 كيلوغرامًا إلى رحلة أوروبا بالدراجة بعد التكميم. فيديو ومقال كامل.','My journey from 150 kg to cycling across Europe after sleeve gastrectomy. Full video and article.'))+'</small></span><span class="ks-health-linkmark" aria-hidden="true">↗</span>';
-    node.appendChild(link);
+    var cardTarget=document.querySelector('#app > main.ks-health-main .ks-health-wrap');
+    if(cardTarget&&!cardTarget.querySelector('[data-sleeve-card]')){
+      var card=document.createElement('a');
+      card.className='ks-health-panel ks-health-article-card ks-sleeve-card';
+      card.href=path(ROUTE);
+      card.setAttribute('data-sleeve-card','1');
+      card.innerHTML='<span class="ks-health-icon" aria-hidden="true">🚴</span><span style="flex:1"><strong>'+safe(L(item.title_ar,item.title_en))+'</strong><small>'+safe(L('قصتي من وزن 150 كيلوغرامًا إلى رحلة أوروبا بالدراجة بعد التكميم. فيديو ومقال كامل.','My journey from 150 kg to cycling across Europe after sleeve gastrectomy. Full video and article.'))+'</small></span><span class="ks-health-linkmark" aria-hidden="true">↗</span>';
+      cardTarget.appendChild(card);
+    }
+    var tiles=document.querySelector('#app > main.ks-about-main .ks-ab-tiles');
+    if(tiles&&!tiles.querySelector('[data-sleeve-card]')){
+      var tile=document.createElement('a');
+      tile.className='ks-ab-tile';
+      tile.href=path(ROUTE);
+      tile.setAttribute('data-sleeve-card','1');
+      tile.innerHTML='<span class="ks-ab-badgeicon" aria-hidden="true">▶</span><span class="ks-ab-tilecopy"><strong>'+safe(L(item.title_ar,item.title_en))+'</strong><span class="ks-ab-desc">'+safe(L('فيديو ومقال كامل: من 150 كجم إلى ركوب الدراجة في أوروبا.','Full video and article: from 150 kg to cycling across Europe.'))+'</span><span class="ks-ab-status">'+L('مقال معتمد','Approved article')+'</span></span><span class="ks-ab-arrow" aria-hidden="true">↗</span>';
+      tiles.appendChild(tile);
+    }
   }
   function page(){
     var title=L(item.title_ar,item.title_en);
