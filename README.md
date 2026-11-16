@@ -49,3 +49,16 @@ python3 -m unittest discover -s tests -p 'test_site_master_registry.py' -v
 The main/PR validation workflow enforces registry freshness before publishing.
 Publication and Drive archival require separate owner approval and destination
 selection; do not publish private Drive originals or overwrite old archives.
+
+
+## Development tools and external service attribution
+
+For the **current GitHub Pages site**, see the [development tools and automation register](docs/TECH_STACK_AND_AUTOMATION_REGISTER_V01_2026-11-16.md) and [technical SEO verification memo](docs/seo/TECHNICAL_SEO_REVIEW_2026-11-16.md). These documents explicitly distinguish proven integrations, owner-described contributions, and historical platforms.
+
+- **Google Gemini:** owner-reported technical/SEO consultation and implementation-instruction drafting; not independently established as a GitHub editor or a site runtime dependency.
+- **Windsor.ai:** connected Google Search Console property `https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/` verified from the authorized Windsor.ai integration; search-performance metrics have not been audited in this documentation update.
+- **Google Vids:** owner-reported support for creating/organizing video materials; individual source-video provenance remains unverified.
+
+This register supplements — and does not replace — the documented GitHub Actions, Google Drive staging, GitHub Pages, YouTube, map, testing, and deployment services. It does not grant any service additional account access. The canonical homepage and first sitemap URL remain `https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/`; the alternate `dist/index.html` URL is not introduced as a duplicate preferred sitemap entry.
+
+**Do not merge or deploy this branch without the owner's explicit approval for this specific PR.**
