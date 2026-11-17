@@ -42,5 +42,5 @@
   "poster_original_sha256_en": "28abfe4ea1f8757fce640092aa2950f693f0578d2fd2fcf4c31d24d619eb6d67",
   "poster_original_bytes_en": 410527,
   "poster_original_file_en": "173626.jpg",
-  "poster_delivery_note": "The poster_asset_ar/en WebP files are pixel-preserving 857x1536 display conversions at WebP quality 82, under the site 250 KiB asset budget. Original full-quality JPEGs remain unchanged and verified in the language-specific Norway Google Drive folders."
+  "poster_delivery_note": "The poster_asset_ar/en WebP files are aspect-ratio-preserving display conversions (857x1536, WebP quality 82) under the 250 KiB site asset budget, with lossy compression. The full-quality, unmodified original JPEGs remain separately archived and verified in the respective Norway-language Google Drive folders."
 }
