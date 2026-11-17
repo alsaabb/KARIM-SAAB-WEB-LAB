@@ -1,6 +1,6 @@
 {
   "basis": "repository media presence and structured JSON URLs only",
-  "local_asset_count": 50,
+  "local_asset_count": 52,
   "media": [
     {
       "media_id": "local:assets/about-approved.webp",
@@ -638,6 +638,30 @@
       "used_by_routes_from_share_or_library": []
     },
     {
+      "media_id": "local:assets/stories/arctic-survival-norway/ar-cover-v01.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/arctic-survival-norway/ar-cover-v01.webp",
+      "repository_path": "dist/assets/stories/arctic-survival-norway/ar-cover-v01.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "stories-road",
+        "story/arctic-survival-norway"
+      ]
+    },
+    {
+      "media_id": "local:assets/stories/arctic-survival-norway/en-cover-v01.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/arctic-survival-norway/en-cover-v01.webp",
+      "repository_path": "dist/assets/stories/arctic-survival-norway/en-cover-v01.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "stories-road",
+        "story/arctic-survival-norway"
+      ]
+    },
+    {
       "media_id": "local:assets/vendor/leaflet/images/layers-2x.png",
       "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/layers-2x.png",
       "repository_path": "dist/assets/vendor/leaflet/images/layers-2x.png",
@@ -765,9 +789,7 @@
   ],
   "missing_referenced_public_assets": [
     "assets/stories/arctic-survival-norway/ar-cover-v01.jpg",
-    "assets/stories/arctic-survival-norway/ar-cover-v01.webp",
-    "assets/stories/arctic-survival-norway/en-cover-v01.jpg",
-    "assets/stories/arctic-survival-norway/en-cover-v01.webp"
+    "assets/stories/arctic-survival-norway/en-cover-v01.jpg"
   ],
   "schema_version": "1.0",
   "youtube_video_count": 5
