@@ -7,7 +7,7 @@ This output is a draft; no Google indexing is guaranteed.
 - Static share HTML pages covered by generator: 430
 - Pages with expanded approved article text: 12
 - Intentionally noindex pages: 6
-- Still short indexable pages requiring approved editorial text: 411
+- Still short indexable pages requiring approved editorial text: 409
 - Sitemap URLs after filtering: 425
 
 ## Editorial source gaps — do not invent prose
@@ -62,7 +62,6 @@ This output is a draft; no Google indexing is guaranteed.
 - dist/share/ar/content-archive-8.html
 - dist/share/ar/content-archive-9.html
 - dist/share/ar/content-bio.html
-- dist/share/ar/content-book-150kg.html
 - dist/share/ar/content-book-after-sixty.html
 - dist/share/ar/content-book-australia-1999.html
 - dist/share/ar/content-book-birth.html
@@ -267,7 +266,6 @@ This output is a draft; no Google indexing is guaranteed.
 - dist/share/en/content-archive-8.html
 - dist/share/en/content-archive-9.html
 - dist/share/en/content-bio.html
-- dist/share/en/content-book-150kg.html
 - dist/share/en/content-book-after-sixty.html
 - dist/share/en/content-book-australia-1999.html
 - dist/share/en/content-book-birth.html
