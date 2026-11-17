@@ -67,6 +67,7 @@ jobs:
           node tests/athos_mobile_poster_browser.cjs
           node tests/health_sleeve_browser.cjs
           node tests/arctic_survival_browser.cjs
+          node tests/reindeer_norway_browser.cjs
       - name: Store wild boar mobile review screenshots
         uses: actions/upload-artifact@v4
         with:
