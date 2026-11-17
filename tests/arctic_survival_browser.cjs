@@ -18,6 +18,26 @@ function sourceLines(str){return str.split('\n').filter(x=>x.trim()).map(x=>x.tr
       await page.route('https://www.youtube-nocookie.com/**',r=>r.abort());
       await page.goto(BASE+'#/'+lang+'/'+data.route,{waitUntil:'domcontentloaded'});
       await page.locator('#app > main.ks-arctic .ks-sleeve-article').waitFor({timeout:25000});
+      await page.locator('.ks-happ-wrap > .ks-share-v1[data-kind="article"]').waitFor({timeout:15000});
+      const share=page.locator('.ks-happ-wrap > .ks-share-v1[data-kind="article"]');
+      assert.equal(await share.locator('[data-network]').count(),6,'Six real share-intent platforms');
+      assert.equal(await share.locator('[data-action=platform]').count(),3,'Three honest copy-link platform handoffs');
+      assert.equal(await share.locator('.ks-share-v1-link svg').count(),9,'Recognizable icons for all nine services');
+      assert.equal(await page.locator('.ks-share-v1').count(),1,'No duplicate sharing bars');
+      const shareURL=await share.locator('[data-network=x]').getAttribute('href');
+      const target=new URL(shareURL).searchParams.get('url');
+      assert.equal(target,'https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/'+lang+'/story-arctic-survival-norway.html',
+        'Shared permalink points to this exact language article');
+      const pinURL=new URL(await share.locator('[data-network=pinterest]').getAttribute('href'));
+      assert.ok(pinURL.searchParams.get('media').endsWith(data['poster_asset_'+lang]),'Pinterest gets the language-specific original owner poster');
+      const placement=await page.evaluate(()=>{
+        const article=document.querySelector('.ks-sleeve-article');
+        const panel=document.querySelector('.ks-happ-wrap > .ks-share-v1');
+        const wrap=document.querySelector('.ks-happ-wrap');
+        return {afterArticle:!!(article.compareDocumentPosition(panel)&Node.DOCUMENT_POSITION_FOLLOWING),
+          last:wrap.lastElementChild===panel,insideArticle:!!article.querySelector('.ks-share-v1')};
+      });
+      assert.ok(placement.afterArticle&&placement.last&&!placement.insideArticle,'Sharing follows entire approved article, never the poster');
       const cover=page.locator('.ks-arctic-owner-cover');
       await cover.evaluate(async img=>{await img.decode()});
       const actual=await page.locator('.ks-sleeve-article > h1, .ks-sleeve-article > h2, .ks-sleeve-article > p, .ks-sleeve-article > blockquote > p').allTextContents();
@@ -74,6 +94,10 @@ function sourceLines(str){return str.split('\n').filter(x=>x.trim()).map(x=>x.tr
     await nav.locator('.ks-sleeve-article[lang="en"]').waitFor({timeout:20000});
     assert.equal(await nav.locator('.ks-arctic-owner-cover').getAttribute('src'),data.poster_asset_en);
     assert.equal(await nav.locator('.ks-sleeve-article > h1').innerText(),data.title_en);
+    await nav.locator('.ks-happ-wrap > .ks-share-v1[data-lang="en"]').waitFor({timeout:15000});
+    assert.equal(await nav.locator('.ks-share-v1').count(),1,'Language switch must render exactly one share toolbar');
+    const newLink=new URL(await nav.locator('.ks-share-v1 [data-network=x]').getAttribute('href')).searchParams.get('url');
+    assert.ok(newLink.endsWith('/share/en/story-arctic-survival-norway.html'),'Share URL updates to English when language switches');
     await nav.close();
   }finally{await browser.close()}
 })().catch(e=>{console.error(e);process.exitCode=1});
