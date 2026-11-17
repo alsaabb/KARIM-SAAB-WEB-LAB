@@ -31,10 +31,10 @@ class ArcticPublication(unittest.TestCase):
         for lang in ("ar","en"):
             path=DIST/DATA["poster_asset_"+lang]
             payload=path.read_bytes()
-            self.assertTrue(payload.startswith(b"\xff\xd8\xff"))
+            self.assertTrue(payload.startswith(b"RIFF") and payload[8:12]==b"WEBP")
             self.assertEqual(hashlib.sha256(payload).hexdigest(),DATA["poster_sha256_"+lang])
             self.assertGreater(len(payload),200000)
-            self.assertLess(len(payload),1000000)
+            self.assertLess(len(payload),250*1024)
             self.assertIn("/"+lang+"-cover-",str(path))
 
     def test_crawlable_full_articles_and_language_image_separation(self):
