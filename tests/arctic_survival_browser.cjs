@@ -26,7 +26,7 @@ function sourceLines(str){return str.split('\n').filter(x=>x.trim()).map(x=>x.tr
       assert.equal(await page.locator('.ks-share-v1').count(),1,'No duplicate sharing bars');
       const shareURL=await share.locator('[data-network=x]').getAttribute('href');
       const target=new URL(shareURL).searchParams.get('url');
-      assert.equal(target,'https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/'+lang+'/story-arctic-survival-norway.html',
+      assert.equal(target,new URL('share/'+lang+'/story-arctic-survival-norway.html',BASE).href,
         'Shared permalink points to this exact language article');
       const pinURL=new URL(await share.locator('[data-network=pinterest]').getAttribute('href'));
       assert.ok(pinURL.searchParams.get('media').endsWith(data['poster_asset_'+lang]),'Pinterest gets the language-specific original owner poster');
