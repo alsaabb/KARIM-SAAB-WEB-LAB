@@ -837,3 +837,10 @@ function bind(){const searchPanel=$('#search-panel'),mobile=$('#mobile-nav');
 function onEscape(e){if(e.key==='Escape'){$('#search-panel').hidden=true;$('#mobile-nav').classList.remove('open')}}
 function renderIfSameHash(lang){if(!location.hash)state.lang=lang; /* hashchange handles route updates */}
 window.addEventListener('keydown',onEscape);window.addEventListener('hashchange',render);render();
+
+function openBookReadingPage() {
+  const match = location.hash.match(/^#\/(ar|en)\/content\/book-150kg\/?$/);
+  if (match) location.replace('share/' + match[1] + '/content-book-150kg.html');
+}
+openBookReadingPage();
+window.addEventListener('hashchange', openBookReadingPage);
