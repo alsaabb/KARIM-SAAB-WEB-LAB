@@ -1,0 +1,34 @@
+name: TEMP public Norway bilingual page HTTP verification
+on:
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  public-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check public Arabic and English pages (not Git source)
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share"
+          for lang in ar en; do
+            url="$base/$lang/story-reindeer-close-call-norway.html"
+            verified=0
+            for attempt in $(seq 1 12); do
+              echo "Public HTTP check $lang attempt $attempt"
+              if curl --fail --location --silent --show-error --max-time 20 "$url" > "/tmp/ks-$lang.html"; then
+                if grep -q 'i72sAiafvDw' "/tmp/ks-$lang.html" && grep -q 'og:image' "/tmp/ks-$lang.html" && grep -q 'hreflang="ar"' "/tmp/ks-$lang.html" && grep -q 'hreflang="en"' "/tmp/ks-$lang.html"; then
+                  verified=1
+                  break
+                fi
+              fi
+              sleep 10
+            done
+            if [ "$verified" -ne 1 ]; then
+              echo "::error::Public page not verified $url"
+              exit 1
+            fi
+            echo "PASS live $lang $url"
+          done
