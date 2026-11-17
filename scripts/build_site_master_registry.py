@@ -185,6 +185,26 @@ def build(root):
                 raise ValueError("Owner-approved Arctic cover asset missing or invalid")
             for related in (route,arctic["parent_route"]):
                 use_asset(poster,related)
+    # Owner-approved Norway reindeer documentary, distinct AR/EN owner-approved AI illustrative covers.
+    reindeer_src="dist/data/reindeer-norway-v1.json"
+    reindeer_path=dist/"data/reindeer-norway-v1.json"
+    if reindeer_path.exists():
+        reindeer=json.loads(reindeer_path.read_text(encoding="utf-8"))
+        route=reindeer["route"]
+        if reindeer["youtube_id"]!="i72sAiafvDw":
+            raise ValueError("Reindeer story video ID does not match approved source")
+        video_record(reindeer["youtube_id"],route,reindeer_src)
+        for route_name in (route,reindeer["parent_route"]):
+            ensure(route_name)["source_files"].append(reindeer_src)
+        row=ensure(route)
+        row["editorial_status"]="owner_approved_bilingual"
+        for lang in ("ar","en"):
+            row["title"][lang]=reindeer["title_"+lang]
+            poster=asset_ref(reindeer["poster_asset_"+lang])
+            if reindeer.get("poster_status")!="approved_and_published" or not poster or not poster.startswith("assets/stories/reindeer-close-call-norway/"):
+                raise ValueError("Owner-approved Reindeer cover asset missing or invalid")
+            for related in (route,reindeer["parent_route"]):
+                use_asset(poster,related)
     assets=[]
     for f in sorted((dist/"assets").rglob("*")):
         if not f.is_file() or f.suffix.lower() not in IMAGE|VIDEO: continue
