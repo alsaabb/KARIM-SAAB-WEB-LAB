@@ -1,6 +1,6 @@
 {
   "basis": "current git checkout; not evidence of live browser success",
-  "page_count": 222,
+  "page_count": 223,
   "pages": [
     {
       "editorial_status": "not_verified",
@@ -6223,11 +6223,25 @@
           "url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/ar/story-arctic-survival-norway.html"
         },
         {
+          "file": "dist/share/ar/story-reindeer-close-call-norway.html",
+          "language": "ar",
+          "noindex": false,
+          "sitemap": true,
+          "url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/ar/story-reindeer-close-call-norway.html"
+        },
+        {
           "file": "dist/share/en/story-arctic-survival-norway.html",
           "language": "en",
           "noindex": false,
           "sitemap": true,
           "url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/en/story-arctic-survival-norway.html"
+        },
+        {
+          "file": "dist/share/en/story-reindeer-close-call-norway.html",
+          "language": "en",
+          "noindex": false,
+          "sitemap": true,
+          "url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/en/story-reindeer-close-call-norway.html"
         }
       ],
       "editorial_status": "not_verified",
@@ -6250,11 +6264,14 @@
       },
       "source_files": [
         "dist/data/arctic-survival-v1.json",
+        "dist/data/reindeer-norway-v1.json",
         "dist/data/stories-road-v1.json",
         "dist/share/ar/stories-road.html",
         "dist/share/ar/story-arctic-survival-norway.html",
+        "dist/share/ar/story-reindeer-close-call-norway.html",
         "dist/share/en/stories-road.html",
-        "dist/share/en/story-arctic-survival-norway.html"
+        "dist/share/en/story-arctic-survival-norway.html",
+        "dist/share/en/story-reindeer-close-call-norway.html"
       ],
       "title": {
         "ar": "حكايات من الطريق | عبدالكريم الصعب",
@@ -6286,6 +6303,33 @@
       "title": {
         "ar": "معاناة البقاء في القطب الشمالي: طقوس الخروج في البرد القارس!",
         "en": "Arctic Survival Struggle: The Daily Ritual Before Stepping Into Sub-Zero Cold!"
+      }
+    },
+    {
+      "editorial_status": "owner_approved_bilingual",
+      "hash_urls": {
+        "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/story/reindeer-close-call-norway",
+        "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/en/story/reindeer-close-call-norway"
+      },
+      "link_mapping": "unverified",
+      "live_page_tested": false,
+      "notes": [],
+      "page_id": "ks-page-294b60fe21139f27",
+      "route": "story/reindeer-close-call-norway",
+      "share_files": {
+        "ar": null,
+        "en": null
+      },
+      "share_urls": {
+        "ar": null,
+        "en": null
+      },
+      "source_files": [
+        "dist/data/reindeer-norway-v1.json"
+      ],
+      "title": {
+        "ar": "نجاة بأعجوبة في القطب الشمالي: مواجهة مفاجئة مع غزلان الرنّة في النرويج",
+        "en": "Miracle Escape in the Arctic: Sudden Encounter with Reindeer in Norway"
       }
     },
     {
@@ -6347,8 +6391,8 @@
     }
   ],
   "schema_version": "1.0",
-  "share_html_count": 432,
-  "sitemap_url_count": 427,
+  "share_html_count": 434,
+  "sitemap_url_count": 429,
   "sources": [
     "dist/share/ar/*.html",
     "dist/share/en/*.html",

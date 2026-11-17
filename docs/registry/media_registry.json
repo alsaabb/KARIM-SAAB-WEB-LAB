@@ -1,6 +1,6 @@
 {
   "basis": "repository media presence and structured JSON URLs only",
-  "local_asset_count": 52,
+  "local_asset_count": 54,
   "media": [
     {
       "media_id": "local:assets/about-approved.webp",
@@ -662,6 +662,30 @@
       ]
     },
     {
+      "media_id": "local:assets/stories/reindeer-close-call-norway/ar-cover-v01.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/reindeer-close-call-norway/ar-cover-v01.webp",
+      "repository_path": "dist/assets/stories/reindeer-close-call-norway/ar-cover-v01.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "stories-road",
+        "story/reindeer-close-call-norway"
+      ]
+    },
+    {
+      "media_id": "local:assets/stories/reindeer-close-call-norway/en-cover-v01.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/reindeer-close-call-norway/en-cover-v01.webp",
+      "repository_path": "dist/assets/stories/reindeer-close-call-norway/en-cover-v01.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "stories-road",
+        "story/reindeer-close-call-norway"
+      ]
+    },
+    {
       "media_id": "local:assets/vendor/leaflet/images/layers-2x.png",
       "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/vendor/leaflet/images/layers-2x.png",
       "repository_path": "dist/assets/vendor/leaflet/images/layers-2x.png",
@@ -773,6 +797,22 @@
     {
       "drive_public_fallback_verified": false,
       "drive_reference_present": false,
+      "media_id": "youtube:i72sAiafvDw",
+      "original_url": "https://www.youtube.com/watch?v=i72sAiafvDw",
+      "playback_verified_on_real_device": false,
+      "rights_verified": false,
+      "source_files": [
+        "dist/data/reindeer-norway-v1.json"
+      ],
+      "type": "youtube_video",
+      "used_by_routes": [
+        "story/reindeer-close-call-norway"
+      ],
+      "youtube_id": "i72sAiafvDw"
+    },
+    {
+      "drive_public_fallback_verified": false,
+      "drive_reference_present": false,
       "media_id": "youtube:kERPnPj3XAA",
       "original_url": "https://www.youtube.com/watch?v=kERPnPj3XAA",
       "playback_verified_on_real_device": false,
@@ -789,5 +829,5 @@
   ],
   "missing_referenced_public_assets": [],
   "schema_version": "1.0",
-  "youtube_video_count": 5
+  "youtube_video_count": 6
 }
