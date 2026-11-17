@@ -1,6 +1,6 @@
 {
   "basis": "repository media presence and structured JSON URLs only",
-  "local_asset_count": 50,
+  "local_asset_count": 52,
   "media": [
     {
       "media_id": "local:assets/about-approved.webp",
@@ -632,6 +632,24 @@
       "media_id": "local:assets/products-reference-v1.1/vests.webp",
       "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/products-reference-v1.1/vests.webp",
       "repository_path": "dist/assets/products-reference-v1.1/vests.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/stories/arctic-survival-norway/ar-cover-v01.jpg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/arctic-survival-norway/ar-cover-v01.jpg",
+      "repository_path": "dist/assets/stories/arctic-survival-norway/ar-cover-v01.jpg",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": []
+    },
+    {
+      "media_id": "local:assets/stories/arctic-survival-norway/en-cover-v01.jpg",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/arctic-survival-norway/en-cover-v01.jpg",
+      "repository_path": "dist/assets/stories/arctic-survival-norway/en-cover-v01.jpg",
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
