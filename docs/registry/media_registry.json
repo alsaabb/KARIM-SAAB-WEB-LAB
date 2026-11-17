@@ -787,10 +787,7 @@
       "youtube_id": "kERPnPj3XAA"
     }
   ],
-  "missing_referenced_public_assets": [
-    "assets/stories/arctic-survival-norway/ar-cover-v01.jpg",
-    "assets/stories/arctic-survival-norway/en-cover-v01.jpg"
-  ],
+  "missing_referenced_public_assets": [],
   "schema_version": "1.0",
   "youtube_video_count": 5
 }
