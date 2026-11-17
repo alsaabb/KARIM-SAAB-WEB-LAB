@@ -2,8 +2,20 @@
 (function () {
   'use strict';
   var supported = ['x','facebook','whatsapp','telegram','linkedin','pinterest'];
+  // These platforms lack a dependable, universal web URL-sharing intent.
+  // Provide a truthful copy-link handoff rather than a fake share action.
+  var assisted = ['instagram','snapchat','tiktok'];
+  var platformHome = {
+    instagram: 'https://www.instagram.com/',
+    snapchat: 'https://www.snapchat.com/',
+    tiktok: 'https://www.tiktok.com/'
+  };
   var glyphs = {"x":"<svg viewBox=\"0 0 24 24\" focusable=\"false\" aria-hidden=\"true\"><path d=\"M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z\"/></svg>","facebook":"<svg viewBox=\"0 0 24 24\" focusable=\"false\" aria-hidden=\"true\"><path d=\"M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z\"/></svg>","whatsapp":"<svg viewBox=\"0 0 24 24\" focusable=\"false\" aria-hidden=\"true\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z\"/></svg>","telegram":"<svg viewBox=\"0 0 24 24\" focusable=\"false\" aria-hidden=\"true\"><path d=\"M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z\"/></svg>","linkedin":"<svg viewBox=\"0 0 24 24\" focusable=\"false\" aria-hidden=\"true\"><path d=\"M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.35V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.06 2.06 0 1 1 0-4.122 2.06 2.06 0 0 1 0 4.122zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542c0 .956.792 1.729 1.771 1.729h20.451c.979 0 1.778-.773 1.778-1.729V1.729C24 .774 23.201 0 22.222 0h.003z\"/></svg>","pinterest":"<svg viewBox=\"0 0 24 24\" focusable=\"false\" aria-hidden=\"true\"><path d=\"M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z\"/></svg>"};
   var names = {x:'X',facebook:'Facebook',whatsapp:'WhatsApp',telegram:'Telegram',linkedin:'LinkedIn',pinterest:'Pinterest'};
+  names.instagram='Instagram'; names.snapchat='Snapchat'; names.tiktok='TikTok';
+  glyphs.instagram='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="2.5" width="19" height="19" rx="5.2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.4" r="1.2"/></svg>';
+  glyphs.snapchat='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.8c-3.5 0-5.2 2.4-5.2 5.5v2.5c-.7-.4-1.7-.5-2.1.2-.5.8.4 1.3 1.7 1.7.1 2.8-1.6 4.3-3.4 4.8.7.9 2.2 1 3.3 1.3l.7 2c1.4-.4 2.6-.6 5-.6s3.6.2 5 .6l.7-2c1.1-.3 2.6-.4 3.3-1.3-1.8-.5-3.5-2-3.4-4.8 1.3-.4 2.2-.9 1.7-1.7-.4-.7-1.4-.6-2.1-.2V8.3C17.2 5.2 15.5 2.8 12 2.8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+  glyphs.tiktok='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.2 2.5v12.4a5.2 5.2 0 1 1-5.2-5.2v3.1a2.1 2.1 0 1 0 2.1 2.1V2.5h3.1c.4 2.8 2 4.5 5 4.9v3.1c-2.2 0-3.9-.7-5-2Z" fill="currentColor"/></svg>';
   var resolved = Object.create(null);
   var scheduled = false;
 
@@ -134,22 +146,31 @@
     if (old && old.dataset.route===r.route && old.dataset.lang===r.lang && old.dataset.kind===kind) return;
     if (old) old.remove();
     var lang=r.lang==='ar', m=meta(r.route,r.lang,main), hashtags=makeTags(r.route,r.lang,m.ar,m.en);
-    var typeTags=kind==='video' ? {ar:'#فيديو',en:'#Video'} : {ar:'#مقال',en:'#Article'};
+    var libItem=r.route.startsWith('content/') && window.KARIM_LIBRARY && window.KARIM_LIBRARY[decodeURIComponent(r.route.slice(8))];
+    var isBook=!!(libItem && libItem.category==='books');
+    var typeTags=kind==='video' ? {ar:'#فيديو',en:'#Video'} : isBook ? {ar:'#كتاب',en:'#Book'} : {ar:'#مقال',en:'#Article'};
     hashtags.ar.push(typeTags.ar);hashtags.en.push(typeTags.en);
-    var namePrefix=lang?(kind==='video'?'فيديو: ':'مقال: '):(kind==='video'?'Video: ':'Article: ');
+    var namePrefix=lang?(kind==='video'?'فيديو: ':isBook?'كتاب: ':'مقال: '):(kind==='video'?'Video: ':isBook?'Book: ':'Article: ');
     m.title=namePrefix+m.title;
-    var h=lang?(kind==='video'?'شارك هذا الفيديو':'شارك هذا المقال'):(kind==='video'?'Share this video':'Share this article');
+    var h=lang?(kind==='video'?'شارك هذا الفيديو':isBook?'شارك هذا الكتاب':'شارك هذا المقال'):(kind==='video'?'Share this video':isBook?'Share this book':'Share this article');
+    function bookOrKind(){return lang?(kind==='video'?'الفيديو':isBook?'الكتاب':'المقال'):(kind==='video'?'video':isBook?'book':'article');}
     var nativeAvailable=typeof navigator.share==='function';
     var box=document.createElement('section');
     box.className='ks-share-v1';box.dataset.route=r.route;box.dataset.lang=r.lang;box.dataset.kind=kind;
     box.setAttribute('aria-label',h);
-    box.innerHTML='<div class="ks-share-v1-head"><div><span class="ks-share-v1-eyebrow">KARIM SAAB · '+(kind==='video'?'VIDEO':'ARTICLE')+'</span><h3>'+h+'</h3></div><p>'+
-      (lang?(kind==='video'?'شارك رابط الفيديو نفسه.':'شارك رابط المقال نفسه.'):(kind==='video'?'Share the video link.':'Share the article link.'))+'</p></div>'+
+    box.innerHTML='<div class="ks-share-v1-head"><div><span class="ks-share-v1-eyebrow">KARIM SAAB · '+(kind==='video'?'VIDEO':isBook?'BOOK':'ARTICLE')+'</span><h3>'+h+'</h3></div><p>'+
+      (lang?(kind==='video'?'شارك رابط الفيديو نفسه.':isBook?'شارك رابط الكتاب نفسه.':'شارك رابط المقال نفسه.'):(kind==='video'?'Share the video link.':isBook?'Share the book link.':'Share the article link.'))+
+      ' '+(lang?'لإنستقرام وسناب وتيك توك: اضغط الأيقونة لنسخ الرابط، ثم الصقه داخل التطبيق.':'For Instagram, Snapchat and TikTok: tap an icon to copy the link, then paste it in the app.')+'</p></div>'+
       '<div class="ks-share-v1-buttons" role="group" aria-label="'+h+'">'+
       supported.map(function(network){
         return '<a class="ks-share-v1-link ks-share-v1-'+network+'" data-network="'+network+'" target="_blank" rel="noopener noreferrer" aria-label="'+(lang?'المشاركة عبر ':'Share on ')+names[network]+'" title="'+names[network]+'"><span aria-hidden="true">'+glyphs[network]+'</span><small>'+names[network]+'</small></a>';
       }).join('')+
-      '<button class="ks-share-v1-copy" type="button" data-action="copy" aria-label="'+(lang?'نسخ رابط '+(kind==='video'?'الفيديو':'المقال'):'Copy '+kind+' link')+'"><span aria-hidden="true">🔗</span><small>'+(lang?'نسخ الرابط':'Copy link')+'</small></button>'+
+      assisted.map(function(network){
+        var mediaKind=bookOrKind();
+        var hint=lang?'نسخ رابط '+mediaKind+' لاستخدامه في ':'Copy '+mediaKind+' link for ';
+        return '<button class="ks-share-v1-link ks-share-v1-'+network+'" type="button" data-action="platform" data-platform="'+network+'" aria-label="'+hint+names[network]+'" title="'+hint+names[network]+'"><span aria-hidden="true">'+glyphs[network]+'</span><small>'+names[network]+'</small></button>';
+      }).join('')+
+      '<button class="ks-share-v1-copy" type="button" data-action="copy" aria-label="'+(lang?'نسخ رابط '+(kind==='video'?'الفيديو':isBook?'الكتاب':'المقال'):'Copy '+(isBook?'book':kind)+' link')+'"><span aria-hidden="true">🔗</span><small>'+(lang?'نسخ الرابط':'Copy link')+'</small></button>'+
       (nativeAvailable?'<button class="ks-share-v1-copy" type="button" data-action="native"><span aria-hidden="true">↗</span><small>'+(lang?'مشاركة الجهاز':'Device share')+'</small></button>':'')+'</div>'+
       '<div class="ks-share-v1-tags"><div class="ks-share-v1-tags-head"><strong>'+(lang?'وسوم مرتبطة بالموضوع':'Relevant topic hashtags')+'</strong><button type="button" data-action="tags">'+(lang?'نسخ الوسوم':'Copy hashtags')+'</button></div>'+
       '<div class="ks-share-v1-tag-list" dir="auto">'+hashtags.ar.map(function(t){return '<span lang="ar" dir="rtl">'+esc(t)+'</span>';}).join('')+
@@ -183,6 +204,20 @@
         var value=action==='copy'?canonical:hashtags.ar.concat(hashtags.en).join(' ');
         copy(value).then(function(){status(lang?'تم النسخ بنجاح':'Copied successfully');})
           .catch(function(){status(lang?'تعذر النسخ الآلي، استخدم زر المشاركة.':'Copy unavailable; use a share button.');});
+      }else if(action==='platform'){
+        var platform=btn.dataset.platform;
+        if(!Object.prototype.hasOwnProperty.call(platformHome,platform))return;
+        copy(canonical).then(function(){
+          var info=box.querySelector('.ks-share-v1-status');
+          if(!info)return;
+          info.textContent=lang?'تم نسخ الرابط. الصقه في '+names[platform]+'. ':'Link copied. Paste it into '+names[platform]+'. ';
+          var open=document.createElement('a');
+          open.href=platformHome[platform];
+          open.target='_blank';
+          open.rel='noopener noreferrer';
+          open.textContent=lang?'فتح '+names[platform]:'Open '+names[platform];
+          info.appendChild(open);
+        }).catch(function(){status(lang?'تعذر النسخ الآلي. استخدم زر نسخ الرابط.':'Could not copy automatically. Try the Copy link button.');});
       }else if(action==='native'&&nativeAvailable){
         navigator.share({title:m.title,text:hashText,url:canonical}).catch(function(){});
       }
