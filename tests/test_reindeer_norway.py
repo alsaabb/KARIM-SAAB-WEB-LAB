@@ -22,7 +22,7 @@ class ReindeerPublication(unittest.TestCase):
         self.assertIn("كلمة وتعقيب عبد الكريم بن ابراهيم الصعب:",DATA["article_ar"])
         self.assertIn("Personal Reflection by KARIM SAAB:",DATA["article_en"])
         self.assertTrue(DATA["article_ar"].endswith("النرويج.»"))
-        self.assertTrue(DATA["article_en"].endswith("before you depart.\""))
+        self.assertTrue(DATA["article_en"].endswith("Norway.”"))
         self.assertEqual(len(DATA["tags"].split()),10)
 
     def test_exact_owner_posters_and_language_specific_paths(self):
