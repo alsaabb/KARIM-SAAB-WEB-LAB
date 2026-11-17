@@ -238,7 +238,11 @@ def make_share(path: Path, raw: str, data: dict, title_counts: Counter,
                      '" width="560" height="315" style="max-width:100%;border:0" loading="lazy"'
                      ' allowfullscreen referrerpolicy="strict-origin-when-cross-origin"'
                      ' src="https://www.youtube-nocookie.com/embed/' + video_id + '"></iframe></section>')
-            out = append_inside_page(out, frame)
+            if path.stem == "story-arctic-survival-norway":
+                # Full article has already been inserted. Keep the video after it.
+                out = out.replace("</main>", frame + "</main>", 1)
+            else:
+                out = append_inside_page(out, frame)
 
     # Explicit review placeholders are not useful indexable documents.
     placeholder = any(p in description for p in PLACEHOLDERS) and not long_content
