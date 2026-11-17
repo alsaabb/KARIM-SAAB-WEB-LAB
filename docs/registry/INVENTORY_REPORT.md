@@ -10,10 +10,12 @@ YouTube ID as proof of playback, public Drive permissions, or media rights.
 - About-master entries: 23
 - Local public media files: 52
 - YouTube IDs from structured episode data: 5
-- Missing referenced local public images: 0
+- Missing referenced local public images: 2
 
 ## Missing referenced public images (no automatic replacement)
 
+- assets/stories/arctic-survival-norway/ar-cover-v01.webp
+- assets/stories/arctic-survival-norway/en-cover-v01.webp
 
 ## Limitations
 

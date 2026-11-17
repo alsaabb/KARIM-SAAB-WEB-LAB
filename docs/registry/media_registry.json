@@ -645,8 +645,7 @@
       "source_status": "file_present",
       "type": "image",
       "used_by_routes_from_share_or_library": [
-        "stories-road",
-        "story/arctic-survival-norway"
+        "stories-road"
       ]
     },
     {
@@ -657,8 +656,7 @@
       "source_status": "file_present",
       "type": "image",
       "used_by_routes_from_share_or_library": [
-        "stories-road",
-        "story/arctic-survival-norway"
+        "stories-road"
       ]
     },
     {
@@ -787,7 +785,10 @@
       "youtube_id": "kERPnPj3XAA"
     }
   ],
-  "missing_referenced_public_assets": [],
+  "missing_referenced_public_assets": [
+    "assets/stories/arctic-survival-norway/ar-cover-v01.webp",
+    "assets/stories/arctic-survival-norway/en-cover-v01.webp"
+  ],
   "schema_version": "1.0",
   "youtube_video_count": 5
 }
