@@ -137,6 +137,10 @@ def original_sections(path: Path, lang: str, data: dict) -> tuple[str, str, str 
         article = approved_markdown_html(data["arctic"]["article_" + lang])
         kind = "BlogPosting"
         video_id = data["arctic"]["youtube_id"]
+    if name == "story-reindeer-close-call-norway":
+        article = approved_markdown_html(data["reindeer"]["article_" + lang])
+        kind = "BlogPosting"
+        video_id = data["reindeer"]["youtube_id"]
     if name == "about-health-from-150kg-to-cycling-europe":
         article = approved_markdown_html(data["health_sleeve"]["article_" + lang])
         kind = "BlogPosting"
@@ -228,7 +232,7 @@ def make_share(path: Path, raw: str, data: dict, title_counts: Counter,
                     out = append_inside_page(out, '<section id="ks-seo-source-content"><h2>' +
                         ("موضوعات مرتبطة" if lang == "ar" else "Related topics") +
                         '</h2><ul>' + ''.join(refs) + '</ul></section>')
-    if video_id and (path.stem.endswith("-video") or path.stem in ("story-wild-boar-greece", "story-arctic-survival-norway")):
+    if video_id and (path.stem.endswith("-video") or path.stem in ("story-wild-boar-greece", "story-arctic-survival-norway", "story-reindeer-close-call-norway")):
         if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
             raise ValueError("Invalid video ID: " + video_id)
         if "youtube-nocookie.com/embed/" + video_id not in out.split("</head>", 1)[-1]:
@@ -238,7 +242,7 @@ def make_share(path: Path, raw: str, data: dict, title_counts: Counter,
                      '" width="560" height="315" style="max-width:100%;border:0" loading="lazy"'
                      ' allowfullscreen referrerpolicy="strict-origin-when-cross-origin"'
                      ' src="https://www.youtube-nocookie.com/embed/' + video_id + '"></iframe></section>')
-            if path.stem == "story-arctic-survival-norway":
+            if path.stem in ("story-arctic-survival-norway", "story-reindeer-close-call-norway"):
                 # Full article has already been inserted. Keep the video after it.
                 out = out.replace("</main>", frame + "</main>", 1)
             else:
@@ -339,6 +343,7 @@ def generate(write: bool):
         "after": load_json("data/after-sixty.json")["episodes"][0],
         "health_sleeve": load_json("data/health-sleeve-v1.json"),
         "arctic": load_json("data/arctic-survival-v1.json"),
+        "reindeer": load_json("data/reindeer-norway-v1.json"),
         "library": json.loads(re.sub(r";\s*$", "", re.sub(r"^\s*window\.KARIM_LIBRARY\s*=\s*",
                                   "", (DIST / "content.js").read_text(encoding="utf-8")).strip())),
     }

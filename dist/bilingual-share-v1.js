@@ -40,6 +40,7 @@
     function add(a,b) { ar.push(a); en.push(b); }
     if (/after-sixty|الستين|sixty/.test(text)) add('#الحياة_بعد_الستين','#LifeAfter60');
     else if (/happiness|سعاد|السعادة/.test(text)) add('#خل_السعادة_عادة','#MakeHappinessAHabit');
+    else if (/reindeer-close-call|الرنّة|الرنة|reindeer/.test(text)) add('#غزال_الرنة','#ReindeerInNorway');
     else if (/arctic-survival|القطب الشمالي|arctic|norway|النرويج/.test(text)) add('#القطب_الشمالي','#ArcticSurvival');
     else if (/hiking|جبال|تسلق|mountain|camping|تخييم/.test(text)) add('#الهايكنج_والتخييم','#HikingAndCamping');
     else if (/cycling|دراج|bicycle|bike/.test(text)) add('#رحلات_بالدراجة','#BicycleTravel');

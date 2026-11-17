@@ -1,0 +1,11 @@
+/* Scoped owner-approved Norway reindeer documentary; preserve shared site shell. */
+.ks-reindeer .ks-sleeve-owner-portrait .ks-sleeve-cover{aspect-ratio:941/1672;object-fit:contain;width:100%;height:auto}
+.ks-reindeer .ks-sleeve-article h2{font-size:clamp(1.22rem,2vw,1.52rem)}
+.ks-reindeer .ks-reindeer-disclosure{font-size:.76rem;color:#7b7365;line-height:1.65;padding:6px 0 14px}
+.ks-reindeer-norway-feature{margin:32px 0 14px;padding:22px;background:#faf7ee;border-radius:14px;border:1px solid #e0d7bc}
+.ks-reindeer-norway-feature h2{margin:0 0 8px;font-size:1.45rem;color:#62431f}
+.ks-reindeer-norway-feature p{margin:4px 0 18px;color:#5e5649}
+.ks-reindeer-norway-feature .ks-card-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:15px}
+.ks-reindeer-norway-feature .ks-simple-card{max-width:600px}
+.ks-reindeer-norway-feature .ks-arctic-card-cover img{aspect-ratio:941/1672}
+@media(max-width:760px){.ks-reindeer-norway-feature{padding:14px}.ks-reindeer .ks-reindeer-disclosure{font-size:.72rem}}
