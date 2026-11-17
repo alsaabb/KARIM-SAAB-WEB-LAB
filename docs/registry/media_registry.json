@@ -644,7 +644,10 @@
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
-      "used_by_routes_from_share_or_library": []
+      "used_by_routes_from_share_or_library": [
+        "stories-road",
+        "story/arctic-survival-norway"
+      ]
     },
     {
       "media_id": "local:assets/stories/arctic-survival-norway/en-cover-v01.jpg",
@@ -653,7 +656,10 @@
       "rights_and_origin": "not_verified",
       "source_status": "file_present",
       "type": "image",
-      "used_by_routes_from_share_or_library": []
+      "used_by_routes_from_share_or_library": [
+        "stories-road",
+        "story/arctic-survival-norway"
+      ]
     },
     {
       "media_id": "local:assets/vendor/leaflet/images/layers-2x.png",
@@ -763,9 +769,25 @@
         "about/happiness/video/happiness-not-for-sale"
       ],
       "youtube_id": "fk3fYq2lljM"
+    },
+    {
+      "drive_public_fallback_verified": false,
+      "drive_reference_present": false,
+      "media_id": "youtube:kERPnPj3XAA",
+      "original_url": "https://www.youtube.com/watch?v=kERPnPj3XAA",
+      "playback_verified_on_real_device": false,
+      "rights_verified": false,
+      "source_files": [
+        "dist/data/arctic-survival-v1.json"
+      ],
+      "type": "youtube_video",
+      "used_by_routes": [
+        "story/arctic-survival-norway"
+      ],
+      "youtube_id": "kERPnPj3XAA"
     }
   ],
   "missing_referenced_public_assets": [],
   "schema_version": "1.0",
-  "youtube_video_count": 4
+  "youtube_video_count": 5
 }
