@@ -165,6 +165,26 @@ def build(root):
         entry["editorial_status"]="owner_approved_bilingual"
         for lang in ("ar","en"):
             entry["title"][lang]=road["langs"][lang]["title"]
+    # Owner-approved Norway Arctic documentary, independent AR/EN original covers.
+    arctic_src="dist/data/arctic-survival-v1.json"
+    arctic_path=dist/"data/arctic-survival-v1.json"
+    if arctic_path.exists():
+        arctic=json.loads(arctic_path.read_text(encoding="utf-8"))
+        route=arctic["route"]
+        if arctic["youtube_id"]!="kERPnPj3XAA":
+            raise ValueError("Arctic story video ID does not match approved source")
+        video_record(arctic["youtube_id"],route,arctic_src)
+        for route_name in (route,arctic["parent_route"]):
+            ensure(route_name)["source_files"].append(arctic_src)
+        row=ensure(route)
+        row["editorial_status"]="owner_approved_bilingual"
+        for lang in ("ar","en"):
+            row["title"][lang]=arctic["title_"+lang]
+            poster=asset_ref(arctic["poster_asset_"+lang])
+            if arctic.get("poster_status")!="approved_and_published" or not poster or not poster.startswith("assets/stories/arctic-survival-norway/"):
+                raise ValueError("Owner-approved Arctic cover asset missing or invalid")
+            for related in (route,arctic["parent_route"]):
+                use_asset(poster,related)
     assets=[]
     for f in sorted((dist/"assets").rglob("*")):
         if not f.is_file() or f.suffix.lower() not in IMAGE|VIDEO: continue
