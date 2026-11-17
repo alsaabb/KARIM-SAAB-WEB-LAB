@@ -53,7 +53,8 @@ class ArcticPublication(unittest.TestCase):
             self.assertIn("youtube-nocookie.com/embed/kERPnPj3XAA",share)
             self.assertIn("og:image",share)
             self.assertIn('name="keywords"',share)
-            self.assertNotIn(DATA["article_"+("en" if lang=="ar" else "ar")].split("\n")[2],share)
+            other_lines=[x for x in DATA["article_"+("en" if lang=="ar" else "ar")].splitlines()[2:] if x.strip()]
+            self.assertNotIn(other_lines[0],share)
         sitemap=(DIST/"sitemap.xml").read_text(encoding="utf-8")
         for lang in ("ar","en"):
             self.assertIn("/share/"+lang+"/story-arctic-survival-norway.html",sitemap)
