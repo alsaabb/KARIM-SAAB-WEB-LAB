@@ -176,7 +176,7 @@ def validate(data: dict, root: Path, *, existing_index: dict | None = None) -> l
     own_source = source_path(data)
     for entry in entries:
         if entry.get("route") == data["route"]:
-            if entry.get("source") != own_source or entry.get("source_fingerprint") != content_fingerprint(data):
+            if entry.get("source") != own_source.removeprefix("dist/") or entry.get("source_fingerprint") != content_fingerprint(data):
                 errors.append("Existing V3 route differs: use a distinct version and owner-reviewed update procedure")
         elif entry.get("youtube_id") == data.get("youtube_id"):
             errors.append("YouTube ID already registered on another V3 route")
