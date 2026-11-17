@@ -1,0 +1,12 @@
+/* Generic scoped portrait documentary template; uses existing ks-happ / ks-sleeve UI. */
+.ks-story-v3 .ks-sleeve-poster.ks-sleeve-owner-portrait{display:block;max-width:430px;margin-inline:auto;background:#141414}
+.ks-story-v3 .ks-sleeve-cover{display:block;width:100%;height:auto;object-fit:contain}
+.ks-story-v3 .ks-sleeve-gold-play{border-radius:0;position:static;box-shadow:none;transform:none}
+.ks-story-v3 .ks-happ-video-pane{align-items:start}
+.ks-story-v3 .ks-sleeve-article h2{font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.6;margin:26px 0 10px}
+.ks-story-v3 .ks-story-v3-disclosure{font-size:.78rem;color:#756e65;line-height:1.65;margin:12px 0}
+.ks-story-v3 .ks-story-v3-tags{border-top:1px solid #d6c7a6;margin-top:24px;padding-top:16px;overflow-wrap:anywhere}
+.ks-story-v3-card{display:block}
+.ks-story-v3-card img{display:block;width:min(100%,230px);height:auto;object-fit:contain;border-radius:11px;margin:0 auto 15px}
+@media(max-width:1100px){.ks-story-v3 .ks-happ-video-pane{padding-bottom:0}.ks-story-v3 .ks-happ-player{max-width:430px;margin-inline:auto}.ks-story-v3 .ks-sleeve-article{margin-top:12px}}
+@media(max-width:760px){.ks-story-v3 .ks-happ-head h1{font-size:clamp(1.35rem,5vw,1.9rem)}.ks-story-v3 .ks-happ-video-pane{padding-bottom:0}.ks-story-v3 .ks-sleeve-article{margin-top:10px}}
