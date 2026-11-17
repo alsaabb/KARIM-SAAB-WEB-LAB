@@ -65,7 +65,7 @@ class ReindeerPublication(unittest.TestCase):
         self.assertIn('href="reindeer-norway-v1.css?v=i72sAiafvDw-v1"',index)
         source=(DIST/"reindeer-norway-v1.js").read_text(encoding="utf-8")
         self.assertIn("ks-happ ks-sleeve ks-arctic ks-reindeer",source)
-        self.assertIn("data-arctic-play",source)
+        self.assertIn("data-reindeer-play",source)
         self.assertIn("ks-sleeve-gold-play",source)
         self.assertIn("story/reindeer-close-call-norway",source)
         self.assertIn("story" ,source)
