@@ -217,7 +217,7 @@ def assert_review_branch(root: Path):
     except (OSError, subprocess.CalledProcessError) as exc:
         raise PreflightError("prepare requires a local Git review branch") from exc
     branch = x.stdout.strip()
-    if not branch or branch in ("main", "master"):
+    if not branch or branch in ("main", "master", "HEAD"):
         raise PreflightError("Refusing to write on main/master or detached HEAD")
     return branch
 
@@ -282,7 +282,7 @@ def static_share(data: dict, lang: str) -> str:
         '<header><small>KARIM SAAB · DOCUMENTARY</small><h1>' + h(title) + '</h1></header>\n'
         '<img src="../../' + h(data["poster_asset_" + lang]) + '" width="' + str(data["poster_width"]) +
         '" height="' + str(data["poster_height"]) + '" alt="' + h(title) + '">\n'
-        ('<p class="note">' + h(note) + '</p>' if note else '') +
+        + ('<p class="note">' + h(note) + '</p>' if note else '') +
         '<section id="ks-seo-source-content"><h2>' + articles_title + '</h2>' + paragraphs + '</section>\n'
         '<p><a href="' + h(data["youtube_url"]) + '" target="_blank" rel="noopener noreferrer">' + watch + '</a></p>\n'
         '</main><footer><a href="' + h(target) + '">KARIM SAAB</a></footer></body></html>\n'
