@@ -1,14 +1,14 @@
 # SEO-GSC-001: verified-source publishing audit
 
-Generated from approved repository manifests on 2026-11-15.
+Generated from approved repository manifests on 2026-11-17.
 This output is a draft; no Google indexing is guaranteed.
 
-- Share pages inspected: 430
-- Static share HTML pages covered by generator: 430
-- Pages with expanded approved article text: 12
+- Share pages inspected: 432
+- Static share HTML pages covered by generator: 432
+- Pages with expanded approved article text: 14
 - Intentionally noindex pages: 6
 - Still short indexable pages requiring approved editorial text: 409
-- Sitemap URLs after filtering: 425
+- Sitemap URLs after filtering: 427
 
 ## Editorial source gaps — do not invent prose
 

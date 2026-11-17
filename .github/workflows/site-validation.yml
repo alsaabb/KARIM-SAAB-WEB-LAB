@@ -33,6 +33,12 @@ jobs:
       - name: Protect owner-approved single Drive archive tree
         run: python3 -m unittest discover -s tests -p 'test_about_canonical_drive_tree.py' -v
 
+      - name: Verify owner-approved Arctic text and original language-specific poster hashes
+        run: |
+          python3 -m unittest discover -s tests -p 'test_arctic_survival.py' -v
+          node --check dist/arctic-survival-v1.js
+          node --check tests/arctic_survival_browser.cjs
+
       - name: Validate changed JavaScript syntax
         run: |
           node --check dist/karim-products.js
@@ -60,6 +66,7 @@ jobs:
           node tests/wild_boar_story_browser.cjs
           node tests/athos_mobile_poster_browser.cjs
           node tests/health_sleeve_browser.cjs
+          node tests/arctic_survival_browser.cjs
       - name: Store wild boar mobile review screenshots
         uses: actions/upload-artifact@v4
         with:

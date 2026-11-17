@@ -1,0 +1,14 @@
+/* KARIM SAAB — scoped Arctic documentary styles, reusing ks-sleeve / ks-happ video template. */
+.ks-arctic .ks-sleeve-poster.ks-sleeve-owner-portrait{max-width:430px;margin-inline:auto;background:#111}
+.ks-arctic .ks-sleeve-poster.ks-sleeve-owner-portrait .ks-sleeve-cover{display:block;width:100%;height:auto;aspect-ratio:857/1536;object-fit:contain;max-height:none}
+.ks-arctic .ks-sleeve-gold-play{border-radius:0;position:static;box-shadow:none;transform:none}
+.ks-arctic .ks-happ-video-pane{align-items:start}
+.ks-arctic .ks-sleeve-article h2{font-size:clamp(1.25rem,2vw,1.6rem);line-height:1.6;color:#614617;margin:28px 0 10px}
+.ks-arctic .ks-arctic-byline{font-weight:700;color:#5c503d}
+.ks-arctic .ks-arctic-tags{border-top:1px solid #d6c7a6;margin-top:24px;padding-top:16px;color:#665b4a;font-size:.9rem;line-height:1.8;overflow-wrap:anywhere}
+.ks-arctic-card{display:block}
+.ks-arctic-card-cover{display:flex;align-items:start;justify-content:center;max-width:250px;margin:0 auto 18px;background:#171717;border-radius:11px;overflow:hidden}
+.ks-arctic-card-cover img{display:block;width:100%;height:auto;aspect-ratio:857/1536;object-fit:contain}
+.ks-arctic-card-cta{display:block;color:#99702e;margin-top:12px}
+@media(max-width:1100px){.ks-arctic .ks-happ-video-pane{padding-bottom:0}.ks-arctic .ks-happ-player{max-width:430px;margin-inline:auto}.ks-arctic .ks-sleeve-article{margin-top:12px}}
+@media(max-width:760px){.ks-arctic .ks-happ-head h1{font-size:clamp(1.35rem,5vw,1.9rem)}.ks-arctic .ks-happ-video-pane{padding-bottom:0}.ks-arctic .ks-sleeve-article{margin-top:10px}}

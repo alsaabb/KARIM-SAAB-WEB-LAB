@@ -1,6 +1,6 @@
 {
   "basis": "current git checkout; not evidence of live browser success",
-  "page_count": 221,
+  "page_count": 222,
   "pages": [
     {
       "editorial_status": "not_verified",
@@ -6214,6 +6214,22 @@
       }
     },
     {
+      "additional_share_pages": [
+        {
+          "file": "dist/share/ar/story-arctic-survival-norway.html",
+          "language": "ar",
+          "noindex": false,
+          "sitemap": true,
+          "url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/ar/story-arctic-survival-norway.html"
+        },
+        {
+          "file": "dist/share/en/story-arctic-survival-norway.html",
+          "language": "en",
+          "noindex": false,
+          "sitemap": true,
+          "url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/en/story-arctic-survival-norway.html"
+        }
+      ],
       "editorial_status": "not_verified",
       "hash_urls": {
         "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/stories-road",
@@ -6233,13 +6249,43 @@
         "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/en/stories-road.html"
       },
       "source_files": [
+        "dist/data/arctic-survival-v1.json",
         "dist/data/stories-road-v1.json",
         "dist/share/ar/stories-road.html",
-        "dist/share/en/stories-road.html"
+        "dist/share/ar/story-arctic-survival-norway.html",
+        "dist/share/en/stories-road.html",
+        "dist/share/en/story-arctic-survival-norway.html"
       ],
       "title": {
         "ar": "حكايات من الطريق | عبدالكريم الصعب",
         "en": "Stories from the Road | KARIM SAAB"
+      }
+    },
+    {
+      "editorial_status": "owner_approved_bilingual",
+      "hash_urls": {
+        "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/story/arctic-survival-norway",
+        "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/en/story/arctic-survival-norway"
+      },
+      "link_mapping": "unverified",
+      "live_page_tested": false,
+      "notes": [],
+      "page_id": "ks-page-3bdecf91b2a3c447",
+      "route": "story/arctic-survival-norway",
+      "share_files": {
+        "ar": null,
+        "en": null
+      },
+      "share_urls": {
+        "ar": null,
+        "en": null
+      },
+      "source_files": [
+        "dist/data/arctic-survival-v1.json"
+      ],
+      "title": {
+        "ar": "معاناة البقاء في القطب الشمالي: طقوس الخروج في البرد القارس!",
+        "en": "Arctic Survival Struggle: The Daily Ritual Before Stepping Into Sub-Zero Cold!"
       }
     },
     {
@@ -6301,8 +6347,8 @@
     }
   ],
   "schema_version": "1.0",
-  "share_html_count": 430,
-  "sitemap_url_count": 425,
+  "share_html_count": 432,
+  "sitemap_url_count": 427,
   "sources": [
     "dist/share/ar/*.html",
     "dist/share/en/*.html",

@@ -1,0 +1,75 @@
+name: Arctic Survival — approved review source generation and QA
+on:
+  push:
+    branches:
+      - feature/arctic-survival-kERPnPj3XAA-v1
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: arctic-kERPnPj3XAA-materialize
+  cancel-in-progress: false
+jobs:
+  build-review:
+    if: github.repository == 'alsaabb/KARIM-SAAB-WEB-LAB' && github.ref == 'refs/heads/feature/arctic-survival-kERPnPj3XAA-v1'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/arctic-survival-kERPnPj3XAA-v1
+          persist-credentials: true
+      - name: Generate SEO, sitemap and whole-site registries
+        run: |
+          set -euo pipefail
+          python3 scripts/build_seo_share.py --write
+          python3 scripts/build_seo_share.py --check
+          python3 scripts/build_site_master_registry.py --write
+          python3 scripts/build_site_master_registry.py --check
+          python3 -m unittest discover -s tests -p 'test_site_master_registry.py' -v
+          python3 -m unittest discover -s tests -p 'test_arctic_survival.py' -v
+          python3 scripts/verify_site.py
+          node --check dist/arctic-survival-v1.js
+          node --check tests/arctic_survival_browser.cjs
+      - name: Verify 390px and 1440px bilingual original posters and player in Chromium
+        run: |
+          set -euo pipefail
+          npm install --no-save --no-package-lock playwright@1.56.1
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/arctic-review-http.log 2>&1 &
+          node tests/arctic_survival_browser.cjs
+      - name: Save browser review screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: KARIM_ARCTIC_SURVIVAL_V01_REVIEW
+          path: visual-review/arctic-survival/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Commit source-derived share pages and registries to review branch only
+        shell: bash
+        run: |
+          set -euo pipefail
+          BRANCH='feature/arctic-survival-kERPnPj3XAA-v1'
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          for attempt in 1 2 3; do
+            git fetch origin "$BRANCH"
+            git reset --hard "origin/$BRANCH"
+            python3 scripts/build_seo_share.py --write
+            python3 scripts/build_site_master_registry.py --write
+            python3 scripts/build_seo_share.py --check
+            python3 scripts/build_site_master_registry.py --check
+            git add -- dist/share dist/sitemap.xml docs/registry docs/seo
+            if git diff --cached --quiet; then
+              echo 'Generated resources already current'
+              exit 0
+            fi
+            git commit -m 'build(arctic): materialize crawlable article pages and registries [skip ci]'
+            if git push origin "HEAD:refs/heads/$BRANCH"; then
+              echo 'Generated resources safely updated on review branch'
+              exit 0
+            fi
+            sleep 3
+          done
+          echo 'Could not push generated resources' >&2
+          exit 1
