@@ -1,6 +1,7 @@
 name: Archive KARIM SAAB source and published site (no deploy)
 
 on:
+  pull_request:
   push:
     branches:
       - main
@@ -23,7 +24,7 @@ jobs:
       - name: Checkout current main snapshot only
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: 89884001a71d89582d967518a95304e9ce344a73
           persist-credentials: false
 
       - name: Package all tracked source files including published dist
