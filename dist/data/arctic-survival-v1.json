@@ -10,12 +10,12 @@
   "approved_by_owner": true,
   "source_type": "approved bilingual articles and original owner-supplied images in ChatGPT message",
   "poster_status": "approved_and_published",
-  "poster_asset_ar": "assets/stories/arctic-survival-norway/ar-cover-v01.jpg",
-  "poster_asset_en": "assets/stories/arctic-survival-norway/en-cover-v01.jpg",
+  "poster_asset_ar": "assets/stories/arctic-survival-norway/ar-cover-v01.webp",
+  "poster_asset_en": "assets/stories/arctic-survival-norway/en-cover-v01.webp",
   "poster_source_ar": "owner-uploaded 173625.jpg",
   "poster_source_en": "owner-uploaded 173626.jpg",
-  "poster_sha256_ar": "e0c046d15960748e239ef0d477d408216b86c0de6d8a0fcb1c4ab641b1f1fc31",
-  "poster_sha256_en": "28abfe4ea1f8757fce640092aa2950f693f0578d2fd2fcf4c31d24d619eb6d67",
+  "poster_sha256_ar": "ab8233f03fb55e965687e2f0794037c3a633f6a3bf93c0f3c655c56dc4d23c7c",
+  "poster_sha256_en": "0c334f4d4b3988afc805a6c27e4b759d04bc202f0c2f85cc6d31806f0bfb98bd",
   "poster_image_text_note": "The actual uploaded poster artwork uses different hooks than the editorial titles and the image hook labels in the order; the original approved uploaded images are preserved without modifications.",
   "title_ar": "معاناة البقاء في القطب الشمالي: طقوس الخروج في البرد القارس!",
   "title_en": "Arctic Survival Struggle: The Daily Ritual Before Stepping Into Sub-Zero Cold!",
@@ -34,6 +34,13 @@
     "width": 857,
     "height": 1536
   },
-  "poster_bytes_ar": 399563,
-  "poster_bytes_en": 410527
+  "poster_bytes_ar": 202310,
+  "poster_bytes_en": 212084,
+  "poster_original_sha256_ar": "e0c046d15960748e239ef0d477d408216b86c0de6d8a0fcb1c4ab641b1f1fc31",
+  "poster_original_bytes_ar": 399563,
+  "poster_original_file_ar": "173625.jpg",
+  "poster_original_sha256_en": "28abfe4ea1f8757fce640092aa2950f693f0578d2fd2fcf4c31d24d619eb6d67",
+  "poster_original_bytes_en": 410527,
+  "poster_original_file_en": "173626.jpg",
+  "poster_delivery_note": "The poster_asset_ar/en WebP files are pixel-preserving 857x1536 display conversions at WebP quality 82, under the site 250 KiB asset budget. Original full-quality JPEGs remain unchanged and verified in the language-specific Norway Google Drive folders."
 }
