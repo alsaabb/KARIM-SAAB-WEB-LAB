@@ -40,6 +40,7 @@
     function add(a,b) { ar.push(a); en.push(b); }
     if (/after-sixty|الستين|sixty/.test(text)) add('#الحياة_بعد_الستين','#LifeAfter60');
     else if (/happiness|سعاد|السعادة/.test(text)) add('#خل_السعادة_عادة','#MakeHappinessAHabit');
+    else if (/arctic-survival|القطب الشمالي|arctic|norway|النرويج/.test(text)) add('#القطب_الشمالي','#ArcticSurvival');
     else if (/hiking|جبال|تسلق|mountain|camping|تخييم/.test(text)) add('#الهايكنج_والتخييم','#HikingAndCamping');
     else if (/cycling|دراج|bicycle|bike/.test(text)) add('#رحلات_بالدراجة','#BicycleTravel');
     else if (/health|depression|anxiety|الاكتئاب|القلق|صحة/.test(text)) add('#التثقيف_الصحي','#HealthEducation');
@@ -80,6 +81,11 @@
     return {title:lang==='ar'?(ar||shown):(en||shown), ar:ar, en:en, desc:desc.slice(0,230)};
   }
   function locate(route,main) {
+    // The owner-approved video article templates render the full article immediately
+    // after the portrait cover. Mount sharing AFTER the article and external links,
+    // never between the poster and original article (mobile ordering contract).
+    if (main.classList.contains('ks-sleeve') && main.querySelector('.ks-happ-wrap .ks-sleeve-article'))
+      return main.querySelector('.ks-happ-wrap');
     // Match the real, published hash routes, not just the legacy short slugs.
     if (route.startsWith('about/after-sixty/')) {
       // Both the video player and full article must precede the share section.
@@ -181,7 +187,7 @@
     var base=location.href.split('#')[0];
     // A deep link also works if the static social-preview page is unavailable.
     var canonical=base+'#/'+r.lang+'/'+r.route+(dual?'?focus='+kind:'');
-    var imageNode=main.querySelector('.ks-happ-cover,.source-hero-photo img,.detail-media,.ks60-player img,.ks-va-section img');
+    var imageNode=main.querySelector('.ks-arctic-owner-cover,.ks-sleeve-cover,.ks-happ-cover,.source-hero-photo img,.detail-media,.ks60-player img,.ks-va-section img');
     var imageUrl=imageNode&&imageNode.src||'';
     var hashText=hashtags[r.lang].join(' ');
     function updateLinks(){
