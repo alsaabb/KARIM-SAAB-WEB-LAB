@@ -16,8 +16,8 @@ from googleapiclient.http import MediaIoBaseUpload
 REPO = "alsaabb/KARIM-SAAB-WEB-LAB"
 FOLDER = "1_QfWuAoHdnS0M4EqhZ3RX6xzICL_vF8t"
 PREFIX = "KARIM_SAAB_GITHUB_MAIN_"
-NAME_PATTERN = re.compile(r"^KARIM_SAAB_GITHUB_MAIN_\\d{4}-\\d{2}-\\d{2}_[0-9a-f]{12}_ACTIONS_ARTIFACT\\.zip$")
-INNER_PATTERN = re.compile(r"^KARIM_SAAB_GITHUB_MAIN_\\d{4}-\\d{2}-\\d{2}_[0-9a-f]{12}\\.zip$")
+NAME_PATTERN = re.compile(r"^KARIM_SAAB_GITHUB_MAIN_\d{4}-\d{2}-\d{2}_[0-9a-f]{12}_ACTIONS_ARTIFACT\.zip$")
+INNER_PATTERN = re.compile(r"^KARIM_SAAB_GITHUB_MAIN_\d{4}-\d{2}-\d{2}_[0-9a-f]{12}\.zip$")
 
 
 def require(condition, message):
