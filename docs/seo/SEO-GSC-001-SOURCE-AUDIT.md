@@ -3,12 +3,12 @@
 Generated from approved repository manifests on 2026-11-17.
 This output is a draft; no Google indexing is guaranteed.
 
-- Share pages inspected: 434
-- Static share HTML pages covered by generator: 434
-- Pages with expanded approved article text: 16
+- Share pages inspected: 436
+- Static share HTML pages covered by generator: 436
+- Pages with expanded approved article text: 18
 - Intentionally noindex pages: 6
 - Still short indexable pages requiring approved editorial text: 409
-- Sitemap URLs after filtering: 429
+- Sitemap URLs after filtering: 431
 
 ## Editorial source gaps — do not invent prose
 
