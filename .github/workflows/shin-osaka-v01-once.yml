@@ -33,7 +33,7 @@ jobs:
           test ! -f dist/assets/stories/shin-osaka-victory/en-cover-v01.webp
 
       - name: Install read-only Google Drive client
-        run: python3 -m pip install --disable-pip-version-check google-api-python-client google-auth
+        run: python3 -m pip install --disable-pip-version-check google-api-python-client google-auth csscompressor==0.9.5
 
       - name: Retrieve only approved versioned packages, check hashes and extract public WebP assets
         env:
