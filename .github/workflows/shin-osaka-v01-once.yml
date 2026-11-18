@@ -1,0 +1,124 @@
+name: One-time approved Shin-Osaka V3 story preparation
+on:
+  push:
+    branches:
+      - feature/unified-publishing-v3-review-20261117
+    paths:
+      - .github/workflows/shin-osaka-v01-once.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: karim-shin-osaka-v01-review-once
+  cancel-in-progress: false
+
+jobs:
+  prepare-approved-story:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out existing V3 review branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/unified-publishing-v3-review-20261117
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Confirm review isolation and missing story before import
+        run: |
+          test "$(git branch --show-current)" = "feature/unified-publishing-v3-review-20261117"
+          test ! -f dist/data/story-v3-shin-osaka-greased-hands-victory-v01.json
+          test ! -f dist/assets/stories/shin-osaka-victory/ar-cover-v01.webp
+          test ! -f dist/assets/stories/shin-osaka-victory/en-cover-v01.webp
+
+      - name: Install read-only Google Drive client
+        run: python3 -m pip install --disable-pip-version-check google-api-python-client google-auth
+
+      - name: Retrieve only approved versioned packages, check hashes and extract public WebP assets
+        env:
+          GDRIVE_SERVICE_ACCOUNT_KEY: ${{ secrets.GDRIVE_SERVICE_ACCOUNT_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, io, json, os, pathlib, zipfile
+          from google.oauth2 import service_account
+          from googleapiclient.discovery import build
+
+          secret = os.environ.get("GDRIVE_SERVICE_ACCOUNT_KEY", "").strip()
+          if not secret:
+              raise SystemExit("BLOCKED: GDRIVE_SERVICE_ACCOUNT_KEY is unavailable")
+          credentials = service_account.Credentials.from_service_account_info(
+              json.loads(secret), scopes=["https://www.googleapis.com/auth/drive.readonly"])
+          service = build("drive", "v3", credentials=credentials, cache_discovery=False)
+          files = {
+              "ar": ("KARIM_SAAB_SHIN_OSAKA_AR_V01_PREPUBLICATION.zip",
+                     "27b77d37396055368582fc381ab9f3dea475a4b2e24814da7d0fc87f3eaa1cee"),
+              "en": ("KARIM_SAAB_SHIN_OSAKA_EN_V01_PREPUBLICATION.zip",
+                     "36fe1602b4f96191716d8c3abe9890d9486f3e25f411f108d9e7f566dcc996de"),
+          }
+          base = pathlib.Path("dist/assets/stories/shin-osaka-victory")
+          base.mkdir(parents=True, exist_ok=True)
+          manifests = []
+          for lang, (name, expected_sha) in files.items():
+              q = "name = '" + name + "' and trashed = false"
+              found = service.files().list(q=q, fields="nextPageToken,files(id,name,mimeType,size)", pageSize=20,
+                                           spaces="drive").execute()
+              matches = found.get("files", [])
+              if found.get("nextPageToken") or len(matches) != 1:
+                  raise SystemExit("BLOCKED: archive name is missing or ambiguous for " + lang)
+              item = matches[0]
+              if item.get("mimeType") not in ("application/zip", "application/octet-stream") or int(item.get("size", 0)) > 8000000:
+                  raise SystemExit("BLOCKED: invalid archive metadata for " + lang)
+              payload = service.files().get_media(fileId=item["id"]).execute()
+              if hashlib.sha256(payload).hexdigest() != expected_sha:
+                  raise SystemExit("BLOCKED: archive SHA-256 mismatch for " + lang)
+              with zipfile.ZipFile(io.BytesIO(payload)) as z:
+                  manifest = json.loads(z.read("V3_MANIFEST_V01.json"))
+                  original_text = z.read("approved_article_" + lang + ".txt").decode("utf-8")
+                  if original_text != manifest["article_" + lang]:
+                      raise SystemExit("BLOCKED: approved article differs from archive for " + lang)
+                  webp = z.read("web_cover_" + lang + ".webp")
+              if manifest.get("editorial_approved") is not True or manifest.get("poster_kind") != "ai_illustration":
+                  raise SystemExit("BLOCKED: editorial approval or honest illustration origin missing")
+              if manifest.get("youtube_id") != "gNyXpyaZMs4" or manifest.get("route") != "story/shin-osaka-greased-hands-victory":
+                  raise SystemExit("BLOCKED: unexpected story route/video ID")
+              if hashlib.sha256(webp).hexdigest() != manifest["poster_sha256_" + lang]:
+                  raise SystemExit("BLOCKED: exact approved cover mismatch for " + lang)
+              if len(webp) > 250 * 1024 or webp[:4] != b"RIFF" or webp[8:12] != b"WEBP":
+                  raise SystemExit("BLOCKED: invalid public WebP for " + lang)
+              destination = pathlib.Path("dist") / manifest["poster_asset_" + lang]
+              if destination != base / (lang + "-cover-v01.webp"):
+                  raise SystemExit("BLOCKED: incorrect poster target for " + lang)
+              destination.write_bytes(webp)
+              manifests.append(manifest)
+              print(lang + " source and WebP hashes verified; no originals imported into public repository")
+          if manifests[0] != manifests[1]:
+              raise SystemExit("BLOCKED: bilingual manifests differ")
+          pathlib.Path("/tmp/karim-approved-shin-osaka-v01.json").write_text(
+              json.dumps(manifests[0], ensure_ascii=False), encoding="utf-8")
+          PY
+
+      - name: One-manifest validation and V3 generation on review branch
+        run: |
+          set -euo pipefail
+          python3 scripts/publish_v3.py plan --manifest /tmp/karim-approved-shin-osaka-v01.json
+          python3 scripts/publish_v3.py prepare --manifest /tmp/karim-approved-shin-osaka-v01.json
+          python3 scripts/publish_v3.py check --fast
+          python3 scripts/publish_v3.py check
+          git diff --check
+
+      - name: Record verified output only on existing PR branch and retire temporary workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- dist docs/registry
+          git rm -f .github/workflows/shin-osaka-v01-once.yml
+          git diff --cached --check
+          git diff --cached --quiet && { echo "No generated changes"; exit 0; }
+          git commit -m "content: approved Shin-Osaka bilingual documentary V01"
+          git push origin HEAD:refs/heads/feature/unified-publishing-v3-review-20261117
+          echo "Approved story generated and tested on PR #56 branch only; production main is unchanged." >> "$GITHUB_STEP_SUMMARY"
