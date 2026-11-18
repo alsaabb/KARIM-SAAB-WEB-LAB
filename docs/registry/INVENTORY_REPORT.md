@@ -3,12 +3,12 @@
 Do not treat sitemap presence as a verified live page. Do not treat an embedded
 YouTube ID as proof of playback, public Drive permissions, or media rights.
 
-- Discovered unique routes: 223
-- Static share pages (AR + EN, including aliases): 434
-- Sitemap URLs: 429
+- Discovered unique routes: 224
+- Static share pages (AR + EN, including aliases): 436
+- Sitemap URLs: 431
 - Existing content-library entries: 80
 - About-master entries: 23
-- Local public media files: 54
+- Local public media files: 56
 - YouTube IDs from structured episode data: 6
 - Missing referenced local public images: 0
 

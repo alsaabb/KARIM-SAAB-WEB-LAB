@@ -1,6 +1,6 @@
 {
   "basis": "repository media presence and structured JSON URLs only",
-  "local_asset_count": 54,
+  "local_asset_count": 56,
   "media": [
     {
       "media_id": "local:assets/about-approved.webp",
@@ -683,6 +683,28 @@
       "used_by_routes_from_share_or_library": [
         "stories-road",
         "story/reindeer-close-call-norway"
+      ]
+    },
+    {
+      "media_id": "local:assets/stories/shin-osaka-victory/ar-cover-v01.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/shin-osaka-victory/ar-cover-v01.webp",
+      "repository_path": "dist/assets/stories/shin-osaka-victory/ar-cover-v01.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "story/shin-osaka-greased-hands-victory"
+      ]
+    },
+    {
+      "media_id": "local:assets/stories/shin-osaka-victory/en-cover-v01.webp",
+      "public_url": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/assets/stories/shin-osaka-victory/en-cover-v01.webp",
+      "repository_path": "dist/assets/stories/shin-osaka-victory/en-cover-v01.webp",
+      "rights_and_origin": "not_verified",
+      "source_status": "file_present",
+      "type": "image",
+      "used_by_routes_from_share_or_library": [
+        "story/shin-osaka-greased-hands-victory"
       ]
     },
     {
