@@ -1,5 +1,18 @@
 # KARIM SAAB — WEBSITE MASTER CHANGELOG / سجل الماستر
 
+## 2026-11-18 — Shin-Osaka bilingual documentary V01 (OWNER-APPROVED, REVIEW ONLY)
+
+- **Video:** `gNyXpyaZMs4` — https://www.youtube.com/watch?v=gNyXpyaZMs4. YouTube upload is not part of this release.
+- **Owner-approved Arabic/English article sources:** exact bilingual text and titles supplied for «شحم الدراجة وطعم الانتصار في محطة أوساكا» and “Greased Hands & Pure Victory at Shin-Osaka Station”.
+- **Public content route after release:** `#/ar/story/shin-osaka-greased-hands-victory` and `#/en/story/shin-osaka-greased-hands-victory`. Crawlable companion pages: `dist/share/{ar,en}/story-shin-osaka-greased-hands-victory.html`.
+- **Approved media:** two independent AI-illustrative covers, not original location photographs. The AR and EN WebP files are separately hashed, 760×1350, and under 250KiB. Original full-resolution PNG files remain in private owner-selected archive folders, not in the public GitHub repository.
+- **Data:** `dist/data/story-v3-shin-osaka-greased-hands-victory-v01.json`, `dist/data/story-publisher-v3-index.json`; generated through the existing unified V3 pipeline. No owner-private folder IDs are stored in public data.
+- **Existing review PR:** #56 (unified V3 infrastructure + this specifically approved story). One-shot, owner-approved Drive ingestion passed SHA checks and `plan`, `prepare`, `check --fast`, `check` through run 44267182452; temporary import workflow retired before merging. The owner-approved original article text was not rewritten.
+- **Archive:** separate prepublication backups (AR and EN) uploaded and verified in the two owner-selected Japan folders. They are NOT the final published-edition archive. Final release manifest must include actual PR, merge SHA, live page URLs, and final verification, then be archived as new versioned files without overwrite.
+- **Release gate:** browser at 390px and 1440px in both languages, correct covers and article order, one site-wide toolbar with nine networks + copy options, CI on final review SHA, GitHub Pages build and public HTTP verification. Actual YouTube playback remains separate from iframe creation. Do not mark COMPLETE before the entire sequence passes.
+- **Rollback:** revert the story release merge or follow the current production rollback procedure; preserve archived originals and earlier release records.
+
+
 ## 2026-11-15 — Mobile video poster and article-order regression fix (REVIEW ONLY)
 
 - Deterministic CSS bundle regenerated from all approved sources by review-only action 43686694679; browser testing and final release remain gated by PR checks.
