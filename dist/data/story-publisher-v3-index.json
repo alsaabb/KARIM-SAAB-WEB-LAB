@@ -1,0 +1,19 @@
+{
+  "schema_version": "3.0",
+  "entries": [
+    {
+      "route": "story/shin-osaka-greased-hands-victory",
+      "youtube_id": "gNyXpyaZMs4",
+      "title_ar": "شحم الدراجة وطعم الانتصار في محطة أوساكا! | رحلة اليابان",
+      "title_en": "Greased Hands & Pure Victory at Shin-Osaka Station! | Japan Bikepacking",
+      "description_ar": "قصة ترحال حقيقية لعبد الكريم بن ابراهيم الصعب في محطة شين-أوساكا باليابان: بين شحم جنزير الدراجة وقطار الشينكانسن، كيف يصنع التحدي طعم الانتصار؟",
+      "description_en": "Follow KARIM SAAB at Shin-Osaka Station in Japan as he reassembles his touring bicycle with grease-stained hands—proving the taste of victory wins.",
+      "poster_asset_ar": "assets/stories/shin-osaka-victory/ar-cover-v01.webp",
+      "poster_asset_en": "assets/stories/shin-osaka-victory/en-cover-v01.webp",
+      "poster_width": 760,
+      "poster_height": 1350,
+      "source": "data/story-v3-shin-osaka-greased-hands-victory-v01.json",
+      "source_fingerprint": "e7cfa654fecc564853c2672253aa502f4f7092f72a3e51a96037f0886858d116"
+    }
+  ]
+}

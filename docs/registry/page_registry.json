@@ -1,6 +1,6 @@
 {
   "basis": "current git checkout; not evidence of live browser success",
-  "page_count": 223,
+  "page_count": 224,
   "pages": [
     {
       "editorial_status": "not_verified",
@@ -6333,6 +6333,34 @@
       }
     },
     {
+      "editorial_status": "not_verified",
+      "hash_urls": {
+        "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/story/shin-osaka-greased-hands-victory",
+        "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/en/story/shin-osaka-greased-hands-victory"
+      },
+      "link_mapping": "share_link_to_hash_route",
+      "live_page_tested": false,
+      "notes": [],
+      "page_id": "ks-page-dcd7cf0cc3043665",
+      "route": "story/shin-osaka-greased-hands-victory",
+      "share_files": {
+        "ar": "dist/share/ar/story-shin-osaka-greased-hands-victory.html",
+        "en": "dist/share/en/story-shin-osaka-greased-hands-victory.html"
+      },
+      "share_urls": {
+        "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/ar/story-shin-osaka-greased-hands-victory.html",
+        "en": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/share/en/story-shin-osaka-greased-hands-victory.html"
+      },
+      "source_files": [
+        "dist/share/ar/story-shin-osaka-greased-hands-victory.html",
+        "dist/share/en/story-shin-osaka-greased-hands-victory.html"
+      ],
+      "title": {
+        "ar": "شحم الدراجة وطعم الانتصار في أوساكا | عبد الكريم الصعب",
+        "en": "Greased Hands & Victory in Shin-Osaka | KARIM SAAB"
+      }
+    },
+    {
       "editorial_status": "owner_approved_bilingual",
       "hash_urls": {
         "ar": "https://alsaabb.github.io/KARIM-SAAB-WEB-LAB/dist/index.html#/ar/story/wild-boar-greece",
@@ -6391,8 +6419,8 @@
     }
   ],
   "schema_version": "1.0",
-  "share_html_count": 434,
-  "sitemap_url_count": 429,
+  "share_html_count": 436,
+  "sitemap_url_count": 431,
   "sources": [
     "dist/share/ar/*.html",
     "dist/share/en/*.html",

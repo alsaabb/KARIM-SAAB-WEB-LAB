@@ -141,6 +141,11 @@ def original_sections(path: Path, lang: str, data: dict) -> tuple[str, str, str 
         article = approved_markdown_html(data["reindeer"]["article_" + lang])
         kind = "BlogPosting"
         video_id = data["reindeer"]["youtube_id"]
+    if name.startswith("story-") and name[len("story-"):] in data["v3"]:
+        source = data["v3"][name[len("story-"):]]
+        article = approved_markdown_html(source["article_" + lang])
+        kind = "BlogPosting"
+        video_id = source["youtube_id"]
     if name == "about-health-from-150kg-to-cycling-europe":
         article = approved_markdown_html(data["health_sleeve"]["article_" + lang])
         kind = "BlogPosting"
@@ -344,6 +349,9 @@ def generate(write: bool):
         "health_sleeve": load_json("data/health-sleeve-v1.json"),
         "arctic": load_json("data/arctic-survival-v1.json"),
         "reindeer": load_json("data/reindeer-norway-v1.json"),
+        "v3": {entry["route"][len("story/"):]:
+               load_json(entry["source"])
+               for entry in load_json("data/story-publisher-v3-index.json")["entries"]},
         "library": json.loads(re.sub(r";\s*$", "", re.sub(r"^\s*window\.KARIM_LIBRARY\s*=\s*",
                                   "", (DIST / "content.js").read_text(encoding="utf-8")).strip())),
     }
